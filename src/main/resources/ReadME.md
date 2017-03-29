@@ -1,6 +1,6 @@
 **<h2>Главные сущности:</h2>**
 <li>User (обобщения: Investor, Professional, Businessman, Consultant);</li>
-<li>Project ( композиция: <? extend User>);</li>
+<li>Project ( композиция: &lt;? extend User&gt);</li>
 <li>Department (обобщения: InvestDepatr, ProfessionDepart, BusinessmenDepart); </li>
 
 **<h2>Таблицы в БД:</h2>**
