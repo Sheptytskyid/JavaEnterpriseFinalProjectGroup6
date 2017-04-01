@@ -46,11 +46,12 @@ Events
 
 DB:
 
-Users (id, Type:Investors\ProjectOwners, name, pass_encrypted, tel, address, email)
+Users (id, typeId, name, pass_encrypted, tel, address, email)
 Projects(id, name, userId owner, cost, addDate, minInvest, ProjectDescription, URL logo, boolean isVerified)
 Roles(id, role)
 UsersRoles(userId, roleId)
 Investments(id, userId, projectId, date, sum)
+UserTypes (id, type)
 
 
 Viev
