@@ -1,0 +1,80 @@
+User (Investor / Project Owner)
+        name
+        Roles (Admin / USER)
+        pass??
+        Contact contact;
+
+    Investor extends User
+        List<Project> invested projects
+
+    ProjectOwner extends User
+        List<Projects> owned projects
+
+    Contact
+        tel
+        addr
+        email
+
+    Project
+         boolean isVerifed
+         String name
+         ProjectDescription desc;
+         ProjectOwner owner;
+         int cost;
+         int minInvestment;
+         Date addDate;
+         later: int rating (view counter)
+         URl logo
+
+    Investment
+        Date dateOfInvestment
+        Project project
+        Investor inv
+        BigDecimal sum
+
+    ProjectDescription
+        Url url
+        Date date
+        String description
+        String goal
+        String other
+
+
+additional:
+Events
+
+
+DB:
+
+Users (id, Type:Investors\ProjectOwners, name, pass_encrypted, tel, address, email)
+Projects(id, name, userId owner, cost, addDate, minInvest, ProjectDescription, URL logo, boolean isVerified)
+Roles(id, role)
+UsersRoles(userId, roleId)
+Investments(id, userId, projectId, date, sum)
+
+
+Viev
+Language:Ukrainian
+Frontpage with some data (projects) + link to login/register page
+Find Projects
+View Projects
+Find users
+View users
+Invest - redirect to login
+addProject - redirect to login
+
+Investor:
+showMyInvestments
+manageInvestments
+ChangeUserSettings
+
+ProjectOwner
+ShowMyProjects
+Add Projects
+Remove Projects
+UpdateProject
+ChangeUserSettings
+
+Admin:
+Manage Users
+Verify Projects
