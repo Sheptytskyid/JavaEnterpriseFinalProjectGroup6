@@ -1,4 +1,6 @@
-User (Investor / Project Owner)
+Entities:
+
+    User (Investor / Project Owner)
         name
         Roles (Admin / USER)
         pass??
@@ -40,42 +42,41 @@ User (Investor / Project Owner)
         String other
 
 
-additional:
-Events
+DB structure:
+
+    Users (id, typeId, name, pass_encrypted, tel, address, email)
+    Projects(id, name, userId owner, cost, addDate, minInvest, ProjectDescription, URL logo, boolean isVerified)
+    Roles(id, role)
+    UsersRoles(userId, roleId)
+    Investments(id, userId, projectId, date, sum)
+    UserTypes (id, type)
 
 
-DB:
+Fron-end architecture:
 
-Users (id, typeId, name, pass_encrypted, tel, address, email)
-Projects(id, name, userId owner, cost, addDate, minInvest, ProjectDescription, URL logo, boolean isVerified)
-Roles(id, role)
-UsersRoles(userId, roleId)
-Investments(id, userId, projectId, date, sum)
-UserTypes (id, type)
+    Language:Ukrainian
+    Frontpage with some data (projects) + link to login/register page
 
+    Functions available to guest (unregistered user):
+    Find Projects
+    View Projects
+    Find users
+    View users
+    Invest - redirect to login page
+    addProject - redirect to login page
 
-Viev
-Language:Ukrainian
-Frontpage with some data (projects) + link to login/register page
-Find Projects
-View Projects
-Find users
-View users
-Invest - redirect to login
-addProject - redirect to login
+    Additional functions available to Investor:
+    showMyInvestments
+    manageInvestments
+    ChangeUserSettings
 
-Investor:
-showMyInvestments
-manageInvestments
-ChangeUserSettings
+    Additional functions available to ProjectOwner:
+    ShowMyProjects
+    Add Projects
+    Remove Projects
+    UpdateProject
+    ChangeUserSettings
 
-ProjectOwner
-ShowMyProjects
-Add Projects
-Remove Projects
-UpdateProject
-ChangeUserSettings
-
-Admin:
-Manage Users
-Verify Projects
+    Admin:
+    Manage Users
+    Verify Projects

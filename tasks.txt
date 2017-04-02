@@ -1,0 +1,12 @@
+Create project skeleton
+Create DB structure and export to initDB.sql
+Implement user registration mechanism
+Implement investor's features (make an investment, showMyInvestments, manageInvestments)
+Implement project owner's features (ShowMyProjects, Add Projects, Remove Projects, UpdateProject)
+Implement search for projects
+Implement search for users
+Implement change of user settings
+Implement administrators features (grant user roles, verify projects)
+Implement dependency inversion
+Implement ORM using JPA
+Implement front-end module using servlets and JSP
