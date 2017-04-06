@@ -16,7 +16,7 @@ Implement user investment interests functionality
     Implement "View my investment interests" feature
     Implement matching of interests with projects
     Implement list of applications to the interest
-    Develop interest contents (cards)
+    Develop interest contents (cards):
         type (invest, purchase product, purchase whole project, etc.)
         industry
         description
@@ -30,7 +30,7 @@ Implement (user) projects functionality
     Implement "View my projects" feature
     Implement matching of projects with interests (find interests compatible with this project)
     Implement (list of) investments into projects
-    Develop projects contents (cards)
+    Develop projects contents (cards):
         Logo
         name
         type (matches with investment interest types)
@@ -48,7 +48,7 @@ Implement user programs (grants)
     Implement "View my programs" feature
     Implement list of applications for a program (grant)
     Implement matching of programs with projects
-    Develop program contents (cards)
+    Develop program contents (cards):
         logo
         name
         description
@@ -62,7 +62,7 @@ Implement user services functionality
     Implement "remove service" feature
     Implement "View my services" feature
     Implement list of applications to a service
-    Develop services contents (cards)
+    Develop services contents (cards):
         name
         remuneration
         description
@@ -73,7 +73,7 @@ Implement registration of events
     Implement "remove event" feature
     Implement "View my events" feature
     Implement list of applications to an event
-    Develop event contents
+    Develop event contents:
         name
         location
         price
@@ -86,7 +86,7 @@ Implement main menu
     Implement search for events
     Implement search for services
     Implement search for programs
-    Implement user menu
+    Implement user menu:
         applications management
         investments management
         account settings
