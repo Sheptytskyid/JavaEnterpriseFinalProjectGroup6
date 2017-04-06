@@ -1,12 +1,118 @@
-Create project skeleton
-Create DB structure and export to initDB.sql
+    Create project skeleton
+    Create DB structure and export to initDB.sql
 Implement user registration mechanism
-Implement investor's features (make an investment, showMyInvestments, manageInvestments)
-Implement project owner's features (ShowMyProjects, Add Projects, Remove Projects, UpdateProject)
-Implement search for projects
-Implement search for users
-Implement change of user settings
-Implement administrators features (grant user roles, verify projects)
-Implement dependency inversion
-Implement ORM using JPA
-Implement front-end module using servlets and JSP
+    Implement registration by email and password
+    Implement "Remember me" mechanism
+    Implement "Forgot password" functionality
+
+Implement user settings functionality
+    update user profile (name, phone numbers, addresses, contacts, roles)
+    implement user logos
+
+Implement user investment interests functionality
+    Implement "add investment interest" feature
+    Implement "edit investment interest" feature
+    Implement "remove investment interest" feature
+    Implement "View my investment interests" feature
+    Implement matching of interests with projects
+    Implement list of applications to the interest
+    Develop interest contents (cards)
+        type (invest, purchase product, purchase whole project, etc.)
+        industry
+        description
+        project details
+        sum of investment
+
+Implement (user) projects functionality
+    Implement "add new project" feature
+    Implement "edit project" feature
+    Implement "remove project" feature
+    Implement "View my projects" feature
+    Implement matching of projects with interests (find interests compatible with this project)
+    Implement (list of) investments into projects
+    Develop projects contents (cards)
+        Logo
+        name
+        type (matches with investment interest types)
+        description
+        stage
+        industry
+        location
+        total cost
+        min investment
+
+Implement user programs (grants)
+    Implement "add new program" feature
+    Implement "edit program" feature
+    Implement "remove program" feature
+    Implement "View my programs" feature
+    Implement list of applications for a program (grant)
+    Implement matching of programs with projects
+    Develop program contents (cards)
+        logo
+        name
+        description
+        location
+        application conditions
+        other
+
+Implement user services functionality
+    Implement "add new service" feature
+    Implement "edit service" feature
+    Implement "remove service" feature
+    Implement "View my services" feature
+    Implement list of applications to a service
+    Develop services contents (cards)
+        name
+        remuneration
+        description
+
+Implement registration of events
+    Implement "add new event" feature
+    Implement "edit event" feature
+    Implement "remove event" feature
+    Implement "View my events" feature
+    Implement list of applications to an event
+    Develop event contents
+        name
+        location
+        price
+        description
+
+Implement main menu
+    Implement search for projects
+    Implement search for users
+    Implement search for investment interests
+    Implement search for events
+    Implement search for services
+    Implement search for programs
+    Implement user menu
+        applications management
+        investments management
+        account settings
+
+Implement administrators features
+    Implement "Assign security role to user" feature
+    Implement "Edit user's security roles" feature
+    Implement verification of projects mechanism
+    Implement verification of new users mechanism
+    Implement verification if events mechanism
+    Implement verification of programs (grants) mechanism
+
+    Implement ORM using JPA
+
+    Develop site front page
+
+    Low priority:
+    Implement registration with Facebook account
+    Implement registration with Gmail account
+    Implement interests view count
+    Implement interests like count
+    Implement project view count
+    Implement project like count
+    Implement programs view count
+    Implement program like count
+    Implement services view count
+    Implement services like count
+    Implement event view count
+    Implement event like count
