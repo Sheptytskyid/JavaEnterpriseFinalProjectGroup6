@@ -1,36 +1,13 @@
-    Create project skeleton
-    Create DB structure and export to initDB.sql
-Implement user registration mechanism
-    Implement registration by email and password
-    Implement "Remember me" mechanism
-    Implement "Forgot password" functionality
-
-Implement user settings functionality
-    update user profile (name, phone numbers, addresses, contacts, roles)
-    implement user logos
-
-Implement user investment interests functionality
-    Implement "add investment interest" feature
-    Implement "edit investment interest" feature
-    Implement "remove investment interest" feature
-    Implement "View my investment interests" feature
-    Implement matching of interests with projects
-    Implement list of applications to the interest
-    Develop interest contents (cards):
+    Create project skeleton 4-6
+    Create DB structure and export to initDB.sql  0-2
+    Implement user registration by email and password 6-8
+    Develop investment interest contents (cards) (Front-end + entity + table in DB + mapping) 6-8:
         type (invest, purchase product, purchase whole project, etc.)
         industry
         description
         project details
         sum of investment
-
-Implement (user) projects functionality
-    Implement "add new project" feature
-    Implement "edit project" feature
-    Implement "remove project" feature
-    Implement "View my projects" feature
-    Implement matching of projects with interests (find interests compatible with this project)
-    Implement (list of) investments into projects
-    Develop projects contents (cards):
+    Develop projects contents (cards) (Front-end + entity + table in DB) 6-8:
         Logo
         name
         type (matches with investment interest types)
@@ -40,6 +17,49 @@ Implement (user) projects functionality
         location
         total cost
         min investment
+    Implement "add investment interest" feature 2-4
+    Implement "edit investment interest" feature 2-4
+    Implement "remove investment interest" feature 2-4
+    Implement "add new project" feature 2-4
+    Implement "edit project" feature 2-4
+    Implement "remove project" feature 2-4
+    Update user profile (name, phone numbers, addresses, contacts, roles) 4-6
+    Implement "View my investment interests" feature 2-4
+    Implement "View my projects" feature 2-4
+
+Denys 30
+Zakhar 16
+Garik 25
+Max 16
+Vladimir 30
+Polite 30
+Sol 31
+178 = 90
+Getfire ??
+
+
+Implement user registration mechanism
+    Implement "Remember me" mechanism
+    Implement "Forgot password" functionality
+
+Implement user settings functionality
+    implement user logos
+
+Implement user investment interests functionality
+    Implement matching of interests with projects
+    Implement list of applications to the interest
+
+Implement (user) projects functionality
+    Implement matching of projects with interests (find interests compatible with this project)
+    Implement (list of) investments into projects
+
+Implement administrators features
+    Implement "Assign security role to user" feature
+    Implement "Edit user's security roles" feature
+    Implement verification of projects mechanism
+    Implement verification of new users mechanism
+    Implement verification if events mechanism
+    Implement verification of programs (grants) mechanism
 
 Implement user programs (grants)
     Implement "add new program" feature
@@ -90,14 +110,6 @@ Implement main menu
         applications management
         investments management
         account settings
-
-Implement administrators features
-    Implement "Assign security role to user" feature
-    Implement "Edit user's security roles" feature
-    Implement verification of projects mechanism
-    Implement verification of new users mechanism
-    Implement verification if events mechanism
-    Implement verification of programs (grants) mechanism
 
     Implement ORM using JPA
 
