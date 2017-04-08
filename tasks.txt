@@ -1,13 +1,13 @@
     Create project skeleton 4-6
     Create DB structure and export to initDB.sql  0-2
-    Implement user registration by email and password 6-8
-    Develop investment interest contents (cards) (Front-end + entity + table in DB + mapping) 6-8:
+    [#18] Implement user registration by email and password 6-8
+    [#19] Develop investment interest contents (cards) (Front-end + entity + table in DB + mapping) 6-8:
         type (invest, purchase product, purchase whole project, etc.)
         industry
         description
         project details
         sum of investment
-    Develop projects contents (cards) (Front-end + entity + table in DB) 6-8:
+    [#20] Develop projects contents (cards) (Front-end + entity + table in DB) 6-8:
         Logo
         name
         type (matches with investment interest types)
@@ -17,15 +17,15 @@
         location
         total cost
         min investment
-    Implement "add investment interest" feature 2-4
-    Implement "edit investment interest" feature 2-4
-    Implement "remove investment interest" feature 2-4
-    Implement "add new project" feature 2-4
-    Implement "edit project" feature 2-4
-    Implement "remove project" feature 2-4
-    Update user profile (name, phone numbers, addresses, contacts, roles) 4-6
-    Implement "View my investment interests" feature 2-4
-    Implement "View my projects" feature 2-4
+    [#21] Implement "add investment interest" feature 2-4
+    [#22] Implement "edit investment interest" feature 2-4
+    [#23] Implement "remove investment interest" feature 2-4
+    [#24] Implement "add new project" feature 2-4
+    [#25] Implement "edit project" feature 2-4
+    [#26] Implement "remove project" feature 2-4
+    [#27] Update user profile (name, phone numbers, addresses, contacts, roles) 4-6
+    [#28] Implement "View my investment interests" feature 2-4
+    [#29] Implement "View my projects" feature 2-4
 
 Denys 30
 Zakhar 16
@@ -39,7 +39,7 @@ Getfire ??
 
 
 Implement user registration mechanism
-    Implement "Remember me" mechanism
+    Implement "Remember me" mechanism at user login
     Implement "Forgot password" functionality
 
 Implement user settings functionality
@@ -52,6 +52,7 @@ Implement user investment interests functionality
 Implement (user) projects functionality
     Implement matching of projects with interests (find interests compatible with this project)
     Implement (list of) investments into projects
+    Implement project logos (create/update/delete)
 
 Implement administrators features
     Implement "Assign security role to user" feature
@@ -62,19 +63,18 @@ Implement administrators features
     Implement verification of programs (grants) mechanism
 
 Implement user programs (grants)
-    Implement "add new program" feature
-    Implement "edit program" feature
-    Implement "remove program" feature
-    Implement "View my programs" feature
+    Implement "add new program (grant)" feature
+    Implement "edit program (grant)" feature
+    Implement "remove program (grant)" feature
+    Implement "View my programs (grant)" feature
     Implement list of applications for a program (grant)
     Implement matching of programs with projects
+    Implement user programs (grants) logos (create/update/delete)
     Develop program contents (cards):
-        logo
         name
         description
         location
         application conditions
-        other
 
 Implement user services functionality
     Implement "add new service" feature
@@ -100,18 +100,15 @@ Implement registration of events
         description
 
 Implement main menu
-    Implement search for projects
-    Implement search for users
-    Implement search for investment interests
-    Implement search for events
-    Implement search for services
-    Implement search for programs
+    Implement "search for projects" in main menu
+    Implement "search for users" in main menu
+    Implement "search for investment interests" in main menu
+    Implement "search for events" in main menu
+    Implement "search for services" in main menu
+    Implement "search for programs" in main menu
     Implement user menu:
-        applications management
-        investments management
-        account settings
-
-    Implement ORM using JPA
+        Implement "Manage my applications" in user's menu (applications to events, etc.)
+        Implement "manage my investments" in user's menu
 
     Develop site front page
 
