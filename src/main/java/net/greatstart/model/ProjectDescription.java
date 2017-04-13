@@ -1,11 +1,11 @@
-package net.greatstart.model.cards;
+package net.greatstart.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class ProjectDescription {
 
     //    Url url
-    private Date date;
+    private LocalDate date;
     private String description;
     private String goal;
     private String other;

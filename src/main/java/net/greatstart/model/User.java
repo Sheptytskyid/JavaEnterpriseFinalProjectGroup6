@@ -1,7 +1,5 @@
 package net.greatstart.model;
 
-import net.greatstart.model.cards.Project;
-
 import java.util.List;
 
 public class User {

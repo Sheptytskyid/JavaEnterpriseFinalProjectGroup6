@@ -1,8 +1,6 @@
-package net.greatstart.model.cards;
+package net.greatstart.model;
 
-import net.greatstart.model.User;
-
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public class Project {
@@ -12,7 +10,7 @@ public class Project {
     private ProjectDescription desc;
     private int cost;
     private int minInvestment;
-    private Date addDate;
+    private LocalDate addDate;
     private User owner;
     private List<User> investors;
 //    later: int rating (view counter)

@@ -1,7 +1,7 @@
 package net.greatstart.dao.hibernate;
 
 import net.greatstart.dao.ProjectDao;
-import net.greatstart.model.cards.Project;
+import net.greatstart.model.Project;
 
 import java.util.List;
 
