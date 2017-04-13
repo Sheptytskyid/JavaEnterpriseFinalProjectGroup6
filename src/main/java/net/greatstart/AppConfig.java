@@ -1,7 +1,8 @@
 package net.greatstart;
 
-public class AppConfig {
-    public static void main(String[] args) {
+import org.springframework.context.annotation.Configuration;
 
-    }
+@Configuration
+public class AppConfig {
+
 }
