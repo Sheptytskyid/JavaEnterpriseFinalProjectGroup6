@@ -8,8 +8,8 @@ import java.util.List;
 
 public class EventDaoImpl implements EventDao {
 
-    public void create(Event item) {
-
+    public boolean create(Event item) {
+        return false;
     }
 
     public boolean delete(long id) {
@@ -20,9 +20,6 @@ public class EventDaoImpl implements EventDao {
         return false;
     }
 
-    public Event getByEmail(String email) {
-        return null;
-    }
 
     public Event getById(long id) {
         return null;

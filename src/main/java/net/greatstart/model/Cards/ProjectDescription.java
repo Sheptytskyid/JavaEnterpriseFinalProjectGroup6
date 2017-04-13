@@ -1,4 +1,4 @@
-package net.greatstart.model.Cards;
+package net.greatstart.model.cards;
 
 import java.util.Date;
 
