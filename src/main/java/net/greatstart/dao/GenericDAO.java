@@ -6,9 +6,9 @@ public interface GenericDAO<T> {
 
     boolean create(T item);
 
-    boolean delete(long id);
-
     boolean update(T item);
+
+    boolean delete(T item);
 
     T getById(long id);
 

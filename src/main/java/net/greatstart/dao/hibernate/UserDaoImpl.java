@@ -2,9 +2,11 @@ package net.greatstart.dao.hibernate;
 
 import net.greatstart.dao.UserDao;
 import net.greatstart.model.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class UserDaoImpl implements UserDao {
     @Override
     public boolean create(User item) {

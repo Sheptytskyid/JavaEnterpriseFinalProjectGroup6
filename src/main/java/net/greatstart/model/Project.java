@@ -1,8 +1,11 @@
 package net.greatstart.model;
 
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDate;
 import java.util.List;
 
+@Component
 public class Project {
     private boolean isVerifed;
     private String name;

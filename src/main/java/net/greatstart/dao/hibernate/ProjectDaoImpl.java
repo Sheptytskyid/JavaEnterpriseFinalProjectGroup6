@@ -2,9 +2,11 @@ package net.greatstart.dao.hibernate;
 
 import net.greatstart.dao.ProjectDao;
 import net.greatstart.model.Project;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class ProjectDaoImpl implements ProjectDao {
     @Override
     public boolean create(Project item) {

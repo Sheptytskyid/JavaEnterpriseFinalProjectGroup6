@@ -2,10 +2,11 @@ package net.greatstart.dao.hibernate;
 
 import net.greatstart.dao.EventDao;
 import net.greatstart.model.Event;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
+@Repository
 public class EventDaoImpl implements EventDao {
 
     public boolean create(Event item) {
@@ -19,7 +20,6 @@ public class EventDaoImpl implements EventDao {
     public boolean update(Event item) {
         return false;
     }
-
 
     public Event getById(long id) {
         return null;
