@@ -98,11 +98,6 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.7.8</version>
-                <!--<configuration>-->
-                    <!--<excludes>-->
-                        <!--<exclude>**/net.greatstart.services/**</exclude>-->
-                    <!--</excludes>-->
-                <!--</configuration>-->
                 <executions>
                     <execution>
                         <id>jacoco-initialize</id>
@@ -112,7 +107,6 @@
                     </execution>
                 </executions>
             </plugin>
-
 
         </plugins>
     </build>
