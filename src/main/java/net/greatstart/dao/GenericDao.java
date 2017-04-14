@@ -2,7 +2,7 @@ package net.greatstart.dao;
 
 import java.util.List;
 
-public interface GenericDAO<T> {
+public interface GenericDao<T> {
 
     boolean create(T item);
 
