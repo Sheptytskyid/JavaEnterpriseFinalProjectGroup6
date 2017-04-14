@@ -92,6 +92,26 @@ CREATE TABLE IF NOT EXISTS users_roles (
 
 
 -- -----------------------------------------------------
+-- Table startup_platform.investment_interests
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS investment_interests (
+  id INT NOT NULL,
+  user_id BIGINT NOT NULL,
+  category_id INT NULL,
+  sum DECIMAL NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT INVESTOR_INTEREST_FK
+  FOREIGN KEY (user_id)
+  REFERENCES users (id)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+  CONSTRAINT INVEST_CATEGORY_FK
+  FOREIGN KEY (category_id)
+  REFERENCES categories (id)
+  ON DELETE SET NULL
+  ON UPDATE CASCADE);
+
+-- -----------------------------------------------------
 -- Table startup_platform.investments
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS investments (
