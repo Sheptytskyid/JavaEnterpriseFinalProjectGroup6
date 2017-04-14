@@ -97,10 +97,10 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <!--<version>0.7.8</version>-->
+                <version>0.7.8</version>
                 <!--<configuration>-->
                     <!--<excludes>-->
-                        <!--<exclude>**/net.greatstart/**</exclude>-->
+                        <!--<exclude>**/net.greatstart.services/**</exclude>-->
                     <!--</excludes>-->
                 <!--</configuration>-->
                 <executions>
