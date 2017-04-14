@@ -11,4 +11,4 @@ cache:
     - $HOME/.sonar
 
 script:
-  - mvn clean package
+  - mvn clean test
