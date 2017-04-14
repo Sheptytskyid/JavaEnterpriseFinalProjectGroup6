@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS projects (
   date_added TIMESTAMP NULL,
   min_invest DECIMAL NULL,
   description VARCHAR(1000) NULL,
-  logo_url VARCHAR(45) NULL,
+  logo_url VARCHAR(130) NULL,
   verified INT NULL,
   PRIMARY KEY (id),
   CONSTRAINT OWNER_FK
