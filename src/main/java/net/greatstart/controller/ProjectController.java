@@ -17,12 +17,12 @@ public class ProjectController {
         return projectService.createProject(project);
     }
 
-    public boolean updateProject(Project project) {
-        return projectService.updateProject(project);
+    public boolean updateProject(long id) {
+        return projectService.updateProject(id);
     }
 
-    public boolean deleteProject(Project project) {
-        return projectService.deleteProject(project);
+    public boolean deleteProject(long id) {
+        return projectService.deleteProject(id);
     }
 
     public Project getProjectById(long id) {

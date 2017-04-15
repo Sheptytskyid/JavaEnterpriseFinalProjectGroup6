@@ -17,10 +17,6 @@ public class InvestmentController {
         return investmentService.createInvestment(investment);
     }
 
-    public boolean deleteInvesmtment(Investment investment) {
-        return investmentService.deleteInvestment(investment);
-    }
-
     public Investment getInvestmentById(long id) {
         return investmentService.getnvestmentById(id);
     }

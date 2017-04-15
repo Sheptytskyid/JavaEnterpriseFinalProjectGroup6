@@ -17,12 +17,12 @@ public class UserController {
         return userService.createUser(user);
     }
 
-    public boolean updateUser(User user) {
-        return userService.updateUser(user);
+    public boolean updateUser(long id) {
+        return userService.updateUser(id);
     }
 
-    public boolean deleteUser(User user) {
-        return userService.deleteUser(user);
+    public boolean deleteUser(long id) {
+        return userService.deleteUser(id);
     }
 
     public User getUserById(long id) {

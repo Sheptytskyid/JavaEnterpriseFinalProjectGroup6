@@ -17,12 +17,12 @@ public class EventController {
         return eventService.createEvent(event);
     }
 
-    public boolean updateEvent(Event event) {
-        return eventService.updateEvent(event);
+    public boolean updateEvent(long id) {
+        return eventService.updateEvent(id);
     }
 
-    public boolean deleteEvent(Event event) {
-        return eventService.deleteEvent(event);
+    public boolean deleteEvent(long id) {
+        return eventService.deleteEvent(id);
     }
 
     public Event getEventbyId(long id) {

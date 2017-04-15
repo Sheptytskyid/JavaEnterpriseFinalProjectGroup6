@@ -17,11 +17,13 @@ public class ProjectService {
         return projectDao.create(project);
     }
 
-    public boolean updateProject(Project project) {
+    public boolean updateProject(long id) {
+        Project project = getProjectById(id);
         return projectDao.update(project);
     }
 
-    public boolean deleteProject(Project project) {
+    public boolean deleteProject(long id) {
+        Project project = getProjectById(id);
         return projectDao.delete(project);
     }
 

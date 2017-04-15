@@ -17,11 +17,13 @@ public class UserService {
         return userDao.create(user);
     }
 
-    public boolean updateUser(User user) {
+    public boolean updateUser(long id) {
+        User user = getUserById(id);
         return userDao.update(user);
     }
 
-    public boolean deleteUser(User user) {
+    public boolean deleteUser(long id) {
+        User user = getUserById(id);
         return userDao.delete(user);
     }
 

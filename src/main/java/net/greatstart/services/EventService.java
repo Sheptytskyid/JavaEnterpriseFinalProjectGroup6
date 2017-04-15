@@ -17,11 +17,13 @@ public class EventService {
         return eventDao.create(event);
     }
 
-    public boolean updateEvent(Event event) {
+    public boolean updateEvent(long id) {
+        Event event = getEventById(id);
         return eventDao.update(event);
     }
 
-    public boolean deleteEvent(Event event) {
+    public boolean deleteEvent(long id) {
+        Event event = getEventById(id);
         return eventDao.delete(event);
     }
 

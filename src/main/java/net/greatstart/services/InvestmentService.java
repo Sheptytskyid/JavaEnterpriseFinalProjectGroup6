@@ -17,10 +17,6 @@ public class InvestmentService {
         return investmentDao.create(investment);
     }
 
-    public boolean deleteInvestment(Investment investment) {
-        return investmentDao.delete(investment);
-    }
-
     public Investment getnvestmentById(long id) {
         return investmentDao.getById(id);
     }

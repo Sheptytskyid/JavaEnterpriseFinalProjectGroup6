@@ -9,17 +9,17 @@ import java.util.List;
 @Repository
 public class ProjectDaoImpl implements ProjectDao {
     @Override
-    public boolean create(Project item) {
+    public boolean create(Project project) {
         return false;
     }
 
     @Override
-    public boolean delete(long id) {
+    public boolean delete(Project project) {
         return false;
     }
 
     @Override
-    public boolean update(Project item) {
+    public boolean update(Project project) {
         return false;
     }
 
