@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.OneToMany;
 import javax.persistence.EnumType;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import java.util.List;
 
 @Component
@@ -28,9 +29,11 @@ public class User extends AbstractModel {
     private Contact contact;
 
     @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     private List<Investment> investments;
 
     @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "owner_id")
     private List<Project> ownedProjects;
 
     public User(String name, String password, String email, Role role, Contact contact) {
