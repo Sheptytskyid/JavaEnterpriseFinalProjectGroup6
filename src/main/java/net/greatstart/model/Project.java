@@ -22,10 +22,10 @@ public class Project extends AbstractModel {
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    /**
+    /*
      * Does not exist in DB table
      * private List<User> investors;
-     **/
+     */
     @OneToMany
     @JoinColumn(name = "project_id")
     private List<Investment> investments;
