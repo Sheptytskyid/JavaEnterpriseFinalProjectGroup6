@@ -131,3 +131,14 @@ CREATE TABLE IF NOT EXISTS investments (
   REFERENCES projects (id)
     ON DELETE RESTRICT
     ON UPDATE CASCADE);
+
+-- -----------!!!!!!!!!!!!!!------------------------------------------
+-- Data base improvements
+-- -----------!!!!!!!!!!!!!!------------------------------------------
+ALTER TABLE public.users ADD user_role VARCHAR(30) NULL;
+COMMENT ON TABLE public.users IS 'add User Role to this table';
+
+DROP TABLE users_roles;
+
+DROP TABLE roles;
+
