@@ -39,23 +39,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> getAll() {
-        List<User> result;
-        SessionFactory sessionFactory;
-        try {
-            sessionFactory = new Configuration().configure().buildSessionFactory();
-        } catch (HibernateException ex) {
-            throw new RuntimeException("Cannot create Session Factory", ex);
-        }
-        try (Session session = sessionFactory.openSession()) {
-            try {
-                session.beginTransaction();
-                result = session.createQuery("from User").list();
-                session.getTransaction().commit();
-            } catch (HibernateException e) {
-                session.getTransaction().rollback();
-                throw new RuntimeException("Cannotconnect to DB", e);
-            }
-        }
-        return result;
+        return null;
     }
 }
