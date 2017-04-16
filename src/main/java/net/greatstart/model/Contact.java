@@ -1,5 +1,8 @@
 package net.greatstart.model;
 
+import lombok.Data;
+
+@Data
 public class Contact {
     private String address;
     private String phoneNumber;

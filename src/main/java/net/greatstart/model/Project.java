@@ -1,8 +1,11 @@
 package net.greatstart.model;
 
+import lombok.Data;
+
 import java.time.LocalDate;
 import java.util.List;
 
+@Data
 public class Project {
     private boolean isVerifed;
     private String name;
