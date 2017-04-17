@@ -17,7 +17,6 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class User extends AbstractModel {
-    //    private int id;
     private String name;
     private String password;
     private String email;

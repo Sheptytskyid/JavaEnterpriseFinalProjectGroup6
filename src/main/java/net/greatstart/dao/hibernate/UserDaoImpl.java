@@ -2,10 +2,6 @@ package net.greatstart.dao.hibernate;
 
 import net.greatstart.dao.UserDao;
 import net.greatstart.model.User;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
