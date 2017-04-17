@@ -1,5 +1,7 @@
 package net.greatstart.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
@@ -9,7 +11,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.Column;
 import javax.persistence.OneToMany;
 import javax.persistence.EnumType;
-import javax.persistence.FetchType;
 import java.util.List;
 
 @Component
@@ -28,10 +29,12 @@ public class User extends AbstractModel {
     @Embedded
     private Contact contact;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "inv")
+    @OneToMany(mappedBy = "inv")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Investment> investments;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "owner")
+    @OneToMany(mappedBy = "owner")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Project> ownedProjects;
 
     public User(String name, String password, String email, Role role, Contact contact) {

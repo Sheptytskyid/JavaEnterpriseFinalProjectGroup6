@@ -10,12 +10,8 @@
         <property name="hibernate.connection.url">
             jdbc:postgresql://localhost:5432/postgres?autoReconnect=true&amp;useSSL=false
         </property>
-        <property name="hibernate.connection.username">
-            postgres
-        </property>
-        <property name="hibernate.connection.password">
-            root
-        </property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">root</property>
         <property name="hibernate.show_sql">true</property>
         <property name="current_session_context_class">thread</property>
         <mapping class="net.greatstart.model.Contact"/>

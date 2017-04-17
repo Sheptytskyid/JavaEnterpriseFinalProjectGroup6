@@ -27,4 +27,5 @@ public class ProjectDescription {
     @Column(name = "verified")
     private boolean isVerifed;
 
+
 }
