@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Embedded;
 import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.FetchType;
 import java.util.List;
@@ -19,15 +18,13 @@ public class Project extends AbstractModel {
     private ProjectDescription desc;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "owner_id")
     private User owner;
 
     /*
      * Does not exist in DB table
      * private List<User> investors;
      */
-    @OneToMany
-    @JoinColumn(name = "project_id")
+    @OneToMany (fetch = FetchType.EAGER, mappedBy = "project")
     private List<Investment> investments;
 
 }
