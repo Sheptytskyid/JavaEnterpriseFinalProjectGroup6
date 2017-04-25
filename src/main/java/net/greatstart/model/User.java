@@ -1,10 +1,10 @@
 package net.greatstart.model;
 
-import org.springframework.stereotype.Component;
+import lombok.Data;
 
 import java.util.List;
 
-@Component
+@Data
 public class User {
     private int id;
     private String name;

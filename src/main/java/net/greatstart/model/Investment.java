@@ -1,11 +1,11 @@
 package net.greatstart.model;
 
-import org.springframework.stereotype.Component;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Component
+@Data
 public class Investment {
 
     private LocalDate dateOfInvestment;

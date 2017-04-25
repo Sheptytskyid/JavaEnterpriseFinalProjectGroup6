@@ -1,10 +1,10 @@
 package net.greatstart.model;
 
-import org.springframework.stereotype.Component;
+import lombok.Data;
 
 import java.time.LocalDate;
 
-@Component
+@Data
 public class ProjectDescription {
 
     private LocalDate date;
