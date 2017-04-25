@@ -2,22 +2,24 @@ package net.greatstart.dao.hibernate;
 
 import net.greatstart.dao.UserDao;
 import net.greatstart.model.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class UserDaoImpl implements UserDao {
     @Override
-    public boolean create(User item) {
+    public boolean create(User user) {
         return false;
     }
 
     @Override
-    public boolean delete(long id) {
+    public boolean delete(User user) {
         return false;
     }
 
     @Override
-    public boolean update(User item) {
+    public boolean update(User user) {
         return false;
     }
 

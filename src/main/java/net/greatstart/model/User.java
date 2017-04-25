@@ -14,12 +14,4 @@ public class User {
     private Contact contact;
     private List<Investment> investments;
     private List<Project> ownedProjects;
-
-    public User(String name, String password, String email, Role role, Contact contact) {
-        this.name = name;
-        this.password = password;
-        this.email = email;
-        this.role = role;
-        this.contact = contact;
-    }
 }

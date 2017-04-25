@@ -5,6 +5,9 @@ language: java
 jdk:
   - oraclejdk8
 
+notifications:
+  email: false
+
 addons:
   sonarqube:
     token:
