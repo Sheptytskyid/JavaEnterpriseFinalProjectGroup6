@@ -10,8 +10,12 @@ import java.util.List;
 @Service
 public class ProjectService {
 
-    @Autowired
     private ProjectDao projectDao;
+
+    @Autowired
+    public ProjectService(ProjectDao projectDao) {
+        this.projectDao = projectDao;
+    }
 
     public boolean createProject(Project project) {
         return projectDao.create(project);

@@ -10,8 +10,12 @@ import java.util.List;
 @Controller
 public class ProjectController {
 
-    @Autowired
     private ProjectService projectService;
+
+    @Autowired
+    public ProjectController(ProjectService projectService) {
+        this.projectService = projectService;
+    }
 
     public boolean createProject(Project project) {
         return projectService.createProject(project);

@@ -10,8 +10,12 @@ import java.util.List;
 @Service
 public class UserService {
 
-    @Autowired
     private UserDao userDao;
+
+    @Autowired
+    public UserService(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     public boolean createUser(User user) {
         return userDao.create(user);

@@ -10,8 +10,12 @@ import java.util.List;
 @Controller
 public class EventController {
 
-    @Autowired
     private EventService eventService;
+
+    @Autowired
+    public EventController(EventService eventService) {
+        this.eventService = eventService;
+    }
 
     public boolean createEvent(Event event) {
         return eventService.createEvent(event);

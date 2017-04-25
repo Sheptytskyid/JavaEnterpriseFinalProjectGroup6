@@ -10,8 +10,12 @@ import java.util.List;
 @Service
 public class EventService {
 
-    @Autowired
     private EventDao eventDao;
+
+    @Autowired
+    public EventService(EventDao eventDao) {
+        this.eventDao = eventDao;
+    }
 
     public boolean createEvent(Event event) {
         return eventDao.create(event);

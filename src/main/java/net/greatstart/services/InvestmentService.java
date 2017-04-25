@@ -10,8 +10,12 @@ import java.util.List;
 @Service
 public class InvestmentService {
 
-    @Autowired
     private InvestmentDao investmentDao;
+
+    @Autowired
+    public InvestmentService(InvestmentDao investmentDao) {
+        this.investmentDao = investmentDao;
+    }
 
     public boolean createInvestment(Investment investment) {
         return investmentDao.create(investment);
