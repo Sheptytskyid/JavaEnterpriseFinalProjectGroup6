@@ -2,15 +2,11 @@ package net.greatstart.controller;
 
 import net.greatstart.model.Event;
 import net.greatstart.services.EventService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-@Controller
 public class EventController {
 
-    @Autowired
     private EventService eventService;
 
     public boolean createEvent(Event event) {

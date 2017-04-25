@@ -2,7 +2,6 @@ package net.greatstart.dao.hibernate;
 
 import net.greatstart.dao.EventDao;
 import net.greatstart.model.Event;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 

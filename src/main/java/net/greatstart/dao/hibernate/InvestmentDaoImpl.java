@@ -2,7 +2,6 @@ package net.greatstart.dao.hibernate;
 
 import net.greatstart.dao.InvestmentDao;
 import net.greatstart.model.Investment;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
