@@ -2,29 +2,34 @@ package net.greatstart.dao.hibernate;
 
 import net.greatstart.dao.EventDao;
 import net.greatstart.model.Event;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
+@Repository
 public class EventDaoImpl implements EventDao {
 
-    public boolean create(Event item) {
+    @Override
+    public boolean create(Event event) {
         return false;
     }
 
-    public boolean delete(long id) {
+    @Override
+    public boolean delete(Event event) {
         return false;
     }
 
-    public boolean update(Event item) {
+    @Override
+    public boolean update(Event event) {
         return false;
     }
 
-
+    @Override
     public Event getById(long id) {
         return null;
     }
 
+    @Override
     public List<Event> getAll() {
         return null;
     }
