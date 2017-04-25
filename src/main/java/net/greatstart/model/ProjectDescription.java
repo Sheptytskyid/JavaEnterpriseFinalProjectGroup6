@@ -1,12 +1,10 @@
 package net.greatstart.model;
 
-import org.springframework.stereotype.Component;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.time.LocalDate;
 
-@Component
 @Embeddable
 public class ProjectDescription {
     @Column(name = "name")

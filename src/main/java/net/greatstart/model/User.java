@@ -2,7 +2,6 @@ package net.greatstart.model;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -13,7 +12,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.EnumType;
 import java.util.List;
 
-@Component
 @Entity
 @Table(name = "users")
 public class User extends AbstractModel {

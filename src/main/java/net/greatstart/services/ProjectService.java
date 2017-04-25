@@ -2,15 +2,11 @@ package net.greatstart.services;
 
 import net.greatstart.dao.ProjectDao;
 import net.greatstart.model.Project;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public class ProjectService {
 
-    @Autowired
     private ProjectDao projectDao;
 
     public boolean createProject(Project project) {
