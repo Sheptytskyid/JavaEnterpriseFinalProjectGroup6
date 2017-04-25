@@ -1,4 +1,4 @@
-package net.greatstart.controller;
+package net.greatstart.controllers;
 
 import net.greatstart.model.Investment;
 import net.greatstart.services.InvestmentService;

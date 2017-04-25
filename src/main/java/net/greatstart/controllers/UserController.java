@@ -1,4 +1,4 @@
-package net.greatstart.controller;
+package net.greatstart.controllers;
 
 import net.greatstart.model.User;
 import net.greatstart.services.UserService;
