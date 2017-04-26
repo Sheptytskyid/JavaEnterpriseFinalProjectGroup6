@@ -2,17 +2,37 @@ package net.greatstart.model;
 
 import lombok.Data;
 
-import java.time.LocalDate;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.ManyToOne;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
+
 import java.util.List;
 
 @Data
-public class Project {
-    private boolean isVerifed;
-    private String name;
+@Entity
+@Table(name = "projects")
+public class Project extends AbstractModel {
+
+    @Embedded
     private ProjectDescription desc;
-    private int cost;
+
+    @Column(name = "min_invest")
     private int minInvestment;
-    private LocalDate addDate;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     private User owner;
-    private List<User> investors;
+    /*
+     * Does not exist in DB table
+     * private List<User> investors;
+     */
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "project")
+    private List<Investment> investments;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Category category;
 }
