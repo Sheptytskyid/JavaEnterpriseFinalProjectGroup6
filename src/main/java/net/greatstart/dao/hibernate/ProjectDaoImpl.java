@@ -8,7 +8,6 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-@Transactional
 public class ProjectDaoImpl implements ProjectDao {
     @Override
     public boolean create(Project project) {
