@@ -20,6 +20,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 @PropertySource(value = {"classpath:database.properties"})
 public class DataBaseConfig {
+
     @Autowired
     private Environment env;
 
@@ -36,7 +37,7 @@ public class DataBaseConfig {
 
     @Bean
     @Autowired
-    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory){
+    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
         HibernateTransactionManager htm = new HibernateTransactionManager();
         htm.setSessionFactory(sessionFactory);
         return htm;
@@ -51,8 +52,9 @@ public class DataBaseConfig {
         sessionFactory.setHibernateProperties(getHibernateProperties());
         return sessionFactory;
     }
+
     @Bean
-    public Properties getHibernateProperties(){
+    public Properties getHibernateProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", env.getRequiredProperty("hibernate.dialect"));
         properties.put("hibernate.show_sql", env.getRequiredProperty("hibernate.show_sql"));
