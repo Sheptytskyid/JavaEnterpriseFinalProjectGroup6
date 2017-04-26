@@ -1,5 +1,6 @@
 package net.greatstart.configs;
 
+import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -7,7 +8,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
@@ -26,7 +26,7 @@ public class DataBaseConfig {
 
     @Bean
     public DataSource getDataSource() {
-        DriverManagerDataSource ds = new DriverManagerDataSource();
+        BasicDataSource ds = new BasicDataSource();
         ds.setDriverClassName(env.getRequiredProperty("jdbc.driverClassName"));
         ds.setUrl(env.getRequiredProperty("jdbc.url"));
         ds.setUsername(env.getRequiredProperty("jdbc.username"));
@@ -58,6 +58,7 @@ public class DataBaseConfig {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", env.getRequiredProperty("hibernate.dialect"));
         properties.put("hibernate.show_sql", env.getRequiredProperty("hibernate.show_sql"));
+        properties.put("hibernate.default_schema",env.getRequiredProperty("hibernate.default_schema"));
         return properties;
     }
 }

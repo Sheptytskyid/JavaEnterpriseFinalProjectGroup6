@@ -3,10 +3,12 @@ package net.greatstart.dao.hibernate;
 import net.greatstart.dao.InvestmentDao;
 import net.greatstart.model.Investment;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Repository
+@Transactional
 public class InvestmentDaoImpl implements InvestmentDao {
     @Override
     public boolean create(Investment investment) {

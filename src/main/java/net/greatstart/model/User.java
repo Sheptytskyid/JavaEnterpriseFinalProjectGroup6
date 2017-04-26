@@ -37,7 +37,7 @@ public class User extends AbstractModel {
     @ManyToMany
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> role;
+    private Set<Role> roles;
 
     @Embedded
     private Contact contact;
