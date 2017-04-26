@@ -3,7 +3,6 @@ package net.greatstart.dao.hibernate;
 import net.greatstart.dao.UserDao;
 import net.greatstart.model.User;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

@@ -4,7 +4,6 @@ import net.greatstart.dao.ProjectDao;
 import net.greatstart.model.Project;
 import org.springframework.stereotype.Repository;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
