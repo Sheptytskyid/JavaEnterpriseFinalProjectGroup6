@@ -1,9 +1,13 @@
 package net.greatstart.controllers;
 
 import net.greatstart.Main;
+import net.greatstart.services.ProjectService;
+import net.greatstart.services.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -19,12 +23,17 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 @ContextConfiguration(classes = Main.class)
 @WebAppConfiguration
 public class ProjectControllerTest {
-    @Autowired
+    @Mock
+    ProjectService projectService;
+    @Mock
+    UserService userService;
     private ProjectController controller;
     private MockMvc mockMvc;
 
     @Before
     public void setUp() {
+        MockitoAnnotations.initMocks(this);
+        controller = new ProjectController(projectService, userService);
         mockMvc = standaloneSetup(controller)
                 .setViewResolvers(new StandaloneMvcTestViewResolver())
                 .build();
