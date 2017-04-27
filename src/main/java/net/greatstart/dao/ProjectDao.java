@@ -2,6 +2,8 @@ package net.greatstart.dao;
 
 import net.greatstart.model.Project;
 
-public interface ProjectDao extends GenericDao<Project> {
+import java.util.List;
 
+public interface ProjectDao extends GenericDao<Project> {
+    List<Project> getNRecords(int n);
 }

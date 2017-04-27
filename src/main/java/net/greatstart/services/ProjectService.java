@@ -23,8 +23,7 @@ public class ProjectService {
         return projectDao.create(project);
     }
 
-    public boolean updateProject(long id) {
-        Project project = getProjectById(id);
+    public boolean updateProject(Project project) {
         return projectDao.update(project);
     }
 
@@ -39,5 +38,9 @@ public class ProjectService {
 
     public List<Project> getAllProjects() {
         return projectDao.getAll();
+    }
+
+    public List<Project> getNProjects(int n) {
+        return projectDao.getNRecords(n);
     }
 }
