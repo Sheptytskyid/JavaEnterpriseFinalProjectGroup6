@@ -41,4 +41,7 @@ public class UserService {
         return userDao.getAll();
     }
 
+    public User getByUsername(String name) {
+        return getUserById(1L);
+    }
 }
