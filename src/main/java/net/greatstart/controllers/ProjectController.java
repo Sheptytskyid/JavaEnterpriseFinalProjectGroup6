@@ -53,6 +53,7 @@ public class ProjectController {
         if (errors.hasErrors()) {
             return "add_project";
         }
+        // TODO: get authenticated user
         User owner = userService.getByUsername("");
         project.setOwner(owner);
         projectService.createProject(project);
