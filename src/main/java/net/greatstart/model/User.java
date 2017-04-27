@@ -1,18 +1,16 @@
 package net.greatstart.model;
 
 import lombok.Data;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
+import javax.persistence.Embedded;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.FetchType;
-import javax.persistence.Embedded;
 import javax.persistence.OneToMany;
 import java.util.List;
 import java.util.Set;
@@ -34,7 +32,7 @@ public class User extends AbstractModel {
     @JoinColumn(name = "type_id")
     private Type type;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
@@ -42,11 +40,9 @@ public class User extends AbstractModel {
     @Embedded
     private Contact contact;
 
-    @OneToMany(mappedBy = "inv")
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "inv", fetch = FetchType.EAGER)
     private List<Investment> investments;
 
-    @OneToMany(mappedBy = "owner")
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private List<Project> ownedProjects;
 }
