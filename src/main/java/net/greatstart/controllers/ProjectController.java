@@ -47,7 +47,7 @@ public class ProjectController {
     }
 
     @RequestMapping(value="/add_project", method=RequestMethod.POST)
-    public String addProject(@Valid Project project,
+    public String addProject(Project project,
                              Errors errors,
                              Principal principal) {
         if (errors.hasErrors()) {
@@ -62,9 +62,12 @@ public class ProjectController {
 
     @RequestMapping(value = "/update_project", method = RequestMethod.GET)
     public String getUpdateProjectForm(@RequestParam("id") Long id, Model model) {
-        Project project = projectService.getProjectById(id);
-        model.addAttribute("project", project);
-        return "update_project";
+        if (id > 0) {
+            Project project = projectService.getProjectById(id);
+            model.addAttribute("project", project);
+            return "update_project";
+        }
+        return "projects";
     }
 
     @RequestMapping(value="/update_project", method=RequestMethod.POST)
