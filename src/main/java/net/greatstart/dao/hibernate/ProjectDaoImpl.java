@@ -53,10 +53,10 @@ public class ProjectDaoImpl implements ProjectDao {
     }
 
     @Override
-    public List<Project> getNRecords(int n) {
+    public List<Project> getNRecords(int numberOfProjects) {
         return sessionFactory.getCurrentSession()
                 .createQuery("from Project", Project.class)
-                .setMaxResults(n)
+                .setMaxResults(numberOfProjects)
                 .list();
     }
 }

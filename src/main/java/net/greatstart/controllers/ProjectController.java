@@ -46,7 +46,7 @@ public class ProjectController {
         return "add_project";
     }
 
-    @RequestMapping(value="/add_project", method=RequestMethod.POST)
+    @RequestMapping(value = "/add_project", method = RequestMethod.POST)
     public String addProject(Project project,
                              Errors errors,
                              Principal principal) {
@@ -70,7 +70,7 @@ public class ProjectController {
         return "projects";
     }
 
-    @RequestMapping(value="/update_project", method=RequestMethod.POST)
+    @RequestMapping(value = "/update_project", method = RequestMethod.POST)
     public String updateProject(@Valid Project project, Errors errors) {
         if (errors.hasErrors()) {
             return "update_project";

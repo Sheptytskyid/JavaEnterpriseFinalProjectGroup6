@@ -5,5 +5,5 @@ import net.greatstart.model.Project;
 import java.util.List;
 
 public interface ProjectDao extends GenericDao<Project> {
-    List<Project> getNRecords(int n);
+    List<Project> getNRecords(int numberOfProjects);
 }

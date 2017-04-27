@@ -40,7 +40,7 @@ public class ProjectService {
         return projectDao.getAll();
     }
 
-    public List<Project> getNProjects(int n) {
-        return projectDao.getNRecords(n);
+    public List<Project> getNProjects(int numberOfProjects) {
+        return projectDao.getNRecords(numberOfProjects);
     }
 }
