@@ -41,7 +41,11 @@ public class UserService {
         return userDao.getAll();
     }
 
+    // TODO : implement this
     public User getByUsername(String name) {
-        return getUserById(1L);
+        if (name != null) {
+            return getUserById(1L);
+        }
+        return null;
     }
 }

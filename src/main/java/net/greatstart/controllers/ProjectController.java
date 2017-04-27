@@ -1,7 +1,6 @@
 package net.greatstart.controllers;
 
 import net.greatstart.model.Project;
-import net.greatstart.model.ProjectDescription;
 import net.greatstart.model.User;
 import net.greatstart.services.ProjectService;
 import net.greatstart.services.UserService;
@@ -9,20 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Controller
 public class ProjectController {
+    private static final String REDIRECT_TO_PROJECTS = "redirect:/projects";
 
     private ProjectService projectService;
     private UserService userService;
@@ -57,7 +54,7 @@ public class ProjectController {
         User owner = userService.getByUsername("");
         project.setOwner(owner);
         projectService.createProject(project);
-        return "redirect:/projects";
+        return REDIRECT_TO_PROJECTS;
     }
 
     @RequestMapping(value = "/update_project", method = RequestMethod.GET)
@@ -76,13 +73,13 @@ public class ProjectController {
             return "update_project";
         }
         projectService.updateProject(project);
-        return "redirect:/projects";
+        return REDIRECT_TO_PROJECTS;
     }
 
     @RequestMapping(value = "/delete_project", method = RequestMethod.GET)
     public String deleteProject(@RequestParam("id") Long id) {
         projectService.deleteProject(id);
-        return "redirect:/projects";
+        return REDIRECT_TO_PROJECTS;
     }
 
 }
