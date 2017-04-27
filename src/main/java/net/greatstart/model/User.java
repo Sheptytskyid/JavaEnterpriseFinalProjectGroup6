@@ -2,16 +2,47 @@ package net.greatstart.model;
 
 import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
+import javax.persistence.Embedded;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import java.util.List;
+import java.util.Set;
 
 @Data
-public class User {
-    private int id;
+@Entity
+@Table(name = "users")
+public class User extends AbstractModel {
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "email")
     private String email;
-    private Role role;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "type_id")
+    private Type type;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
+
+    @Embedded
     private Contact contact;
+
+    @OneToMany(mappedBy = "inv", fetch = FetchType.EAGER)
     private List<Investment> investments;
+
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private List<Project> ownedProjects;
 }
