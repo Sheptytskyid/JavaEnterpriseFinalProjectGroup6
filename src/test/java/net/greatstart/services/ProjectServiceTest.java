@@ -3,12 +3,10 @@ package net.greatstart.services;
 import net.greatstart.Main;
 import net.greatstart.dao.ProjectDao;
 import net.greatstart.model.Project;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -19,15 +17,10 @@ import static org.mockito.Mockito.verify;
 public class ProjectServiceTest {
     @Mock
     ProjectDao mockProjectDao;
+    @InjectMocks
     ProjectService projectService;
     @InjectMocks
     Project project;
-
-    @Before
-    public void init() {
-        MockitoAnnotations.initMocks(this);
-        projectService = new ProjectService(mockProjectDao);
-    }
 
     @Test
     public void createProject() throws Exception {
