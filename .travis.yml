@@ -22,7 +22,7 @@ cache:
 
 before_script:
 - chmod +x travis.sh
-"./travis.sh"
+- "./travis.sh"
 
 script:
   - mvn clean test jacoco:report coveralls:report
