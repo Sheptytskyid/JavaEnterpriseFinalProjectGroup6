@@ -20,7 +20,7 @@ cache:
     - $HOME/.m2
     - $HOME/.sonar
 
-before_script: "./custom_check.sh"
+before_script: "./travis.sh"
 
 script:
   - mvn clean test jacoco:report coveralls:report
