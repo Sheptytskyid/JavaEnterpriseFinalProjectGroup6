@@ -6,7 +6,7 @@ if [ $TRAVIS_PULL_REQUEST_BRANCH == "master" ]
 then exit
 fi
 
-ZOZICH_REVIEWS=$(curl -X GET -H "Accept: application/vnd.github.black-cat-preview+json" https://api.github.com/repos/Sheptytskyid/Startup_Platform/pulls/21/reviews | jq '.[] | select(.user.login == "zozich") | .state')
+ZOZICH_REVIEWS=$(curl -X GET -H "Accept: application/vnd.github.black-cat-preview+json" https://api.github.com/repos/Sheptytskyid/Startup_Platform/pulls/$TRAVIS_PULL_REQUEST/reviews | jq '.[] | select(.user.login == "zozich") | .state')
 
 if [[ "$ZOZICH_REVIEWS" == *"APPROVED" ]]
 then state="success" desc="Zozich has approved this PR!"
