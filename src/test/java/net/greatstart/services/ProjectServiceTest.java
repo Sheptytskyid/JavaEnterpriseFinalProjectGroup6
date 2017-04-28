@@ -19,8 +19,7 @@ public class ProjectServiceTest {
     ProjectDao mockProjectDao;
     @InjectMocks
     ProjectService projectService;
-    @InjectMocks
-    Project project;
+    Project project = new Project();
 
     @Test
     public void createProject() throws Exception {
