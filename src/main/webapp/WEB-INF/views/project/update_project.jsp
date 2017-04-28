@@ -65,8 +65,10 @@
         </spring:bind>
 
         <spring:bind path="desc.minInvestment">
-            <div class="form-group">
-                <form:input type="text" path="desc.minInvestment" class="form-control" placeholder="Minimum investment"></form:input>
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="text" path="desc.minInvestment" class="form-control"
+                            placeholder="Minimum investment"></form:input>
+                <form:errors path="desc.minInvestment"></form:errors>
             </div>
         </spring:bind>
 

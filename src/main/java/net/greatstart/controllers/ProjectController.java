@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.security.Principal;
-
 import java.util.List;
 
 @Controller
@@ -34,13 +33,13 @@ public class ProjectController {
     public String showProjects(Model model) {
         List<Project> projectList = projectService.getAllProjects();
         model.addAttribute(projectList);
-        return "projects";
+        return "project/projects";
     }
 
     @RequestMapping(value = "/add_project", method = RequestMethod.GET)
     public String getAddProjectForm(Model model) {
         model.addAttribute("project", new Project());
-        return "add_project";
+        return "project/add_project";
     }
 
     @RequestMapping(value = "/add_project", method = RequestMethod.POST)
@@ -48,7 +47,7 @@ public class ProjectController {
                              Errors errors,
                              Principal principal) {
         if (errors.hasErrors()) {
-            return "add_project";
+            return "project/add_project";
         }
         // TODO: get authenticated user once user authorization is ready
         User owner = userService.getByUsername("");
@@ -62,7 +61,7 @@ public class ProjectController {
         if (id > 0) {
             Project project = projectService.getProjectById(id);
             model.addAttribute("project", project);
-            return "update_project";
+            return "project/update_project";
         }
         return "projects";
     }
@@ -70,7 +69,7 @@ public class ProjectController {
     @RequestMapping(value = "/update_project", method = RequestMethod.POST)
     public String updateProject(@Valid Project project, Errors errors) {
         if (errors.hasErrors()) {
-            return "update_project";
+            return "project/update_project";
         }
         projectService.updateProject(project);
         return REDIRECT_TO_PROJECTS;
