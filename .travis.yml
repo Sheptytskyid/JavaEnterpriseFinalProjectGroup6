@@ -20,10 +20,10 @@ cache:
     - $HOME/.m2
     - $HOME/.sonar
 
-before-install:
+before_install:
   - chmod +x travis.sh
 
-before-script: "./travis.sh"
+before_script: "./travis.sh"
 
 script:
   - mvn clean test jacoco:report coveralls:report
