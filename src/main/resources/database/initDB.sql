@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS startup_platform.projects (
   goal VARCHAR NULL,
   other VARCHAR NULL,
   logo_url VARCHAR NULL,
-  verified INT NULL,
+  verified BOOLEAN NULL,
   PRIMARY KEY (id),
   CONSTRAINT OWNER_FK
   FOREIGN KEY (owner_id)
