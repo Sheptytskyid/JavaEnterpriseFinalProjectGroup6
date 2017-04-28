@@ -15,11 +15,12 @@ addons:
     github_token:
       secure: siORPd+bNzbfguyjWJX3Updq/nq8XE3Uhq+gnAjVxkUaoHzL8myfAuqaVKMMpWujtTmSu8BzEXvEHFyiKsu5ZyuE6qABaKZBO4iScyaoOygOhueaCnyJeNTQgTC9w/CBgw0NPgG8trmcMtjsJjwmMQD/cTf2/Z3vSz+yhBf+kaRCTQdHLk9eIhsDlgtk/5YS5kn7ZSk92/hBLD8WL28x9nuN41MGVYiNnSwDcVzpijVYLDzg9KP9xh3dNA1QTCOKwEx391yXWZBQqhBYQM/DgiEUINCJsHPEiQLLkwntbbarTqbt+8EYeD18BtpjeGnADnpzeT5eeHZ4VtSYgmULdKcycI49sNtktlHSbkcK41gurQx8MWMg9uNWp+gJWRVU9DSgG9j18TCVta3s9i9OOqb6FuR+CMzf00/tkhh3GWEp5zaTsiLfvb11N1OHAwMVtVuVRSzaORTkXp9/CefNbHBQpTep+z3yEvBh0qypJVJ0XlC+d9Jz9baPbvZQoAATaGskLhLs7SDGRrqd2LBSRX8Ch8PDGCvRthNSx2byx+eD7NolXdEh2J4DfbByt0EQPmqCQHXzTjYJQ17rU4QbLII3C/5Yr/kqAHK42VRf6fBveX9REb+df6Ki3ctG7XG7iKk0oL/hoU25nGFiC+lE8BM9/akdVDLjdLm6fe/dfMc=
 
-
 cache:
   directories:
     - $HOME/.m2
     - $HOME/.sonar
+
+before_script: "./custom_check.sh"
 
 script:
   - mvn clean test jacoco:report coveralls:report
