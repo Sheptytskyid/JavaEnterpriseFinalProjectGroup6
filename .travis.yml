@@ -24,3 +24,9 @@ cache:
 script:
   - mvn clean test jacoco:report coveralls:report
   - sonar-scanner
+
+services:
+  - postgresql
+
+before_script:
+  - psql -c 'create database postgres;' -U postgres
