@@ -8,4 +8,4 @@ curl -H "Authorization: token $GITHUB_TOKEN" -d "{
   \"state\": \"$state\",
   \"description\": \"$desc\",
   \"context\": \"Zozich appoval\"
-}" https://api.github.com/repos/Sheptytskyid/Startup_Platform/statuses/$TRAVIS_COMMIT
+}" https://api.github.com/repos/Sheptytskyid/Startup_Platform/statuses/$TRAVIS_PULL_REQUEST_SHA
