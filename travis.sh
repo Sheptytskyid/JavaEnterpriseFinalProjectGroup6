@@ -9,3 +9,8 @@ curl -H "Authorization: token $GITHUB_TOKEN" -d "{
   \"description\": \"$desc\",
   \"context\": \"Zozich appoval\"
 }" https://api.github.com/repos/Sheptytskyid/Startup_Platform/statuses/$TRAVIS_PULL_REQUEST_SHA
+echo TRAVIS_COMMIT = $TRAVIS_COMMIT
+echo TRAVIS_PULL_REQUEST_SHA = $TRAVIS_PULL_REQUEST_SHA
+echo TRAVIS_PULL_REQUEST = $TRAVIS_PULL_REQUEST
+echo TRAVIS_PULL_REQUEST_BRANCH = $TRAVIS_PULL_REQUEST_BRANCH
+echo TRAVIS_PULL_REQUEST_SLUG = $TRAVIS_PULL_REQUEST_SLUG
