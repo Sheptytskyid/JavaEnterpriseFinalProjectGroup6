@@ -35,7 +35,7 @@
         <c:if test="${listsize == 0}">
             <div>
                 <p>No projects yet. Want to start adding them?</p>
-                <a href="${contextPath}/add_project"><button type="button" class="btn btn-success">Add a project
+                <a href="${contextPath}/project/new"><button type="button" class="btn btn-success">Add a project
                 </button></a>
             </div>
         </c:if>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="panel-body">
                         <div class="add-contact">
-                            <button type="button" class="btn btn-success"><a href="${contextPath}/add_project">Add a project</a>
+                            <button type="button" class="btn btn-success"><a href="${contextPath}/project/new">Add a project</a>
                             </button>
                         </div>
                     <table class="table table-striped">
@@ -76,8 +76,8 @@
                                 <td>${project.desc.cost}</td>
                                 <td>${project.desc.description}</td>
                                 <td>${project.desc.minInvestment}</td>
-                                <td><a href="${contextPath}/update_project?id=${project.id}"><button type="button" class="btn btn-sm btn-info">Update</button></a></td>
-                                <td><a href="${contextPath}/delete_project?id=${project.id}"><button type="button" class="btn btn-sm btn-danger">Delete</button></a></td>
+                                <td><a href="${contextPath}/project/${project.id}/update"><button type="button" class="btn btn-sm btn-info">Update</button></a></td>
+                                <td><a href="${contextPath}/project/${project.id}/delete"><button type="button" class="btn btn-sm btn-danger">Delete</button></a></td>
                             </tr>
                         </c:forEach>
                         </tbody>
