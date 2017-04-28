@@ -20,6 +20,9 @@ cache:
     - $HOME/.m2
     - $HOME/.sonar
 
+before-install:
+  - chmod +x travis.sh
+
 before-script: "./travis.sh"
 
 script:
