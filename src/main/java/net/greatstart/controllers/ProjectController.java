@@ -63,7 +63,7 @@ public class ProjectController {
             model.addAttribute("project", project);
             return "project/update_project";
         }
-        return "projects";
+        return "project/projects";
     }
 
     @RequestMapping(value = "/update_project", method = RequestMethod.POST)

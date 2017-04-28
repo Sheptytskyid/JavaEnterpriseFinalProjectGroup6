@@ -8,14 +8,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
@@ -41,12 +38,12 @@ public class ProjectControllerTest {
 
     @Test
     public void showProjects() throws Exception {
-        mockMvc.perform(get("/projects")).andExpect(view().name("projects"));
+        mockMvc.perform(get("/projects")).andExpect(view().name("project/projects"));
     }
 
     @Test
     public void getAddProjectForm() throws Exception {
-        mockMvc.perform(get("/add_project")).andExpect(view().name("add_project"));
+        mockMvc.perform(get("/add_project")).andExpect(view().name("project/add_project"));
     }
 
     @Test
@@ -55,8 +52,8 @@ public class ProjectControllerTest {
 
     @Test
     public void getUpdateProjectForm() throws Exception {
-        mockMvc.perform(get("/update_project?id=1")).andExpect(view().name("update_project"));
-        mockMvc.perform(get("/update_project?id=-1")).andExpect(view().name("projects"));
+        mockMvc.perform(get("/update_project?id=1")).andExpect(view().name("project/update_project"));
+        mockMvc.perform(get("/update_project?id=-1")).andExpect(view().name("project/projects"));
     }
 
     @Test
