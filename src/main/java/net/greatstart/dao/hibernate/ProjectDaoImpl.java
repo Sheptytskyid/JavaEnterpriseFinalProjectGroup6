@@ -2,7 +2,6 @@ package net.greatstart.dao.hibernate;
 
 import net.greatstart.dao.ProjectDao;
 import net.greatstart.model.Project;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
