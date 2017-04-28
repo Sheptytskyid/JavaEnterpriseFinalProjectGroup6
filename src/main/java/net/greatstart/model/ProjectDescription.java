@@ -14,7 +14,7 @@ public class ProjectDescription {
     private String name;
 
     @Column(name = "cost")
-    private int cost;
+    private Integer cost;
 
     @Column(name = "description")
     private String description;
@@ -26,10 +26,10 @@ public class ProjectDescription {
     private LocalDate addStart;
 
     @Column(name = "min_invest")
-    private int minInvestment;
+    private Integer minInvestment;
 
     @Column(name = "verified")
-    private boolean isVerifed;
+    private Boolean isVerified;
 
     @Column(name = "goal")
     private String goal;
