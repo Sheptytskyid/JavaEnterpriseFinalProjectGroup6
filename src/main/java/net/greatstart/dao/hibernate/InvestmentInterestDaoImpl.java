@@ -14,6 +14,7 @@ public class InvestmentInterestDaoImpl implements InvestmentInterestDao {
 
     @Autowired
     public InvestmentInterestDaoImpl(SessionFactory sessionFactory) {
+
         this.sessionFactory = sessionFactory;
     }
 
@@ -45,7 +46,6 @@ public class InvestmentInterestDaoImpl implements InvestmentInterestDao {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<InvestmentInterest> getAll() {
         return sessionFactory.getCurrentSession()
                 .createQuery("from InvestmentInterest", InvestmentInterest.class)

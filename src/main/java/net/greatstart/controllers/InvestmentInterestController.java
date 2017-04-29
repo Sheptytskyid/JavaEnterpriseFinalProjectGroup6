@@ -29,8 +29,8 @@ public class InvestmentInterestController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/investmentinterest/")
-    public ModelAndView showInvestmentsInterest(){
+    @RequestMapping("/investmentinterest/")
+    public ModelAndView showInvestmentsInterest() {
         List<InvestmentInterest> investmentInterestList = this.investmentInterestService
                 .getAllInvestmentInterest();
         ModelAndView model = new ModelAndView("investmentinterest/investmentsinterests");
@@ -39,13 +39,12 @@ public class InvestmentInterestController {
     }
 
     @RequestMapping(value = "/investmentinterest/add", method = RequestMethod.GET)
-    public ModelAndView getInvestmentInterestForm(){
+    public ModelAndView getInvestmentInterestForm() {
         ModelAndView model = new ModelAndView("investmentinterest/add_investmentinterest");
         model.addObject("investmentinterest", new InvestmentInterest());
         return model;
     }
 
-    @SuppressWarnings("unchecked")
     @RequestMapping(value = "/investmentinterest/add", method = RequestMethod.POST)
     public ModelAndView addInvestmentInterest(@Valid InvestmentInterest investmentInterest,
                                               Errors errors,
@@ -54,7 +53,7 @@ public class InvestmentInterestController {
             return new ModelAndView("investmentinterest/add_investmentinterest");
         }
         User investor = userService.getByUsername("");
-        investmentInterest.setUser(investor);
+        investmentInterest.setInvestor(investor);
         this.investmentInterestService.createInvestmentInterest(investmentInterest);
         return new ModelAndView(REDIRECT_TO_INVESTMENT_INTEREST);
     }
