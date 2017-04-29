@@ -10,6 +10,7 @@ notifications:
 
 addons:
   sonarqube:
+  organization: "group6"
     token:
       secure: JcEIXZ1aA+RIZN8qxnWaCc00sX4C4CbkxYUpwsbkPU194Fq2+cjsT4Z/d9DI8+b1/vSSxo0nZ2PoSuUgC0C9ByIy25+KH1nCzoWRyq939+B5NiEZrP9DJpYZ9pAMj0cfcNGt1+ZmQjoVuNLAl77yTeorQmS1zh7QXY3RaR+MeGC3edwBm955icXiUTJpOVbVXyOl/n1Gjw4u7ITb6z+kizHQtun4hCj5kv7xUBdFxTidD66zJQlmljFWWNx8uwUK2m5/m6TGK3e0JetmSQ8z68i7YXeUFkAlLoDI7DMqdGlHwD2O4BW4D6V96WMDeYllrXlXuJ7IXe1iFRNwGF720ASriCqzvNdBUdfZmuRPobMBfy1VXppKdyOhLYl4wYbY87wYU5hWz5u2KQ9C9QT1qk1hSC/4uOoONXCSHLpqAGyyYDy2Wy1EnWUJ0l+3N7n3/D3w4FnxsBUTOP9JqzcOP0GveqMY/Bhvt4k+G97e+YMepHb/e9hfprbWzySS0kto6nVxt08TiJeVQHSTgD93Q8t8sZKOqh9QTq5aaSoqbORtWr9dVNvu9/qvXlV+dNZ4YVGDr56eRJt26zwiDH9+gB1zLtDwFb3Sc6vAZs3XI3VwGPO849BNvamgeeor+o+KbV8UxEWX6cIp/vb3IZ+s1rmY9lnEEtnLM3vqRK49JJQ=
     github_token:
