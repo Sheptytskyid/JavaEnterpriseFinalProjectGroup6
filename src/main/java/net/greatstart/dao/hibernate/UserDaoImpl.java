@@ -2,39 +2,58 @@ package net.greatstart.dao.hibernate;
 
 import net.greatstart.dao.UserDao;
 import net.greatstart.model.User;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao {
+    private SessionFactory sessionFactory;
+
+    @Autowired
+    public UserDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
     @Override
     public boolean create(User user) {
-        return false;
+        sessionFactory.getCurrentSession()
+                .save(user);
+        return true;
     }
 
     @Override
     public boolean delete(User user) {
-        return false;
+        sessionFactory.getCurrentSession()
+                .delete(user);
+        return true;
     }
 
     @Override
     public boolean update(User user) {
-        return false;
+        sessionFactory.getCurrentSession()
+                .update(user);
+        return true;
     }
 
     @Override
     public User getByEmail(String email) {
-        return null;
+        return sessionFactory.getCurrentSession()
+                .get(User.class, email);
     }
 
     @Override
     public User getById(long id) {
-        return null;
+        return sessionFactory.getCurrentSession()
+                .get(User.class, id);
     }
 
     @Override
     public List<User> getAll() {
-        return null;
+        return sessionFactory.getCurrentSession()
+                .createQuery("from User", User.class)
+                .list();
     }
 }

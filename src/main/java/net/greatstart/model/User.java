@@ -2,16 +2,10 @@ package net.greatstart.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.ManyToOne;
-import javax.persistence.ManyToMany;
-import javax.persistence.Embedded;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Set;
 
@@ -22,9 +16,14 @@ public class User extends AbstractModel {
     @Column(name = "name")
     private String name;
 
+    @NotNull
+    @Size(min = 5, max = 35, message = "{password.size}")
     @Column(name = "password")
     private String password;
 
+    @NotNull
+    @Pattern(regexp = "|^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*"
+            + "@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message = "email.valid")
     @Column(name = "email")
     private String email;
 
