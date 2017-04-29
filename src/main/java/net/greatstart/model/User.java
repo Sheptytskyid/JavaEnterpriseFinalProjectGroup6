@@ -46,6 +46,6 @@ public class User extends AbstractModel {
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private List<Project> ownedProjects;
 
-    @OneToMany(mappedBy = "investor", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "investor", fetch = FetchType.LAZY)
     private List<InvestmentInterest> investmentInterests;
 }

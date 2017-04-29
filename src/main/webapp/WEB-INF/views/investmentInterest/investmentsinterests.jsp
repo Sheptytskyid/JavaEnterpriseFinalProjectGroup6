@@ -1,4 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -8,11 +7,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Investments Interests</title>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+
+    <title>Investments Interests</title>
+
     <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/theme.css">
@@ -28,6 +30,7 @@
             </form>
 
             <h2>Investments Interests</h2>
+
         </c:if>
 
         <c:if test="${listsize == 0}">
@@ -35,15 +38,12 @@
                 <p>No investments interests. Do you want to adding new</p>
                 <a href="${contextPath}/investmentinterest/add">
                     <button type="button" class="btn btn-success">Add an investment
-                        interest
-                    </button>
-                </a>
+                        interest</button></a>
             </div>
         </c:if>
     </div>
 
     <c:if test="${listsize > 0}">
-
         <div class="col-md-6 contacts-table">
             <div class="panel panel-success">
                 <div class="panel-heading">
@@ -53,8 +53,7 @@
                     <div class="add-contact">
                         <button type="button" class="btn btn-success"><a href="${contextPath}/investmentinterest/add">Add
                             an investment
-                            interest</a>
-                        </button>
+                            interest</a></button>
                     </div>
                     <table class="table table-striped">
                         <thead>
@@ -74,12 +73,8 @@
                                 <td>${investmentinterest.category.name}</td>
                                 <td>${investmentinterest.description}</td>
                                 <td>${investmentinterest.amountInvestment}</td>
-                                <td><a href="${contextPath}/investmentinterest/${investmentinterest.id}/update">
-                                    <button type="button" class="btn btn-sm btn-info">Update</button>
-                                </a></td>
-                                <td><a href="${contextPath}/investmentinterest/${investmentinterest.id}/delete">
-                                    <button type="button" class="btn btn-sm btn-danger">Delete</button>
-                                </a></td>
+                                <td><a href="${contextPath}/investmentinterest/${investmentinterest.id}/update"><button type="button" class="btn btn-sm btn-info">Update</button></a></td>
+                                <td><a href="${contextPath}/investmentinterest/${investmentinterest.id}/delete"><button type="button" class="btn btn-sm btn-danger">Delete</button></a></td>
                             </tr>
                         </c:forEach>
                         </tbody>
