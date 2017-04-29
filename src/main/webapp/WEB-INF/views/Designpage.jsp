@@ -120,10 +120,12 @@
                         aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
                         cillum dolore eu fugiat nulla pariatur.</p>
                     <hr>
-                    <div class="container">
-                        <div class="news">
+                    <div class="row">
+                        <div class="col-xs-6">
                             <p>min<br><i class="fa fa-dollar"></i>100000 <br></p>
-                            <p><i class="fa fa-dollar"></i>9999<br>Still needed</br></p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p>Still needed</br><i class="fa fa-dollar"></i>9999<br></p>
                         </div>
                     </div>
                 </div>
@@ -144,40 +146,12 @@
                         aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
                         cillum dolore eu fugiat nulla pariatur.</p>
                     <hr>
-                    <div class="container">
-                        <div class="news">
+                    <div class="row">
+                        <div class="col-xs-6">
                             <p>min<br><i class="fa fa-dollar"></i>100000 <br></p>
-                            <p><i class="fa fa-dollar"></i>9999<br>Still needed</br></p>
                         </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="item">
-            <div class="thumbnail">
-                <div class="caption centered">
-                    <a href="#"><h3>Project name</h3></a>
-                </div>
-                <a href="#"><img src="http://placehold.it/600x340" alt="" class="img-responsive"></a>
-                <div class="caption">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore
-                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-                        ut
-                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore
-                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-                        ut
-                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur.</p>
-                    <hr>
-                    <div class="container">
-                        <div class="news">
-                            <p>min<br><i class="fa fa-dollar"></i>100000 <br></p>
-                            <p><i class="fa fa-dollar"></i>9999<br>Still needed</br></p>
+                        <div class="col-xs-6">
+                            <p>Still needed</br><i class="fa fa-dollar"></i>9999<br></p>
                         </div>
                     </div>
                 </div>
@@ -197,19 +171,43 @@
                         aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
                         cillum dolore eu fugiat nulla pariatur.</p>
                     <hr>
-                    <div class="container">
-                        <div class="news">
+                    <div class="row">
+                        <div class="col-xs-6">
                             <p>min<br><i class="fa fa-dollar"></i>100000 <br></p>
-                            <p><i class="fa fa-dollar"></i>9999<br>Still needed</br></p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p>Still needed</br><i class="fa fa-dollar"></i>9999<br></p>
                         </div>
                     </div>
-
                 </div>
-
+            </div>
+        </div>
+        <div class="item">
+            <div class="thumbnail">
+                <div class="caption centered">
+                    <a href="#"><h3>Project name</h3></a>
+                </div>
+                <a href="#"><img src="http://placehold.it/600x340" alt="" class="img-responsive"></a>
+                <div class="caption">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore
+                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                        ut
+                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        cillum dolore eu fugiat nulla pariatur.</p>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <p>min<br><i class="fa fa-dollar"></i>100000 <br></p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p>Still needed</br><i class="fa fa-dollar"></i>9999<br></p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
 </div>
 <div class="container">
     <div class="row">
@@ -229,9 +227,11 @@
                 <div class="caption">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                         labore
-                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                        nisi
                         ut
-                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+                        esse
                         cillum dolore eu fugiat nulla pariatur.</p>
                     <span><a class="btn btn-success btn-block btn-md" href="#">I will go on</a></span>
                 </div>
@@ -247,9 +247,11 @@
                 <div class="caption">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                         labore
-                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                        nisi
                         ut
-                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+                        esse
                         cillum dolore eu fugiat nulla pariatur.</p>
                     <span><a class="btn btn-success btn-block btn-md" href="#">I will go on</a></span>
 
@@ -266,9 +268,11 @@
                 <div class="caption">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                         labore
-                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                        nisi
                         ut
-                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+                        esse
                         cillum dolore eu fugiat nulla pariatur.</p>
                     <span><a class="btn btn-success btn-block btn-md" href="#">I will go on</a></span>
                 </div>
@@ -330,7 +334,7 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.js"></script>
-<script src="js/salvattore.min.js"></script>
+<script src="${contextPath}/resources/js/bootstrap.js"></script>
+<script src="${contextPath}/resources/js/salvattore.min.js"></script>
 </body>
 </html>
