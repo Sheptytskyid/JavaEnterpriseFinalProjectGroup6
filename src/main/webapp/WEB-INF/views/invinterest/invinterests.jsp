@@ -21,7 +21,7 @@
 
 </head>
 <body>
-<c:set var="listsize" value="${fn:length(investmentInterestList)}"/>
+<c:set var="listsize" value="${fn:length(inv_interest_list)}"/>
 <div class="container">
     <div class="jumbotron">
         <c:if test="${pageContext.request.userPrincipal.name != null}">
@@ -35,10 +35,12 @@
 
         <c:if test="${listsize == 0}">
             <div>
-                <p>No investments interests. Do you want to adding new</p>
-                <a href="${contextPath}/investmentinterest/add">
+                <p>No investments interests. Do you want to adding new?</p>
+                <a href="${contextPath}/invinterest/add">
                     <button type="button" class="btn btn-success">Add an investment
-                        interest</button></a>
+                        interest
+                    </button>
+                </a>
             </div>
         </c:if>
     </div>
@@ -51,7 +53,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="add-contact">
-                        <button type="button" class="btn btn-success"><a href="${contextPath}/investmentinterest/add">Add
+                        <button type="button" class="btn btn-success"><a href="${contextPath}/invinterest/add">Add
                             an investment
                             interest</a></button>
                     </div>
@@ -66,15 +68,19 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach items="${investmentInterestList}" var="investmentinterest">
+                        <c:forEach items="${inv_interest_list}" var="invinterest">
                             <tr>
-                                <td>${investmentinterest.id}</td>
-                                <td>${investmentinterest.investmentGoal}</td>
-                                <td>${investmentinterest.category.name}</td>
-                                <td>${investmentinterest.description}</td>
-                                <td>${investmentinterest.amountInvestment}</td>
-                                <td><a href="${contextPath}/investmentinterest/${investmentinterest.id}/update"><button type="button" class="btn btn-sm btn-info">Update</button></a></td>
-                                <td><a href="${contextPath}/investmentinterest/${investmentinterest.id}/delete"><button type="button" class="btn btn-sm btn-danger">Delete</button></a></td>
+                                <td>${invinterest.id}</td>
+                                <td>${invinterest.investmentGoal}</td>
+                                <td>${invinterest.category.name}</td>
+                                <td>${invinterest.description}</td>
+                                <td>${invinterest.amountInvestment}</td>
+                                <td><a href="${contextPath}/invinterest/${invinterest.id}/update">
+                                    <button type="button" class="btn btn-sm btn-info">Update</button>
+                                </a></td>
+                                <td><a href="${contextPath}/invinterest/${invinterest.id}/delete">
+                                    <button type="button" class="btn btn-sm btn-danger">Delete</button>
+                                </a></td>
                             </tr>
                         </c:forEach>
                         </tbody>

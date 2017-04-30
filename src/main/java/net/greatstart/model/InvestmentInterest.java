@@ -11,20 +11,20 @@ import java.math.BigDecimal;
 @Table(name = "investment_interests")
 public class InvestmentInterest extends AbstractModel {
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "goal")
-    private InvestmentGoal investmentGoal;
+    private String investmentGoal;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @Column(name = "description")
     private String description;
 
-    @Column(name = "cost")
+    @Column(name = "sum")
     private BigDecimal amountInvestment;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User investor;
 }
