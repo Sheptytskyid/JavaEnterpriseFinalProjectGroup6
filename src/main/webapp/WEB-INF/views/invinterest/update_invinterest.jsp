@@ -26,24 +26,18 @@
 <body>
 <div class="container">
 
-    <form:form method="POST" modelAttribute="investmentinterest" class="form-signin">
+    <form:form method="POST" modelAttribute="invinterest" class="form-signin">
         <h2 class="form-signin-heading">Add an Investment Interest</h2>
         <spring:bind path="investmentGoal">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:select type="text" path="investmentGoal" class="form-control" placeholder="Investment goal"
                              autofocus="true">
-                    <form:option value="InvestmentGoal.STARTUP">Start-ups and investment projects</form:option>
-                    <form:option value="InvestmentGoal.VENTURE">Venture loans to business</form:option>
-                    <form:option value="InvestmentGoal.BUSINESS_ACQUISITION">Business acquisition</form:option>
+                    <form:option
+                            value="Start-ups and investment projects">Start-ups and investment projects</form:option>
+                    <form:option value="Venture loans to business">Venture loans to business</form:option>
+                    <form:option value="Business acquisition">Business acquisition</form:option>
                 </form:select>
                 <form:errors path="investmentGoal"></form:errors>
-            </div>
-        </spring:bind>
-
-        <spring:bind path="category.name">
-            <div class="form-group">
-                <form:textarea type="text" path="category.name" class="form-control"
-                               placeholder="Category"></form:textarea>
             </div>
         </spring:bind>
 
@@ -51,6 +45,13 @@
             <div class="form-group">
                 <form:textarea type="text" path="description" class="form-control"
                                placeholder="Description"></form:textarea>
+            </div>
+        </spring:bind>
+
+        <spring:bind path="category.name">
+            <div class="form-group">
+                <form:textarea type="text" path="category.name" class="form-control"
+                               placeholder="Category"></form:textarea>
             </div>
         </spring:bind>
 

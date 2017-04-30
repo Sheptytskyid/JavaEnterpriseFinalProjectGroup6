@@ -18,7 +18,7 @@ import java.util.List;
 
 @Controller
 public class InvestmentInterestController {
-    private static final String REDIRECT_TO_INVESTMENT_INTEREST = "redirect:/investmentinterest/";
+    private static final String REDIRECT_TO_INVESTMENT_INTEREST = "redirect:/invinterest/";
 
     private InvestmentInterestService investmentInterestService;
     private UserService userService;
@@ -29,28 +29,28 @@ public class InvestmentInterestController {
         this.userService = userService;
     }
 
-    @RequestMapping("/investmentinterest/")
+    @RequestMapping("/invinterest")
     public ModelAndView showInvestmentsInterest() {
         List<InvestmentInterest> investmentInterestList = this.investmentInterestService
                 .getAllInvestmentInterest();
-        ModelAndView model = new ModelAndView("investmentinterest/investmentsinterests");
-        model.addObject(investmentInterestList);
+        ModelAndView model = new ModelAndView("invinterest/invinterests");
+        model.addObject("inv_interest_list", investmentInterestList);
         return model;
     }
 
-    @RequestMapping(value = "/investmentinterest/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/invinterest/add", method = RequestMethod.GET)
     public ModelAndView getInvestmentInterestForm() {
-        ModelAndView model = new ModelAndView("investmentinterest/add_investmentinterest");
-        model.addObject("investmentinterest", new InvestmentInterest());
+        ModelAndView model = new ModelAndView("invinterest/add_invinterest");
+        model.addObject("invinterest", new InvestmentInterest());
         return model;
     }
 
-    @RequestMapping(value = "/investmentinterest/add", method = RequestMethod.POST)
-    public ModelAndView addInvestmentInterest(@Valid InvestmentInterest investmentInterest,
+    @RequestMapping(value = "/invinterest/add", method = RequestMethod.POST)
+    public ModelAndView addInvestmentInterest(InvestmentInterest investmentInterest,
                                               Errors errors,
                                               Principal principal) {
         if (errors.hasErrors()) {
-            return new ModelAndView("investmentinterest/add_investmentinterest");
+            return new ModelAndView("invinterest/add_invinterest");
         }
         User investor = userService.getByUsername("");
         investmentInterest.setInvestor(investor);
@@ -58,28 +58,28 @@ public class InvestmentInterestController {
         return new ModelAndView(REDIRECT_TO_INVESTMENT_INTEREST);
     }
 
-    @RequestMapping(value = "investmentinterest/{id}/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/invinterest/{id}/delete", method = RequestMethod.GET)
     public ModelAndView deleteInvestmentInterest(@PathVariable("id") Long id) {
         this.investmentInterestService.deleteInvestmentInterest(id);
         return new ModelAndView(REDIRECT_TO_INVESTMENT_INTEREST);
     }
 
-    @RequestMapping(value = "investmentinterest/{id}/update", method = RequestMethod.GET)
+    @RequestMapping(value = "/invinterest/{id}/update", method = RequestMethod.GET)
     public ModelAndView getUpdateFormInvestmentInterest(@PathVariable("id") Long id) {
         if (id > 0) {
-            ModelAndView model = new ModelAndView("investmentinterest/update_investmentinterest");
+            ModelAndView model = new ModelAndView("invinterest/update_invinterest");
             InvestmentInterest investmentInterest = this.investmentInterestService.getInvestmentInterestById(id);
-            model.addObject("investmentInterest", investmentInterest);
+            model.addObject("invinterest", investmentInterest);
             return model;
         }
-        return new ModelAndView("investmentinterest/investmentsinterests");
+        return new ModelAndView("invinterest/invinterests");
     }
 
-    @RequestMapping(value = "investmentinterest/{id}/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/invinterest/{id}/update", method = RequestMethod.POST)
     public ModelAndView updateInvestmentInterest(@PathVariable("id") Long id, @Valid InvestmentInterest investmentInterest,
                                                  Errors errors) {
         if (errors.hasErrors()) {
-            return new ModelAndView("investmentinterest/update_investmentinterest");
+            return new ModelAndView("investinterest/update_invinterest");
         }
         this.investmentInterestService.updateInvestmentInterest(investmentInterest);
         return new ModelAndView(REDIRECT_TO_INVESTMENT_INTEREST);
