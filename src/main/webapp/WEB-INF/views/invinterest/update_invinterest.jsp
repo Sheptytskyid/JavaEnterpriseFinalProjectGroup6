@@ -50,8 +50,8 @@
 
         <spring:bind path="category.name">
             <div class="form-group">
-                <form:textarea type="text" path="category.name" class="form-control"
-                               placeholder="Category"></form:textarea>
+                <form:input type="text" path="category.name" class="form-control"
+                               placeholder="Category"></form:input>
             </div>
         </spring:bind>
 
