@@ -15,10 +15,12 @@ public class LoginController {
         model.addObject(new DtoUser());
         // TODO localization
         if (error != null) {
-            model.addObject("error", "Username or password is incorrect");
+            model.addObject("error",
+                    "Username or password is incorrect");
         }
         if (logout != null) {
-            model.addObject("message", "Logged out successfully");
+            model.addObject("message",
+                    "Logged out successfully");
         }
         return model;
     }

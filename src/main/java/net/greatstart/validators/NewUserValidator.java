@@ -13,7 +13,6 @@ public class NewUserValidator {
                         "user.exists",
                         "A user with such email already exists");
             }
-
             if (!user.getPassword().equals(user.getConfirmPassword())) {
                 errors.rejectValue("confirmPassword",
                         "passwords.do.not.match",
