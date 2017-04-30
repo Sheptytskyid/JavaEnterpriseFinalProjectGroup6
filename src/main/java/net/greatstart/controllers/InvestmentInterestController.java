@@ -52,6 +52,7 @@ public class InvestmentInterestController {
         if (errors.hasErrors()) {
             return new ModelAndView("invinterest/add_invinterest");
         }
+        // TODO: get authenticated user once user authorization is ready
         User investor = userService.getByUsername("");
         investmentInterest.setInvestor(investor);
         this.investmentInterestService.createInvestmentInterest(investmentInterest);
