@@ -51,8 +51,7 @@ public class ProjectController {
         if (errors.hasErrors()) {
             return new ModelAndView("project/add_project");
         }
-        // TODO: get authenticated user once user authorization is ready
-        User owner = userService.getByUsername("");
+        User owner = userService.getUserByEmail(principal.getName());
         project.setOwner(owner);
         projectService.createProject(project);
         return new ModelAndView(REDIRECT_TO_PROJECTS);

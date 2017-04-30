@@ -1,15 +1,12 @@
 package net.greatstart.model;
 
 
-import lombok.Data;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.Set;
 
-@Data
 @Entity
 @Table(name = "roles")
 public class Role extends AbstractModel {
@@ -19,4 +16,13 @@ public class Role extends AbstractModel {
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 
+    public Role() {}
+
+    public Role(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

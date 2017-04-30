@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
@@ -22,16 +23,25 @@
 <c:set var="listsize" value="${fn:length(projectList)}"/>
 <div class="container">
     <div class="jumbotron">
-        <c:if test="${pageContext.request.userPrincipal.name != null}">
+        <sec:authorize access="isAuthenticated()">
             <form id="logoutForm" method="POST" action="${contextPath}/logout">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             </form>
 
-            <h2>Projects
+            <h2>Welcome ${pageContext.request.userPrincipal.name} |
+                <a onclick="document.forms['logoutForm'].submit()">Logout</a>
             </h2>
 
-        </c:if>
+        </sec:authorize>
+        <sec:authorize access="isAnonymous()">
+            <h2>Projects
+            </h2>
+            <div>
+                <a href="${contextPath}/user/login">Log in</a> to add and edit projects
+            </div>
+        </sec:authorize>
 
+        <sec:authorize access="isAuthenticated()">
         <c:if test="${listsize == 0}">
             <div>
                 <p>No projects yet. Want to start adding them?</p>
@@ -39,6 +49,7 @@
                 </button></a>
             </div>
         </c:if>
+        </sec:authorize>
     </div>
 
     <c:if test="${listsize > 0}">
@@ -48,10 +59,12 @@
                     <h3 class="panel-title">Projects</h3>
                 </div>
                 <div class="panel-body">
+                    <sec:authorize access="isAuthenticated()">
                         <div class="add-contact">
-                            <button type="button" class="btn btn-success"><a href="${contextPath}/project/new">Add a project</a>
-                            </button>
+                            <a href="${contextPath}/project/new"><button type="button" class="btn btn-success">Add a project
+                            </button></a>
                         </div>
+                    </sec:authorize>
                     <table class="table table-striped">
                         <thead>
                         <tr>
@@ -62,8 +75,10 @@
                             <th>Cost</th>
                             <th>Description</th>
                             <th>Min. investment</th>
-                            <th>Update</th>
-                            <th>Delete</th>
+                            <sec:authorize access="isAuthenticated()">
+                                <th>Update</th>
+                                <th>Delete</th>
+                            </sec:authorize>
                         </tr>
                         </thead>
                         <tbody>
@@ -76,8 +91,10 @@
                                 <td>${project.desc.cost}</td>
                                 <td>${project.desc.description}</td>
                                 <td>${project.desc.minInvestment}</td>
-                                <td><a href="${contextPath}/project/${project.id}/update"><button type="button" class="btn btn-sm btn-info">Update</button></a></td>
-                                <td><a href="${contextPath}/project/${project.id}/delete"><button type="button" class="btn btn-sm btn-danger">Delete</button></a></td>
+                                <sec:authorize access="isAuthenticated()">
+                                    <td><a href="${contextPath}/project/${project.id}/update"><button type="button" class="btn btn-sm btn-info">Update</button></a></td>
+                                    <td><a href="${contextPath}/project/${project.id}/delete"><button type="button" class="btn btn-sm btn-danger">Delete</button></a></td>
+                                </sec:authorize>
                             </tr>
                         </c:forEach>
                         </tbody>

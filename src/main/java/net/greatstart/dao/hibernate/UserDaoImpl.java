@@ -40,8 +40,14 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getByEmail(String email) {
-        return sessionFactory.getCurrentSession()
-                .get(User.class, email);
+        List<User> users = sessionFactory.getCurrentSession()
+                .createQuery("from User where email = :email", User.class)
+                .setParameter("email", email)
+                .getResultList();
+        if (users.size() > 0) {
+            return users.get(0);
+        }
+        return null;
     }
 
     @Override
