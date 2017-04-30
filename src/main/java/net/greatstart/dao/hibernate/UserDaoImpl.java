@@ -44,7 +44,7 @@ public class UserDaoImpl implements UserDao {
                 .createQuery("from User where email = :email", User.class)
                 .setParameter("email", email)
                 .getResultList();
-        if (users.size() > 0) {
+        if (!users.isEmpty()) {
             return users.get(0);
         }
         return null;

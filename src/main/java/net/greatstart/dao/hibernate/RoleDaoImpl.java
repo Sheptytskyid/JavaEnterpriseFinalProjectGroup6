@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -40,7 +41,7 @@ public class RoleDaoImpl implements RoleDao {
 
     @Override
     public List<Role> getAll() {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
