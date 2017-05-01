@@ -54,6 +54,12 @@ public class ProjectControllerTest {
     }
 
     @Test
+    public void showMyProjects() throws Exception {
+        mockMvc.perform(get("/project/my").principal(principal)).andExpect(view().name("project/projects"));
+        verify(projectService).getAllProjectsOfUser(USERNAME);
+    }
+
+    @Test
     public void getAddProjectForm() throws Exception {
         mockMvc.perform(get("/project/new")).andExpect(view().name("project/add_project"));
     }
