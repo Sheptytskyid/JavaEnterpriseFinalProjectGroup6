@@ -41,7 +41,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getByEmail(String email) {
         List<User> users = sessionFactory.getCurrentSession()
-                .createQuery("from User where email = :email", User.class)
+                .createQuery("from User where email = :email")
                 .setParameter("email", email)
                 .getResultList();
         if (!users.isEmpty()) {
@@ -59,7 +59,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<User> getAll() {
         return sessionFactory.getCurrentSession()
-                .createQuery("from User", User.class)
+                .createQuery("from User")
                 .list();
     }
 }
