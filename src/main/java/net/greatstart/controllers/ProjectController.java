@@ -31,7 +31,7 @@ public class ProjectController {
         this.userService = userService;
     }
 
-    @RequestMapping("/")
+    @RequestMapping({"", "/"})
     public ModelAndView showProjects() {
         List<Project> projectList = projectService.getAllProjects();
         ModelAndView model = new ModelAndView(PROJECTS);
