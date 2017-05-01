@@ -20,6 +20,7 @@ import java.util.List;
 @RequestMapping("/project")
 public class ProjectController {
     private static final String REDIRECT_TO_PROJECTS = "redirect:/project/";
+    public static final String PROJECTS = "project/projects";
 
     private ProjectService projectService;
     private UserService userService;
@@ -33,7 +34,7 @@ public class ProjectController {
     @RequestMapping("/")
     public ModelAndView showProjects() {
         List<Project> projectList = projectService.getAllProjects();
-        ModelAndView model = new ModelAndView("project/projects");
+        ModelAndView model = new ModelAndView(PROJECTS);
         model.addObject(projectList);
         model.addObject("listTitle", "All projects");
         return model;
@@ -42,7 +43,7 @@ public class ProjectController {
     @RequestMapping(value = "/my", method = RequestMethod.GET)
     public ModelAndView showMyProjects(Principal principal) {
         List<Project> projectList = projectService.getAllProjectsOfUser(principal.getName());
-        ModelAndView model = new ModelAndView("project/projects");
+        ModelAndView model = new ModelAndView(PROJECTS);
         model.addObject(projectList);
         model.addObject("listTitle", "My projects");
         return model;
@@ -76,7 +77,7 @@ public class ProjectController {
             model.addObject("project", project);
             return model;
         }
-        return new ModelAndView("project/projects");
+        return new ModelAndView(PROJECTS);
     }
 
     @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
