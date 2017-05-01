@@ -100,11 +100,9 @@ CREATE TABLE IF NOT EXISTS startup_platform.users_roles (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS startup_platform.investment_interests (
   id          INT     NOT NULL,
-  user_id     BIGINT  NULL,
+  user_id     BIGINT  NOT NULL,
   category_id INT     NULL,
   sum         DECIMAL NULL,
-  description VARCHAR NOT NULL,
-  goal        VARCHAR NOT NULL,
   PRIMARY KEY (id),
   CONSTRAINT INVESTOR_INTEREST_FK
   FOREIGN KEY (user_id)
