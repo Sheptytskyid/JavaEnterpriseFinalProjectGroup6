@@ -34,7 +34,7 @@
 
         </sec:authorize>
         <sec:authorize access="isAnonymous()">
-            <h2>Projects
+            <h2>All projects
             </h2>
             <div>
                 <a href="${contextPath}/user/login">Log in</a> to add and edit projects
@@ -56,7 +56,7 @@
         <div class="col-md-6 contacts-table">
             <div class="panel panel-success">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Projects</h3>
+                    <h3 class="panel-title"><c:out value="${listTitle}"/></h3>
                 </div>
                 <div class="panel-body">
                     <sec:authorize access="isAuthenticated()">

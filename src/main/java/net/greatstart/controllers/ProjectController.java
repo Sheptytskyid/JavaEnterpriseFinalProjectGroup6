@@ -17,6 +17,7 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
+@RequestMapping("/project")
 public class ProjectController {
     private static final String REDIRECT_TO_PROJECTS = "redirect:/project/";
 
@@ -29,22 +30,32 @@ public class ProjectController {
         this.userService = userService;
     }
 
-    @RequestMapping("/project/")
+    @RequestMapping("/")
     public ModelAndView showProjects() {
         List<Project> projectList = projectService.getAllProjects();
         ModelAndView model = new ModelAndView("project/projects");
         model.addObject(projectList);
+        model.addObject("listTitle", "All projects");
         return model;
     }
 
-    @RequestMapping(value = "/project/new", method = RequestMethod.GET)
+    @RequestMapping(value = "/my", method = RequestMethod.GET)
+    public ModelAndView showMyProjects(Principal principal) {
+        List<Project> projectList = projectService.getAllProjectsOfUser(principal.getName());
+        ModelAndView model = new ModelAndView("project/projects");
+        model.addObject(projectList);
+        model.addObject("listTitle", "My projects");
+        return model;
+    }
+
+    @RequestMapping(value = "/new", method = RequestMethod.GET)
     public ModelAndView getAddProjectForm() {
         ModelAndView model = new ModelAndView("project/add_project");
         model.addObject("project", new Project());
         return model;
     }
 
-    @RequestMapping(value = "/project/new", method = RequestMethod.POST)
+    @RequestMapping(value = "/new", method = RequestMethod.POST)
     public ModelAndView addProject(Project project,
                              Errors errors,
                              Principal principal) {
@@ -57,7 +68,7 @@ public class ProjectController {
         return new ModelAndView(REDIRECT_TO_PROJECTS);
     }
 
-    @RequestMapping(value = "/project/{id}/update", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/update", method = RequestMethod.GET)
     public ModelAndView getUpdateProjectForm(@PathVariable("id") Long id) {
         if (id > 0) {
             ModelAndView model = new ModelAndView("project/update_project");
@@ -68,7 +79,7 @@ public class ProjectController {
         return new ModelAndView("project/projects");
     }
 
-    @RequestMapping(value = "/project/{id}/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
     public ModelAndView updateProject(@PathVariable Long id, @Valid Project project, Errors errors) {
         if (errors.hasErrors()) {
             return new ModelAndView("project/update_project");
@@ -77,7 +88,7 @@ public class ProjectController {
         return new ModelAndView(REDIRECT_TO_PROJECTS);
     }
 
-    @RequestMapping(value = "/project/{id}/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
     public ModelAndView deleteProject(@PathVariable("id") Long id) {
         projectService.deleteProject(id);
         return new ModelAndView(REDIRECT_TO_PROJECTS);
