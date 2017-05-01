@@ -3,6 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +23,9 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 
 </head>
+
 <body>
+
 <div class="container">
 
     <form:form method="POST" modelAttribute="invinterest" class="form-signin">
@@ -42,8 +45,7 @@
 
         <spring:bind path="description">
             <div class="form-group">
-                <form:textarea type="text" path="description" class="form-control"
-                               placeholder="Description"></form:textarea>
+                <form:textarea type="text" path="description" class="form-control" placeholder="Description"></form:textarea>
             </div>
         </spring:bind>
 
@@ -65,6 +67,7 @@
     </form:form>
 
 </div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>

@@ -36,11 +36,8 @@
         <c:if test="${listsize == 0}">
             <div>
                 <p>No investments interests. Do you want to adding new?</p>
-                <a href="${contextPath}/invinterest/add">
-                    <button type="button" class="btn btn-success">Add an investment
-                        interest
-                    </button>
-                </a>
+                <a href="${contextPath}/invinterest/add"><button type="button" class="btn btn-success">Add an investment interest
+                </button></a>
             </div>
         </c:if>
     </div>
@@ -53,9 +50,8 @@
                 </div>
                 <div class="panel-body">
                     <div class="add-contact">
-                        <button type="button" class="btn btn-success"><a href="${contextPath}/invinterest/add">Add
-                            an investment
-                            interest</a></button>
+                        <button type="button" class="btn btn-success"><a href="${contextPath}/invinterest/add">Add an investment interest</a>
+                        </button>
                     </div>
                     <table class="table table-striped">
                         <thead>
@@ -75,12 +71,8 @@
                                 <td>${invinterest.category.name}</td>
                                 <td>${invinterest.description}</td>
                                 <td>${invinterest.amountInvestment}</td>
-                                <td><a href="${contextPath}/invinterest/${invinterest.id}/update">
-                                    <button type="button" class="btn btn-sm btn-info">Update</button>
-                                </a></td>
-                                <td><a href="${contextPath}/invinterest/${invinterest.id}/delete">
-                                    <button type="button" class="btn btn-sm btn-danger">Delete</button>
-                                </a></td>
+                                <td><a href="${contextPath}/invinterest/${invinterest.id}/update"><button type="button" class="btn btn-sm btn-info">Update</button></a></td>
+                                <td><a href="${contextPath}/invinterest/${invinterest.id}/delete"><button type="button" class="btn btn-sm btn-danger">Delete</button></a></td>
                             </tr>
                         </c:forEach>
                         </tbody>
@@ -89,6 +81,7 @@
             </div>
         </div>
     </c:if>
+
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
