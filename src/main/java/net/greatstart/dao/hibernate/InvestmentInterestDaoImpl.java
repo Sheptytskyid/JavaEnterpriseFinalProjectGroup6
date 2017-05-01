@@ -48,7 +48,7 @@ public class InvestmentInterestDaoImpl implements InvestmentInterestDao {
     @Override
     public List<InvestmentInterest> getAll() {
         return sessionFactory.getCurrentSession()
-                .createQuery("from InvestmentInterest", InvestmentInterest.class)
+                .createQuery("from InvestmentInterest")
                 .list();
     }
 }
