@@ -10,7 +10,7 @@ public class NewUserValidator {
 
     public static void validate(DtoUser user, Errors errors, UserService userService) {
         if (user != null) {
-            if (userService.getUserByEmail(user.getUsername()) != null) {
+            if (userService.getUserByEmail(user.getEmail()) != null) {
                 errors.rejectValue("email",
                         "user.exists",
                         "A user with such email already exists");

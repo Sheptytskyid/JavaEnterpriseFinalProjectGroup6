@@ -45,8 +45,8 @@ public class RegistrationController {
         if (errors.hasErrors()) {
             return new ModelAndView(REGISTRATION_PAGE);
         }
-        userService.createUser(user.getUsername(), passwordEncoder.encode(user.getPassword()));
-        securityService.autoLogin(user.getUsername(), user.getPassword());
+        userService.createUser(user.getEmail(), passwordEncoder.encode(user.getPassword()));
+        securityService.autoLogin(user.getEmail(), user.getPassword());
         return new ModelAndView("redirect:/");
     }
 }

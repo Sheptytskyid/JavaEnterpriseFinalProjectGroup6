@@ -34,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/user/login")
+                .usernameParameter("email")
                 .defaultSuccessUrl("/project/")
                 .and()
                 .logout()
@@ -41,9 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .rememberMe()
                 .key("greatStartKey")
-                .rememberMeParameter("remember-me")
-                .and()
-                .httpBasic();
+                .rememberMeParameter("remember-me");
     }
 
     @Bean
