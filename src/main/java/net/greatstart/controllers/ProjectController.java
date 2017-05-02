@@ -7,9 +7,10 @@ import net.greatstart.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -40,7 +41,7 @@ public class ProjectController {
         return model;
     }
 
-    @RequestMapping(value = "/my", method = RequestMethod.GET)
+    @GetMapping(value = "/my")
     public ModelAndView showMyProjects(Principal principal) {
         List<Project> projectList = projectService.getAllProjectsOfUser(principal.getName());
         ModelAndView model = new ModelAndView(PROJECTS);
@@ -49,14 +50,14 @@ public class ProjectController {
         return model;
     }
 
-    @RequestMapping(value = "/new", method = RequestMethod.GET)
+    @GetMapping(value = "/new")
     public ModelAndView getAddProjectForm() {
         ModelAndView model = new ModelAndView("project/add_project");
         model.addObject("project", new Project());
         return model;
     }
 
-    @RequestMapping(value = "/new", method = RequestMethod.POST)
+    @PostMapping(value = "/new")
     public ModelAndView addProject(Project project,
                              Errors errors,
                              Principal principal) {
@@ -69,7 +70,7 @@ public class ProjectController {
         return new ModelAndView(REDIRECT_TO_PROJECTS);
     }
 
-    @RequestMapping(value = "/{id}/update", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}/update")
     public ModelAndView getUpdateProjectForm(@PathVariable("id") Long id) {
         if (id > 0) {
             ModelAndView model = new ModelAndView("project/update_project");
@@ -80,7 +81,7 @@ public class ProjectController {
         return new ModelAndView(PROJECTS);
     }
 
-    @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
+    @PostMapping(value = "/{id}/update")
     public ModelAndView updateProject(@PathVariable Long id, @Valid Project project, Errors errors) {
         if (errors.hasErrors()) {
             return new ModelAndView("project/update_project");
@@ -89,7 +90,7 @@ public class ProjectController {
         return new ModelAndView(REDIRECT_TO_PROJECTS);
     }
 
-    @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}/delete")
     public ModelAndView deleteProject(@PathVariable("id") Long id) {
         projectService.deleteProject(id);
         return new ModelAndView(REDIRECT_TO_PROJECTS);

@@ -3,14 +3,15 @@ package net.greatstart.controllers;
 import net.greatstart.dto.DtoUser;
 import net.greatstart.services.SecurityService;
 import net.greatstart.services.UserService;
-import net.greatstart.validators.NewUserValidator;
+import net.greatstart.validators.UserValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -32,16 +33,16 @@ public class RegistrationController {
 
     private static final String REGISTRATION_PAGE = "login/registration";
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public ModelAndView register() {
         ModelAndView model = new ModelAndView(REGISTRATION_PAGE);
         model.addObject("userForm", new DtoUser());
         return model;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public ModelAndView processRegistration(@Valid @ModelAttribute("userForm") DtoUser user, Errors errors) {
-        NewUserValidator.validate(user, errors, userService);
+        UserValidationService.validate(user, errors, userService);
         if (errors.hasErrors()) {
             return new ModelAndView(REGISTRATION_PAGE);
         }

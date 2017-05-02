@@ -35,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/user/login")
                 .usernameParameter("email")
+                // TODO: change the routing when home page is ready
                 .defaultSuccessUrl("/project/")
                 .and()
                 .logout()

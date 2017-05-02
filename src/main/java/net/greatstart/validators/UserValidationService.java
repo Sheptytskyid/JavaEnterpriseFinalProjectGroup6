@@ -4,9 +4,9 @@ import net.greatstart.dto.DtoUser;
 import net.greatstart.services.UserService;
 import org.springframework.validation.Errors;
 
-public class NewUserValidator {
+public class UserValidationService {
 
-    private NewUserValidator(){}
+    private UserValidationService(){}
 
     public static void validate(DtoUser user, Errors errors, UserService userService) {
         if (user != null) {
