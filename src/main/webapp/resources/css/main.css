@@ -1,0 +1,274 @@
+@import url('https://fonts.googleapis.com/css?family=Bitter|Lato');
+
+body {
+    background-color: #edf4ff;
+    font-family: "Lato";
+    font-weight: 300;
+    font-size: 16px;
+    color: #555;
+
+    -webkit-font-smoothing: antialiased;
+    -webkit-overflow-scrolling: touch;
+
+    margin-top: 70px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Bitter";
+    font-weight: 300;
+    color: #333;
+}
+
+p {
+    line-height: 28px;
+    margin-bottom: 25px;
+}
+
+.centered {
+    text-align: center;
+}
+
+a {
+    color: #006400;
+}
+
+a:hover, a:focus {
+    color: #7b7b7b;
+    text-decoration: none;
+    outline: 0;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+.navbar {
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.navbar-default {
+    background-color: #108d19;
+    border-color: #89d68c;
+}
+
+.navbar-default .navbar-brand {
+    color: #ffffff;
+    font-weight: bolder;
+    font-size: 22px;
+    letter-spacing: 1px;
+}
+
+.header-wrap {
+    background: url(../img/lamp1.png) no-repeat center top;
+    margin-top: -10px;
+    padding-top: 20px;
+    text-align: center;
+    background-attachment: relative;
+    min-height: 500px;
+    width: 100%;
+
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
+.price-box{
+    background: #dec942;
+}
+
+
+.right-box{
+    margin-left: 40%;
+}
+
+.title {
+    margin-top: 100px;
+    color: #333;
+    font-size: 70px;
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+
+.under-title {
+    color: #333;
+    font-size: 40px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.column-wrap {
+    padding-top: 30px;
+}
+
+.column-wrap h4 {
+    font-size: 25px;
+}
+
+.footer {
+    background: #108d19;
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
+
+.footer i {
+    color: white;
+    font-size: 30px;
+    padding: 20px;
+}
+
+.footer i:hover {
+    color: #003a0f;
+}
+
+.gi-2x {
+    font-size: 2em;
+}
+
+.gi-3x {
+    font-size: 3em;
+}
+
+.gi-4x {
+    font-size: 4em;
+}
+
+.gi-5x {
+    font-size: 5em;
+}
+
+.nav-tabs {
+    margin-bottom: 15px;
+}
+
+/*****************************************************************/
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    color: #003a0f;
+}
+
+.navbar-default .navbar-text {
+    color: #ffffff;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #ffffff;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: #003a0f;
+}
+
+.navbar-default .navbar-nav > li > .dropdown-menu {
+    background-color: #108d19;
+}
+
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a {
+    color: #ffffff;
+}
+
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a:hover,
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a:focus {
+    color: #003a0f;
+    background-color: #89d68c;
+}
+
+.navbar-default .navbar-nav > li > .dropdown-menu > li > .divider {
+    background-color: #89d68c;
+}
+
+.navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+.navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+.navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #003a0f;
+    background-color: #89d68c;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #003a0f;
+    background-color: #89d68c;
+}
+
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+    color: #003a0f;
+    background-color: #89d68c;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: #89d68c;
+}
+
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+    background-color: #89d68c;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #ffffff;
+}
+
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+    border-color: #ffffff;
+}
+
+.navbar-default .navbar-link {
+    color: #ffffff;
+}
+
+.navbar-default .navbar-link:hover {
+    color: #003a0f;
+}
+
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #ffffff;
+    }
+
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+        color: #003a0f;
+    }
+
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+        color: #003a0f;
+        background-color: #89d68c;
+    }
+}
+
+@media screen and (min-width: 767px) {
+    .masonry[data-columns]::before {
+        content: '1 .col-xs-12';
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+    .masonry[data-columns]::before {
+        content: '2 .col-xs-6';
+    }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+    .masonry[data-columns]::before {
+        content: '3 .col-xs-4';
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .masonry[data-columns]::before {
+        content: '3 .col-xs-4';
+    }
+}
