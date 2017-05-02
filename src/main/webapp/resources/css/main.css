@@ -64,16 +64,14 @@ hr {
     letter-spacing: 1px;
 }
 
-#headerwrap {
+.header-wrap {
     background: url(../img/lamp1.png) no-repeat center top;
     margin-top: -10px;
     padding-top: 20px;
     text-align: center;
     background-attachment: relative;
-    /*background-position: center center;*/
     min-height: 500px;
     width: 100%;
-    /*background-size: 100%;*/
 
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -81,7 +79,7 @@ hr {
     background-size: cover;
 }
 
-#headerwrap h1 {
+.title {
     margin-top: 100px;
     color: #333;
     font-size: 70px;
@@ -89,38 +87,34 @@ hr {
     letter-spacing: 2px;
 }
 
-#headerwrap h2 {
+.under-title {
     color: #333;
     font-size: 40px;
     letter-spacing: 1px;
     text-transform: uppercase;
 }
 
-.w {
+.column-wrap {
     padding-top: 30px;
 }
 
-.w h4 {
+.column-wrap h4 {
     font-size: 25px;
 }
 
-#projects {
-    background: #bbffa7;
-}
-
-#footer {
+.footer {
     background: #108d19;
     padding-top: 30px;
     padding-bottom: 20px;
 }
 
-#footer i {
+.footer i {
     color: white;
     font-size: 30px;
     padding: 20px;
 }
 
-#footer i:hover {
+.footer i:hover {
     color: #003a0f;
 }
 
@@ -143,6 +137,7 @@ hr {
 .nav-tabs {
     margin-bottom: 15px;
 }
+
 
 /*****************************************************************/
 .navbar-default .navbar-brand:hover,
