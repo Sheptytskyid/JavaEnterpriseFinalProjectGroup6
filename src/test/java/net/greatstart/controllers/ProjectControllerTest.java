@@ -15,6 +15,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.security.Principal;
+
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -34,6 +36,8 @@ public class ProjectControllerTest {
 
     private final String REDIRECT_TO_PROJECTS = "redirect:/project/";
     private final String TEST_PROJECT_NAME = "New project";
+    private final String USERNAME = "";
+    private Principal principal = () -> USERNAME;
 
     @Before
     public void setUp() {
@@ -50,6 +54,12 @@ public class ProjectControllerTest {
     }
 
     @Test
+    public void showMyProjects() throws Exception {
+        mockMvc.perform(get("/project/my").principal(principal)).andExpect(view().name("project/projects"));
+        verify(projectService).getAllProjectsOfUser(USERNAME);
+    }
+
+    @Test
     public void getAddProjectForm() throws Exception {
         mockMvc.perform(get("/project/new")).andExpect(view().name("project/add_project"));
     }
@@ -61,16 +71,20 @@ public class ProjectControllerTest {
         desc.setName(TEST_PROJECT_NAME);
         project.setDesc(desc);
         mockMvc.perform(post("/project/new")
+                .principal(principal)
                 .param("desc.name", TEST_PROJECT_NAME))
                 .andExpect(view().name(REDIRECT_TO_PROJECTS));
         verify(projectService).createProject(project);
     }
 
-    // empty accepted
+    // empty is allowed
     @Test
     public void addEmptyProject() throws Exception {
-        mockMvc.perform(post("/project/new")).andExpect(view().name(REDIRECT_TO_PROJECTS));
+        mockMvc.perform(post("/project/new")
+                .principal(principal))
+                .andExpect(view().name(REDIRECT_TO_PROJECTS));
     }
+
 
     @Test
     public void addProjectWithWrongPrice() throws Exception {
