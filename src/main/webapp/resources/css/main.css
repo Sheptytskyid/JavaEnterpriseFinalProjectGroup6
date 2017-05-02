@@ -79,15 +79,6 @@ hr {
     background-size: cover;
 }
 
-.price-box{
-    background: #dec942;
-}
-
-
-.right-box{
-    margin-left: 40%;
-}
-
 .title {
     margin-top: 100px;
     color: #333;
@@ -145,6 +136,34 @@ hr {
 
 .nav-tabs {
     margin-bottom: 15px;
+}
+
+.btn-edit {
+    color: #41b70c;
+    background-color: #46a13e;
+    border-color: #0a812e;
+}
+
+.btn-edit:focus,
+.btn-edit.focus {
+    color: #fff;
+    background-color: #449d44;
+    border-color: #255625;
+}
+
+.btn-edit:hover {
+    color: #fff;
+    background-color: #47cc47;
+    border-color: #3ca73c;
+}
+
+.navbar-footer-content {
+    background: #108d19;
+}
+
+.big-photo {
+    max-height: 320px;
+    width: auto
 }
 
 /*****************************************************************/

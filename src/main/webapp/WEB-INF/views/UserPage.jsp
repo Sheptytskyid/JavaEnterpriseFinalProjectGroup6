@@ -1,3 +1,4 @@
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,11 +8,11 @@
 
     <title>Profile</title>
 
-    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/font-awesome.css" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
-    <link href="css/card.css" rel="stylesheet">
+    <link rel="shortcut icon" href="${contextPath}/resources/img/favicon.png" type="image/x-icon">
+    <link href="${contextPath}/resources/css/bootstrap.css" rel="stylesheet">
+    <link href="${contextPath}/resources/css/font-awesome.css" rel="stylesheet">
+    <link href="${contextPath}/resources/css/main.css" rel="stylesheet">
+    <link href="${contextPath}/resources/css/card.css" rel="stylesheet">
 
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -382,7 +383,7 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/salvattore.min.js"></script>
+<script src="${contextPath}/resources/js/bootstrap.js"></script>
+<script src="${contextPath}/resources/js/salvattore.min.js"></script>
 </body>
 </html>
