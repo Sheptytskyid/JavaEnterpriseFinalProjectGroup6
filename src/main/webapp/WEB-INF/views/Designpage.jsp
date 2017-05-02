@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>GreatStart</title>
 
     <link rel="shortcut icon" href="${contextPath}/resources/img/favicon.png" type="image/x-icon">
@@ -26,7 +27,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Great<i class="fa fa-rocket fa-lg" aria-hidden="true"><jsp:text/></i>Start </a>
+            <a class="navbar-brand" href="#">Great<i class="fa fa-rocket fa-lg" aria-hidden="true">
+                <text/>
+            </i>Start </a>
         </div>
         <div class="collapse navbar-collapse" id="responsive-menu">
             <ul class="nav navbar-nav navbar-left">
@@ -48,47 +51,49 @@
         </div>
     </div>
 </div>
-<div id="headerwrap">
+<div class="header-wrap">
     <div class="container">
         <div class="row centered">
             <div class="col-lg-8 col-lg-offset-2">
-                <h1>GreatStart is awesome!</h1>
-                <h2>Join us</h2>
+                <h1 class="title">GreatStart is awesome!</h1>
+                <h2 class="under-title">Join us</h2>
             </div>
         </div>
     </div>
 </div>
-<div class="container w">
+<div class="container column-wrap">
     <div class="row centered">
         <div class="col-lg-4 col-md-4 col-sm-4">
             <i class="fa fa-lightbulb-o fa-3x"></i>
             <h4>Ideas</h4>
-            <p><b>Just Text Example</b><br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            <div><strong>Just Text Example</strong></div>
+            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                 dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
                 ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur.</p>
+                fugiat nulla pariatur.
+            </div>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4">
             <i class="glyphicon glyphicon glyphicon-grain gi-3x"></i>
             <h4>Help</h4>
-            <p><b>Just Text Example</b><br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            <div><strong>Just Text Example</strong></div>
+            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                 dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
                 ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur.</p>
+                fugiat nulla pariatur.
+            </div>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4">
             <i class="fa fa-users fa-3x"></i>
             <h4>Projects</h4>
-            <p><b>Just Text Example</b><br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            <div><strong>Just Text Example</strong></div>
+            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                 dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
                 ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur.</p>
+                fugiat nulla pariatur.
+            </div>
         </div>
     </div>
-    <br><br>
 </div>
 
 <div class="container">
@@ -116,10 +121,12 @@
                     <hr>
                     <div class="row">
                         <div class="col-xs-6">
-                            <p>min<br><i class="fa fa-dollar"></i>100000 <br></p>
+                            <div>min</div>
+                            <div><i class="fa fa-dollar"></i>100000</div>
                         </div>
                         <div class="col-xs-6">
-                            <p>Still needed</br><i class="fa fa-dollar"></i>9999<br></p>
+                            <div class="right-box">Still needed</div>
+                            <div class="right-box"><i class="fa fa-dollar"></i>9999</div>
                         </div>
                     </div>
                 </div>
@@ -142,35 +149,12 @@
                     <hr>
                     <div class="row">
                         <div class="col-xs-6">
-                            <p>min<br><i class="fa fa-dollar"></i>100000 <br></p>
+                            <div>min</div>
+                            <div><i class="fa fa-dollar"></i>100000</div>
                         </div>
                         <div class="col-xs-6">
-                            <p>Still needed</br><i class="fa fa-dollar"></i>9999<br></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="thumbnail">
-                <div class="caption centered">
-                    <a href="#"><h3>Project name</h3></a>
-                </div>
-                <a href="#"><img src="http://placehold.it/600x340" alt="" class="img-responsive"></a>
-                <div class="caption">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore
-                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-                        ut
-                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur.</p>
-                    <hr>
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <p>min<br><i class="fa fa-dollar"></i>100000 <br></p>
-                        </div>
-                        <div class="col-xs-6">
-                            <p>Still needed</br><i class="fa fa-dollar"></i>9999<br></p>
+                            <div class="right-box">Still needed</div>
+                            <div class="right-box"><i class="fa fa-dollar"></i>9999</div>
                         </div>
                     </div>
                 </div>
@@ -192,10 +176,39 @@
                     <hr>
                     <div class="row">
                         <div class="col-xs-6">
-                            <p>min<br><i class="fa fa-dollar"></i>100000 <br></p>
+                            <div>min</div>
+                            <div><i class="fa fa-dollar"></i>100000</div>
                         </div>
                         <div class="col-xs-6">
-                            <p>Still needed</br><i class="fa fa-dollar"></i>9999<br></p>
+                            <div class="right-box">Still needed</div>
+                            <div class="right-box"><i class="fa fa-dollar"></i>9999</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="thumbnail">
+                <div class="caption centered">
+                    <a href="#"><h3>Project name</h3></a>
+                </div>
+                <a href="#"><img src="http://placehold.it/600x340" alt="" class="img-responsive"></a>
+                <div class="caption">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore
+                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                        ut
+                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        cillum dolore eu fugiat nulla pariatur.</p>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div>min</div>
+                            <div><i class="fa fa-dollar"></i>100000</div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="right-box">Still needed</div>
+                            <div class="right-box"><i class="fa fa-dollar"></i>9999</div>
                         </div>
                     </div>
                 </div>
@@ -276,7 +289,7 @@
     </div>
 </div>
 
-<div id="footer">
+<div class="footer">
     <div class="container">
         <div class="row centered">
             <a href="#"><i class="fa fa-twitter"></i></a>

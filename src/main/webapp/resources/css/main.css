@@ -79,6 +79,11 @@ hr {
     background-size: cover;
 }
 
+.price-box{
+    background: #dec942;
+}
+
+
 .right-box{
     margin-left: 40%;
 }
