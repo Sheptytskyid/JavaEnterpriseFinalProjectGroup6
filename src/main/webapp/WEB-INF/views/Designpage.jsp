@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GreatStart</title>
 
+    <link rel="shortcut icon" href="${contextPath}/resources/img/favicon.png" type="image/x-icon">
     <link href="${contextPath}/resources/css/bootstrap.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/font-awesome.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/main.css" rel="stylesheet">
