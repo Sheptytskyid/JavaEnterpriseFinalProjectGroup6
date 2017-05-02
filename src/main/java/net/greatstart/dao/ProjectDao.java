@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ProjectDao extends GenericDao<Project> {
     List<Project> getNRecords(int numberOfProjects);
+
+    List<Project> getByUserId(long id);
 }

@@ -58,4 +58,12 @@ public class ProjectDaoImpl implements ProjectDao {
                 .setMaxResults(numberOfProjects)
                 .list();
     }
+
+    @Override
+    public List<Project> getByUserId(long id) {
+        return sessionFactory.getCurrentSession()
+                .createQuery("from Project where owner_id = :id")
+                .setParameter("id", id)
+                .list();
+    }
 }
