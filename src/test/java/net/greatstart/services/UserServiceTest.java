@@ -1,7 +1,6 @@
 package net.greatstart.services;
 
 import net.greatstart.Main;
-import net.greatstart.dao.RoleDao;
 import net.greatstart.dao.UserDao;
 import net.greatstart.model.Role;
 import net.greatstart.model.User;
@@ -23,7 +22,7 @@ public class UserServiceTest {
     @Mock
     private UserDao userDao;
     @Mock
-    private RoleDao roleDao;
+    private RoleService roleService;
     @InjectMocks
     private UserService userService;
     private User user = new User();
@@ -39,7 +38,7 @@ public class UserServiceTest {
         String email = "admin@example.com";
         String password = "1111";
         userService.createUser(email, password);
-        verify(roleDao).getByName("ROLE_USER");
+        verify(roleService).findOrCreateRole("ROLE_USER");
         User user = new User();
         user.setName("Admin");
         user.setEmail(email);
@@ -52,9 +51,10 @@ public class UserServiceTest {
 
     @Test
     public void updateUser() throws Exception {
-        userService.updateUser(1L);
-        verify(userDao).getById(1L);
-        verify(userDao).update(null);
+        User user = new User();
+        user.setId(1L);
+        userService.updateUser(user);
+        verify(userDao).update(user);
     }
 
     @Test

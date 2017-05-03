@@ -66,6 +66,7 @@ public class DataBaseConfig {
     public void migrateDatabase() {
         Flyway flyway = new Flyway();
         flyway.setDataSource(getDataSource());
+        flyway.repair();
         flyway.migrate();
     }
 }
