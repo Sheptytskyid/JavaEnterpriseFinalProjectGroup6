@@ -59,39 +59,29 @@
                         <li>
                             <div class="navbar-content">
                                 <div class="row">
-                                    <div class="col-md-5">
+                                    <div class="col-md-5 col-xs-5">
                                         <img src="http://vev.ru/uploads/images/00/07/64/2011/10/12/c26b1b.jpg"
                                              alt="AltText" class="img-responsive"
                                              width="120px" height="120px"/>
                                     </div>
-                                    <div class="col-md-7">
-                                        <span>Welcome back,</span>
-                                        <p class="text-muted">UserName!</p>
-                                        <div class="btn-group-vertical" style="margin-top: -30px">
-                                            <a href="#" class="btn btn-link btn-md"><i class="fa fa-user-o"
-                                                                                       aria-hidden="true"
-                                                                                       style="margin-right: 5px"></i>My
-                                                Account</a>
-                                            <a href="#" class="btn btn-link btn-md"><i class="fa fa-star"
-                                                                                       aria-hidden="true"
-                                                                                       style="margin-right: 5px"></i>Favourites</a>
-                                            <a href="#" class="btn-link btn btn-md"><i class="fa fa-question-circle-o"
-                                                                                       style="margin-right: 5px"></i>Help
-                                            </a>
+                                    <div class="col-md-7 col-xs-7" style="margin-left: -35px">
+                                        <div class="container">
+                                            <div>Welcome back,<strong> UserName!</strong></div>
+                                            <div class="container"
+                                                 style="margin-top:5px; font-size: 15px; font-weight: 500">
+                                                <ul class="non-marker">
+                                                    <li><a href="#"><i class="fa fa-user-o" aria-hidden="true"
+                                                                       style="margin-right: 5px"></i>My account</a></li>
+                                                    <li><a href="#"><i class="fa fa-star" aria-hidden="true"
+                                                                       style="margin-right: 5px"></i>Favourites</a></li>
+                                                    <li><a href="#"><i class="fa fa-question-circle-o"
+                                                                       style="margin-right: 5px"></i>Help</a></li>
+                                                    <li><a href="#" class="btn btn-success btn-md"
+                                                           style="margin-top: 5px"><i class="fa fa-sign-out"
+                                                                                      aria-hidden="true"></i>Sign Out</a></li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="navbar-footer">
-                                <div class="navbar-footer-content">
-                                    <div class="row">
-                                        <div class="col-md-6 pull-right">
-                                            <a href="#" class="btn btn-default btn-block"><i class="fa fa-sign-out"
-                                                                                             aria-hidden="true"></i>
-                                                Sign
-                                                Out</a>
-                                        </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -159,7 +149,7 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
-            <a href="#favourites" class="btn btn-info btn-block" data-toggle="collapse">Favourites</a>
+            <a href="#favourites" class="btn btn-info btn-block " data-toggle="collapse">Favourites <span class="fa fa-sort-desc"></span></a>
             <div class="collapse" id="favourites">
                 <div class="well">
                     <div class="panel-info">
@@ -202,10 +192,7 @@
                                     <a href="#"><img class="card-img-top img-responsive"
                                                      src="https://goo.gl/e7PZpL"></a>
                                     <div class="card-block">
-                                        <a href="#"><h4 class="card-title">Artificial Intelligence A-Z™: Learn How To
-                                            Build
-                                            An
-                                            AI</h4></a>
+                                        <a href="#"><h4 class="card-title">Artificial Intelligence A-Z™: Learn How To Build An AI</h4></a>
                                         <div class="card-text">
                                             <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                                                 tempor
@@ -278,7 +265,7 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
-            <div class="panel panel-success">
+            <div class="panel panel-warning">
                 <div class="panel-heading">
                 </div>
                 <div class="panel-body">
@@ -379,6 +366,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.js"></script>
+<script src="${contextPath}/resources/js/myJs.js"></script>
 <script src="${contextPath}/resources/js/salvattore.min.js"></script>
 </body>
 </html>

@@ -58,39 +58,30 @@
                         <li>
                             <div class="navbar-content">
                                 <div class="row">
-                                    <div class="col-md-5">
+                                    <div class="col-md-5 col-xs-5">
                                         <img src="http://vev.ru/uploads/images/00/07/64/2011/10/12/c26b1b.jpg"
                                              alt="AltText" class="img-responsive"
                                              width="120px" height="120px"/>
                                     </div>
-                                    <div class="col-md-7">
-                                        <span>Welcome back,</span>
-                                        <p class="text-muted">UserName!</p>
-                                        <div class="btn-group-vertical" style="margin-top: -30px">
-                                            <a href="#" class="btn btn-link btn-md"><i class="fa fa-user-o"
-                                                                                       aria-hidden="true"
-                                                                                       style="margin-right: 5px"></i>My
-                                                Account</a>
-                                            <a href="#" class="btn btn-link btn-md"><i class="fa fa-star"
-                                                                                       aria-hidden="true"
-                                                                                       style="margin-right: 5px"></i>Favourites</a>
-                                            <a href="#" class="btn-link btn btn-md"><i class="fa fa-question-circle-o"
-                                                                                       style="margin-right: 5px"></i>Help
-                                            </a>
+                                    <div class="col-md-7 col-xs-7" style="margin-left: -35px">
+                                        <div class="container">
+                                            <div>Welcome back,<strong> UserName!</strong></div>
+                                            <div class="container"
+                                                 style="margin-top:5px; font-size: 15px; font-weight: 500">
+                                                <ul class="non-marker">
+                                                    <li><a href="#"><i class="fa fa-user-o" aria-hidden="true"
+                                                                       style="margin-right: 5px"></i>My account</a></li>
+                                                    <li><a href="#"><i class="fa fa-star" aria-hidden="true"
+                                                                       style="margin-right: 5px"></i>Favourites</a></li>
+                                                    <li><a href="#"><i class="fa fa-question-circle-o"
+                                                                       style="margin-right: 5px"></i>Help</a></li>
+                                                    <li><a href="#" class="btn btn-success btn-md"
+                                                           style="margin-top: 5px"><i class="fa fa-sign-out"
+                                                                                      aria-hidden="true"></i>Sign
+                                                        Out</a></li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="navbar-footer">
-                                <div class="navbar-footer-content">
-                                    <div class="row">
-                                        <div class="col-md-6 pull-right">
-                                            <a href="#" class="btn btn-default btn-block"><i class="fa fa-sign-out"
-                                                                                             aria-hidden="true"></i>
-                                                Sign
-                                                Out</a>
-                                        </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -162,8 +153,8 @@
                                         <th></th>
                                         <td>
                                             <div class="btn-group">
-                                                <button  class="btn btn-success"
-                                                         type="submit" form="user_form">Save changes
+                                                <button class="btn btn-success"
+                                                        type="submit" form="user_form">Save changes
                                                 </button>
                                                 <button class="btn btn-warning" type="reset" form="user_form">Clean
                                                 </button>
@@ -180,8 +171,6 @@
         </div>
     </div>
 </div>
-
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.js"></script>
 </body>

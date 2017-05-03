@@ -37,6 +37,10 @@ a:hover, a:focus {
     text-decoration: none;
     outline: 0;
 }
+a.collapsed:before{
+    icon: url("");
+
+}
 
 hr {
     display: block;
@@ -160,23 +164,31 @@ hr {
 
 .navbar-footer-content {
     padding: 15px;
-    padding-bottom:0;
-    background: #108d19;
+    padding-bottom: 0;
+    background: #dbffd5;
 }
 
 .big-photo {
     max-height: 320px;
     width: auto
 }
-.navbar-content
-{
-    width:320px;
+
+.navbar-content {
+    width: 320px;
     padding: 15px;
-    padding-bottom:0;
+    padding-bottom: 0;
     background: #dbffd5;
 }
 
-/*****************************************************************/
+.non-marker{
+    margin-left: 0;
+    padding-left: 0;
+    /*margin-top: -35px;*/
+}
+.non-marker>li{
+    list-style-type: none;
+}
+    /*****************************************************************/
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
     color: #003a0f;
@@ -196,7 +208,7 @@ hr {
 }
 
 .navbar-default .navbar-nav > li > .dropdown-menu {
-    background-color: #108d19;
+    background: #dbffd5;
 }
 
 .navbar-default .navbar-nav > li > .dropdown-menu > li > a {
