@@ -285,11 +285,11 @@
                     <div class="container">
                         <form class="form-horizontal">
                             <fieldset>
-                                <legend>Add new project</legend>
+                                <legend>Add new Project</legend>
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="textinput">Name</label>
+                                    <label class="col-md-4 control-label" for="ProjectName">Name</label>
                                     <div class="col-md-4">
-                                        <input id="textinput" name="textinput" type="text" placeholder="Project name"
+                                        <input id="ProjectName" name="ProjectName" type="text" placeholder="Project name"
                                                class="form-control input-md">
                                     </div>
                                 </div>
@@ -313,10 +313,10 @@
                             <fieldset>
                                 <legend>Add new Interest</legend>
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="Testctbasic">What do you want to invest
+                                    <label class="col-md-4 control-label" for="OptionInterest">What do you want to invest
                                         in?</label>
                                     <div class="col-md-4">
-                                        <select id="Testctbasic" name="Testctbasic" class="form-control">
+                                        <select id="OptionInterest" name="OptionInterest" class="form-control">
                                             <option value="1">Startups and Investment Projects</option>
                                             <option value="2">Venture capital</option>
                                             <option value="3">Mergers and acquisitions</option>
@@ -338,25 +338,24 @@
                     <div class="container">
                         <form class="form-horizontal">
                             <fieldset>
-                                <legend>Add new event</legend>
+                                <legend>Add new Event</legend>
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="textinput">Name</label>
+                                    <label class="col-md-4 control-label" for="EventName">Name</label>
                                     <div class="col-md-4">
-                                        <input type="text" placeholder="Event name"
+                                        <input id="EventName" name="EventName" type="text" placeholder="Event name"
                                                class="form-control input-md">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="addProject"></label>
+                                    <label class="col-md-4 control-label" for="addEvent"></label>
                                     <div class="col-md-4">
                                         <div class="btn-group">
-                                            <button name="addEvent" class="btn btn-success"
+                                            <button id="addEvent" name="addEvent" class="btn btn-success"
                                                     type="submit">Add Event
                                             </button>
-                                            <button name="addProject" class="btn btn-warning" type="reset">Clean
+                                            <button name="addEvent" class="btn btn-warning" type="reset">Clean
                                             </button>
                                         </div>
-
                                     </div>
                                 </div>
                             </fieldset>
