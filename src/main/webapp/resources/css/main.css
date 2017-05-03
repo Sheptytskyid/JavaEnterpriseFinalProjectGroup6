@@ -37,10 +37,6 @@ a:hover, a:focus {
     text-decoration: none;
     outline: 0;
 }
-a.collapsed:before{
-    icon: url("");
-
-}
 
 hr {
     display: block;
@@ -49,6 +45,27 @@ hr {
     border-top: 1px solid #ccc;
     margin: 1em 0;
     padding: 0;
+}
+
+.input-text {
+    /*width:  200px;*/
+    height: 45px;
+    padding: 5px 10px 5px 10px;
+    font-size:20px;
+    margin-top: 10px;
+}
+.select-input{
+    color: #999999;
+    height: 45px;
+    font-size:20px;
+    margin-top: 10px;
+    border-radius: .5rem;
+}
+
+.btn-file{
+    margin-top: 5px;
+    position: relative;
+    overflow: hidden;
 }
 
 .navbar {
@@ -180,15 +197,17 @@ hr {
     background: #dbffd5;
 }
 
-.non-marker{
+.non-marker {
     margin-left: 0;
     padding-left: 0;
     /*margin-top: -35px;*/
 }
-.non-marker>li{
+
+.non-marker > li {
     list-style-type: none;
 }
-    /*****************************************************************/
+
+/*****************************************************************/
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
     color: #003a0f;
