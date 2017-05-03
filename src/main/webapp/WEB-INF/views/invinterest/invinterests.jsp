@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
@@ -28,10 +29,21 @@
             <form id="logoutForm" method="POST" action="${contextPath}/logout">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             </form>
+            <h2>Welcome ${pageContext.request.userPrincipal.name} |
+                <a href="" onclick="document.forms['logoutForm'].submit()">Logout</a>
+            </h2>
 
-            <h2>Investments Interests</h2>
+            <h2>Your investments interests</h2>
 
         </c:if>
+
+        <c:if test="${pageContext.request.userPrincipal.name == null}">
+        <h2>Investments Interests</h2>
+            <div>
+                <a href="${contextPath}/user/login">Log in</a> to add and investment interest
+            </div>
+        </c:if>
+
 
         <c:if test="${listsize == 0}">
             <div>
@@ -50,8 +62,8 @@
                 </div>
                 <div class="panel-body">
                     <div class="add-contact">
-                        <button type="button" class="btn btn-success"><a href="${contextPath}/invinterest/add">Add an investment interest</a>
-                        </button>
+                        <a href="${contextPath}/invinterest/add"><button type="button" class="btn btn-success">Add an investment interest
+                        </button></a>
                     </div>
                     <table class="table table-striped">
                         <thead>
@@ -61,6 +73,10 @@
                             <th>Category</th>
                             <th>Description</th>
                             <th>Amount of Investment</th>
+                            <sec:authorize access="isAuthenticated()">
+                                <th>Update</th>
+                                <th>Delete</th>
+                            </sec:authorize>
                         </tr>
                         </thead>
                         <tbody>
@@ -71,8 +87,10 @@
                                 <td>${invinterest.category.name}</td>
                                 <td>${invinterest.description}</td>
                                 <td>${invinterest.amountInvestment}</td>
+                                <sec:authorize access="isAuthenticated()">
                                 <td><a href="${contextPath}/invinterest/${invinterest.id}/update"><button type="button" class="btn btn-sm btn-info">Update</button></a></td>
                                 <td><a href="${contextPath}/invinterest/${invinterest.id}/delete"><button type="button" class="btn btn-sm btn-danger">Delete</button></a></td>
+                                </sec:authorize>
                             </tr>
                         </c:forEach>
                         </tbody>

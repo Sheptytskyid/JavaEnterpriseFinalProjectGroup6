@@ -6,11 +6,12 @@ import net.greatstart.services.InvestmentInterestService;
 import net.greatstart.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.Errors;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -46,14 +47,13 @@ public class InvestmentInterestController {
     }
 
     @RequestMapping(value = "/invinterest/add", method = RequestMethod.POST)
-    public ModelAndView addInvestmentInterest(InvestmentInterest investmentInterest,
-                                              Errors errors,
+    public ModelAndView addInvestmentInterest(@Valid InvestmentInterest investmentInterest,
+                                              BindingResult bindingResult,
                                               Principal principal) {
-        if (errors.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             return new ModelAndView("invinterest/add_invinterest");
         }
-        // TODO: get authenticated user once user authorization is ready
-        User investor = userService.getByUsername("");
+        User investor = userService.getUserByEmail(principal.getName());
         investmentInterest.setInvestor(investor);
         this.investmentInterestService.createInvestmentInterest(investmentInterest);
         return new ModelAndView(REDIRECT_TO_INVESTMENT_INTEREST);
@@ -78,8 +78,8 @@ public class InvestmentInterestController {
 
     @RequestMapping(value = "/invinterest/{id}/update", method = RequestMethod.POST)
     public ModelAndView updateInvestmentInterest(@PathVariable("id") Long id, @Valid InvestmentInterest investmentInterest,
-                                                 Errors errors) {
-        if (errors.hasErrors()) {
+                                                 BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             return new ModelAndView("investinterest/update_invinterest");
         }
         this.investmentInterestService.updateInvestmentInterest(investmentInterest);

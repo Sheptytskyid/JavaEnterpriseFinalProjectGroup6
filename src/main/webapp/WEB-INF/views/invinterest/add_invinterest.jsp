@@ -57,7 +57,7 @@
 
         <spring:bind path="amountInvestment">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="amountInvestment" class="form-control"
+                <form:input type="number" path="amountInvestment" class="form-control"
                             placeholder="Amount of investment"></form:input>
                 <form:errors path="amountInvestment"></form:errors>
             </div>

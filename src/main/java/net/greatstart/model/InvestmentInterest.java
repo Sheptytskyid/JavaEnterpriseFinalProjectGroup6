@@ -1,7 +1,7 @@
 package net.greatstart.model;
 
-
 import lombok.Data;
+import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,6 +27,7 @@ public class InvestmentInterest extends AbstractModel {
     @Column(name = "description")
     private String description;
 
+    @NumberFormat(style = NumberFormat.Style.NUMBER)
     @Column(name = "sum")
     private BigDecimal amountInvestment;
 
