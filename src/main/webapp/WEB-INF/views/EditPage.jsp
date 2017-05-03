@@ -98,7 +98,7 @@
             <div class="panel panel-success">
                 <div class="panel-heading">
                     <h4>User Profile</h4>
-                    <a class="btn btn-edit pull-right" href="DesignPage1.html"><h4><i
+                    <a class="btn btn-edit pull-right" href="UserPage.html"><h4><i
                             class="glyphicon glyphicon-pencil"></i>Edit</h4>
                     </a>
                 </div>
@@ -106,7 +106,7 @@
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-4  hidden-xs">
                             <img class="img-responsive img-rounded big-photo"
-                                 src="http://vev.ru/uploads/images/00/07/64/2011/10/12/c26b1b.jpg"/>
+                                 src="http://vev.ru/uploads/images/00/07/64/2011/10/12/c26b1b.jpg" alt=""/>
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                             <div class="panel-info">
