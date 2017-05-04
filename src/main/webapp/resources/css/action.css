@@ -25,11 +25,20 @@
     padding-top: 10px;
     padding-bottom: 10px;
 }
+.cta-contents h1{
+    color: #108d19;
+}
+.cta-contents h1:hover,h1:focus{
+    color: #003a0f;
+    text-decoration: none;
+    outline: 0;
+}
 
 .cta-title {
     margin: 0 auto 15px;
     padding: 0;
 }
+
 
 .cta-desc {
     padding: 0;
@@ -63,31 +72,18 @@
     }
 }
 
-.bs-calltoaction.bs-calltoaction-primary {
-    color: #fff;
-    background-color: #337ab7;
-    border-color: #2e6da4;
-}
-.bs-calltoaction-head{
-    color: #fff;
-    background-color: #5cb85c;
-    border-color: #4cae4c;
-}
-
-.bs-calltoaction.bs-calltoaction-info {
-    color: #fff;
-    background-color: #5bc0de;
-    border-color: #46b8da;
-}
-
 .bs-calltoaction.bs-calltoaction-success {
     color: #000000;
     background-color: #f5f5f5;
     border-color: #ededed;
 }
+.form-field{
+    border-left: 1px solid rgb(223, 223, 223) !important;
+}
 
-.bs-calltoaction.bs-calltoaction-primary .cta-button .btn,
-.bs-calltoaction.bs-calltoaction-info .cta-button .btn,
 .bs-calltoaction.bs-calltoaction-success .cta-button .btn {
     border-color: #adadad;
+}
+input, select{
+    width: 212px;
 }

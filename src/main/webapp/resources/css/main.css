@@ -33,7 +33,7 @@ a {
 }
 
 a:hover, a:focus {
-    color: #7b7b7b;
+    color: #003a0f;
     text-decoration: none;
     outline: 0;
 }
@@ -58,7 +58,6 @@ hr {
     color: #999999;
     height: 45px;
     font-size:20px;
-    margin-top: 10px;
     border-radius: .5rem;
 }
 

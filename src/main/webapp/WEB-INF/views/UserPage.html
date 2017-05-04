@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +12,7 @@
     <link href="css/font-awesome.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
     <link href="css/card.css" rel="stylesheet">
+    <link href="css/action.css" rel="stylesheet">
 
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -97,8 +98,8 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
-            <div class="panel panel-success" style="border: 0;">
-                <div class="panel-heading" style="border: 0; background: #f5f5f5">
+            <div class="panel panel-success" style="border:0">
+                <div class="panel-heading" style="background: #f5f5f5 ">
                     <a class="btn btn-edit pull-right" href="EditUserPage.html">
                         <span class="glyphicon glyphicon-pencil"></span></a>
                     <h4>User Profile</h4>
@@ -192,7 +193,7 @@
                                 </div>
                                 <div class="card">
                                     <a href="#"><img class="card-img-top img-responsive"
-                                                     src="https://goo.gl/e7PZpL" alt=""></a>
+                                                     src="https://goo.gl/e7PZpL"></a>
                                     <div class="card-block">
                                         <a href="#"><h4 class="card-title">Artificial Intelligence A-Z™: Learn How To
                                             Build An AI</h4></a>
@@ -266,81 +267,88 @@
     </div>
 </div>
 <div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="panel panel-success" style="background: #f5f5f5; border: 0">
-                <div class="panel-body" >
-                    <form class="form-horizontal">
+    <div class="col-xs-12">
+        <div class="bs-calltoaction bs-calltoaction-success">
+            <div class="row">
+                <div class="col-md-9 cta-contents">
+                    <a href="#"><h1 class="cta-title">Projects</h1></a>
+                    <div class="cta-desc">
+                        <p><a href="#">My Projects</a></p>
+                        <p>Describe the action here.</p>
+                        <p>Describe the action here.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 form-field">
+                    <form class="form-horizontal" action="" method="" id="addProject">
                         <fieldset>
-                            <legend>Add new Project</legend>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="ProjectName">Name</label>
-                                <div class="col-md-4">
+                            <div class="form-group col-md-12">
+                                <div>
                                     <input id="ProjectName" name="ProjectName" type="text"
-                                           placeholder="Project name"
-                                           class="form-control input-md">
+                                           placeholder="Enter project name"
+                                           class="form-control input-md input-text">
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="addProject"></label>
-                                <div class="col-md-4">
-                                    <div class="btn-group">
-                                        <button id="addProject" name="addProject" class="btn btn-success"
-                                                type="submit">Add Project
-                                        </button>
-                                        <button name="addProject" class="btn btn-warning" type="reset">Clean
-                                        </button>
-                                    </div>
+                                <div class="cta-button">
+                                    <button type="submit" class="btn btn-lg btn-block btn-edit">Add Project</button>
                                 </div>
                             </div>
                         </fieldset>
                     </form>
-                    <form class="form-horizontal">
+                </div>
+            </div>
+        </div>
+        <div class="bs-calltoaction bs-calltoaction-success">
+            <div class="row">
+                <div class="col-md-9 cta-contents">
+                    <a href="#"><h1 class="cta-title">Interests</h1></a>
+                    <div class="cta-desc">
+                        <p><a href="#">My Interests</a></p>
+                        <p>Describe the action here.</p>
+                        <p>Describe the action here.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 form-field">
+                    <form class="form-horizontal" action="" method="" id="addInterest">
                         <fieldset>
-                            <legend>Add new Interest</legend>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="OptionInterest">What do you want to
-                                    invest
-                                    in?</label>
-                                <div class="col-md-4">
-                                    <select id="OptionInterest" name="OptionInterest" class="form-control">
+                            <div class="form-group col-md-12">
+                                <div>
+                                    <select id="addInterestOption" class="select-input"
+                                            title="What do you want to invest in?">
+                                        <option disabled selected>What do you want to invest in?</option>
                                         <option value="1">Startups and Investment Projects</option>
                                         <option value="2">Venture capital</option>
                                         <option value="3">Mergers and acquisitions</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="addInterest"></label>
-                                <div class="col-md-4 btn-group">
-                                    <button id="addInterest" class="btn btn-success" type="submit">Add Interest
-                                    </button>
-                                    <button class="btn btn-warning" type="reset">Clean</button>
+                                <div class="cta-button">
+                                    <button type="submit" class="btn btn-lg btn-block btn-edit">Add Interest</button>
                                 </div>
                             </div>
-
                         </fieldset>
                     </form>
-                    <form class="form-horizontal">
+                </div>
+            </div>
+        </div>
+        <div class="bs-calltoaction bs-calltoaction-success">
+            <div class="row">
+                <div class="col-md-9 cta-contents">
+                    <a href="#"><h1 class="cta-title">Events</h1></a>
+                    <div class="cta-desc">
+                        <p><a href="#">My Events</a></p>
+                        <p>Describe the action here.</p>
+                        <p>Describe the action here.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 form-field">
+                    <form class="form-horizontal" action="" method="" id="addEvent">
                         <fieldset>
-                            <legend>Add new Event</legend>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="EventName">Name</label>
-                                <div class="col-md-4">
-                                    <input id="EventName" name="EventName" type="text" placeholder="Event name"
-                                           class="form-control input-md">
+                            <div class="form-group col-md-12">
+                                <div>
+                                    <input id="EventName" name="EventName" type="text"
+                                           placeholder="Enter event name"
+                                           class="form-control input-md input-text">
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="addEvent"></label>
-                                <div class="col-md-4">
-                                    <div class="btn-group">
-                                        <button id="addEvent" name="addEvent" class="btn btn-success"
-                                                type="submit">Add Event
-                                        </button>
-                                        <button name="addEvent" class="btn btn-warning" type="reset">Clean
-                                        </button>
-                                    </div>
+                                <div class="cta-button">
+                                    <button type="submit" class="btn btn-lg btn-block btn-edit">Add Event</button>
                                 </div>
                             </div>
                         </fieldset>
