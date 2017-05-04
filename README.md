@@ -50,6 +50,7 @@ The our product is open-sourced software licensed under the MIT license.
 * **JDK 8**
 * **Lombok plugin**
 * **PostgreSQL**
+* **Tomcat**
 
 ## Continuous integration tools used
 
@@ -62,13 +63,15 @@ The our product is open-sourced software licensed under the MIT license.
 ## Used technologies
 
 * **Java 8**
-* **Serialization**
 * **Project Lombok**
 * **Logback**
 * **JUnit**
-* **Mockito**
-* **Power Mockito**
 * **Jacoco**
+* **Hibernate**
+* **Spring**
+* **Mockito**
+* **Servlets**
+* **JSP**
 
 ## Architecture
 
