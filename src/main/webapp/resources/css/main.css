@@ -47,6 +47,27 @@ hr {
     padding: 0;
 }
 
+.input-text {
+    /*width:  200px;*/
+    height: 45px;
+    padding: 5px 10px 5px 10px;
+    font-size:20px;
+    margin-top: 10px;
+}
+.select-input{
+    color: #999999;
+    height: 45px;
+    font-size:20px;
+    margin-top: 10px;
+    border-radius: .5rem;
+}
+
+.btn-file{
+    margin-top: 5px;
+    position: relative;
+    overflow: hidden;
+}
+
 .navbar {
     font-weight: 400;
     font-size: 14px;
@@ -79,15 +100,6 @@ hr {
     background-size: cover;
 }
 
-.price-box{
-    background: #dec942;
-}
-
-
-.right-box{
-    margin-left: 40%;
-}
-
 .title {
     margin-top: 100px;
     color: #333;
@@ -117,13 +129,13 @@ hr {
     padding-bottom: 20px;
 }
 
-.footer i {
+.footer span {
     color: white;
     font-size: 30px;
     padding: 20px;
 }
 
-.footer i:hover {
+.footer span:hover {
     color: #003a0f;
 }
 
@@ -147,6 +159,60 @@ hr {
     margin-bottom: 15px;
 }
 
+.btn-edit {
+    font-weight: 500;
+    color: #000000;
+    background-color: #f5f5f5;
+    border-color: #333333;
+}
+
+.btn-edit:focus,
+.btn-edit.focus {
+    color: #000000;
+    background-color: #f5f5f5;
+    border-color: #333333;
+}
+
+.btn-edit:hover {
+
+    color: #000000;
+    background-color: #e9e9e9;
+    border-color: #333333;
+}
+.btn-edit span{
+    color: #333333;
+    /*font-size: 30px;*/
+    /*padding: 20px;*/
+}
+
+.navbar-footer-content {
+    padding: 15px;
+    padding-bottom: 0;
+    background: #dbffd5;
+}
+
+.big-photo {
+    max-height: 320px;
+    width: auto
+}
+
+.navbar-content {
+    width: 320px;
+    padding: 15px;
+    padding-bottom: 0;
+    background: #dbffd5;
+}
+
+.non-marker {
+    margin-left: 0;
+    padding-left: 0;
+    /*margin-top: -35px;*/
+}
+
+.non-marker > li {
+    list-style-type: none;
+}
+
 /*****************************************************************/
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
@@ -167,7 +233,7 @@ hr {
 }
 
 .navbar-default .navbar-nav > li > .dropdown-menu {
-    background-color: #108d19;
+    background: #dbffd5;
 }
 
 .navbar-default .navbar-nav > li > .dropdown-menu > li > a {
