@@ -40,30 +40,31 @@ CREATE TABLE IF NOT EXISTS startup_platform.categories (
 -- Table startup_platform.projects
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS startup_platform.projects (
-  id BIGINT NOT NULL,
-  name VARCHAR(60) NULL,
-  owner_id BIGINT NULL,
-  category_id INT NULL,
-  cost DECIMAL NULL,
-  date_added TIMESTAMP NULL,
-  date_start TIMESTAMP NULL,
-  min_invest DECIMAL NULL,
-  description VARCHAR NULL,
-  goal VARCHAR NULL,
-  other VARCHAR NULL,
-  logo_url VARCHAR NULL,
-  verified BOOLEAN NULL,
+  id          BIGINT      NOT NULL,
+  name        VARCHAR(60) NULL,
+  owner_id    BIGINT      NULL,
+  category_id INT         NULL,
+  cost        DECIMAL     NULL,
+  date_added  TIMESTAMP   NULL,
+  date_start  TIMESTAMP   NULL,
+  min_invest  DECIMAL     NULL,
+  description VARCHAR     NULL,
+  goal        VARCHAR     NULL,
+  other       VARCHAR     NULL,
+  logo_url    VARCHAR     NULL,
+  verified    BOOLEAN     NULL,
   PRIMARY KEY (id),
   CONSTRAINT OWNER_FK
   FOREIGN KEY (owner_id)
   REFERENCES startup_platform.users (id)
-    ON DELETE RESTRICT
-    ON UPDATE CASCADE,
+  ON DELETE RESTRICT
+  ON UPDATE CASCADE,
   CONSTRAINT CATEGORY_FK
   FOREIGN KEY (category_id)
   REFERENCES startup_platform.categories (id)
   ON DELETE SET NULL
-  ON UPDATE CASCADE);
+  ON UPDATE CASCADE
+);
 
 
 -- -----------------------------------------------------
@@ -98,10 +99,10 @@ CREATE TABLE IF NOT EXISTS startup_platform.users_roles (
 -- Table startup_platform.investment_interests
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS startup_platform.investment_interests (
-  id INT NOT NULL,
-  user_id BIGINT NOT NULL,
-  category_id INT NULL,
-  sum DECIMAL NULL,
+  id          INT     NOT NULL,
+  user_id     BIGINT  NOT NULL,
+  category_id INT     NULL,
+  sum         DECIMAL NULL,
   PRIMARY KEY (id),
   CONSTRAINT INVESTOR_INTEREST_FK
   FOREIGN KEY (user_id)
@@ -112,7 +113,8 @@ CREATE TABLE IF NOT EXISTS startup_platform.investment_interests (
   FOREIGN KEY (category_id)
   REFERENCES startup_platform.categories (id)
   ON DELETE SET NULL
-  ON UPDATE CASCADE);
+  ON UPDATE CASCADE
+);
 
 -- -----------------------------------------------------
 -- Table startup_platform.investments
