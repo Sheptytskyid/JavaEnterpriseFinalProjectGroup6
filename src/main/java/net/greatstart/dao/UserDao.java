@@ -1,8 +1,9 @@
 package net.greatstart.dao;
 
 import net.greatstart.model.User;
+import org.springframework.data.repository.CrudRepository;
 
-public interface UserDao extends GenericDao<User> {
+public interface UserDao extends CrudRepository<User, Long> {
 
-    User getByEmail(String email);
+    User findByEmail(String email);
 }

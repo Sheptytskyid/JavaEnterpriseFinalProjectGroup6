@@ -16,7 +16,7 @@ public class RoleService {
     }
 
     public void addRole(Role role) {
-        roleDao.create(role);
+        roleDao.save(role);
     }
 
     public Role findOrCreateRole(String name) {

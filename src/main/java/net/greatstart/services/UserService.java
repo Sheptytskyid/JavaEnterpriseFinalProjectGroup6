@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,7 +26,8 @@ public class UserService {
     }
 
     public boolean createUser(User user) {
-        return userDao.create(user);
+        userDao.save(user);
+        return true;
     }
 
     public void createUser(String email, String password) {
@@ -42,24 +44,25 @@ public class UserService {
         createUser(user);
     }
 
-    public boolean updateUser(User user) {
-        return userDao.update(user);
+    public void updateUser(User user) {
+        userDao.save(user);
     }
 
-    public boolean deleteUser(long id) {
-        User user = getUserById(id);
-        return userDao.delete(user);
+    public void deleteUser(long id) {
+        userDao.delete(id);
     }
 
     public User getUserById(long id) {
-        return userDao.getById(id);
+        return userDao.findOne(id);
     }
 
     public List<User> getAllUsers() {
-        return userDao.getAll();
+        List<User> users = new ArrayList<>();
+        userDao.findAll().forEach(users::add);
+        return users;
     }
 
     public User getUserByEmail(String email) {
-        return userDao.getByEmail(email);
+        return userDao.findByEmail(email);
     }
 }

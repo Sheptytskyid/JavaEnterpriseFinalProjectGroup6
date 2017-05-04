@@ -8,6 +8,6 @@ import lombok.Data;
  */
 
 @Data
-public class Event {
+public class Event extends AbstractModel {
 
 }
