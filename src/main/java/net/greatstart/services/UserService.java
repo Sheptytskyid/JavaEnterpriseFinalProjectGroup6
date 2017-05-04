@@ -1,6 +1,5 @@
 package net.greatstart.services;
 
-import net.greatstart.dao.RoleDao;
 import net.greatstart.dao.UserDao;
 import net.greatstart.model.Role;
 import net.greatstart.model.User;
@@ -17,12 +16,12 @@ import java.util.Set;
 public class UserService {
 
     private UserDao userDao;
-    private RoleDao roleDao;
+    private RoleService roleService;
 
     @Autowired
-    public UserService(UserDao userDao, RoleDao roleDao) {
+    public UserService(UserDao userDao, RoleService roleService) {
         this.userDao = userDao;
-        this.roleDao = roleDao;
+        this.roleService = roleService;
     }
 
     public boolean createUser(User user) {
@@ -38,13 +37,12 @@ public class UserService {
         user.setEmail(email);
         user.setPassword(password);
         Set<Role> roles = new HashSet<>();
-        roles.add(roleDao.getByName("ROLE_USER"));
+        roles.add(roleService.findOrCreateRole("ROLE_USER"));
         user.setRoles(roles);
         createUser(user);
     }
 
-    public boolean updateUser(long id) {
-        User user = getUserById(id);
+    public boolean updateUser(User user) {
         return userDao.update(user);
     }
 
