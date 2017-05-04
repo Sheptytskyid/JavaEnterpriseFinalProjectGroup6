@@ -27,9 +27,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Great<i class="fa fa-rocket fa-lg" aria-hidden="true">
+            <a class="navbar-brand" href="#">Great<span class="fa fa-rocket fa-lg" aria-hidden="true">
                 <text/>
-            </i>Start</a>
+            </span>Start</a>
         </div>
         <div class="collapse navbar-collapse" id="responsive-menu">
             <ul class="nav navbar-nav navbar-left">
@@ -53,7 +53,7 @@
                              alt="UserName" width="30px" height="30px"/>
                     </span>
                     <span>UserName</span>
-                    <b class="caret"></b></a>
+                    <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li>
                             <div class="navbar-content">
@@ -69,15 +69,15 @@
                                             <div class="container"
                                                  style="margin-top:5px; font-size: 15px; font-weight: 500">
                                                 <ul class="non-marker">
-                                                    <li><a href="#"><i class="fa fa-user-o" aria-hidden="true"
-                                                                       style="margin-right: 5px"></i>My account</a></li>
-                                                    <li><a href="#"><i class="fa fa-star" aria-hidden="true"
-                                                                       style="margin-right: 5px"></i>Favourites</a></li>
-                                                    <li><a href="#"><i class="fa fa-question-circle-o"
-                                                                       style="margin-right: 5px"></i>Help</a></li>
+                                                    <li><a href="#"><span class="fa fa-user-o" aria-hidden="true"
+                                                                       style="margin-right: 5px"></span>My account</a></li>
+                                                    <li><a href="#"><span class="fa fa-star" aria-hidden="true"
+                                                                       style="margin-right: 5px"></span>Favourites</a></li>
+                                                    <li><a href="#"><span class="fa fa-question-circle-o"
+                                                                       style="margin-right: 5px"></span>Help</a></li>
                                                     <li><a href="#" class="btn btn-success btn-md"
-                                                           style="margin-top: 5px"><i class="fa fa-sign-out"
-                                                                                      aria-hidden="true"></i>Sign
+                                                           style="margin-top: 5px"><span class="fa fa-sign-out"
+                                                                                      aria-hidden="true"></span>Sign
                                                         Out</a></li>
                                                 </ul>
                                             </div>
@@ -98,8 +98,8 @@
             <div class="panel panel-success">
                 <div class="panel-heading">
                     <h4>User Profile</h4>
-                    <a class="btn btn-edit pull-right" href="UserPage.html"><h4><i
-                            class="glyphicon glyphicon-pencil"></i>Edit</h4>
+                    <a class="btn btn-edit pull-right" href="UserPage.html"><h4><span
+                            class="glyphicon glyphicon-pencil"></span>Edit</h4>
                     </a>
                 </div>
                 <div class="panel-body">

@@ -129,13 +129,13 @@ hr {
     padding-bottom: 20px;
 }
 
-.footer i {
+.footer span {
     color: white;
     font-size: 30px;
     padding: 20px;
 }
 
-.footer i:hover {
+.footer span:hover {
     color: #003a0f;
 }
 
