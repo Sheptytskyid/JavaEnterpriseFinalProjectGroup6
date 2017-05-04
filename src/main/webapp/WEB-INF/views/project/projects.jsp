@@ -29,7 +29,7 @@
             </form>
 
             <h2>Welcome ${pageContext.request.userPrincipal.name} |
-                <a href="" onclick="document.forms['logoutForm'].submit()">Logout</a>
+                <a href="#" onclick="document.forms['logoutForm'].submit()">Logout</a>
             </h2>
 
         </sec:authorize>
