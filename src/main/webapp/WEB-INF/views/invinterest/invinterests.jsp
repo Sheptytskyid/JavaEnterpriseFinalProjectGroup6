@@ -30,7 +30,7 @@
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             </form>
             <h2>Welcome ${pageContext.request.userPrincipal.name} |
-                <a href="" onclick="document.forms['logoutForm'].submit()">Logout</a>
+                <a href="#" onclick="document.forms['logoutForm'].submit()">Logout</a>
             </h2>
 
             <h2>Your investments interests</h2>
