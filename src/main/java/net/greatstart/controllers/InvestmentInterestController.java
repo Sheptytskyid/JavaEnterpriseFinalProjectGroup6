@@ -32,7 +32,7 @@ public class InvestmentInterestController {
         this.userService = userService;
     }
 
-    @GetMapping({"", "/"})
+    @GetMapping
     public ModelAndView showInvestmentsInterest() {
         List<InvestmentInterest> investmentInterestList = this.investmentInterestService
                 .getAllInvestmentInterest();
