@@ -1,6 +1,6 @@
 package net.greatstart.services;
 
-import net.greatstart.dto.DtoUser;
+import net.greatstart.dto.DtoUserProfile;
 import net.greatstart.model.Contact;
 import net.greatstart.model.User;
 import org.springframework.stereotype.Service;
@@ -8,16 +8,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserConverterService {
 
-    public User fromDtoToUser(DtoUser dtoUser) {
-        User user = new User();
-        user.setName(dtoUser.getName());
-        Contact contact = new Contact(dtoUser.getAddress(), dtoUser.getPhoneNumber());
-        user.setContact(contact);
-        return user;
-    }
-
-    public DtoUser fromUserToDto(User user) {
-        DtoUser dtoUser = new DtoUser();
+    public DtoUserProfile fromUserToDtoProfile(User user) {
+        DtoUserProfile dtoUser = new DtoUserProfile();
         dtoUser.setId(user.getId());
         dtoUser.setEmail(user.getEmail());
         dtoUser.setName(user.getName());
@@ -29,7 +21,7 @@ public class UserConverterService {
         return dtoUser;
     }
 
-    public void updateUserFromDto(User user, DtoUser dtoUser) {
+    public void updateUserFromDto(User user, DtoUserProfile dtoUser) {
         Contact contact = new Contact(dtoUser.getAddress(), dtoUser.getPhoneNumber());
         user.setContact(contact);
         user.setName(dtoUser.getName());

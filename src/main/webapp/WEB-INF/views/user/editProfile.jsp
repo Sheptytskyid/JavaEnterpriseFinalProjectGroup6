@@ -28,7 +28,7 @@
 
 <div class="container">
 
-    <form:form method="POST" modelAttribute="dtoUser" class="form-signin">
+    <form:form method="POST" modelAttribute="dtoUserProfile" class="form-signin">
         <h2 class="form-signin-heading">Edit user profile</h2>
         <spring:bind path="name">
             <div class="form-group ${status.error ? 'has-error' : ''}">

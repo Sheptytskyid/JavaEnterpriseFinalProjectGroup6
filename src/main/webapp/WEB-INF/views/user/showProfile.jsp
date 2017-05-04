@@ -28,7 +28,7 @@
 <body>
 
 <div class="container">
-    <h2>User Profile | <a href="${contextPath}/user/${dtoUser.id}/edit">Edit</a></h2>
+    <h2>User Profile | <a href="${contextPath}/user/${dtoUserProfile.id}/edit">Edit</a></h2>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -39,19 +39,19 @@
 
         <tr>
             <td>Name</td>
-            <td><c:out value="${dtoUser.name}"/></td>
+            <td><c:out value="${dtoUserProfile.name}"/></td>
         </tr>
         <tr>
             <td>Email</td>
-            <td><c:out value="${dtoUser.email}"/></td>
+            <td><c:out value="${dtoUserProfile.email}"/></td>
         </tr>
         <tr>
             <td>Address</td>
-            <td><c:out value="${dtoUser.address}"/></td>
+            <td><c:out value="${dtoUserProfile.address}"/></td>
         </tr>
         <tr>
             <td>Phone</td>
-            <td><c:out value="${dtoUser.phoneNumber}"/></td>
+            <td><c:out value="${dtoUserProfile.phoneNumber}"/></td>
         </tr>
     </table>
 

@@ -1,6 +1,6 @@
 package net.greatstart.controllers;
 
-import net.greatstart.dto.DtoUser;
+import net.greatstart.dto.DtoUserProfile;
 import net.greatstart.model.User;
 import net.greatstart.services.UserConverterService;
 import net.greatstart.services.UserService;
@@ -13,9 +13,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
+    private static final String SHOW_PROFILE = "user/showProfile";
+    private static final String EDIT_PROFILE = "user/editProfile";
+    private static final String ERROR_PROFILE = "redirect:/";
 
     private UserService userService;
     private UserConverterService userConverter;
@@ -26,34 +32,46 @@ public class UserController {
         this.userConverter = userConverterService;
     }
 
-    // TODO error pages (no such user etc.)
+    // TODO error pages (no such user etc.); enable admin user to edit profiles
     @GetMapping("/{id}")
     public ModelAndView showProfile(@PathVariable long id) {
         User user = userService.getUserById(id);
-        ModelAndView modelAndView = new ModelAndView("user/showProfile");
+        ModelAndView modelAndView = new ModelAndView(SHOW_PROFILE);
         if (user != null) {
-            DtoUser dtoUser = userConverter.fromUserToDto(user);
+            DtoUserProfile dtoUser = userConverter.fromUserToDtoProfile(user);
             modelAndView.addObject(dtoUser);
         }
         return modelAndView;
     }
 
     @GetMapping("/{id}/edit")
-    public ModelAndView editProfile(@PathVariable long id) {
-        DtoUser user = userConverter.fromUserToDto(userService.getUserById(id));
-        ModelAndView modelAndView = new ModelAndView("user/editProfile");
-        modelAndView.addObject(user);
+    public ModelAndView editProfile(@PathVariable long id, Principal principal) {
+        User entityUser = userService.getUserById(id);
+        ModelAndView modelAndView = new ModelAndView(EDIT_PROFILE);
+        if (entityUser != null && principal != null
+                && entityUser.getEmail().equals(principal.getName())) {
+            DtoUserProfile user = userConverter.fromUserToDtoProfile(entityUser);
+            modelAndView.addObject(user);
+        } else {
+            modelAndView = new ModelAndView(ERROR_PROFILE);
+        }
         return modelAndView;
     }
 
     @PostMapping("/{id}/edit")
-    public ModelAndView saveEditedProfile(@PathVariable long id, DtoUser dtoUser, Errors errors) {
+    public ModelAndView saveEditedProfile(@PathVariable long id,
+                                          @Valid DtoUserProfile dtoUser,
+                                          Errors errors,
+                                          Principal principal) {
         if (errors.hasErrors()) {
-            return new ModelAndView("user/editProfile");
+            return new ModelAndView(EDIT_PROFILE);
         }
-        User user = userService.getUserById(id);
-        userConverter.updateUserFromDto(user, dtoUser);
-        userService.updateUser(user);
+        User currentUser = userService.getUserByEmail(principal.getName());
+        if (currentUser != null && id == currentUser.getId()) {
+            User entityUser = userService.getUserById(id);
+            userConverter.updateUserFromDto(entityUser, dtoUser);
+            userService.updateUser(entityUser);
+        }
         return new ModelAndView("redirect:/user/" + id);
     }
 
