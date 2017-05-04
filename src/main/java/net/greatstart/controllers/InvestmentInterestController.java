@@ -18,6 +18,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
+@RequestMapping("/invinterest")
 @Controller
 public class InvestmentInterestController {
     private static final String REDIRECT_TO_INVESTMENT_INTEREST = "redirect:/invinterest/";
@@ -31,7 +32,7 @@ public class InvestmentInterestController {
         this.userService = userService;
     }
 
-    @RequestMapping("/invinterest")
+    @GetMapping({"", "/"})
     public ModelAndView showInvestmentsInterest() {
         List<InvestmentInterest> investmentInterestList = this.investmentInterestService
                 .getAllInvestmentInterest();
@@ -40,14 +41,14 @@ public class InvestmentInterestController {
         return model;
     }
 
-    @GetMapping("/invinterest/add")
+    @GetMapping("/add")
     public ModelAndView getInvestmentInterestForm() {
         ModelAndView model = new ModelAndView("invinterest/add_invinterest");
         model.addObject("invinterest", new InvestmentInterest());
         return model;
     }
 
-    @PostMapping("/invinterest/add")
+    @PostMapping("/add")
     public ModelAndView addInvestmentInterest(@Valid InvestmentInterest investmentInterest,
                                               BindingResult bindingResult,
                                               Principal principal) {
@@ -60,13 +61,13 @@ public class InvestmentInterestController {
         return new ModelAndView(REDIRECT_TO_INVESTMENT_INTEREST);
     }
 
-    @GetMapping("/invinterest/{id}/delete")
+    @GetMapping("/{id}/delete")
     public ModelAndView deleteInvestmentInterest(@PathVariable("id") Long id) {
         this.investmentInterestService.deleteInvestmentInterest(id);
         return new ModelAndView(REDIRECT_TO_INVESTMENT_INTEREST);
     }
 
-    @GetMapping(value = "/invinterest/{id}/update")
+    @GetMapping("/{id}/update")
     public ModelAndView getUpdateFormInvestmentInterest(@PathVariable("id") Long id) {
         if (id > 0) {
             ModelAndView model = new ModelAndView("invinterest/update_invinterest");
@@ -77,7 +78,7 @@ public class InvestmentInterestController {
         return new ModelAndView("invinterest/invinterests");
     }
 
-    @PostMapping(value = "/invinterest/{id}/update")
+    @PostMapping("/{id}/update")
     public ModelAndView updateInvestmentInterest(@PathVariable("id") Long id, @Valid InvestmentInterest investmentInterest,
                                                  BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
