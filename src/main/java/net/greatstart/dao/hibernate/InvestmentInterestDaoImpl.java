@@ -14,7 +14,6 @@ public class InvestmentInterestDaoImpl implements InvestmentInterestDao {
 
     @Autowired
     public InvestmentInterestDaoImpl(SessionFactory sessionFactory) {
-
         this.sessionFactory = sessionFactory;
     }
 

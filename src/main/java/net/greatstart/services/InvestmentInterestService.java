@@ -20,23 +20,23 @@ public class InvestmentInterestService {
     }
 
     public boolean createInvestmentInterest(InvestmentInterest investmentInterest) {
-        return this.investmentInterestDao.create(investmentInterest);
+        return investmentInterestDao.create(investmentInterest);
     }
 
     public boolean updateInvestmentInterest(InvestmentInterest investmentInterest) {
-        return this.investmentInterestDao.update(investmentInterest);
+        return investmentInterestDao.update(investmentInterest);
     }
 
     public boolean deleteInvestmentInterest(long id) {
         InvestmentInterest investmentInterest = getInvestmentInterestById(id);
-        return this.investmentInterestDao.delete(investmentInterest);
+        return investmentInterestDao.delete(investmentInterest);
     }
 
     public InvestmentInterest getInvestmentInterestById(long id) {
-        return this.investmentInterestDao.getById(id);
+        return investmentInterestDao.getById(id);
     }
 
     public List<InvestmentInterest> getAllInvestmentInterest() {
-        return this.investmentInterestDao.getAll();
+        return investmentInterestDao.getAll();
     }
 }

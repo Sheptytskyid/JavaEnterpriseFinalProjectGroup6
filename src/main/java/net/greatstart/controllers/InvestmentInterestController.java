@@ -7,9 +7,10 @@ import net.greatstart.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -39,14 +40,14 @@ public class InvestmentInterestController {
         return model;
     }
 
-    @RequestMapping(value = "/invinterest/add", method = RequestMethod.GET)
+    @GetMapping("/invinterest/add")
     public ModelAndView getInvestmentInterestForm() {
         ModelAndView model = new ModelAndView("invinterest/add_invinterest");
         model.addObject("invinterest", new InvestmentInterest());
         return model;
     }
 
-    @RequestMapping(value = "/invinterest/add", method = RequestMethod.POST)
+    @PostMapping("/invinterest/add")
     public ModelAndView addInvestmentInterest(@Valid InvestmentInterest investmentInterest,
                                               BindingResult bindingResult,
                                               Principal principal) {
@@ -59,13 +60,13 @@ public class InvestmentInterestController {
         return new ModelAndView(REDIRECT_TO_INVESTMENT_INTEREST);
     }
 
-    @RequestMapping(value = "/invinterest/{id}/delete", method = RequestMethod.GET)
+    @GetMapping("/invinterest/{id}/delete")
     public ModelAndView deleteInvestmentInterest(@PathVariable("id") Long id) {
         this.investmentInterestService.deleteInvestmentInterest(id);
         return new ModelAndView(REDIRECT_TO_INVESTMENT_INTEREST);
     }
 
-    @RequestMapping(value = "/invinterest/{id}/update", method = RequestMethod.GET)
+    @GetMapping(value = "/invinterest/{id}/update")
     public ModelAndView getUpdateFormInvestmentInterest(@PathVariable("id") Long id) {
         if (id > 0) {
             ModelAndView model = new ModelAndView("invinterest/update_invinterest");
@@ -76,7 +77,7 @@ public class InvestmentInterestController {
         return new ModelAndView("invinterest/invinterests");
     }
 
-    @RequestMapping(value = "/invinterest/{id}/update", method = RequestMethod.POST)
+    @PostMapping(value = "/invinterest/{id}/update")
     public ModelAndView updateInvestmentInterest(@PathVariable("id") Long id, @Valid InvestmentInterest investmentInterest,
                                                  BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
