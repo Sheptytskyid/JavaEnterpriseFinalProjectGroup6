@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <spring:url value="/user/photo" var="userPhotoUrl"/>
@@ -51,52 +52,65 @@
                     </form>
                 </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown active "><a class="dropdown-toggle" data-toggle="dropdown">
+            <sec:authorize access="isAuthenticated()">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown active "><a class="dropdown-toggle" data-toggle="dropdown">
                     <span class="pull-left" style="margin-right:8px; margin-top:-5px;">
                         <img src="${userPhotoUrl}/${dtoUserProfile.id}"
                              class="img-responsive img-circle" title="UserName"
                              alt="UserName" width="30px" height="30px"/>
                     </span>
-                    <span>${dtoUserProfile.name}</span>
-                    <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <div class="navbar-content">
-                                <div class="row">
-                                    <div class="col-md-5 col-xs-5">
-                                        <img src="${userPhotoUrl}/${dtoUserProfile.id}"
-                                             alt="AltText" class="img-responsive img-rounded"
-                                             width="120px" height="120px"/>
-                                    </div>
-                                    <div class="col-md-7 col-xs-7" style="margin-left: -35px">
-                                        <div class="container">
-                                            <div>Welcome back,<strong> ${dtoUserProfile.name}!</strong></div>
-                                            <div class="container"
-                                                 style="margin-top:5px; font-size: 15px; font-weight: 500">
-                                                <ul class="non-marker">
-                                                    <li><a href="#"><span class="fa fa-user-o" aria-hidden="true"
-                                                                          style="margin-right: 5px"></span>My
-                                                        account</a></li>
-                                                    <li><a href="#"><span class="fa fa-star" aria-hidden="true"
-                                                                          style="margin-right: 5px"></span>Favourites</a>
-                                                    </li>
-                                                    <li><a href="#"><span class="fa fa-question-circle-o"
-                                                                          style="margin-right: 5px"></span>Help</a></li>
-                                                    <li><a href="#" class="btn btn-success btn-md"
-                                                           style="margin-top: 5px"><span class="fa fa-sign-out"
-                                                                                         aria-hidden="true"></span>Sign
-                                                        Out</a></li>
-                                                </ul>
+                        <span>${dtoUserProfile.name}</span>
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <div class="navbar-content">
+                                    <form id="logoutForm" method="POST" action="${contextPath}/logout">
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                    </form>
+                                    <div class="row">
+                                        <div class="col-md-5 col-xs-5">
+                                            <img src="${userPhotoUrl}/${dtoUserProfile.id}"
+                                                 alt="AltText" class="img-responsive img-rounded"
+                                                 width="120px" height="120px"/>
+                                        </div>
+                                        <div class="col-md-7 col-xs-7" style="margin-left: -35px">
+                                            <div class="container">
+                                                <div>Welcome back,<strong> ${dtoUserProfile.name}!</strong></div>
+                                                <div class="container"
+                                                     style="margin-top:5px; font-size: 15px; font-weight: 500">
+                                                    <ul class="non-marker">
+                                                        <li><a href="#"><span class="fa fa-user-o" aria-hidden="true"
+                                                                              style="margin-right: 5px"></span>My
+                                                            account</a></li>
+                                                        <li><a href="#"><span class="fa fa-star" aria-hidden="true"
+                                                                              style="margin-right: 5px"></span>Favourites</a>
+                                                        </li>
+                                                        <li><a href="#"><span class="fa fa-question-circle-o"
+                                                                              style="margin-right: 5px"></span>Help</a>
+                                                        </li>
+
+                                                        <li><a href="#" onclick="document.forms['logoutForm'].submit()"
+                                                               class="btn btn-success btn-md"
+                                                               style="margin-top: 5px"><span class="fa fa-sign-out"
+                                                                                             aria-hidden="true"></span>Sign
+                                                            Out</a></li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </sec:authorize>
+            <sec:authorize access="isAnonymous()">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active"><a href="#modal-login" data-toggle="modal">Login</a></li>
+                </ul>
+            </sec:authorize>
         </div>
     </div>
 </div>
@@ -278,7 +292,7 @@
                 <div class="col-md-9 cta-contents">
                     <a href="#"><h1 class="cta-title">Projects</h1></a>
                     <div class="cta-desc">
-                        <p><a href="#">My Projects</a></p>
+                        <p><a href="${contextPath}/project/">My Projects</a></p>
                         <p>Describe the action here.</p>
                         <p>Describe the action here.</p>
                     </div>
@@ -306,7 +320,7 @@
                 <div class="col-md-9 cta-contents">
                     <a href="#"><h1 class="cta-title">Interests</h1></a>
                     <div class="cta-desc">
-                        <p><a href="#">My Interests</a></p>
+                        <p><a href="${contextPath}/interest/">My Interests</a></p>
                         <p>Describe the action here.</p>
                         <p>Describe the action here.</p>
                     </div>
@@ -318,7 +332,7 @@
                                 <div>
                                     <select id="addInterestOption" class="select-input"
                                             title="What do you want to invest in?">
-                                        <option disabled selected>What do you want to invest in?</option>
+                                        <option disabled selected>I want to invest in:</option>
                                         <option value="1">Startups and Investment Projects</option>
                                         <option value="2">Venture capital</option>
                                         <option value="3">Mergers and acquisitions</option>
@@ -336,7 +350,7 @@
         <div class="bs-calltoaction bs-calltoaction-success">
             <div class="row">
                 <div class="col-md-9 cta-contents">
-                    <a href="#"><h1 class="cta-title">Events</h1></a>
+                    <a href="${contextPath}/event/"><h1 class="cta-title">Events</h1></a>
                     <div class="cta-desc">
                         <p><a href="#">My Events</a></p>
                         <p>Describe the action here.</p>
@@ -372,6 +386,44 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modal-login">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Login
+                    <button class="close" type="button" data-dismiss="modal">
+                        <span class="fa fa-close"></span>
+                    </button>
+                </h4>
+
+            </div>
+            <div class="modal-body">
+                <form action="${contextPath}/user/login" method="POST">
+                    <span>${message}</span>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Email" name="email" autofocus="true">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Password" name="password">
+                    </div>
+                    <span>${error}</span>
+                    <button type="submit" class="btn btn-success">Login</button>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <form action="/registration">
+                        <a class="btn btn-primary" type="submit" href="${contextPath}/user/register">
+                            <span class="fa fa-user-circle-o"></span> Create an account
+                        </a>
+                    </form>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" type="button" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.js"></script>

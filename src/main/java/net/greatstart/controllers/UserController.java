@@ -5,6 +5,7 @@ import net.greatstart.model.User;
 import net.greatstart.services.UserConverterService;
 import net.greatstart.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,7 +49,7 @@ public class UserController {
         return modelAndView;
     }
 
-
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}/edit")
     public ModelAndView editProfile(@PathVariable long id, Principal principal) {
         User entityUser = userService.getUserById(id);
@@ -63,6 +64,7 @@ public class UserController {
         return modelAndView;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/{id}/edit")
     public ModelAndView saveEditedProfile(@PathVariable long id,
                                           @Valid DtoUserProfile dtoUser,
