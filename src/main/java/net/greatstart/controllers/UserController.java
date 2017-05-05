@@ -67,7 +67,8 @@ public class UserController {
     public ModelAndView saveEditedProfile(@PathVariable long id,
                                           @Valid DtoUserProfile dtoUser,
                                           Errors errors,
-                                          Principal principal, @RequestParam(value = "file", required = false) MultipartFile file) {
+                                          Principal principal,
+                                          @RequestParam(value = "file", required = false) MultipartFile file) {
         if (errors.hasErrors()) {
             return new ModelAndView(EDIT_PROFILE);
         }

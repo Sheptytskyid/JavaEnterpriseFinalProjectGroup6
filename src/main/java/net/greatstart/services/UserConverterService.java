@@ -14,7 +14,7 @@ public class UserConverterService {
         dtoUser.setEmail(user.getEmail());
         dtoUser.setName(user.getName());
         dtoUser.setLastName(user.getLastName());
-            dtoUser.setPhoto(user.getPhoto());
+        dtoUser.setPhoto(user.getPhoto());
         Contact contact = user.getContact();
         if (contact != null) {
             dtoUser.setAddress(contact.getAddress());
