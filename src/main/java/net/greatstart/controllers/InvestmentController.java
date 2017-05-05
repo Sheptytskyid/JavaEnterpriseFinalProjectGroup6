@@ -17,8 +17,8 @@ public class InvestmentController {
         this.investmentService = investmentService;
     }
 
-    public void createInvestment(Investment investment) {
-        investmentService.createInvestment(investment);
+    public void saveInvestment(Investment investment) {
+        investmentService.saveInvestment(investment);
     }
 
     public Investment getInvestmentById(long id) {

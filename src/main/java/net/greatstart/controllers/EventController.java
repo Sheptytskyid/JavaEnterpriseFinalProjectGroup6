@@ -17,12 +17,8 @@ public class EventController {
         this.eventService = eventService;
     }
 
-    public void createEvent(Event event) {
-        eventService.createEvent(event);
-    }
-
-    public void updateEvent(long id) {
-        eventService.updateEvent(id);
+    public void saveEvent(Event event) {
+        eventService.saveEvent(event);
     }
 
     public void deleteEvent(long id) {

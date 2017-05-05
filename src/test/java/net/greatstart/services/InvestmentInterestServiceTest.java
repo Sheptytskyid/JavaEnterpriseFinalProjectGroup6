@@ -15,25 +15,23 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = Main.class)
 public class InvestmentInterestServiceTest {
 
     private static final long ID = 1;
-
     @Mock
-    InvestmentInterestDao investmentInterestDao;
-
+    private InvestmentInterestDao investmentInterestDao;
     @InjectMocks
-    InvestmentInterestService invInterestService;
-
+    private InvestmentInterestService invInterestService;
     @Mock
-    InvestmentInterest invInterest;
+    private InvestmentInterest invInterest;
 
     @Before
     public void setup() {
@@ -43,34 +41,21 @@ public class InvestmentInterestServiceTest {
 
     @Test(timeout = 2000)
     public void shouldReturnEntityWhenGetInvestmentInterestById() {
-        when(investmentInterestDao.getById(ID)).thenReturn(invInterest);
+        when(investmentInterestDao.findOne(ID)).thenReturn(invInterest);
         InvestmentInterest result = invInterestService.getInvestmentInterestById(ID);
         assertEquals(invInterest, result);
     }
 
     @Test(timeout = 2000)
     public void shouldReturnTrueWhenCreateInvestmentInterest() {
-        when(investmentInterestDao.create(invInterest)).thenReturn(true);
-        boolean result = invInterestService.createInvestmentInterest(invInterest);
-        assertTrue(result);
+        invInterestService.saveInvestmentInterest(invInterest);
+        verify(investmentInterestDao, times(1)).save(invInterest);
     }
 
     @Test(timeout = 2000)
     public void shouldReturnTrueWhenDeleteInvestmentInterest() {
-        when(investmentInterestDao.getById(ID)).thenReturn(invInterest);
-        when(investmentInterestDao.delete(invInterest)).thenReturn(true);
-        boolean result = invInterestService.deleteInvestmentInterest(ID);
-        assertTrue(result);
-    }
-
-    @Test(timeout = 2000)
-    public void shouldReturnTrueWhenUpdateInvestmentInterest() {
-        when(investmentInterestDao.getById(ID)).thenReturn(invInterest);
-        when(investmentInterestDao.update(invInterest)).thenReturn(true);
-        InvestmentInterest invInterestResult = invInterestService.getInvestmentInterestById(ID);
-        invInterestResult.setId(2L);
-        boolean result = invInterestService.updateInvestmentInterest(invInterestResult);
-        assertTrue(result);
+        investmentInterestDao.findOne(ID);
+        verify(investmentInterestDao, times(1)).findOne(ID);
     }
 
     @Test(timeout = 2000)
@@ -82,7 +67,7 @@ public class InvestmentInterestServiceTest {
         investmentInterests.add(investmentInterestOne);
         investmentInterests.add(investmentInterestTwo);
         investmentInterests.add(investmentInterestThree);
-        when(investmentInterestDao.getAll()).thenReturn(investmentInterests);
+        when(investmentInterestDao.findAll()).thenReturn(investmentInterests);
         List<InvestmentInterest> result = invInterestService.getAllInvestmentInterest();
         assertEquals(investmentInterests, result);
     }

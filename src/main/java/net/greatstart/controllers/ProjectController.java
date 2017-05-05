@@ -66,7 +66,7 @@ public class ProjectController {
         }
         User owner = userService.getUserByEmail(principal.getName());
         project.setOwner(owner);
-        projectService.createProject(project);
+        projectService.saveProject(project);
         return new ModelAndView(REDIRECT_TO_PROJECTS);
     }
 
@@ -86,7 +86,7 @@ public class ProjectController {
         if (errors.hasErrors()) {
             return new ModelAndView("project/update_project");
         }
-        projectService.updateProject(project);
+        projectService.saveProject(project);
         return new ModelAndView(REDIRECT_TO_PROJECTS);
     }
 

@@ -20,11 +20,7 @@ public class InvestmentInterestService {
         this.investmentInterestDao = investmentInterestDao;
     }
 
-    public void createInvestmentInterest(InvestmentInterest investmentInterest) {
-        investmentInterestDao.save(investmentInterest);
-    }
-
-    public void updateInvestmentInterest(InvestmentInterest investmentInterest) {
+    public void saveInvestmentInterest(InvestmentInterest investmentInterest) {
         investmentInterestDao.save(investmentInterest);
     }
 

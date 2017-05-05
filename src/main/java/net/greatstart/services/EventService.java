@@ -20,12 +20,7 @@ public class EventService {
         this.eventDao = eventDao;
     }
 
-    public void createEvent(Event event) {
-        eventDao.save(event);
-    }
-
-    public void updateEvent(long id) {
-        Event event = getEventById(id);
+    public void saveEvent(Event event) {
         eventDao.save(event);
     }
 

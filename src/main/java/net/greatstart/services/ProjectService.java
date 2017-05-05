@@ -25,11 +25,7 @@ public class ProjectService {
         this.userService = userService;
     }
 
-    public void createProject(Project project) {
-        projectDao.save(project);
-    }
-
-    public void updateProject(Project project) {
+    public void saveProject(Project project) {
         projectDao.save(project);
     }
 
