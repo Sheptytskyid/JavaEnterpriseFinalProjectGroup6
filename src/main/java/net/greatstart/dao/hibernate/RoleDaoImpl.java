@@ -19,18 +19,24 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public boolean create(Role item) {
-        return false;
+    public boolean create(Role role) {
+        sessionFactory.getCurrentSession()
+                .save(role);
+        return true;
     }
 
     @Override
-    public boolean update(Role item) {
-        return false;
+    public boolean update(Role role) {
+        sessionFactory.getCurrentSession()
+                .update(role);
+        return true;
     }
 
     @Override
-    public boolean delete(Role item) {
-        return false;
+    public boolean delete(Role role) {
+        sessionFactory.getCurrentSession()
+                .delete(role);
+        return true;
     }
 
     @Override
@@ -46,9 +52,13 @@ public class RoleDaoImpl implements RoleDao {
 
     @Override
     public Role getByName(String name) {
-        return (Role) sessionFactory.getCurrentSession()
-                .createQuery("from Role where name = :name")
+        List<Role> roles = sessionFactory.getCurrentSession()
+                .createQuery("from Role where name = :name", Role.class)
                 .setParameter("name", name)
-                .getSingleResult();
+                .getResultList();
+        if (!roles.isEmpty()) {
+            return roles.get(0);
+        }
+        return null;
     }
 }
