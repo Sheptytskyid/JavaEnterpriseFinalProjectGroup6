@@ -19,8 +19,8 @@ import java.security.Principal;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-    private static final String SHOW_PROFILE = "user/showProfile";
-    private static final String EDIT_PROFILE = "user/editProfile";
+    private static final String SHOW_PROFILE = "user/UserPage";
+    private static final String EDIT_PROFILE = "user/EditUserPage";
     private static final String ERROR_PROFILE = "redirect:/";
 
     private UserService userService;
@@ -43,6 +43,7 @@ public class UserController {
         }
         return modelAndView;
     }
+
 
     @GetMapping("/{id}/edit")
     public ModelAndView editProfile(@PathVariable long id, Principal principal) {

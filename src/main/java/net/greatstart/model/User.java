@@ -27,6 +27,8 @@ public class User extends AbstractModel {
 
     @Column(name = "email")
     private String email;
+    @Column(name = "last_name")
+    private String lastName;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "type_id")
@@ -48,4 +50,5 @@ public class User extends AbstractModel {
 
     @OneToMany(mappedBy = "investor", fetch = FetchType.LAZY)
     private List<InvestmentInterest> investmentInterests;
+
 }
