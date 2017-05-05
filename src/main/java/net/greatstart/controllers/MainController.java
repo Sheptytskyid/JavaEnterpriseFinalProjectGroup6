@@ -10,7 +10,7 @@ public class MainController {
     @RequestMapping(value = "/")
     public ModelAndView frontPage() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("index");
+        modelAndView.setViewName("Designpage");
         return modelAndView;
     }
 }
