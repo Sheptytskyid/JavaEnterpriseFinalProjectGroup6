@@ -29,4 +29,10 @@ public class Investment extends AbstractModel {
 
     @Column(name = "sum")
     private BigDecimal sum;
+
+    @Column(name = "verified")
+    private boolean verified;
+
+    @Column(name = "paid")
+    private boolean paid;
 }
