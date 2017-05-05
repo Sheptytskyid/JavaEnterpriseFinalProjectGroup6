@@ -3,6 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<spring:url value="/user/photo" var="userPhotoUrl"/>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
@@ -53,7 +54,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown active "><a class="dropdown-toggle" data-toggle="dropdown">
                     <span class="pull-left" style="margin-right:8px; margin-top:-5px;">
-                        <img src="http://vev.ru/uploads/images/00/07/64/2011/10/12/c26b1b.jpg"
+                        <img src="${userPhotoUrl}/${dtoUserProfile.id}"
                              class="img-responsive img-circle" title="UserName"
                              alt="UserName" width="30px" height="30px"/>
                     </span>
@@ -64,13 +65,13 @@
                             <div class="navbar-content">
                                 <div class="row">
                                     <div class="col-md-5 col-xs-5">
-                                        <img src="http://vev.ru/uploads/images/00/07/64/2011/10/12/c26b1b.jpg"
-                                             alt="AltText" class="img-responsive"
-                                             width="120px" height="120px" style="border-radius: 50%"/>
+                                        <img src="${userPhotoUrl}/${dtoUserProfile.id}"
+                                             alt="AltText" class="img-responsive img-rounded"
+                                             width="120px" height="120px"/>
                                     </div>
                                     <div class="col-md-7 col-xs-7" style="margin-left: -35px">
                                         <div class="container">
-                                            <div>Welcome back,<strong> ${dtoUserProfile.name}</strong></div>
+                                            <div>Welcome back,<strong> ${dtoUserProfile.name}!</strong></div>
                                             <div class="container"
                                                  style="margin-top:5px; font-size: 15px; font-weight: 500">
                                                 <ul class="non-marker">
@@ -84,7 +85,8 @@
                                                                           style="margin-right: 5px"></span>Help</a></li>
                                                     <li><a href="#" class="btn btn-success btn-md"
                                                            style="margin-top: 5px"><span class="fa fa-sign-out"
-                                                                                         aria-hidden="true"></span>Sign Out</a></li>
+                                                                                         aria-hidden="true"></span>Sign
+                                                        Out</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -111,7 +113,7 @@
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-4  hidden-xs">
                             <img class="img-responsive img-rounded big-photo"
-                                 src="http://vev.ru/uploads/images/00/07/64/2011/10/12/c26b1b.jpg" alt="" style="border-radius: 50%"/>
+                                 src="${userPhotoUrl}/${dtoUserProfile.id}" alt="User big photo"/>
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                             <div class="panel-info">

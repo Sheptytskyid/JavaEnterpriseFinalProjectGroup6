@@ -3,6 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<spring:url value="/user/photo" var="userPhotoUrl"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,7 +53,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown active "><a class="dropdown-toggle" data-toggle="dropdown">
                     <span class="pull-left" style="margin-right:8px; margin-top:-5px;">
-                        <img src="http://vev.ru/uploads/images/00/07/64/2011/10/12/c26b1b.jpg"
+                        <img src="${userPhotoUrl}/${dtoUserProfile.id}"
                              class="img-responsive img-circle" title="UserName"
                              alt="UserName" width="30px" height="30px"/>
                     </span>
@@ -63,7 +64,7 @@
                             <div class="navbar-content">
                                 <div class="row">
                                     <div class="col-md-5 col-xs-5">
-                                        <img src="http://vev.ru/uploads/images/00/07/64/2011/10/12/c26b1b.jpg"
+                                        <img src="${userPhotoUrl}/${dtoUserProfile.id}"
                                              alt="AltText" class="img-responsive"
                                              width="120px" height="120px" style="border-radius: 50%"/>
                                     </div>
@@ -73,7 +74,7 @@
                                             <div class="container"
                                                  style="margin-top:5px; font-size: 15px; font-weight: 500">
                                                 <ul class="non-marker">
-                                                    <li><a href="${contextPath}/user/${dtoUserProfile.id}"><span
+                                                    <li><a href="${contextPath}/${dtoUserProfile.id}"><span
                                                             class="fa fa-user-o" aria-hidden="true"
                                                             style="margin-right: 5px"></span>My account</a></li>
                                                     <li><a href="#"><span class="fa fa-star" aria-hidden="true"
@@ -109,14 +110,16 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
+                        <form:form method="POST" modelAttribute="dtoUserProfile" class="form-signin"
+                                   id="user_form" enctype="multipart/form-data" action="/user/${dtoUserProfile.id}/edit">
                         <div class="col-lg-4 col-md-4 col-sm-4  hidden-xs">
                             <div>
                                 <img class="img-responsive img-rounded big-photo"
-                                     src="http://vev.ru/uploads/images/00/07/64/2011/10/12/c26b1b.jpg" alt="" style="border-radius: 50%"/>
+                                     src="${userPhotoUrl}/${dtoUserProfile.id}" alt="User big photo" style="border-radius: 50%"/>
                             </div>
                             <div>
                                 <label class="btn btn-default btn-file">
-                                    Browse <input accept="image/*" type="file" style="display: none;" form="user_form">
+                                 Browse<input accept="image/*" type="file" name="file" style="display: none">
                                 </label>
                             </div>
                         </div>
@@ -124,8 +127,6 @@
                             <div class="panel-info">
                                 <div class="panel-body">
                                 </div>
-                                <form:form method="POST" modelAttribute="dtoUserProfile" class="form-signin"
-                                           id="user_form">
                                     <table class="table">
                                         <tr>
                                             <th>First name:</th>

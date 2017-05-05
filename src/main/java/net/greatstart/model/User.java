@@ -2,16 +2,7 @@ package net.greatstart.model;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
@@ -29,6 +20,11 @@ public class User extends AbstractModel {
     private String email;
     @Column(name = "last_name")
     private String lastName;
+
+    @Basic(fetch = FetchType.LAZY)
+    @Lob
+    @Column(name = "photo")
+    private byte[] photo;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "type_id")

@@ -7,13 +7,17 @@ import net.greatstart.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.security.Principal;
 
 @Controller
@@ -63,9 +67,19 @@ public class UserController {
     public ModelAndView saveEditedProfile(@PathVariable long id,
                                           @Valid DtoUserProfile dtoUser,
                                           Errors errors,
-                                          Principal principal) {
+                                          Principal principal, @RequestParam(value = "file", required = false) MultipartFile file) {
         if (errors.hasErrors()) {
             return new ModelAndView(EDIT_PROFILE);
+        }
+        if (!file.isEmpty()) {
+            byte[] content = null;
+            try {
+                content = file.getBytes();
+                dtoUser.setPhoto(content);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            dtoUser.setPhoto(content);
         }
         User currentUser = userService.getUserByEmail(principal.getName());
         if (currentUser != null && id == currentUser.getId()) {
@@ -75,5 +89,13 @@ public class UserController {
         }
         return new ModelAndView("redirect:/user/" + id);
     }
+
+    @GetMapping(value = "/photo/{id}")
+    @ResponseBody
+    public byte[] downloadPhoto(@PathVariable("id") Long id) {
+        DtoUserProfile user = userConverter.fromUserToDtoProfile(userService.getUserById(id));
+        return user.getPhoto();
+    }
+
 
 }
