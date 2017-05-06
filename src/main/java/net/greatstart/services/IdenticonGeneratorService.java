@@ -1,5 +1,8 @@
 package net.greatstart.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.imageio.ImageIO;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
@@ -10,11 +13,12 @@ import java.io.IOException;
 
 public class IdenticonGeneratorService {
 
-    private IdenticonGeneratorService() {
-    }
-
+    private static final Logger logger = LoggerFactory.getLogger(IdenticonGeneratorService.class);
     private static int width = 5;
     private static int height = 5;
+
+    private IdenticonGeneratorService() {
+    }
 
     private static BufferedImage generateImage(String text, int imageWidth, int imageHeight) {
 
@@ -52,6 +56,7 @@ public class IdenticonGeneratorService {
     }
 
     public static byte[] generateByteImage(String text, int imageWidth, int imageHeight) {
+        logger.info("Starting create default image stub");
         BufferedImage image = generateImage(text, imageWidth, imageHeight);
         byte[] photoBytes = null;
         try {
@@ -60,8 +65,9 @@ public class IdenticonGeneratorService {
             baos.flush();
             photoBytes = baos.toByteArray();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Error creating default image stub", e);
         }
+        logger.info("Successfully created default image stub");
         return photoBytes;
     }
 }
