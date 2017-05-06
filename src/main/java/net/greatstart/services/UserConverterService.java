@@ -28,6 +28,8 @@ public class UserConverterService {
         user.setContact(contact);
         user.setName(dtoUser.getName());
         user.setLastName(dtoUser.getLastName());
-        user.setPhoto(dtoUser.getPhoto());
+        if (dtoUser.getPhoto() != null) {
+            user.setPhoto(dtoUser.getPhoto());
+        }
     }
 }
