@@ -13,11 +13,11 @@ public class Investment extends AbstractModel {
     @Column(name = "date")
     private LocalDate dateOfInvestment;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "project_id")
     private Project project;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn (name = "user_id")
     private User investor;
 
@@ -29,4 +29,5 @@ public class Investment extends AbstractModel {
 
     @Column(name = "paid")
     private boolean paid;
+
 }
