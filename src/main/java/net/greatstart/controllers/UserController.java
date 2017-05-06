@@ -4,6 +4,8 @@ import net.greatstart.dto.DtoUserProfile;
 import net.greatstart.model.User;
 import net.greatstart.services.UserConverterService;
 import net.greatstart.services.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,7 @@ public class UserController {
 
     private UserService userService;
     private UserConverterService userConverter;
+    private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     public UserController(UserService userService, UserConverterService userConverterService) {
@@ -77,10 +80,13 @@ public class UserController {
         if (!file.isEmpty()) {
             byte[] content = null;
             try {
+                logger.info("File name: " + file.getName());
+                logger.info("File size: " + file.getSize());
+                logger.info("File content type: " + file.getContentType());
                 content = file.getBytes();
                 dtoUser.setPhoto(content);
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Error saving upload file", e);
             }
             dtoUser.setPhoto(content);
         }
