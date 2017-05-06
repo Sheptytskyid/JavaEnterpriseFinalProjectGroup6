@@ -49,7 +49,5 @@ public class User extends AbstractModel {
     @OneToMany(mappedBy = "investor", fetch = FetchType.LAZY)
     private List<InvestmentInterest> investmentInterests;
 
-    @OneToMany(mappedBy = "admin", fetch = FetchType.LAZY)
-    private List<InvestmentVerifyRequest> investmentVerifyRequestList;
 
 }

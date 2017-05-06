@@ -23,7 +23,7 @@ public class InvestmentService {
         return investmentDao.create(investment);
     }
 
-    public Investment getnvestmentById(long id) {
+    public Investment getInvestmentById(long id) {
         return investmentDao.getById(id);
     }
 

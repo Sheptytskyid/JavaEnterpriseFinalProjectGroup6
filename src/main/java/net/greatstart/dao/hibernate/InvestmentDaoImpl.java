@@ -2,34 +2,51 @@ package net.greatstart.dao.hibernate;
 
 import net.greatstart.dao.InvestmentDao;
 import net.greatstart.model.Investment;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
 public class InvestmentDaoImpl implements InvestmentDao {
+    private SessionFactory sessionFactory;
+
+    @Autowired
+    public InvestmentDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
     @Override
     public boolean create(Investment investment) {
-        return false;
+        sessionFactory.getCurrentSession().save(investment);
+        return true;
     }
 
     @Override
     public boolean delete(Investment investment) {
-        return false;
+        sessionFactory.getCurrentSession().delete(investment);
+        return true;
     }
 
     @Override
     public boolean update(Investment investment) {
-        return false;
+        sessionFactory.getCurrentSession()
+                .update(investment);
+        return true;
     }
 
     @Override
     public Investment getById(long id) {
-        return null;
+        return sessionFactory.getCurrentSession()
+                .get(Investment.class, id);
     }
 
     @Override
     public List<Investment> getAll() {
-        return null;
+        return sessionFactory.getCurrentSession()
+                .createQuery("FROM Investment", Investment.class).list();
+
+
     }
 }

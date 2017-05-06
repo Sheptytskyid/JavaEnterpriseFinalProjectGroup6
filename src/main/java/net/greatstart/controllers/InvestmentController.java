@@ -22,7 +22,7 @@ public class InvestmentController {
     }
 
     public Investment getInvestmentById(long id) {
-        return investmentService.getnvestmentById(id);
+        return investmentService.getInvestmentById(id);
     }
 
     public List<Investment> getAllnvestments() {

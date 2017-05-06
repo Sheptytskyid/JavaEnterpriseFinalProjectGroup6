@@ -29,7 +29,4 @@ public class Investment extends AbstractModel {
 
     @Column(name = "paid")
     private boolean paid;
-
-    @Embedded
-    private InvestmentVerifyRequest investmentVerifyRequest;
 }
