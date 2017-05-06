@@ -14,6 +14,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
@@ -29,8 +30,8 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 @RunWith(MockitoJUnitRunner.class)
 @ContextConfiguration(classes = Main.class)
 public class UserControllerTest {
-    private static final String SHOW_PROFILE = "user/showProfile";
-    private static final String EDIT_PROFILE = "user/editProfile";
+    private static final String SHOW_PROFILE = "user/UserPage";
+    private static final String EDIT_PROFILE = "user/EditUserPage";
     private static final String ERROR_PROFILE = "redirect:/";
     private static final long TEST_ID = 1L;
     private static final String TEST_USER_PROFILE = "/user/" + TEST_ID;
@@ -46,6 +47,8 @@ public class UserControllerTest {
     private Principal principal;
     @Mock
     private BindingResult bindingResult;
+    @Mock
+    private MultipartFile file;
 
     @Before
     public void init() {
@@ -98,7 +101,7 @@ public class UserControllerTest {
     @Test
     public void saveEditedProfileWrongUser() throws Exception {
         ModelAndView modelAndView = controller
-                .saveEditedProfile(TEST_ID, new DtoUserProfile(), bindingResult, principal);
+                .saveEditedProfile(TEST_ID, new DtoUserProfile(), bindingResult, principal, file);
 
         assertEquals("redirect:" + TEST_USER_PROFILE, modelAndView.getViewName());
         verify(userService).getUserByEmail(null);
@@ -112,7 +115,7 @@ public class UserControllerTest {
         when(userService.getUserByEmail(null)).thenReturn(user);
         when(userService.getUserById(TEST_ID)).thenReturn(user);
         ModelAndView modelAndView = controller
-                .saveEditedProfile(TEST_ID, dtoUser, bindingResult, principal);
+                .saveEditedProfile(TEST_ID, dtoUser, bindingResult, principal, file);
         verify(userConverter).updateUserFromDto(user, dtoUser);
         verify(userService).updateUser(user);
         assertEquals("redirect:" + TEST_USER_PROFILE, modelAndView.getViewName());
