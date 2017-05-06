@@ -27,6 +27,7 @@ public class UserServiceTest {
     private UserService userService;
     private User user = new User();
 
+
     @Test
     public void createUser() throws Exception {
         userService.createUser(user);
@@ -42,6 +43,7 @@ public class UserServiceTest {
         User user = new User();
         user.setName("Admin");
         user.setEmail(email);
+        user.setPhoto(IdenticonGeneratorService.generateByteImage(user.getName(),320,320));
         Set<Role> set = new HashSet<>();
         set.add(null);
         user.setRoles(set);
