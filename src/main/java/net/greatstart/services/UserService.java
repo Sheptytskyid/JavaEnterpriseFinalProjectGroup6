@@ -40,7 +40,6 @@ public class UserService {
         Set<Role> roles = new HashSet<>();
         roles.add(roleService.findOrCreateRole("ROLE_USER"));
         user.setRoles(roles);
-        user.setPhoto(IdenticonGeneratorService.generateByteImage(name, 320, 320));
         createUser(user);
         return createUser(user);
     }

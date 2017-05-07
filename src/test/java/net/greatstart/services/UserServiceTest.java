@@ -44,7 +44,6 @@ public class UserServiceTest {
         String roleName = "ROLE_USER";
         user.setName("Admin");
         user.setEmail(email);
-        user.setPhoto(IdenticonGeneratorService.generateByteImage(user.getName(),320,320));
         Set<Role> set = new HashSet<>();
         set.add(null);
         user.setRoles(set);
