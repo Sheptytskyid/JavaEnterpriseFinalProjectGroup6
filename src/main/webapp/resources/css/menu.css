@@ -57,6 +57,12 @@ html { height: 100%;}
     margin-right: -220px;
 }
 
+@media (max-width: 1050px) {
+    .wrapper {
+        display: none;
+    }
+}
+
 /*-------------------------------*/
 /*     Sidebar nav styles        */
 /*-------------------------------*/
@@ -170,7 +176,7 @@ html { height: 100%;}
 
 .hamburger {
   position: fixed;
-  top: 20px;  
+  top: 10px;
   z-index: 999;
   display: block;
   width: 32px;
@@ -276,6 +282,16 @@ html { height: 100%;}
   display: block;
   -webkit-transform: translate3d(-100px,0,0);
   -webkit-transition: all .35s ease-in-out;
+}
+
+.hamburger.is-closed.sticky {
+  position: fixed;
+  font-size: 24px;
+  line-height: 48px;
+  height: 30px;
+  background-color: white;
+  text-align: left;
+  padding-left: 20px;
 }
 
 /*-------------------------------*/
