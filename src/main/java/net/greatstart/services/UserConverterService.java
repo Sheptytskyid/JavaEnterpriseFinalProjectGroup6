@@ -13,6 +13,8 @@ public class UserConverterService {
         dtoUser.setId(user.getId());
         dtoUser.setEmail(user.getEmail());
         dtoUser.setName(user.getName());
+        dtoUser.setLastName(user.getLastName());
+        dtoUser.setPhoto(user.getPhoto());
         Contact contact = user.getContact();
         if (contact != null) {
             dtoUser.setAddress(contact.getAddress());
@@ -25,5 +27,7 @@ public class UserConverterService {
         Contact contact = new Contact(dtoUser.getAddress(), dtoUser.getPhoneNumber());
         user.setContact(contact);
         user.setName(dtoUser.getName());
+        user.setLastName(dtoUser.getLastName());
+        user.setPhoto(dtoUser.getPhoto());
     }
 }
