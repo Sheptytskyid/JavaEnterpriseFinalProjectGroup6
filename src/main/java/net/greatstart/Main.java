@@ -6,8 +6,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-//@EntityScan(basePackages = {"net.greatstart.model"})
-//@EnableJpaRepositories(basePackages = {"net.greatstart.dao"})
 public class Main extends SpringBootServletInitializer {
 
     @Override
