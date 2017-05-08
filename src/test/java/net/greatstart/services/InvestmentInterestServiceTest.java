@@ -28,10 +28,10 @@ public class InvestmentInterestServiceTest {
     private static final long ID = 1;
     @Mock
     private InvestmentInterestDao investmentInterestDao;
-    @InjectMocks
-    private InvestmentInterestService invInterestService;
     @Mock
     private InvestmentInterest invInterest;
+    @InjectMocks
+    private InvestmentInterestService invInterestService;
 
     @Before
     public void setup() {
@@ -47,13 +47,13 @@ public class InvestmentInterestServiceTest {
     }
 
     @Test(timeout = 2000)
-    public void shouldReturnTrueWhenCreateInvestmentInterest() {
+    public void shouldInvokeInvestmentInterestDaoWhenCreateInvestmentInterest() {
         invInterestService.saveInvestmentInterest(invInterest);
         verify(investmentInterestDao, times(1)).save(invInterest);
     }
 
     @Test(timeout = 2000)
-    public void shouldReturnTrueWhenDeleteInvestmentInterest() {
+    public void shouldInvokeInvestmentInterestDaoWhenDeleteInvestmentInterest() {
         investmentInterestDao.findOne(ID);
         verify(investmentInterestDao, times(1)).findOne(ID);
     }

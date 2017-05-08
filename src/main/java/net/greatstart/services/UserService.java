@@ -25,9 +25,8 @@ public class UserService {
         this.roleService = roleService;
     }
 
-    public boolean createUser(User user) {
+    public void createUser(User user) {
         userDao.save(user);
-        return true;
     }
 
     public void createUser(String email, String password) {

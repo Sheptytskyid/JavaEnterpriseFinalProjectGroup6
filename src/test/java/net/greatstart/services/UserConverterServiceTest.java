@@ -7,14 +7,15 @@ import net.greatstart.model.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertEquals;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = Main.class)
 public class UserConverterServiceTest {
+
     private static final String EMAIL = "a@example.com";
     private static final String NAME = "UserName";
     private static final String ADDRESS = "Address";
