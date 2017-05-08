@@ -1,6 +1,7 @@
 package net.greatstart.model;
 
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -18,6 +19,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "users")
+@Component
 public class User extends AbstractModel {
     @Column(name = "name")
     private String name;

@@ -1,20 +1,21 @@
 package net.greatstart.model;
 
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Embedded;
-import javax.persistence.ManyToOne;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import javax.persistence.CascadeType;
-
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 
 @Data
 @Entity
 @Table(name = "projects")
+@Component
 public class Project extends AbstractModel {
 
     @Embedded

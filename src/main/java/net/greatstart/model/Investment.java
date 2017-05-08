@@ -1,20 +1,22 @@
 package net.greatstart.model;
 
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.ManyToOne;
 import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
 @Entity
 @Table(name = "investments")
+@Component
 public class Investment extends AbstractModel {
     @Column(name = "date")
     private LocalDate dateOfInvestment;

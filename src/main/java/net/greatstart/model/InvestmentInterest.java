@@ -2,19 +2,21 @@ package net.greatstart.model;
 
 import lombok.Data;
 import org.springframework.format.annotation.NumberFormat;
+import org.springframework.stereotype.Component;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 
 @Data
 @Entity
 @Table(name = "investment_interests")
+@Component
 public class InvestmentInterest extends AbstractModel {
 
     @Column(name = "goal")
