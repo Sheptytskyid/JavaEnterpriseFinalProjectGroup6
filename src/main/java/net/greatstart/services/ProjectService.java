@@ -50,6 +50,6 @@ public class ProjectService {
 
     public List<Project> getAllProjectsOfUser(String email) {
         User user = userService.getUserByEmail(email);
-        return projectDao.findByUserId(user.getId());
+        return projectDao.findByOwner(user);
     }
 }
