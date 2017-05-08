@@ -156,7 +156,7 @@
                                 </div>
                                 <div>
                                     <label class="btn btn-default btn-file">
-                                        Browse<input accept="image/*" type="file" name="file" style="display: none">
+                                        Browse<input accept="image/*" type="file" name="file" style="display: none" data-icon="f">
                                     </label>
                                 </div>
                             </div>
