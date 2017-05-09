@@ -7,12 +7,13 @@ import net.greatstart.model.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertEquals;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 @ContextConfiguration(classes = Main.class)
 public class UserConverterServiceTest {
 
@@ -25,7 +26,8 @@ public class UserConverterServiceTest {
     private static final long ID = 1L;
     private User user;
     private DtoUserProfile dtoUserProfile;
-    private UserConverterService userConverter = new UserConverterService();
+    @InjectMocks
+    private UserConverterService userConverter;
 
     @Before
     public void setUp() {

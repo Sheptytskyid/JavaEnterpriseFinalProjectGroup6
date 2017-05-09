@@ -3,14 +3,12 @@ package net.greatstart.services;
 import net.greatstart.Main;
 import net.greatstart.dao.InvestmentInterestDao;
 import net.greatstart.model.InvestmentInterest;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +19,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 @ContextConfiguration(classes = Main.class)
 public class InvestmentInterestServiceTest {
 
@@ -32,12 +30,6 @@ public class InvestmentInterestServiceTest {
     private InvestmentInterest invInterest;
     @InjectMocks
     private InvestmentInterestService invInterestService;
-
-    @Before
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        invInterestService = new InvestmentInterestService(investmentInterestDao);
-    }
 
     @Test(timeout = 2000)
     public void shouldReturnEntityWhenGetInvestmentInterestById() {

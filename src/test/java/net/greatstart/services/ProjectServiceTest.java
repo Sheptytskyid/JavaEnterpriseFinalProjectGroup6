@@ -4,16 +4,14 @@ import net.greatstart.Main;
 import net.greatstart.dao.ProjectDao;
 import net.greatstart.model.Project;
 import net.greatstart.model.User;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 
@@ -21,7 +19,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 @ContextConfiguration(classes = Main.class)
 public class ProjectServiceTest {
 
@@ -33,12 +31,6 @@ public class ProjectServiceTest {
     private Project project = new Project();
     @InjectMocks
     private ProjectService projectService;
-
-    @Before
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        projectService = new ProjectService(projectDao, userService);
-    }
 
     @Test(timeout = 2000)
     public void shouldInvokeProjectDaoWhenSaveProject() throws Exception {

@@ -3,21 +3,19 @@ package net.greatstart.services;
 import net.greatstart.Main;
 import net.greatstart.dao.RoleDao;
 import net.greatstart.model.Role;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 @ContextConfiguration(classes = Main.class)
 public class RoleServiceTest {
 
@@ -26,12 +24,6 @@ public class RoleServiceTest {
     private RoleDao roleDao;
     @InjectMocks
     private RoleService roleService;
-
-    @Before
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        roleService = new RoleService(roleDao);
-    }
 
     @Test
     public void shouldInvokeRoleDaoWhenAddRole() throws Exception {

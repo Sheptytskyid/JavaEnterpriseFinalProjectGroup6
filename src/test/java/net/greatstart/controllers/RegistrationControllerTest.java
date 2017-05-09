@@ -6,17 +6,18 @@ import net.greatstart.services.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 @ContextConfiguration(classes = Main.class)
 public class RegistrationControllerTest {
     @Mock
@@ -25,21 +26,19 @@ public class RegistrationControllerTest {
     private PasswordEncoder passwordEncoder;
     @Mock
     private SecurityService securityService;
-
-    private RegistrationController controller =
-            new RegistrationController(passwordEncoder, userService, securityService);
+    @InjectMocks
+    private RegistrationController controller;
     private MockMvc mvc;
 
     @Before
-    public void init() {
+    public void setup() {
         mvc = standaloneSetup(controller).build();
     }
 
 
     @Test
     public void register() throws Exception {
-        mvc.perform(get("/user/register"))
-                .andExpect(view().name("login/registration"));
+        mvc.perform(get("/user/register")).andExpect(view().name("login/registration"));
     }
 
 

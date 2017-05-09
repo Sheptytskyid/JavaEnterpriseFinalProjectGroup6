@@ -4,12 +4,10 @@ import net.greatstart.Main;
 import net.greatstart.dao.UserDao;
 import net.greatstart.model.Role;
 import net.greatstart.model.User;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -30,15 +28,9 @@ public class UserServiceTest {
     @Mock
     private RoleService roleService;
     @Mock
-    User user;
+    private User user;
     @InjectMocks
     private UserService userService;
-
-    @Before
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        userService = new UserService(userDao, roleService);
-    }
 
     @Test
     public void shouldInvokeUserDaoWhenCreateUser() throws Exception {
