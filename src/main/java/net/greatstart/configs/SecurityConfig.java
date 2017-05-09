@@ -12,18 +12,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.sql.DataSource;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserService userService;
-    private DataSource dataSource;
 
     @Autowired
-    public SecurityConfig(UserService userService, DataSource dataSource) {
+    public SecurityConfig(UserService userService) {
         this.userService = userService;
-        this.dataSource = dataSource;
     }
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
