@@ -32,6 +32,7 @@ public class UserServiceTest {
     @InjectMocks
     private UserService userService;
 
+
     @Test
     public void shouldInvokeUserDaoWhenCreateUser() throws Exception {
         userService.createUser(user);

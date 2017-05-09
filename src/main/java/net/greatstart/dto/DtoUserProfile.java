@@ -18,4 +18,5 @@ public class DtoUserProfile {
     private String email;
     private String lastName;
     private byte[] photo;
+    private String initial;
 }
