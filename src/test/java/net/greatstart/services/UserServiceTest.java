@@ -27,6 +27,7 @@ public class UserServiceTest {
     private UserService userService;
     private User user = new User();
 
+
     @Test
     public void createUser() throws Exception {
         userService.createUser(user);
