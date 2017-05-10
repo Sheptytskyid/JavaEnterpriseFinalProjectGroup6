@@ -29,6 +29,19 @@ public class InvestmentInterestServiceTest {
     private InvestmentInterestService invInterestService;
 
     @Test(timeout = 2000)
+    public void invokeInvestmentInterestDaoWhenSaveInvestmentInterest() {
+        invInterestService.saveInvestmentInterest(invInterest);
+        verify(investmentInterestDao, times(1)).save(invInterest);
+    }
+
+    @Test(timeout = 2000)
+    public void invokeInvestmentInterestDaoWhenDeleteInvestmentInterest() {
+        when(invInterestService.getInvestmentInterestById(ID)).thenReturn(invInterest);
+        invInterestService.deleteInvestmentInterest(ID);
+        verify(investmentInterestDao, times(1)).delete(invInterest);
+    }
+
+    @Test(timeout = 2000)
     public void returnEntityWhenGetInvestmentInterestById() {
         when(investmentInterestDao.findOne(ID)).thenReturn(invInterest);
         InvestmentInterest result = invInterestService.getInvestmentInterestById(ID);
@@ -36,19 +49,13 @@ public class InvestmentInterestServiceTest {
     }
 
     @Test(timeout = 2000)
-    public void invokeInvestmentInterestDaoWhenCreateInvestmentInterest() {
-        invInterestService.saveInvestmentInterest(invInterest);
-        verify(investmentInterestDao, times(1)).save(invInterest);
-    }
-
-    @Test(timeout = 2000)
-    public void invokeInvestmentInterestDaoWhenDeleteInvestmentInterest() {
+    public void invokeInvestmentInterestDaoWhenGetInvestmentInterestById() {
         investmentInterestDao.findOne(ID);
         verify(investmentInterestDao, times(1)).findOne(ID);
     }
 
     @Test(timeout = 2000)
-    public void returnListOfInvestmentInterestWhenCallMethodGetAll() {
+    public void returnListOfInvestmentInterestWhenGetAll() {
         List<InvestmentInterest> investmentInterests = new ArrayList<>();
         InvestmentInterest investmentInterestOne = mock(InvestmentInterest.class);
         InvestmentInterest investmentInterestTwo = mock(InvestmentInterest.class);
