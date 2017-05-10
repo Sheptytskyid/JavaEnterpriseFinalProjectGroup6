@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/user")
 public class LoginController {
+
     @GetMapping(value = "/login")
     public ModelAndView showLoginForm(String error, String logout) {
         ModelAndView model = new ModelAndView("login/login");
