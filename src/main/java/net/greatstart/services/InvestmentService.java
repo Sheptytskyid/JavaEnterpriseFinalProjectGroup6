@@ -27,7 +27,10 @@ public class InvestmentService {
         return investmentDao.getById(id);
     }
 
-    public List<Investment> getAllInvestments() {
-        return investmentDao.getAll();
+    public List<Investment> getAllProjectInvestments(long id) {
+        return investmentDao.getAllByProjectId(id);
+    }
+    public List<Investment> getAllUserInvestments(long id) {
+        return investmentDao.getAllByUserId(id);
     }
 }

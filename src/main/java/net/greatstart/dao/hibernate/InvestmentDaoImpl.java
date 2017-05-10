@@ -45,8 +45,26 @@ public class InvestmentDaoImpl implements InvestmentDao {
     @Override
     public List<Investment> getAll() {
         return sessionFactory.getCurrentSession()
-                .createQuery("FROM Investment", Investment.class).list();
+                .createQuery("FROM Investment", Investment.class)
+                .list();
 
+
+    }
+
+    @Override
+    public List<Investment> getAllByUserId(long id) {
+        return sessionFactory.getCurrentSession()
+                .createQuery("FROM Investment WHERE user_id= :user_id", Investment.class)
+                .setParameter("user_id", id)
+                .list();
+    }
+
+    @Override
+    public List<Investment> getAllByProjectId(long id) {
+        return sessionFactory.getCurrentSession()
+                .createQuery("FROM Investment WHERE project_id= :project_id", Investment.class)
+                .setParameter("project_id", id)
+                .list();
 
     }
 }
