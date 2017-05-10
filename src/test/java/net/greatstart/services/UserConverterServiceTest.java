@@ -1,6 +1,5 @@
 package net.greatstart.services;
 
-import net.greatstart.Main;
 import net.greatstart.dto.DtoUserProfile;
 import net.greatstart.model.Contact;
 import net.greatstart.model.User;
@@ -9,12 +8,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.context.ContextConfiguration;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
-@ContextConfiguration(classes = Main.class)
 public class UserConverterServiceTest {
 
     private static final String EMAIL = "a@example.com";
@@ -58,5 +55,4 @@ public class UserConverterServiceTest {
         assertEquals(NEW_ADDRESS, user.getContact().getAddress());
         assertEquals(NEW_PHONE, user.getContact().getPhoneNumber());
     }
-
 }

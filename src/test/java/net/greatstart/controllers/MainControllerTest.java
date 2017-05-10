@@ -1,12 +1,10 @@
 package net.greatstart.controllers;
 
-import net.greatstart.Main;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -14,7 +12,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 @RunWith(MockitoJUnitRunner.class)
-@ContextConfiguration(classes = Main.class)
 public class MainControllerTest {
     @InjectMocks
     private MainController controller;
@@ -25,8 +22,8 @@ public class MainControllerTest {
         mvc = standaloneSetup(controller).build();
     }
 
-    @Test
-    public void testHomePage() throws Exception {
+    @Test(timeout = 2000)
+    public void frontPageShouldReturnView() throws Exception {
         mvc.perform(get("/")).andExpect(view().name("index"));
     }
 }

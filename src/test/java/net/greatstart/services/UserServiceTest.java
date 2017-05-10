@@ -1,6 +1,5 @@
 package net.greatstart.services;
 
-import net.greatstart.Main;
 import net.greatstart.dao.UserDao;
 import net.greatstart.model.Role;
 import net.greatstart.model.User;
@@ -9,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.context.ContextConfiguration;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -20,7 +18,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-@ContextConfiguration(classes = Main.class)
 public class UserServiceTest {
 
     @Mock
@@ -62,26 +59,26 @@ public class UserServiceTest {
     }
 
     @Test
-    public void shouldInvokeUserDaoWhenDeleteUser() throws Exception {
+    public void invokeUserDaoWhenDeleteUser() throws Exception {
         userService.deleteUser(1L);
         verify(userDao, times(1)).delete(1L);
     }
 
     @Test
-    public void shouldInvokeUserDaoWhenGetUserById() throws Exception {
+    public void invokeUserDaoWhenGetUserById() throws Exception {
         userService.getUserById(1L);
         verify(userDao, times(1)).findOne(1L);
     }
 
     @Test
-    public void shouldInvokeUserDaoWhenGetAllUsers() throws Exception {
+    public void invokeUserDaoWhenGetAllUsers() throws Exception {
         when(userDao.findAll()).thenReturn(new ArrayList<>());
         userService.getAllUsers();
         verify(userDao,times(1)).findAll();
     }
 
     @Test
-    public void shouldInvokeUserDaoWhenGetUserByEmail() throws Exception {
+    public void invokeUserDaoWhenGetUserByEmail() throws Exception {
         userService.getUserByEmail("");
         verify(userDao, times(1)).findByEmail("");
     }

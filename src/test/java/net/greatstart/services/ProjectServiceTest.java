@@ -1,6 +1,5 @@
 package net.greatstart.services;
 
-import net.greatstart.Main;
 import net.greatstart.dao.ProjectDao;
 import net.greatstart.model.Project;
 import net.greatstart.model.User;
@@ -11,7 +10,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.test.context.ContextConfiguration;
 
 import java.util.ArrayList;
 
@@ -20,7 +18,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-@ContextConfiguration(classes = Main.class)
 public class ProjectServiceTest {
 
     @Mock
@@ -33,39 +30,39 @@ public class ProjectServiceTest {
     private ProjectService projectService;
 
     @Test(timeout = 2000)
-    public void shouldInvokeProjectDaoWhenSaveProject() throws Exception {
+    public void invokeProjectDaoWhenSaveProject() throws Exception {
         projectService.saveProject(project);
         verify(projectDao, times(1)).save(project);
     }
 
     @Test(timeout = 2000)
-    public void shouldInvokeProjectDaoWhenDeleteProject() throws Exception {
+    public void invokeProjectDaoWhenDeleteProject() throws Exception {
         projectService.deleteProject(1L);
         verify(projectDao, times(1)).delete(1L);
     }
 
     @Test(timeout = 2000)
-    public void shouldInvokeProjectDaoWhenGetProjectById() throws Exception {
+    public void invokeProjectDaoWhenGetProjectById() throws Exception {
         projectService.getProjectById(1L);
         verify(projectDao, times(1)).findOne(1L);
     }
 
     @Test(timeout = 2000)
-    public void shouldInvokeProjectDaoWhenGetAllProjects() throws Exception {
+    public void invokeProjectDaoWhenGetAllProjects() throws Exception {
         when(projectDao.findAll()).thenReturn(new ArrayList<>());
         projectService.getAllProjects();
         verify(projectDao, times(1)).findAll();
     }
 
     @Test(timeout = 2000)
-    public void getNProjects() throws Exception {
+    public void invokeDaoWhenGetNProjects() throws Exception {
         projectService.getNProjects(10);
         Pageable pageable = new PageRequest(0, 10);
         verify(projectDao, times(1)).findAll(pageable);
     }
 
     @Test
-    public void getAllProjectsOfUser() {
+    public void invokeDaoWhenGetAllProjectsOfUser() {
         String email = "test@test.ua";
         User user = new User();
         user.setEmail(email);

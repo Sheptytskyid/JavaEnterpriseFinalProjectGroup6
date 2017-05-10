@@ -1,6 +1,5 @@
 package net.greatstart.controllers;
 
-import net.greatstart.Main;
 import net.greatstart.services.SecurityService;
 import net.greatstart.services.UserService;
 import org.junit.Before;
@@ -10,7 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -18,7 +16,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 @RunWith(MockitoJUnitRunner.class)
-@ContextConfiguration(classes = Main.class)
 public class RegistrationControllerTest {
     @Mock
     private UserService userService;
@@ -35,11 +32,8 @@ public class RegistrationControllerTest {
         mvc = standaloneSetup(controller).build();
     }
 
-
-    @Test
-    public void register() throws Exception {
+    @Test(timeout = 2000)
+    public void registerShouldReturnView() throws Exception {
         mvc.perform(get("/user/register")).andExpect(view().name("login/registration"));
     }
-
-
 }
