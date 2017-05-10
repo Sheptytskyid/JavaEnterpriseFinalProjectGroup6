@@ -21,8 +21,8 @@ import static org.mockito.Mockito.when;
 public class GreatStartUserDetailsServiceTest {
 
     private static final String EMAIL = "test@test.com";
-    public static final String TEST_PASS = "testPass";
-    public static final String ROLE = "user";
+    private static final String TEST_PASS = "testPass";
+    private static final String ROLE = "user";
     @Mock
     private UserService userService;
     @InjectMocks
