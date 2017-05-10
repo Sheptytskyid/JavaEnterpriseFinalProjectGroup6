@@ -16,6 +16,8 @@ public class UserConverterServiceTest {
 
     private static final String EMAIL = "a@example.com";
     private static final String NAME = "UserName";
+    private static final String LAST_NAME = "UserLastName";
+    private static final String INITIALS = "U.U.";
     private static final String ADDRESS = "Address";
     private static final String NEW_ADDRESS = "New address";
     private static final String PHONE = "+38 044 123 45 68";
@@ -32,6 +34,7 @@ public class UserConverterServiceTest {
         user.setId(ID);
         user.setEmail(EMAIL);
         user.setName(NAME);
+        user.setLastName(LAST_NAME);
         Contact contact = new Contact(ADDRESS, PHONE);
         user.setContact(contact);
         dtoUserProfile = new DtoUserProfile();
@@ -47,6 +50,7 @@ public class UserConverterServiceTest {
         assertEquals(NAME, dtoUser.getName());
         assertEquals(ADDRESS, dtoUser.getAddress());
         assertEquals(PHONE, dtoUser.getPhoneNumber());
+        assertEquals(INITIALS, dtoUser.getInitial());
     }
 
     @Test
