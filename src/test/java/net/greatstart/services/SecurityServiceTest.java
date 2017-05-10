@@ -39,7 +39,6 @@ public class SecurityServiceTest {
             new UsernamePasswordAuthenticationToken(userDetails, PASS, authorities);
         when(userDetailsService.loadUserByUsername(NAME)).thenReturn(userDetails);
         when(userDetails.getAuthorities()).thenReturn(authorities);
-        when(authenticationToken.isAuthenticated()).thenReturn(true);
         securityService.autoLogin(NAME, PASS);
         verify(userDetailsService, times(1)).loadUserByUsername(NAME);
         verify(authenticationManager, times(1)).authenticate(authenticationToken);
