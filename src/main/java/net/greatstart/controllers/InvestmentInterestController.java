@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
@@ -57,7 +56,7 @@ public class InvestmentInterestController {
         }
         User investor = userService.getUserByEmail(principal.getName());
         investmentInterest.setInvestor(investor);
-        this.investmentInterestService.createInvestmentInterest(investmentInterest);
+        this.investmentInterestService.saveInvestmentInterest(investmentInterest);
         return new ModelAndView(REDIRECT_TO_INVESTMENT_INTEREST);
     }
 
@@ -84,7 +83,7 @@ public class InvestmentInterestController {
         if (bindingResult.hasErrors()) {
             return new ModelAndView("investinterest/update_invinterest");
         }
-        this.investmentInterestService.updateInvestmentInterest(investmentInterest);
+        this.investmentInterestService.saveInvestmentInterest(investmentInterest);
         return new ModelAndView(REDIRECT_TO_INVESTMENT_INTEREST);
     }
 }

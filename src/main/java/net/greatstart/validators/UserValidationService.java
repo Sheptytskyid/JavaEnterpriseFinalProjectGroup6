@@ -2,13 +2,13 @@ package net.greatstart.validators;
 
 import net.greatstart.dto.DtoUser;
 import net.greatstart.services.UserService;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 
+@Component
 public class UserValidationService {
 
-    private UserValidationService(){}
-
-    public static void validate(DtoUser user, Errors errors, UserService userService) {
+    public void validate(DtoUser user, Errors errors, UserService userService) {
         if (user != null) {
             if (userService.getUserByEmail(user.getEmail()) != null) {
                 errors.rejectValue("email",
