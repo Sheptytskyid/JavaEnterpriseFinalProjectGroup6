@@ -1124,9 +1124,6 @@ img {
   max-width: 100%;
   height: auto;
 }
-.img-rounded {
-  border-radius: 50%;
-}
 .img-thumbnail {
   display: inline-block;
   max-width: 100%;

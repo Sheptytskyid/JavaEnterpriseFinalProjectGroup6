@@ -5,6 +5,7 @@
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <spring:url value="/user/photo" var="userPhotoUrl"/>
+<c:set var="photo" value="${userPhotoUrl}/${dtoUserProfile.id}"/>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
@@ -19,6 +20,7 @@
     <link href="${contextPath}/resources/css/main.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/card.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/action.css" rel="stylesheet">
+    <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
 
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -56,9 +58,17 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown active "><a class="dropdown-toggle" data-toggle="dropdown">
                     <span class="pull-left" style="margin-right:8px; margin-top:-5px;">
-                        <img src="${userPhotoUrl}/${dtoUserProfile.id}"
-                             class="img-responsive img-circle" title="UserName"
-                             alt="UserName" width="30px" height="30px"/>
+                        <c:choose>
+                            <c:when test="${dtoUserProfile.photo == null}">
+                                <p class="initials-logo-navbar">${dtoUserProfile.initial}</p>
+                            </c:when>
+                            <c:otherwise>
+                                <img src="${photo}"
+                                     class="img-responsive img-circle" title="Test2"
+                                     alt="UserName" width="30px" height="30px"/>
+                            </c:otherwise>
+
+                        </c:choose>
                     </span>
                         <span>${dtoUserProfile.name}</span>
                         <span class="caret"></span></a>
@@ -70,9 +80,16 @@
                                     </form>
                                     <div class="row">
                                         <div class="col-md-5 col-xs-5">
-                                            <img src="${userPhotoUrl}/${dtoUserProfile.id}"
-                                                 alt="AltText" class="img-responsive img-rounded"
-                                                 width="120px" height="120px"/>
+                                            <c:choose>
+                                                <c:when test="${dtoUserProfile.photo == null}">
+                                                    <p class="initials-logo-navbar-middle">${dtoUserProfile.initial}</p>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <img src="${photo}"
+                                                         alt="AltText" class="img-responsive img-circle"
+                                                         width="120px" height="120px"/>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="col-md-7 col-xs-7" style="margin-left: -35px">
                                             <div class="container">
@@ -126,8 +143,14 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-4  hidden-xs">
-                            <img class="img-responsive img-rounded big-photo"
-                                 src="${userPhotoUrl}/${dtoUserProfile.id}" alt="User big photo"/>
+                            <c:choose>
+                                <c:when test="${dtoUserProfile.photo == null}">
+                                    <p class="initials-logo">${dtoUserProfile.initial}</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <img class="img-responsive img-circle big-photo"
+                                         src="${photo}" alt="User big photo"/></c:otherwise>
+                            </c:choose>
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                             <div class="panel-info">
