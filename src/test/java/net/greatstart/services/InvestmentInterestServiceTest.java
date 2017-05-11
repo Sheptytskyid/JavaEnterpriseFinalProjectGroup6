@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -23,10 +22,9 @@ public class InvestmentInterestServiceTest {
     private static final long ID = 1;
     @Mock
     private InvestmentInterestDao investmentInterestDao;
-    @Mock
-    private InvestmentInterest invInterest;
     @InjectMocks
     private InvestmentInterestService invInterestService;
+    private InvestmentInterest invInterest = new InvestmentInterest();
 
     @Test(timeout = 2000)
     public void invokeInvestmentInterestDaoWhenSaveInvestmentInterest() {
@@ -49,20 +47,9 @@ public class InvestmentInterestServiceTest {
     }
 
     @Test(timeout = 2000)
-    public void invokeInvestmentInterestDaoWhenGetInvestmentInterestById() {
-        investmentInterestDao.findOne(ID);
-        verify(investmentInterestDao, times(1)).findOne(ID);
-    }
-
-    @Test(timeout = 2000)
     public void returnListOfInvestmentInterestWhenGetAll() {
         List<InvestmentInterest> investmentInterests = new ArrayList<>();
-        InvestmentInterest investmentInterestOne = mock(InvestmentInterest.class);
-        InvestmentInterest investmentInterestTwo = mock(InvestmentInterest.class);
-        InvestmentInterest investmentInterestThree = mock(InvestmentInterest.class);
-        investmentInterests.add(investmentInterestOne);
-        investmentInterests.add(investmentInterestTwo);
-        investmentInterests.add(investmentInterestThree);
+        investmentInterests.add(invInterest);
         when(investmentInterestDao.findAll()).thenReturn(investmentInterests);
         List<InvestmentInterest> result = invInterestService.getAllInvestmentInterest();
         assertEquals(investmentInterests, result);

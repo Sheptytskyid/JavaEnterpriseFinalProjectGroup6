@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -20,66 +21,71 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
 
+    public static final long ID = 1L;
     @Mock
     private UserDao userDao;
     @Mock
     private RoleService roleService;
-    @Mock
-    private User user;
     @InjectMocks
     private UserService userService;
+    private User user = new User();
 
 
     @Test
     public void shouldInvokeUserDaoWhenCreateUser() throws Exception {
-        userService.createUser(user);
-        verify(userDao, times(1)).save(user);
+        when(userDao.save(user)).thenReturn(user);
+        assertEquals(userService.createUser(user), user);
     }
 
     @Test
     public void createUserByEmailAndPassword() throws Exception {
         String email = "admin@example.com";
         String password = "1111";
-        userService.createUser(email, password);
-        verify(roleService, times(1)).findOrCreateRole("ROLE_USER");
-        User user = new User();
+        String roleName = "ROLE_USER";
         user.setName("Admin");
         user.setEmail(email);
-        Set<Role> roles = new HashSet<>();
-        roles.add(null);
-        user.setRoles(roles);
         user.setPassword(password);
-        verify(userDao, times(1)).save(user);
+        Role role = new Role(roleName);
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+        user.setRoles(roles);
+
+        when(roleService.findOrCreateRole(roleName)).thenReturn(role);
+        when(userDao.save(user)).thenReturn(user);
+        assertEquals(userService.createUser(user.getEmail(), user.getPassword()), user);
     }
 
     @Test
-    public void shouldInvokeUserDaoWhenUpdateUser() throws Exception {
-        userService.updateUser(user);
+    public void returnUserWhenUpdateUser() throws Exception {
+        when(userDao.save(user)).thenReturn(user);
+        assertEquals(userService.updateUser(user), user);
         verify(userDao, times(1)).save(user);
     }
 
     @Test
     public void invokeUserDaoWhenDeleteUser() throws Exception {
-        userService.deleteUser(1L);
-        verify(userDao, times(1)).delete(1L);
+        userService.deleteUser(ID);
+        verify(userDao, times(1)).delete(ID);
     }
 
     @Test
     public void invokeUserDaoWhenGetUserById() throws Exception {
-        userService.getUserById(1L);
-        verify(userDao, times(1)).findOne(1L);
+        when(userDao.findOne(ID)).thenReturn(user);
+        assertEquals(userService.getUserById(ID), user);
+        verify(userDao, times(1)).findOne(ID);
     }
 
     @Test
     public void invokeUserDaoWhenGetAllUsers() throws Exception {
         when(userDao.findAll()).thenReturn(new ArrayList<>());
         userService.getAllUsers();
-        verify(userDao,times(1)).findAll();
+        verify(userDao, times(1)).findAll();
     }
 
     @Test
     public void invokeUserDaoWhenGetUserByEmail() throws Exception {
-        userService.getUserByEmail("");
-        verify(userDao, times(1)).findByEmail("");
+        when(userDao.findByEmail(user.getEmail())).thenReturn(user);
+        assertEquals(userService.getUserByEmail(user.getEmail()), user);
+        verify(userDao, times(1)).findByEmail(user.getEmail());
     }
 }

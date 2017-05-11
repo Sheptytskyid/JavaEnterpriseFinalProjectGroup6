@@ -28,10 +28,9 @@ public class ProjectServiceTest {
     private ProjectDao projectDao;
     @Mock
     private UserService userService;
-    @Mock
-    private Project project = new Project();
     @InjectMocks
     private ProjectService projectService;
+    private Project project = new Project();
 
     @Test(timeout = 2000)
     public void invokeProjectDaoWhenSaveProject() throws Exception {
@@ -46,16 +45,17 @@ public class ProjectServiceTest {
     }
 
     @Test(timeout = 2000)
-    public void invokeProjectDaoWhenGetProjectById() throws Exception {
-        projectService.getProjectById(1L);
-        verify(projectDao, times(1)).findOne(1L);
+    public void returnProjectWhenGetProjectById() throws Exception {
+        when(projectDao.findOne(1L)).thenReturn(project);
+        assertEquals(projectService.getProjectById(1L),project);
     }
 
     @Test(timeout = 2000)
     public void invokeProjectDaoWhenGetAllProjects() throws Exception {
-        when(projectDao.findAll()).thenReturn(new ArrayList<>());
-        projectService.getAllProjects();
-        verify(projectDao, times(1)).findAll();
+        List<Project> projects = new ArrayList<>();
+        projects.add(project);
+        when(projectDao.findAll()).thenReturn(projects);
+        assertEquals(projectService.getAllProjects(),projects);
     }
 
     @Test(timeout = 2000)
@@ -71,7 +71,6 @@ public class ProjectServiceTest {
     public void invokeDaoWhenGetAllProjectsOfUser() {
         String email = "test@test.ua";
         User user = new User();
-        user.setEmail(email);
         when(userService.getUserByEmail(email)).thenReturn(user);
         projectService.getAllProjectsOfUser(email);
         verify(projectDao, times(1)).findByOwner(user);

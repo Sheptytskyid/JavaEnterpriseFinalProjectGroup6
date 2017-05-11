@@ -133,7 +133,7 @@
                 <configuration>
                 <excludes>
                     <exclude>**/configs/**</exclude>
-                    <exclude>**/*Main.java</exclude>
+                    <exclude>**/*Main.*</exclude>
                 </excludes>
                 </configuration>
                 <executions>

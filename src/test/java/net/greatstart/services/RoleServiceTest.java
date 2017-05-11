@@ -19,12 +19,13 @@ public class RoleServiceTest {
     private static final String ROLE_USER = "ROLE_USER";
     @Mock
     private RoleDao roleDao;
+    @Mock
+    private Role role;
     @InjectMocks
     private RoleService roleService;
 
     @Test
     public void invokeRoleDaoWhenAddRole() throws Exception {
-        Role role = new Role();
         roleService.addRole(role);
         verify(roleDao, times(1)).save(role);
     }
@@ -37,7 +38,6 @@ public class RoleServiceTest {
 
     @Test
     public void returnExistingRoleWhenFindOrCreateRole() throws Exception {
-        Role role = new Role();
         when(roleDao.getByName(ROLE_USER)).thenReturn(role);
         Role returnedRole = roleService.findOrCreateRole(ROLE_USER);
         assertEquals(role, returnedRole);
@@ -45,7 +45,6 @@ public class RoleServiceTest {
 
     @Test
     public void shouldNotSaveExistingRoleWhenFindOrCreateRole() throws Exception {
-        Role role = new Role();
         when(roleDao.getByName(ROLE_USER)).thenReturn(role);
         roleService.findOrCreateRole(ROLE_USER);
         verify(roleDao, times(0)).save(role);
@@ -53,8 +52,8 @@ public class RoleServiceTest {
 
     @Test
     public void saveNonExistingRoleWhenFindOrCreateRole() throws Exception {
-        Role role = new Role();
+        when(roleDao.getByName(ROLE_USER)).thenReturn(null);
         roleService.findOrCreateRole(ROLE_USER);
-        verify(roleDao, times(1)).save(role);
+        verify(roleDao, times(1)).save(new Role());
     }
 }
