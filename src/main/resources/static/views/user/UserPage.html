@@ -1,16 +1,60 @@
+<ul class="nav navbar-nav navbar-right">
+    <li class="dropdown active "><a class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="pull-left" style="margin-right:8px; margin-top:-5px;">
+                        <img ng-src="http://vev.ru/uploads/images/00/07/64/2011/10/12/c26b1b.jpg"
+                             class="img-responsive img-circle" title="UserName"
+                             alt="UserName" width="30px" height="30px"/>
+                    </span>
+        <span><h3>Оставлю пока это тут</h3></span>
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li>
+                <div class="navbar-content">
+                    <div class="row">
+                        <div class="col-md-5 col-xs-5">
+                            <img ng-src="http://vev.ru/uploads/images/00/07/64/2011/10/12/c26b1b.jpg"
+                                 alt="AltText" class="img-responsive img-circle"
+                                 width="120px" height="120px"/>
+                        </div>
+                        <div class="col-md-7 col-xs-7" style="margin-left: -35px">
+                            <div class="container">
+                                <div>Welcome back,<strong> UserName!</strong></div>
+                                <div class="container"
+                                     style="margin-top:5px; font-size: 15px; font-weight: 500">
+                                    <ul class="non-marker">
+                                        <li><a href="#!/user"><span class="fa fa-user-o" aria-hidden="true"
+                                                                    style="margin-right: 5px"></span>My account</a></li>
+                                        <li><a href="#!/projects"><span class="fa fa-star" aria-hidden="true"
+                                                                        style="margin-right: 5px"></span>Favourites</a></li>
+                                        <li><a href="#!/help"><span class="fa fa-question-circle-o"
+                                                              style="margin-right: 5px"></span>Help</a></li>
+                                        <li><a href="#" class="btn btn-success btn-md"
+                                               style="margin-top: 5px"><span class="fa fa-sign-out"
+                                                                             aria-hidden="true"></span>Sign Out</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </li>
+</ul>
+
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-success" style="border:0">
                 <div class="panel-heading" style="background: #f5f5f5 ">
-                    <a class="btn btn-edit pull-right" href="EditUserPage.html">
+                    <a class="btn btn-edit pull-right" href="#!/editUser">
                         <span class="glyphicon glyphicon-pencil"></span></a>
                     <h4>User Profile</h4>
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-4  hidden-xs">
-                            <img class="img-responsive img-rounded big-photo"
+                            <img class="img-responsive img-circle big-photo"
                                  ng-src="http://vev.ru/uploads/images/00/07/64/2011/10/12/c26b1b.jpg" alt=""/>
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
@@ -55,10 +99,8 @@
     <div class="row">
         <div class="col-xs-12">
             <a href ng-click="flag=!flag" class="btn btn-success btn-block">Favourites
-                <span  class="fa" ng-class="{'fa-sort-desc' : isShowUp(flag),
-                                 'fa-sort-asc' : isShowDown(flag)}"></span></a>
-            <!--<span class="fa" ng-class="{'fa-sort-desc' : 'favourites',-->
-                                 <!--'fa-sort-asc' : 'favourites'}"></span></a>-->
+                <span  class="fa" ng-class="{'fa-sort-desc' : !flag,
+                                 'fa-sort-asc' : flag}"></span></a>
             <div ng-show="flag">
                 <div class="well">
                     <div class="panel-info">
@@ -203,7 +245,7 @@
                 <div class="col-md-3 form-field">
                     <form class="form-horizontal" action="" method="" id="addProject">
                         <fieldset>
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-xs-12">
                                 <div>
                                     <input id="ProjectName" name="ProjectName" type="text"
                                            placeholder="Enter project name"
@@ -221,7 +263,7 @@
         <div class="bs-calltoaction bs-calltoaction-success">
             <div class="row">
                 <div class="col-md-9 cta-contents">
-                    <a href="#"><h1 class="cta-title">Interests</h1></a>
+                    <a href="#!/interests"><h1 class="cta-title">Interests</h1></a>
                     <div class="cta-desc">
                         <p><a href="#!/interests">My Interests</a></p>
                         <p>Describe the action here.</p>
@@ -231,7 +273,7 @@
                 <div class="col-md-3 form-field">
                     <form class="form-horizontal" action="" method="" id="addInterest">
                         <fieldset>
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-xs-12">
                                 <div>
                                     <select id="addInterestOption" class="select-input"
                                             title="What do you want to invest in?">
@@ -317,22 +359,15 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-        $('.collapse')
-            .on('shown.bs.collapse', function () {
-                $(this)
-                    .parent()
-                    .find(".fa-sort-desc")
-                    .removeClass("fa-sort-desc")
-                    .addClass("fa-sort-asc");
-            })
-            .on('hidden.bs.collapse', function () {
-                $(this)
-                    .parent()
-                    .find(".fa-sort-asc")
-                    .removeClass("fa-sort-asc")
-                    .addClass("fa-sort-desc");
-            });
-    });
-</script>
+<div id="footer">
+    <div class="footer">
+        <div class="container">
+            <div class="row centered">
+                <a href="#"><span class="fa fa-twitter"></span></a>
+                <a href="#"><span class="fa fa-facebook"></span></a>
+                <a href="#"><span class="fa fa-vk"></span></a>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,11 +4,25 @@ mainApp.config(function ($routeProvider) {
         .when('/',
             {
                 controller: 'MainController',
-                templateUrl: 'views/Main.html'
+                templateUrl: 'views/main/Main.html'
+            })
+        .when('/about',
+            {
+                controller: 'MainController',
+                templateUrl: 'views/main/About.html'
+            })
+        .when('/help',
+            {
+                controller: 'MainController',
+                templateUrl: 'views/main/Help.html'
             })
         .when('/user', {
             controller: 'UserController',
             templateUrl: 'views/user/UserPage.html'
+        })
+        .when('/editUser', {
+            controller: 'UserController',
+            templateUrl: 'views/user/EditUser.html'
         })
         .when('/projects', {
             controller: 'ProjectController',
@@ -27,15 +41,6 @@ mainApp.config(function ($routeProvider) {
 
 mainApp.controller('UserController', ['$scope', function ($scope) {
     $scope.flag = false;
-    $scope.reverse = false;
-
-    $scope.isShowUp = function (fieldName) {
-        return $scope.favourites === !fieldName;
-    };
-    $scope.isShowDown = function (fieldName) {
-        return $scope.favourites === fieldName;
-    };
-
 }]);
 
 mainApp.controller('MainController', ['$scope', function ($scope) {
