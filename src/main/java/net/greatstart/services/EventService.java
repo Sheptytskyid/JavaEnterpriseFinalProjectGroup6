@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,25 +20,22 @@ public class EventService {
         this.eventDao = eventDao;
     }
 
-    public boolean createEvent(Event event) {
-        return eventDao.create(event);
+    public Event saveEvent(Event event) {
+        return eventDao.save(event);
     }
 
-    public boolean updateEvent(long id) {
+    public void deleteEvent(long id) {
         Event event = getEventById(id);
-        return eventDao.update(event);
-    }
-
-    public boolean deleteEvent(long id) {
-        Event event = getEventById(id);
-        return eventDao.delete(event);
+        eventDao.delete(event);
     }
 
     public Event getEventById(long id) {
-        return eventDao.getById(id);
+        return eventDao.findOne(id);
     }
 
     public List<Event> getAllEvents() {
-        return eventDao.getAll();
+        List<Event> events = new ArrayList<>();
+        eventDao.findAll().forEach(events::add);
+        return events;
     }
 }

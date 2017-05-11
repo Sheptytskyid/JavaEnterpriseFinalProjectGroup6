@@ -1,6 +1,5 @@
 package net.greatstart.services;
 
-import net.greatstart.Main;
 import net.greatstart.dao.RoleDao;
 import net.greatstart.model.Role;
 import org.junit.Test;
@@ -8,41 +7,53 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.context.ContextConfiguration;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-@ContextConfiguration(classes = Main.class)
 public class RoleServiceTest {
-    public static final String ROLE_USER = "ROLE_USER";
+
+    private static final String ROLE_USER = "ROLE_USER";
     @Mock
     private RoleDao roleDao;
+    @Mock
+    private Role role;
     @InjectMocks
     private RoleService roleService;
+
     @Test
-    public void addRole() throws Exception {
-        Role role = new Role();
+    public void invokeRoleDaoWhenAddRole() throws Exception {
         roleService.addRole(role);
-        verify(roleDao).create(role);
+        verify(roleDao, times(1)).save(role);
     }
 
     @Test
-    public void findNonExistingRole() throws Exception {
+    public void findRoleByNameWhenFindOrCreateRole() throws Exception {
         roleService.findOrCreateRole(ROLE_USER);
-        verify(roleDao).getByName(ROLE_USER);
-        verify(roleDao).create(any());
+        verify(roleDao, times(1)).getByName(ROLE_USER);
     }
 
     @Test
-    public void findExistingRole() throws Exception {
-        Role role = new Role();
+    public void returnExistingRoleWhenFindOrCreateRole() throws Exception {
         when(roleDao.getByName(ROLE_USER)).thenReturn(role);
         Role returnedRole = roleService.findOrCreateRole(ROLE_USER);
         assertEquals(role, returnedRole);
     }
 
+    @Test
+    public void shouldNotSaveExistingRoleWhenFindOrCreateRole() throws Exception {
+        when(roleDao.getByName(ROLE_USER)).thenReturn(role);
+        roleService.findOrCreateRole(ROLE_USER);
+        verify(roleDao, times(0)).save(role);
+    }
+
+    @Test
+    public void saveNonExistingRoleWhenFindOrCreateRole() throws Exception {
+        when(roleDao.getByName(ROLE_USER)).thenReturn(null);
+        roleService.findOrCreateRole(ROLE_USER);
+        verify(roleDao, times(1)).save(new Role());
+    }
 }
