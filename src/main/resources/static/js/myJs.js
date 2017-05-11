@@ -1,13 +1,13 @@
 $(document).ready(function () {
     $('.collapse')
-        .on('shown.bs.collapse', function () {
+        .on('shown.bs.collapse', function() {
             $(this)
                 .parent()
                 .find(".fa-sort-desc")
                 .removeClass("fa-sort-desc")
                 .addClass("fa-sort-asc");
         })
-        .on('hidden.bs.collapse', function () {
+        .on('hidden.bs.collapse', function() {
             $(this)
                 .parent()
                 .find(".fa-sort-asc")
