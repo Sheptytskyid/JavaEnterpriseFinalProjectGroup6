@@ -9,8 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.validation.Errors;
@@ -19,14 +18,11 @@ import org.springframework.web.servlet.ModelAndView;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(UserValidationService.class)
+@RunWith(MockitoJUnitRunner.class)
 public class RegistrationControllerTest {
 
     private static final String EMAIL = "a@example.com";
@@ -38,6 +34,8 @@ public class RegistrationControllerTest {
     private PasswordEncoder passwordEncoder;
     @Mock
     private SecurityService securityService;
+    @Mock
+    private UserValidationService userValidationService;
     @Mock
     private Errors errors;
 
@@ -60,10 +58,8 @@ public class RegistrationControllerTest {
         DtoUser user = new DtoUser();
         user.setEmail(EMAIL);
         user.setPassword(PASS);
-        mockStatic(UserValidationService.class);
         ModelAndView modelAndView = controller.processRegistration(user, errors);
-        verifyStatic(times(1));
-        UserValidationService.validate(user, errors, userService);
+        verify(userValidationService, times(1)).validate(user, errors, userService);
         verify(userService, times(1)).createUser(user.getEmail(), passwordEncoder.encode(user.getPassword()));
         verify(securityService, times(1)).autoLogin(user.getEmail(), user.getPassword());
         assertEquals(modelAndView.getViewName(), "redirect:/");

@@ -20,8 +20,8 @@ public class EventService {
         this.eventDao = eventDao;
     }
 
-    public void saveEvent(Event event) {
-        eventDao.save(event);
+    public Event saveEvent(Event event) {
+        return eventDao.save(event);
     }
 
     public void deleteEvent(long id) {

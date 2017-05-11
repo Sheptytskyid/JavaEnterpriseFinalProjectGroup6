@@ -25,11 +25,11 @@ public class UserService {
         this.roleService = roleService;
     }
 
-    public void createUser(User user) {
-        userDao.save(user);
+    public User createUser(User user) {
+        return userDao.save(user);
     }
 
-    public void createUser(String email, String password) {
+    public User createUser(String email, String password) {
         User user = new User();
         int i = email.indexOf('@');
         String name = email.substring(0, i);
@@ -40,11 +40,11 @@ public class UserService {
         Set<Role> roles = new HashSet<>();
         roles.add(roleService.findOrCreateRole("ROLE_USER"));
         user.setRoles(roles);
-        createUser(user);
+        return createUser(user);
     }
 
-    public void updateUser(User user) {
-        userDao.save(user);
+    public User updateUser(User user) {
+        return userDao.save(user);
     }
 
     public void deleteUser(long id) {

@@ -15,8 +15,8 @@ public class RoleService {
         this.roleDao = roleDao;
     }
 
-    public void addRole(Role role) {
-        roleDao.save(role);
+    public Role addRole(Role role) {
+        return roleDao.save(role);
     }
 
     public Role findOrCreateRole(String name) {

@@ -25,8 +25,8 @@ public class ProjectService {
         this.userService = userService;
     }
 
-    public void saveProject(Project project) {
-        projectDao.save(project);
+    public Project saveProject(Project project) {
+        return projectDao.save(project);
     }
 
     public void deleteProject(long id) {

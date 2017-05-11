@@ -20,8 +20,8 @@ public class InvestmentService {
         this.investmentDao = investmentDao;
     }
 
-    public void saveInvestment(Investment investment) {
-        investmentDao.save(investment);
+    public Investment saveInvestment(Investment investment) {
+        return investmentDao.save(investment);
     }
 
     public Investment getnvestmentById(long id) {
