@@ -37,10 +37,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/user/login")
                 .usernameParameter("email")
                 // TODO: change the routing when home page is ready
-                .defaultSuccessUrl("/project/")
+//                .defaultSuccessUrl("/project/")
                 .and()
                 .logout()
-                .logoutSuccessUrl("/project/")
+//                .logoutSuccessUrl("/project/")
                 .and()
                 .rememberMe()
                 .key("greatStartKey")
