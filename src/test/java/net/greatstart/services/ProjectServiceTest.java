@@ -8,11 +8,15 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -56,9 +60,11 @@ public class ProjectServiceTest {
 
     @Test(timeout = 2000)
     public void invokeDaoWhenGetNProjects() throws Exception {
-        projectService.getNProjects(10);
         Pageable pageable = new PageRequest(0, 10);
-        verify(projectDao, times(1)).findAll(pageable);
+        List<Project> projects = new ArrayList<>();
+        Page<Project> page = new PageImpl<Project>(projects);
+        when(projectDao.findAll(pageable)).thenReturn(page);
+        assertEquals(projectService.getNProjects(10), projects);
     }
 
     @Test

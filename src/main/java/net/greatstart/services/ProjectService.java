@@ -45,7 +45,7 @@ public class ProjectService {
 
     public List<Project> getNProjects(int numberOfProjects) {
         Pageable pageable = new PageRequest(0, numberOfProjects);
-        return projectDao.findAll(pageable);
+        return projectDao.findAll(pageable).getContent();
     }
 
     public List<Project> getAllProjectsOfUser(String email) {

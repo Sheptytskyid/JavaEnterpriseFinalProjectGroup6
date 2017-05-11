@@ -1,9 +1,9 @@
 package net.greatstart.dao;
 
 import net.greatstart.model.Role;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface RoleDao extends CrudRepository<Role, Long> {
+public interface RoleDao extends PagingAndSortingRepository<Role, Long> {
 
     Role getByName(String name);
 }

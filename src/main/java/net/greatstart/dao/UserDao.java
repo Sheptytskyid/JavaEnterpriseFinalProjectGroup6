@@ -1,9 +1,9 @@
 package net.greatstart.dao;
 
 import net.greatstart.model.User;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface UserDao extends CrudRepository<User, Long> {
+public interface UserDao extends PagingAndSortingRepository<User, Long> {
 
     User findByEmail(String email);
 }

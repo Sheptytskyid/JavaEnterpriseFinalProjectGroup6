@@ -132,8 +132,6 @@
                 <version>0.7.8</version>
                 <configuration>
                 <excludes>
-                    <exclude>**/model/**</exclude>
-                    <exclude>**/dto/**</exclude>
                     <exclude>**/configs/**</exclude>
                     <exclude>**/*Main.java</exclude>
                 </excludes>
