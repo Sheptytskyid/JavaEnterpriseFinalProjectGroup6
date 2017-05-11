@@ -54,9 +54,12 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
-            <a href ng-click="favourites=!favourites" class="btn btn-success btn-block">Favourites
-                <span class="fa fa-sort-desc"></span></a>
-            <div ng-show="favourites">
+            <a href ng-click="flag=!flag" class="btn btn-success btn-block">Favourites
+                <span  class="fa" ng-class="{'fa-sort-desc' : isShowUp('favourites'),
+                                 'fa-sort-asc' : isShowDown('favourites')}"></span></a>
+            <!--<span class="fa" ng-class="{'fa-sort-desc' : 'favourites',-->
+                                 <!--'fa-sort-asc' : 'favourites'}"></span></a>-->
+            <div ng-show="flag">
                 <div class="well">
                     <div class="panel-info">
                         <div class="panel-body">
