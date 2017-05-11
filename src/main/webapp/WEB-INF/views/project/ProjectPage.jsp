@@ -202,7 +202,7 @@
     <div class="container col-xs-12">
         <div class="row">
             <!-- /Investment ITEM -->
-            <div class="col-xs-12 col-md-7 col-md-offset-1">
+            <div class="col-xs-12 col-md-6 col-md-offset-1 col-lg-7">
                 <div class="item">
                     <div class="thumbnail">
                         <div class="caption centered">
@@ -391,7 +391,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 col-md-offset-8 hidden-sm hidden-xs " style="position: fixed">
+            <div class="col-md-3 col-md-offset-8 col-lg hidden-sm hidden-xs " style="position: fixed">
                 <div class="item">
 
                     <!-- PRICE ITEM -->
