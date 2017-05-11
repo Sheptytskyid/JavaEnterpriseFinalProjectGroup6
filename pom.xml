@@ -135,7 +135,7 @@
                     <exclude>**/model/**</exclude>
                     <exclude>**/dto/**</exclude>
                     <exclude>**/configs/**</exclude>
-                    <exclude>**/Main.java</exclude>
+                    <exclude>**/*Main.java</exclude>
                 </excludes>
                 </configuration>
                 <executions>
