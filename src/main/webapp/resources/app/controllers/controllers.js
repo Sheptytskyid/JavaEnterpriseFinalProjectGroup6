@@ -26,7 +26,16 @@ mainApp.config(function ($routeProvider) {
 });
 
 mainApp.controller('UserController', ['$scope', function ($scope) {
-    $scope.favourites = false;
+    $scope.flag = false;
+    $scope.reverse = false;
+
+    $scope.isShowUp = function (fieldName) {
+        return $scope.favourites == !fieldName;
+    };
+    $scope.isShowDown = function (fieldName) {
+        return $scope.favourites == fieldName;
+    };
+
 }]);
 
 mainApp.controller('MainController', ['$scope', function ($scope) {
