@@ -2,7 +2,13 @@ package net.greatstart.model;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -19,15 +25,8 @@ public class Investment extends AbstractModel {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn (name = "user_id")
-    private User investor;
+    private User inv;
 
     @Column(name = "sum")
     private BigDecimal sum;
-
-    @Column(name = "verified")
-    private boolean verified;
-
-    @Column(name = "paid")
-    private boolean paid;
-
 }

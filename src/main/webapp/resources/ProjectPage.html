@@ -18,80 +18,11 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.js"></script>
 
-    <style type="text/css">
-        .pagination > li > a, .pagination > li > span {
-            border-radius: 50% !important;
-            margin: 0 5px;
-        }
-    </style>
-
 </head>
 
 <body>
 
 <div class="navbar navbar-default navbar-fixed-top">
-    <div class="wrapper" id="wrapper">
-
-        <!-- Sidebar -->
-        <nav class="navbar navbar-fixed-top" id="sidebar-wrapper" role="navigation">
-            <ul class="nav sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#">
-                        Menu
-                    </a>
-                </li>
-                <li>
-                    <a href="#">Home</a>
-                </li>
-                <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#">Events</a>
-                </li>
-                <li>
-                    <a href="#">Investments</a>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Events <span
-                            class="caret"></span></a>
-
-                    <ul class="dropdown-menu" role="menu">
-                        <li class="dropdown-header">Dropdown heading</li>
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li><a href="#">Separated link</a></li>
-                        <li><a href="#">One more separated link</a></li>
-                    </ul>
-
-                </li>
-                <li>
-                    <a href="#">Interests</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
-                <li>
-                    <a href="#">Follow me</a>
-                </li>
-            </ul>
-        </nav>
-        <!-- /#sidebar-wrapper -->
-
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
-                <span class="hamb-top"></span>
-                <span class="hamb-middle"></span>
-                <span class="hamb-bottom"></span>
-            </button>
-
-        </div>
-        <!-- /#page-content-wrapper -->
-
-    </div>
-
     <div class="container">
 
         <div class="navbar-header">
@@ -102,15 +33,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Great<i class="fa fa-rocket fa-lg" aria-hidden="true">
+            <a class="navbar-brand" href="#">Great<span class="fa fa-rocket fa-lg" aria-hidden="true">
                 <text/>
-            </i>Start</a>
+            </span>Start</a>
         </div>
         <div class="collapse navbar-collapse" id="responsive-menu">
             <ul class="nav navbar-nav navbar-left">
-                <li class="active"><a href="#">Home</a></li>
                 <li><a href="#">About</a></li>
-                <li><a href="#">Events</a></li>
                 <li><a href="#">Contacts</a></li>
                 <li>
                     <form role="search" class="navbar-form">
@@ -145,14 +74,17 @@
                                                  style="margin-top:5px; font-size: 15px; font-weight: 500">
                                                 <ul class="non-marker">
                                                     <li><a href="#"><span class="fa fa-user-o" aria-hidden="true"
-                                                                          style="margin-right: 5px"></span>My account</a></li>
+                                                                          style="margin-right: 5px"></span>My
+                                                        account</a></li>
                                                     <li><a href="#"><span class="fa fa-star" aria-hidden="true"
-                                                                          style="margin-right: 5px"></span>Favourites</a></li>
+                                                                          style="margin-right: 5px"></span>Favourites</a>
+                                                    </li>
                                                     <li><a href="#"><span class="fa fa-question-circle-o"
                                                                           style="margin-right: 5px"></span>Help</a></li>
                                                     <li><a href="#" class="btn btn-success btn-md"
                                                            style="margin-top: 5px"><span class="fa fa-sign-out"
-                                                                                         aria-hidden="true"></span>Sign Out</a></li>
+                                                                                         aria-hidden="true"></span>Sign
+                                                        Out</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -172,25 +104,38 @@
     <div class="row">
         <!-- /PRICE ITEM -->
         <div class="col-xs-12 col-md-7 col-md-offset-1 col-lg-8">
+            <!--Project name and goal-->
             <div class="item">
                 <div class="thumbnail">
-                    <div class="caption centered">
-                        <a href="#"><h3>Project name</h3></a>
-                        <hr>
-                    </div>
-
-                    <a href="#"><img src="http://placehold.it/800x450" alt="" class="img-responsive"></a>
+                    <img src="http://placehold.it/800x450" alt="" class="img-responsive">
                     <div class="caption">
-                        <p>Some project description</p>
+                        <a href="#"><h3>Project name</h3></a>
+                    </div>
+                    <div class="caption">
+                        <p>Project goal</p>
                     </div>
 
                 </div>
 
             </div>
+            <!--Description-->
+            <div class="item">
+                <div class="thumbnail">
+                    <div>
+                        <a href="#"><h3>Project description</h3></a>
+                        <hr>
+                    </div>
+                    <div class="caption">
+                        <p>Some project description</p>
+                    </div>
+                </div>
+            </div>
+            <!--Category-->
             <div class="item">
                 <div class="thumbnail">
                     <div>
                         <h3>Category</h3>
+                        <hr>
                     </div>
                     <div class="caption">
                         <ul>
@@ -201,32 +146,11 @@
                     </div>
                 </div>
             </div>
+
             <div class="item">
                 <div class="thumbnail">
                     <div>
-                        <a href="#"><h3>Current state</h3></a>
-                        <hr>
-                    </div>
-                    <div class="caption">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                            ut
-                            labore
-                            et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris
-                            nisi
-                            ut
-                            aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                            velit
-                            esse
-                            cillum dolore eu fugiat nulla pariatur.</p>
-                        <hr>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="thumbnail">
-                    <div>
-                        <a href="#"><h3>Potential</h3></a>
+                        <a href="#"><h3>Other</h3></a>
                         <hr>
                     </div>
                     <div class="caption">
@@ -246,7 +170,7 @@
                 </div>
             </div>
 
-            <!--Window of investments-->
+            <!--Window of investments for small displays-->
             <div class="item">
                 <div class="hidden-lg hidden-md">
                     <!-- PRICE ITEM -->
@@ -261,14 +185,11 @@
                                 <div class="progress-bar progress-bar-info" style="width: 20%"></div>
                             </div>
                             <h4 class="text-right">Project need $80000</h4>
-
+                            <!--todo list of investments for project creator-->
                         </div>
-                        <ul class="list-group list-group-flush text-center">
-                            <li class="list-group-item"><i class="icon-ok text-danger"></i> Personal use</li>
-                        </ul>
                         <div class="panel-footer">
                             <button type="button" class="btn btn-success btn-block" data-toggle="modal"
-                                    data-target="#modal-1">I
+                                    data-target="#modal-invest">I
                                 want to invest
                             </button>
                         </div>
@@ -294,6 +215,7 @@
                             <div class="progress-bar progress-bar-info" style="width: 20%"></div>
                         </div>
                         <h5>Project need $80000</h5>
+                        <!--todo list of investments for project creator-->
                     </div>
                     <div class="panel-footer">
                         <button type="button" class="btn btn-success btn-block" data-toggle="modal"
@@ -326,7 +248,7 @@
         <div class="modal-content ">
             <div class="modal-header">
                 <button class="close" type="button" data-dismiss="modal">
-                    <i class="fa fa-close"></i>
+                    <span class="fa fa-close"></span>
                 </button>
                 <h4 class="modal-title">Invest in ProjectName</h4>
             </div>
@@ -353,7 +275,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/salvattore.min.js"></script>
-<script src="resources/js/menu.js"></script>
+<script src="js/menu.js"></script>
 <script src="js/slide-down.js"></script>
 </body>
 </html>

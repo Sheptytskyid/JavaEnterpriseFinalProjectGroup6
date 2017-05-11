@@ -1,6 +1,5 @@
 package net.greatstart.controllers;
 
-import net.greatstart.Main;
 import net.greatstart.dto.DtoUserProfile;
 import net.greatstart.model.User;
 import net.greatstart.services.UserConverterService;
@@ -11,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,14 +26,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 @RunWith(MockitoJUnitRunner.class)
-@ContextConfiguration(classes = Main.class)
 public class UserControllerTest {
+
     private static final String SHOW_PROFILE = "user/UserPage";
     private static final String EDIT_PROFILE = "user/EditUserPage";
     private static final String ERROR_PROFILE = "redirect:/";
     private static final long TEST_ID = 1L;
     private static final String TEST_USER_PROFILE = "/user/" + TEST_ID;
     private static final String TEST_EMAIL = "";
+
     @Mock
     private UserService userService;
     @Mock
@@ -55,7 +54,7 @@ public class UserControllerTest {
         mvc = standaloneSetup(controller).build();
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void showProfileAndCheckView() throws Exception {
         mvc.perform(get(TEST_USER_PROFILE))
                 .andExpect(view().name(SHOW_PROFILE));
@@ -73,13 +72,13 @@ public class UserControllerTest {
         verify(userConverter).fromUserToDtoProfile(user);
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void getEditProfileFormByWrongUserExpectErrorPage() throws Exception {
         mvc.perform(get(TEST_USER_PROFILE + "/edit"))
                 .andExpect(view().name(ERROR_PROFILE));
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void getEditProfile() throws Exception {
         User user = new User();
         user.setEmail(TEST_EMAIL);
@@ -92,13 +91,13 @@ public class UserControllerTest {
         verify(userConverter).fromUserToDtoProfile(user);
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void saveInvalidEditedProfileExpectReturningToEditPage() throws Exception {
         mvc.perform(post(TEST_USER_PROFILE + "/edit"))
                 .andExpect(view().name(EDIT_PROFILE));
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void saveEditedProfileWrongUser() throws Exception {
         ModelAndView modelAndView = controller
                 .saveEditedProfile(TEST_ID, new DtoUserProfile(), bindingResult, principal, file);
@@ -107,7 +106,7 @@ public class UserControllerTest {
         verify(userService).getUserByEmail(null);
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void saveEditedProfileCorrectUser() throws Exception {
         DtoUserProfile dtoUser = new DtoUserProfile();
         User user = new User();
@@ -120,5 +119,4 @@ public class UserControllerTest {
         verify(userService).updateUser(user);
         assertEquals("redirect:" + TEST_USER_PROFILE, modelAndView.getViewName());
     }
-
 }

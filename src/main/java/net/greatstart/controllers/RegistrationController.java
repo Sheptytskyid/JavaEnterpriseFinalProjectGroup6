@@ -22,13 +22,15 @@ public class RegistrationController {
     private PasswordEncoder passwordEncoder;
     private UserService userService;
     private SecurityService securityService;
+    private UserValidationService userValidationService;
 
     @Autowired
     public RegistrationController(PasswordEncoder passwordEncoder, UserService userService,
-                                  SecurityService securityService) {
+                                  SecurityService securityService, UserValidationService userValidationService) {
         this.passwordEncoder = passwordEncoder;
         this.userService = userService;
         this.securityService = securityService;
+        this.userValidationService = userValidationService;
     }
 
     private static final String REGISTRATION_PAGE = "login/registration";
@@ -42,7 +44,7 @@ public class RegistrationController {
 
     @PostMapping
     public ModelAndView processRegistration(@Valid @ModelAttribute("userForm") DtoUser user, Errors errors) {
-        UserValidationService.validate(user, errors, userService);
+        userValidationService.validate(user, errors, userService);
         if (errors.hasErrors()) {
             return new ModelAndView(REGISTRATION_PAGE);
         }
