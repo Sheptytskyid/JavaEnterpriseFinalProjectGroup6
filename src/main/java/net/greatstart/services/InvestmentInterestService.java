@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,24 +20,22 @@ public class InvestmentInterestService {
         this.investmentInterestDao = investmentInterestDao;
     }
 
-    public boolean createInvestmentInterest(InvestmentInterest investmentInterest) {
-        return investmentInterestDao.create(investmentInterest);
+    public InvestmentInterest saveInvestmentInterest(InvestmentInterest investmentInterest) {
+        return investmentInterestDao.save(investmentInterest);
     }
 
-    public boolean updateInvestmentInterest(InvestmentInterest investmentInterest) {
-        return investmentInterestDao.update(investmentInterest);
-    }
-
-    public boolean deleteInvestmentInterest(long id) {
+    public void deleteInvestmentInterest(long id) {
         InvestmentInterest investmentInterest = getInvestmentInterestById(id);
-        return investmentInterestDao.delete(investmentInterest);
+        investmentInterestDao.delete(investmentInterest);
     }
 
     public InvestmentInterest getInvestmentInterestById(long id) {
-        return investmentInterestDao.getById(id);
+        return investmentInterestDao.findOne(id);
     }
 
     public List<InvestmentInterest> getAllInvestmentInterest() {
-        return investmentInterestDao.getAll();
+        List<InvestmentInterest> interests = new ArrayList<>();
+        investmentInterestDao.findAll().forEach(interests::add);
+        return interests;
     }
 }
