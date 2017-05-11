@@ -1,6 +1,5 @@
 package net.greatstart.controllers;
 
-import net.greatstart.Main;
 import net.greatstart.model.Project;
 import net.greatstart.model.ProjectDescription;
 import net.greatstart.services.ProjectService;
@@ -8,11 +7,9 @@ import net.greatstart.services.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.security.Principal;
@@ -23,14 +20,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Main.class)
-@WebAppConfiguration
+@RunWith(MockitoJUnitRunner.class)
 public class ProjectControllerTest {
     @Mock
-    ProjectService projectService;
+    private ProjectService projectService;
     @Mock
-    UserService userService;
+    private UserService userService;
+    @InjectMocks
     private ProjectController controller;
     private MockMvc mockMvc;
 
@@ -40,31 +36,28 @@ public class ProjectControllerTest {
     private Principal principal = () -> USERNAME;
 
     @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        controller = new ProjectController(projectService, userService);
-        mockMvc = standaloneSetup(controller)
-                .build();
+    public void setup() {
+        mockMvc = standaloneSetup(controller).build();
     }
 
-    @Test
-    public void showProjects() throws Exception {
+    @Test(timeout = 2000)
+    public void showProjectsShouldReturnViewAndInvokeServiceMethod() throws Exception {
         mockMvc.perform(get("/project/")).andExpect(view().name("project/projects"));
         verify(projectService).getAllProjects();
     }
 
-    @Test
-    public void showMyProjects() throws Exception {
+    @Test(timeout = 2000)
+    public void showMyProjectsShouldReturnViewAndInvokeServiceMethod() throws Exception {
         mockMvc.perform(get("/project/my").principal(principal)).andExpect(view().name("project/projects"));
         verify(projectService).getAllProjectsOfUser(USERNAME);
     }
 
-    @Test
-    public void getAddProjectForm() throws Exception {
+    @Test(timeout = 2000)
+    public void getAddProjectFormShouldReturnView() throws Exception {
         mockMvc.perform(get("/project/new")).andExpect(view().name("project/add_project"));
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void addProjectWithName() throws Exception {
         Project project = new Project();
         ProjectDescription desc = new ProjectDescription();
@@ -74,37 +67,35 @@ public class ProjectControllerTest {
                 .principal(principal)
                 .param("desc.name", TEST_PROJECT_NAME))
                 .andExpect(view().name(REDIRECT_TO_PROJECTS));
-        verify(projectService).createProject(project);
+        verify(projectService).saveProject(project);
     }
 
-    // empty is allowed
-    @Test
+    @Test(timeout = 2000)
     public void addEmptyProject() throws Exception {
         mockMvc.perform(post("/project/new")
                 .principal(principal))
                 .andExpect(view().name(REDIRECT_TO_PROJECTS));
     }
 
-
-    @Test
+    @Test(timeout = 2000)
     public void addProjectWithWrongPrice() throws Exception {
         mockMvc.perform(post("/project/new")
                 .param("desc.cost", "wrong"))
                 .andExpect(view().name("project/add_project"));
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void getUpdateProjectFormWithCorrectId() throws Exception {
         mockMvc.perform(get("/project/1/update")).andExpect(view().name("project/update_project"));
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void getUpdateProjectFormWithWrongId() throws Exception {
         mockMvc.perform(get("/project/-1/update")).andExpect(view().name("project/projects"));
     }
 
-    @Test
-    public void updateProject() throws Exception {
+    @Test(timeout = 2000)
+    public void updateProjectShouldReturnViewAndInvokeServiceMethod() throws Exception {
         Project project = new Project();
         ProjectDescription desc = new ProjectDescription();
         desc.setName(TEST_PROJECT_NAME);
@@ -112,14 +103,13 @@ public class ProjectControllerTest {
         mockMvc.perform(post("/project/2/update")
                 .param("desc.name", TEST_PROJECT_NAME))
                 .andExpect(view().name(REDIRECT_TO_PROJECTS));
-        verify(projectService).updateProject(project);
+        verify(projectService).saveProject(project);
     }
 
-    @Test
-    public void deleteProject() throws Exception {
+    @Test(timeout = 2000)
+    public void deleteProjectShouldReturnViewAndInvokeServiceMethod() throws Exception {
         mockMvc.perform(get("/project/1/delete"))
                 .andExpect(view().name(REDIRECT_TO_PROJECTS));
         verify(projectService).deleteProject(1);
     }
-
 }

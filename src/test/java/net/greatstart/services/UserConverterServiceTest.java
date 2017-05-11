@@ -1,22 +1,23 @@
 package net.greatstart.services;
 
-import net.greatstart.Main;
 import net.greatstart.dto.DtoUserProfile;
 import net.greatstart.model.Contact;
 import net.greatstart.model.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.context.ContextConfiguration;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
-@ContextConfiguration(classes = Main.class)
 public class UserConverterServiceTest {
+
     private static final String EMAIL = "a@example.com";
     private static final String NAME = "UserName";
+    private static final String LAST_NAME = "UserLastName";
+    private static final String INITIALS = "U.U.";
     private static final String ADDRESS = "Address";
     private static final String NEW_ADDRESS = "New address";
     private static final String PHONE = "+38 044 123 45 68";
@@ -24,7 +25,8 @@ public class UserConverterServiceTest {
     private static final long ID = 1L;
     private User user;
     private DtoUserProfile dtoUserProfile;
-    private UserConverterService userConverter = new UserConverterService();
+    @InjectMocks
+    private UserConverterService userConverter;
 
     @Before
     public void setUp() {
@@ -32,6 +34,7 @@ public class UserConverterServiceTest {
         user.setId(ID);
         user.setEmail(EMAIL);
         user.setName(NAME);
+        user.setLastName(LAST_NAME);
         Contact contact = new Contact(ADDRESS, PHONE);
         user.setContact(contact);
         dtoUserProfile = new DtoUserProfile();
@@ -47,6 +50,7 @@ public class UserConverterServiceTest {
         assertEquals(NAME, dtoUser.getName());
         assertEquals(ADDRESS, dtoUser.getAddress());
         assertEquals(PHONE, dtoUser.getPhoneNumber());
+        assertEquals(INITIALS, dtoUser.getInitial());
     }
 
     @Test
@@ -55,5 +59,4 @@ public class UserConverterServiceTest {
         assertEquals(NEW_ADDRESS, user.getContact().getAddress());
         assertEquals(NEW_PHONE, user.getContact().getPhoneNumber());
     }
-
 }

@@ -2,12 +2,15 @@ package net.greatstart.model;
 
 import lombok.Data;
 
+import javax.persistence.Entity;
+
 
 /**
  * Does not exist in DB
  */
 
 @Data
-public class Event {
+@Entity
+public class Event extends AbstractModel {
 
 }

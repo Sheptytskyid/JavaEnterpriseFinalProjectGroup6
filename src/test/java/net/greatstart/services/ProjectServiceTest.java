@@ -1,6 +1,5 @@
 package net.greatstart.services;
 
-import net.greatstart.Main;
 import net.greatstart.dao.ProjectDao;
 import net.greatstart.model.Project;
 import net.greatstart.model.User;
@@ -9,66 +8,71 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-@ContextConfiguration(classes = Main.class)
 public class ProjectServiceTest {
+
     @Mock
-    ProjectDao mockProjectDao;
+    private ProjectDao projectDao;
     @Mock
-    UserService mockUserService;
+    private UserService userService;
     @InjectMocks
-    ProjectService projectService;
-    Project project = new Project();
+    private ProjectService projectService;
+    private Project project = new Project();
 
-    @Test
-    public void createProject() throws Exception {
-        projectService.createProject(project);
-        verify(mockProjectDao).create(project);
+    @Test(timeout = 2000)
+    public void invokeProjectDaoWhenSaveProject() throws Exception {
+        projectService.saveProject(project);
+        verify(projectDao, times(1)).save(project);
     }
 
-    @Test
-    public void updateProject() throws Exception {
-        projectService.updateProject(project);
-        verify(mockProjectDao).update(project);
-    }
-
-    @Test
-    public void deleteProject() throws Exception {
+    @Test(timeout = 2000)
+    public void invokeProjectDaoWhenDeleteProject() throws Exception {
         projectService.deleteProject(1L);
-        verify(mockProjectDao).getById(1L);
-        verify(mockProjectDao).delete(null);
+        verify(projectDao, times(1)).delete(1L);
+    }
+
+    @Test(timeout = 2000)
+    public void returnProjectWhenGetProjectById() throws Exception {
+        when(projectDao.findOne(1L)).thenReturn(project);
+        assertEquals(projectService.getProjectById(1L),project);
+    }
+
+    @Test(timeout = 2000)
+    public void invokeProjectDaoWhenGetAllProjects() throws Exception {
+        List<Project> projects = new ArrayList<>();
+        projects.add(project);
+        when(projectDao.findAll()).thenReturn(projects);
+        assertEquals(projectService.getAllProjects(),projects);
+    }
+
+    @Test(timeout = 2000)
+    public void invokeDaoWhenGetNProjects() throws Exception {
+        Pageable pageable = new PageRequest(0, 10);
+        List<Project> projects = new ArrayList<>();
+        Page<Project> page = new PageImpl<Project>(projects);
+        when(projectDao.findAll(pageable)).thenReturn(page);
+        assertEquals(projectService.getNProjects(10), projects);
     }
 
     @Test
-    public void getProjectById() throws Exception {
-        projectService.deleteProject(1L);
-        verify(mockProjectDao).getById(1L);
-    }
-
-    @Test
-    public void getAllProjects() throws Exception {
-        projectService.getAllProjects();
-        verify(mockProjectDao).getAll();
-    }
-
-    @Test
-    public void getNProjects() throws Exception {
-        projectService.getNProjects(10);
-        verify(mockProjectDao).getNRecords(10);
-    }
-
-    @Test
-    public void getAllProjectsOfUser() {
-        String email = "admin@goit.ua";
-        when(mockUserService.getUserByEmail(email)).thenReturn(new User());
+    public void invokeDaoWhenGetAllProjectsOfUser() {
+        String email = "test@test.ua";
+        User user = new User();
+        when(userService.getUserByEmail(email)).thenReturn(user);
         projectService.getAllProjectsOfUser(email);
-        verify(mockUserService).getUserByEmail(email);
-        verify(mockProjectDao).getByUserId(0);
+        verify(projectDao, times(1)).findByOwner(user);
     }
-
 }

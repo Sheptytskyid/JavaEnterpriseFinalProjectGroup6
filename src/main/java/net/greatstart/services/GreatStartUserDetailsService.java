@@ -22,8 +22,8 @@ public class GreatStartUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        net.greatstart.model.User user = userService.getUserByEmail(name);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        net.greatstart.model.User user = userService.getUserByEmail(email);
         if (user != null) {
             Set<GrantedAuthority> authorities = new HashSet<>();
             for (Role role: user.getRoles()) {
@@ -31,6 +31,6 @@ public class GreatStartUserDetailsService implements UserDetailsService {
             }
             return new User(user.getEmail(), user.getPassword(), authorities);
         }
-        throw new UsernameNotFoundException("User " + name + " not found.");
+        throw new UsernameNotFoundException("User " + email + " not found.");
     }
 }
