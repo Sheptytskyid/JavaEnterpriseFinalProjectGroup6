@@ -1,7 +1,6 @@
 package net.greatstart.model;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
@@ -15,7 +14,6 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "projects")
-@Component
 public class Project extends AbstractModel {
 
     @Embedded

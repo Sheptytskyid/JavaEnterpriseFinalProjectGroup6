@@ -21,7 +21,7 @@ import java.util.List;
 @RequestMapping("/project")
 public class ProjectController {
     private static final String REDIRECT_TO_PROJECTS = "redirect:/project/";
-    public static final String PROJECTS = "project/projects";
+    private static final String PROJECTS = "project/projects";
 
     private ProjectService projectService;
     private UserService userService;

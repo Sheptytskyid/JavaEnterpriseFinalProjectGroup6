@@ -1,7 +1,6 @@
 package net.greatstart.model;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,7 +11,6 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "user_types")
-@Component
 public class Type extends AbstractModel {
 
     private String name;

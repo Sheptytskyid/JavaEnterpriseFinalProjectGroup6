@@ -1,7 +1,6 @@
 package net.greatstart.model;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
 
@@ -12,7 +11,6 @@ import javax.persistence.Entity;
 
 @Data
 @Entity
-@Component
 public class Event extends AbstractModel {
 
 }

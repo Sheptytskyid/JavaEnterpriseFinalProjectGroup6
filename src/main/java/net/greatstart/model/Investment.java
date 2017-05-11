@@ -1,7 +1,6 @@
 package net.greatstart.model;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,7 +15,6 @@ import java.time.LocalDate;
 @Data
 @Entity
 @Table(name = "investments")
-@Component
 public class Investment extends AbstractModel {
     @Column(name = "date")
     private LocalDate dateOfInvestment;

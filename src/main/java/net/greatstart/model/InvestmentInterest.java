@@ -2,7 +2,6 @@ package net.greatstart.model;
 
 import lombok.Data;
 import org.springframework.format.annotation.NumberFormat;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,7 +15,6 @@ import java.math.BigDecimal;
 @Data
 @Entity
 @Table(name = "investment_interests")
-@Component
 public class InvestmentInterest extends AbstractModel {
 
     @Column(name = "goal")

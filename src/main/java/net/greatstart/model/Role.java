@@ -2,7 +2,6 @@ package net.greatstart.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +13,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "roles")
-@Component
 public class Role extends AbstractModel {
 
     @Column(name = "name")
