@@ -1,31 +1,45 @@
-
-var demoApp = angular.module('greatStartApp', ['ngRoute']);
-demoApp.config(function ($routeProvider) {
+var mainApp = angular.module('greatStartApp', ['ngRoute']);
+mainApp.config(function ($routeProvider) {
     $routeProvider
         .when('/',
             {
-                controller: 'SimpleController',
+                controller: 'MainController',
                 templateUrl: 'views/Main.html'
             })
-        .when('/userPage', {
-            controller: 'SimpleController',
-            templateUrl: 'views/UserPage.html'
+        .when('/user', {
+            controller: 'UserController',
+            templateUrl: 'views/user/UserPage.html'
+        })
+        .when('/projects', {
+            controller: 'ProjectController',
+            templateUrl: 'views/project/Projects.html'
+        })
+        .when('/events', {
+            controller: 'EventController',
+            templateUrl: 'views/event/Events.html'
+        })
+        .when('/interests', {
+            controller: 'InterestController',
+            templateUrl: 'views/interest/Interests.html'
         })
         .otherwise({redirectTo: '/'});
 });
 
-demoApp.controller('SimpleController', ['$scope', function ($scope) {
-    $scope.customers = [
-        {name: 'Dave Jones', city: 'Phoenix'},
-        {name: 'Jamie Riley', city: 'Atlanta'},
-        {name: 'Heedy Wahlin', city: 'Chandler'},
-        {name: 'Thomas Winter', city: 'Seattle'}
-    ];
-    $scope.addCustomer = function () {
-        $scope.customers.push(
-            {
-                name: $scope.newCustomer.name,
-                city: $scope.newCustomer.city
-            });
-    };
+mainApp.controller('UserController', ['$scope', function ($scope) {
+    $scope.favourites = false;
+}]);
+
+mainApp.controller('MainController', ['$scope', function ($scope) {
+}]);
+
+mainApp.controller('ProjectController', ['$scope', function ($scope) {
+
+}]);
+
+mainApp.controller('EventController', ['$scope', function ($scope) {
+
+}]);
+
+mainApp.controller('InterestController', ['$scope', function ($scope) {
+
 }]);
