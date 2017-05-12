@@ -2,8 +2,7 @@ package net.greatstart.model;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -37,7 +36,12 @@ public class ProjectDescription {
 
     @Column(name = "other")
     private String other;
+
     @Column(name = "logo_url")
     private String logotype;
 
+    @Basic(fetch = FetchType.LAZY)
+    @Lob
+    @Column(name = "photo")
+    private byte[] photo;
 }

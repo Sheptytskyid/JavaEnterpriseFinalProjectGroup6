@@ -6,12 +6,6 @@ import org.springframework.validation.Errors;
 
 import java.math.BigDecimal;
 
-/**
- * {@link }
- *
- * @author Oleksii Polite Rudenko
- * @version 1.0
- */
 public class InvestmentValidationService {
     private InvestmentValidationService() {
     }
