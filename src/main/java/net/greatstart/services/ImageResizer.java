@@ -57,8 +57,15 @@ public class ImageResizer {
     }
 
     private static BufferedImage convertoImage(MultipartFile file) throws IOException {
-        InputStream in = new ByteArrayInputStream(file.getBytes());
-        return ImageIO.read(in);
+        InputStream in = null;
+        try {
+            in = new ByteArrayInputStream(file.getBytes());
+            return ImageIO.read(in);
+        } finally {
+            if (in != null) {
+                in.close();
+            }
+        }
     }
 
 

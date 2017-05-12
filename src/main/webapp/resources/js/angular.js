@@ -27,7 +27,7 @@
  * are applied with respect to how minErr instances are created and called.
  * Instances should have names of the form namespaceMinErr for a minErr created
  * using minErr('namespace') . Error codes, namespaces and template strings
- * should all be static strings, not variables or general expressions.
+ * should all be public strings, not variables or general expressions.
  *
  * @param {string} module The namespace to use for the new minErr instance.
  * @param {function} ErrorConstructor Custom error constructor to be instantiated when returning
@@ -32409,7 +32409,7 @@ var SelectController =
         }
       });
     } else {
-      // The value attribute is static
+      // The value attribute is public
       self.addOption(optionAttrs.value, optionElement);
     }
 
