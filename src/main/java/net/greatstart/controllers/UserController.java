@@ -2,6 +2,7 @@ package net.greatstart.controllers;
 
 import net.greatstart.dto.DtoUserProfile;
 import net.greatstart.model.User;
+import net.greatstart.services.ImageResizer;
 import net.greatstart.services.UserConverterService;
 import net.greatstart.services.UserService;
 import org.slf4j.Logger;
@@ -83,7 +84,7 @@ public class UserController {
                 logger.info("File name: " + file.getName());
                 logger.info("File size: " + file.getSize());
                 logger.info("File content type: " + file.getContentType());
-                content = file.getBytes();
+                content = ImageResizer.getImage(file);
                 dtoUser.setPhoto(content);
             } catch (IOException e) {
                 logger.error("Error saving upload file", e);

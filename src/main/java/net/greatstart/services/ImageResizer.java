@@ -17,23 +17,18 @@ import java.io.ByteArrayInputStream;
 @Slf4j
 public class ImageResizer {
 
+    private ImageResizer() {
+    }
+
     public static byte[] getImage(MultipartFile file) throws IOException {
         log.info("Start to resize");
         byte[] result = null;
         BufferedImage image = convertoImage(file);
         log.info("img width:" + image.getWidth());
         log.info("img height:" + image.getHeight());
-        int type;
-        if (image.getType() == 0) {
-            type = BufferedImage.TYPE_INT_ARGB;
-        } else {
-            log.info("Getting image type...");
-            type = image.getType();
-        }
-        try {
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
             log.info("Start to resizing ...");
             BufferedImage resize = thumbnailatorImage(file);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(resize, "png", baos);
             baos.flush();
             result = baos.toByteArray();
@@ -44,36 +39,20 @@ public class ImageResizer {
             log.error("Error resizing file", e);
         }
         return result;
-
-
     }
 
-    private static BufferedImage resizeImage(BufferedImage original, int type, int width, int heigth) {
-        BufferedImage resizedImage = new BufferedImage(width, heigth, type);
-        Graphics graphics = resizedImage.createGraphics();
-        graphics.drawImage(original, 0, 0, width, heigth, null);
-        graphics.dispose();
-        return resizedImage;
-    }
 
     private static BufferedImage convertoImage(MultipartFile file) throws IOException {
-        InputStream in = null;
-        try {
-            in = new ByteArrayInputStream(file.getBytes());
+        try (InputStream in = new ByteArrayInputStream(file.getBytes())) {
             return ImageIO.read(in);
-        } finally {
-            if (in != null) {
-                in.close();
-            }
         }
     }
 
 
     private static BufferedImage thumbnailatorImage(MultipartFile file) throws IOException {
-        BufferedImage image = Thumbnails.of(convertoImage(file))
+        return Thumbnails.of(convertoImage(file))
                 .sourceRegion(Positions.CENTER, 3200, 3200)
                 .size(1200, 1200)
                 .resizer(Resizers.BICUBIC).asBufferedImage();
-        return image;
     }
 }
