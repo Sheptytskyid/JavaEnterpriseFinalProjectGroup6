@@ -2,8 +2,11 @@ package net.greatstart.model;
 
 import lombok.Data;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
+import javax.persistence.Lob;
 import java.time.LocalDate;
 
 @Data
@@ -38,5 +41,10 @@ public class ProjectDescription {
     private String other;
     @Column(name = "logo_url")
     private String logotype;
+
+    @Basic(fetch = FetchType.LAZY)
+    @Lob
+    @Column(name = "image")
+    private byte[] image;
 
 }

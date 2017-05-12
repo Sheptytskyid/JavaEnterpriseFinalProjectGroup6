@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -94,6 +95,12 @@ public class ProjectController {
     public ModelAndView deleteProject(@PathVariable("id") Long id) {
         projectService.deleteProject(id);
         return new ModelAndView(REDIRECT_TO_PROJECTS);
+    }
+
+    @GetMapping(value = "/{id}/image")
+    @ResponseBody
+    public byte[] downloadImage(@PathVariable("id") Long id) {
+        return null;
     }
 
 }
