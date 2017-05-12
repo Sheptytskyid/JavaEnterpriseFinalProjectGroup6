@@ -28,9 +28,17 @@ mainApp.config(function ($routeProvider) {
             controller: 'ProjectController',
             templateUrl: 'views/project/Projects.html'
         })
+        .when('/project', {
+            controller: 'ProjectController',
+            templateUrl: 'views/project/ProjectPage.html'
+        })
         .when('/events', {
             controller: 'EventController',
             templateUrl: 'views/event/Events.html'
+        })
+        .when('/event', {
+            controller: 'EventController',
+            templateUrl: 'views/event/EventPage.html'
         })
         .when('/interests', {
             controller: 'InterestController',
