@@ -24,8 +24,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-            .userDetailsService(new GreatStartUserDetailsService(userService))
-            .passwordEncoder(passwordEncoder());
+                .userDetailsService(new GreatStartUserDetailsService(userService))
+                .passwordEncoder(passwordEncoder());
     }
 
     protected void configure(HttpSecurity http) throws Exception {
@@ -37,10 +37,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/user/login")
                 .usernameParameter("email")
                 // TODO: change the routing when home page is ready
-//                .defaultSuccessUrl("/project/")
+                //TODO: uncomment this line: .defaultSuccessUrl("/project/")
                 .and()
                 .logout()
-//                .logoutSuccessUrl("/project/")
+                //TODO: uncomment this line: .logoutSuccessUrl("/project/")
                 .and()
                 .rememberMe()
                 .key("greatStartKey")

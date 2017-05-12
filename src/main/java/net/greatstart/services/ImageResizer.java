@@ -1,16 +1,18 @@
 package net.greatstart.services;
 
 import lombok.extern.slf4j.Slf4j;
-import net.coobird.thumbnailator.Thumbnailator;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 import net.coobird.thumbnailator.resizers.Resizers;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ByteArrayInputStream;
 
 @Slf4j
 public class ImageResizer {
@@ -30,7 +32,6 @@ public class ImageResizer {
         }
         try {
             log.info("Start to resizing ...");
-//            BufferedImage resize = resizeImage(image, type, 620, 620);
             BufferedImage resize = thumbnailatorImage(file);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(resize, "png", baos);
@@ -62,7 +63,7 @@ public class ImageResizer {
 
 
     private static BufferedImage thumbnailatorImage(MultipartFile file) throws IOException {
-        BufferedImage image =Thumbnails.of(convertoImage(file))
+        BufferedImage image = Thumbnails.of(convertoImage(file))
                 .sourceRegion(Positions.CENTER, 3200, 3200)
                 .size(1200, 1200)
                 .resizer(Resizers.BICUBIC).asBufferedImage();
