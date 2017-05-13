@@ -8,6 +8,7 @@ import net.greatstart.services.ProjectService;
 import net.greatstart.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,6 +42,7 @@ public class InvestmentController {
         Project project = projectService.getProjectById(id);
 
         ModelAndView modelAndView = new ModelAndView("investment/add_investment");
+        modelAndView.addObject("investment", new Investment());
         modelAndView.addObject(project);
         return modelAndView;
     }
@@ -48,7 +50,11 @@ public class InvestmentController {
     @PostMapping("/project/{id}/addInvestment")
     public ModelAndView addInvestment(@PathVariable long id,
                                       @RequestParam BigDecimal sum,
-                                      Principal principal) {
+                                      Principal principal,
+                                      Errors errors) {
+        if (errors.hasErrors()) {
+            return new ModelAndView("/project/" + id + "/addInvestment");
+        }
         Project project = projectService.getProjectById(id);
         User investor = userService.getUserByEmail(principal.getName());
         investmentService.saveInvestment(new Investment(LocalDateTime.now(),

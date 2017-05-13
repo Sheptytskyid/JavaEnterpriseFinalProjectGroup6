@@ -288,7 +288,7 @@
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-danger pull-right" type="button" data-dismiss="modal">Cancel</button>
-				<a href="/project/{id}/addInvestment" class="btn btn-success pull-right" type="submit">Next</a>
+				<a href="/project/${project.id}/addInvestment" class="btn btn-success pull-right" type="submit">Next</a>
 			</div>
 		</div>
 	</div>
