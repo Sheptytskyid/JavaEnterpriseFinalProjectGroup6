@@ -2,7 +2,11 @@ package net.greatstart.model;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
+import javax.persistence.Lob;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
