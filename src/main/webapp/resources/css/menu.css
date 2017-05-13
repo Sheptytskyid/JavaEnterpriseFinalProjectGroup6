@@ -49,12 +49,18 @@ html { height: 100%;}
 
 #page-content-wrapper {
     width: 100%;
-    padding-top: 15px;
+    padding-top: 0px;
 }
 
 #wrapper.toggled #page-content-wrapper {
     position: absolute;
     margin-right: -220px;
+}
+
+@media (max-width: 1050px) {
+    .wrapper {
+        display: none;
+    }
 }
 
 /*-------------------------------*/
@@ -149,9 +155,9 @@ html { height: 100%;}
 }
 
 .sidebar-nav > .sidebar-brand {
-    height: 65px;
+    height: 50px;
     font-size: 20px;
-    line-height: 44px;
+    line-height: 30px;
 }
 .sidebar-nav .dropdown-menu {
     position: relative;
@@ -170,7 +176,7 @@ html { height: 100%;}
 
 .hamburger {
   position: fixed;
-  top: 20px;  
+  top: 10px;
   z-index: 999;
   display: block;
   width: 32px;
