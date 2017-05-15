@@ -6,7 +6,6 @@ import net.greatstart.model.User;
 import net.greatstart.services.SecurityService;
 import net.greatstart.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -30,16 +29,16 @@ import java.util.UUID;
 public class PasswordResetController {
 
     private PasswordEncoder passwordEncoder;
-    private MessageSource messages;
-    private Environment env;
+//    private MessageSource messages;
     private JavaMailSender mailSender;
     private UserService userService;
     private SecurityService securityService;
+    private Environment env;
 
     @Autowired
-    public PasswordResetController(MessageSource messages, Environment env, JavaMailSender mailSender, UserService
+    public PasswordResetController(/*MessageSource messages,*/ Environment env, JavaMailSender mailSender, UserService
         userService, SecurityService securityService, PasswordEncoder passwordEncoder) {
-        this.messages = messages;
+//        this.messages = messages;
         this.env = env;
         this.mailSender = mailSender;
         this.userService = userService;
@@ -58,13 +57,15 @@ public class PasswordResetController {
         userService.createPasswordResetTokenForUser(user, token);
         String url = request.getRequestURL().toString();
         mailSender.send(constructResetTokenEmail(url, request.getLocale(), token, user));
-        return new GenericResponse(messages.getMessage("message.resetPasswordEmail", null, request.getLocale()));
+//        return new GenericResponse(messages.getMessage("message.resetPasswordEmail", null, request.getLocale()));
+        return new GenericResponse("message.resetPasswordEmail");
     }
 
     private SimpleMailMessage constructResetTokenEmail(
         String contextPath, Locale locale, String token, User user) {
         String url = contextPath + "/user/changePassword?id=" + user.getId() + "&token=" + token;
-        String message = messages.getMessage("message.resetPassword", null, locale);
+//        String message = messages.getMessage("message.resetPassword", null, locale);
+        String message = "message.resetPassword";
         return constructEmail(message + " \r\n" + url, user);
     }
 
@@ -82,8 +83,8 @@ public class PasswordResetController {
                                          @RequestParam("id") long id, @RequestParam("token") String token) {
         String result = securityService.validatePasswordResetToken(id, token);
         if (result != null) {
-            model.addAttribute("message",
-                messages.getMessage("auth.message." + result, null, locale));
+//            model.addAttribute("message", messages.getMessage("auth.message." + result, null, locale));
+            model.addAttribute("message", "auth.message");
             return "redirect:/login?lang=" + locale.getLanguage();
         }
         return "redirect:/updatePassword.html?lang=" + locale.getLanguage();
@@ -95,7 +96,7 @@ public class PasswordResetController {
                                         @Valid DtoPassword dtoPassword) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userService.changeUserPassword(user, passwordEncoder.encode(dtoPassword.getPassword()));
-        return new GenericResponse(
-            messages.getMessage("message.resetPasswordSuc", null, locale));
+//        return new GenericResponse(messages.getMessage("message.resetPasswordSuc", null, locale));
+        return new GenericResponse("message.resetPasswordSuc");
     }
 }
