@@ -2,10 +2,10 @@ package net.greatstart.controllers;
 
 import net.greatstart.dto.DtoEmail;
 import net.greatstart.dto.DtoPassword;
-import net.greatstart.model.GenericResponse;
 import net.greatstart.model.User;
 import net.greatstart.services.SecurityService;
 import net.greatstart.services.UserService;
+import net.greatstart.validators.PasswordValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
@@ -18,10 +18,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,17 +34,20 @@ public class PasswordResetController {
     private JavaMailSender mailSender;
     private UserService userService;
     private SecurityService securityService;
+    private PasswordValidationService validationService;
     private Environment env;
 
     @Autowired
     public PasswordResetController(/*MessageSource messages,*/ Environment env, JavaMailSender mailSender, UserService
-        userService, SecurityService securityService, PasswordEncoder passwordEncoder) {
+        userService, SecurityService securityService, PasswordEncoder passwordEncoder, PasswordValidationService
+        validationService) {
 //        this.messages = messages;
         this.env = env;
         this.mailSender = mailSender;
         this.userService = userService;
         this.securityService = securityService;
         this.passwordEncoder = passwordEncoder;
+        this.validationService = validationService;
     }
 
     @GetMapping(value = "/user/resetPassword")
@@ -68,7 +68,7 @@ public class PasswordResetController {
         }
         String token = UUID.randomUUID().toString();
         userService.createPasswordResetTokenForUser(user, token);
-        String url = request.getRequestURL().toString();
+        String url = request.getHeader("origin");
         mailSender.send(constructResetTokenEmail(url, request.getLocale(), token, user));
 //        return new GenericResponse(messages.getMessage("message.resetPasswordEmail", null, request.getLocale()));
         return new ModelAndView("index");
@@ -92,24 +92,33 @@ public class PasswordResetController {
     }
 
     @GetMapping(value = "/user/changePassword")
-    public String showChangePasswordPage(Locale locale, Model model,
+    public ModelAndView showChangePasswordPage(Locale locale, Model model,
                                          @RequestParam("id") long id, @RequestParam("token") String token) {
         String result = securityService.validatePasswordResetToken(id, token);
         if (result != null) {
 //            model.addAttribute("message", messages.getMessage("auth.message." + result, null, locale));
-            model.addAttribute("message", "auth.message");
-            return "redirect:/login?lang=" + locale.getLanguage();
+            model.addAttribute("error", "auth.message");
+            return new ModelAndView("redirect:/user/login");
         }
-        return "redirect:/updatePassword.html?lang=" + locale.getLanguage();
+        return new ModelAndView("redirect:/user/updatePassword");
     }
 
-    @RequestMapping(value = "/user/savePassword", method = RequestMethod.POST)
-    @ResponseBody
-    public GenericResponse savePassword(Locale locale,
-                                        @Valid DtoPassword dtoPassword) {
+    @GetMapping(value = "/user/updatePassword")
+    public ModelAndView showUpdatePasswordForm() {
+        ModelAndView model = new ModelAndView("user/updatePassword");
+        model.addObject("newPassword", new DtoPassword());
+        return model;
+    }
+
+    @PostMapping(value = "/user/updatePassword")
+    public ModelAndView savePassword(Locale locale, @Valid @ModelAttribute("newPassword") DtoPassword newPassword, Errors errors) {
+        validationService.validate(newPassword, errors);
+        if (errors.hasErrors()) {
+            return new ModelAndView("user/updatePassword");
+        }
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        userService.changeUserPassword(user, passwordEncoder.encode(dtoPassword.getPassword()));
+        userService.changeUserPassword(user, passwordEncoder.encode(newPassword.getPassword()));
 //        return new GenericResponse(messages.getMessage("message.resetPasswordSuc", null, locale));
-        return new GenericResponse("message.resetPasswordSuc");
+        return new ModelAndView("login/login");
     }
 }

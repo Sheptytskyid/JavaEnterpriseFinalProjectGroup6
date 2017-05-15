@@ -25,7 +25,7 @@ public class Investment extends AbstractModel {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn (name = "user_id")
-    private User inv;
+    private User investor;
 
     @Column(name = "sum")
     private BigDecimal sum;

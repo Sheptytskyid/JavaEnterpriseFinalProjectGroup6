@@ -12,11 +12,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
-import java.util.Calendar;
+import java.util.Date;
 
 @Service
+@Transactional
 public class SecurityService {
 
     private UserDetailsService userDetailsService;
@@ -49,17 +51,14 @@ public class SecurityService {
             return "invalidToken";
         }
 
-        Calendar cal = Calendar.getInstance();
-        if ((passToken.getExpiryDate()
-            .getTime() - cal.getTime()
-            .getTime()) <= 0) {
+        Date currentDate = new Date();
+        if (passToken.getExpiryDate().after(currentDate)) {
             return "expired";
         }
 
         User user = passToken.getUser();
         Authentication auth = new UsernamePasswordAuthenticationToken(
-            user, null, Arrays.asList(
-            new SimpleGrantedAuthority("CHANGE_PASSWORD_PRIVILEGE")));
+            user, null, Arrays.asList(new SimpleGrantedAuthority("CHANGE_PASSWORD_PRIVILEGE")));
         SecurityContextHolder.getContext().setAuthentication(auth);
         return null;
     }

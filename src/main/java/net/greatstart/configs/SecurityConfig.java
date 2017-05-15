@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/project/")
                 .and()
                 .logout()
-                .logoutSuccessUrl("/project/")
+                .logoutSuccessUrl("/user/login")
                 .and()
                 .rememberMe()
                 .key("greatStartKey")
