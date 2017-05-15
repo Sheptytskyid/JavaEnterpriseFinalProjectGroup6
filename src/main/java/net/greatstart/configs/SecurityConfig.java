@@ -24,8 +24,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-            .userDetailsService(new GreatStartUserDetailsService(userService))
-            .passwordEncoder(passwordEncoder());
+                .userDetailsService(new GreatStartUserDetailsService(userService))
+                .passwordEncoder(passwordEncoder());
     }
 
     protected void configure(HttpSecurity http) throws Exception {
@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/project/new", "/project/my", "/invinterest/add", "/invinterest").authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/user/login")
+                .loginPage("/user/close")
                 .usernameParameter("email")
                 // TODO: change the routing when home page is ready
                 .defaultSuccessUrl("/project/")
