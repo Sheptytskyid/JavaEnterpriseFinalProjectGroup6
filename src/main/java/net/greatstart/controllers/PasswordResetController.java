@@ -1,5 +1,6 @@
 package net.greatstart.controllers;
 
+import net.greatstart.dto.DtoPassword;
 import net.greatstart.model.GenericResponse;
 import net.greatstart.model.User;
 import net.greatstart.services.SecurityService;
@@ -10,8 +11,10 @@ import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,12 +22,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.Locale;
 import java.util.UUID;
 
 @Controller
 public class PasswordResetController {
 
+    private PasswordEncoder passwordEncoder;
     private MessageSource messages;
     private Environment env;
     private JavaMailSender mailSender;
@@ -33,12 +38,13 @@ public class PasswordResetController {
 
     @Autowired
     public PasswordResetController(MessageSource messages, Environment env, JavaMailSender mailSender, UserService
-        userService, SecurityService securityService) {
+        userService, SecurityService securityService, PasswordEncoder passwordEncoder) {
         this.messages = messages;
         this.env = env;
         this.mailSender = mailSender;
         this.userService = userService;
         this.securityService = securityService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping(value = "/user/resetPassword")
@@ -46,7 +52,7 @@ public class PasswordResetController {
     public GenericResponse resetPassword(HttpServletRequest request, @RequestParam("email") String userEmail) {
         User user = userService.getUserByEmail(userEmail);
         if (user == null) {
-            throw new RuntimeException("Email not found");
+            throw new RuntimeException("Email not found"); // replace with error message
         }
         String token = UUID.randomUUID().toString();
         userService.createPasswordResetTokenForUser(user, token);
@@ -71,7 +77,7 @@ public class PasswordResetController {
         return email;
     }
 
-    @RequestMapping(value = "/user/changePassword", method = RequestMethod.GET)
+    @GetMapping(value = "/user/changePassword")
     public String showChangePasswordPage(Locale locale, Model model,
                                          @RequestParam("id") long id, @RequestParam("token") String token) {
         String result = securityService.validatePasswordResetToken(id, token);
@@ -86,12 +92,9 @@ public class PasswordResetController {
     @RequestMapping(value = "/user/savePassword", method = RequestMethod.POST)
     @ResponseBody
     public GenericResponse savePassword(Locale locale,
-                                        @Valid PasswordDto passwordDto) {
-        User user =
-            (User) SecurityContextHolder.getContext()
-                .getAuthentication().getPrincipal();
-
-        userService.changeUserPassword(user, passwordDto.getNewPassword());
+                                        @Valid DtoPassword dtoPassword) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        userService.changeUserPassword(user, passwordEncoder.encode(dtoPassword.getPassword()));
         return new GenericResponse(
             messages.getMessage("message.resetPasswordSuc", null, locale));
     }
