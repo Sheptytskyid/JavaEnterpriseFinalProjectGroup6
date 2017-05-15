@@ -322,41 +322,4 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="modal-login">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Login
-                    <button class="close" type="button" data-dismiss="modal">
-                        <span class="fa fa-close"></span>
-                    </button>
-                </h4>
-
-            </div>
-            <div class="modal-body">
-                <form action="/user/login" method="POST">
-                    <span>${message}</span>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Email" name="email" autofocus="true">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Password" name="password">
-                    </div>
-                    <span>${error}</span>
-                    <button type="submit" class="btn btn-success">Login</button>
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <form action="/registration">
-                        <a class="btn btn-primary" type="submit" href="=/user/register">
-                            <span class="fa fa-user-circle-o"></span> Create an account
-                        </a>
-                    </form>
-
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-danger" type="button" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
 <div ng-include="'views/main/Footer.html'"></div>

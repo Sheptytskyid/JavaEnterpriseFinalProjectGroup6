@@ -44,6 +44,10 @@ mainApp.config(function ($routeProvider) {
             controller: 'InterestController',
             templateUrl: 'views/interest/Interests.html'
         })
+        .when('/modal-login',{
+            controller: 'MainController',
+            templateUrl: 'views/main/LoginPage.html'
+        })
         .otherwise({redirectTo: '/'});
 });
 
