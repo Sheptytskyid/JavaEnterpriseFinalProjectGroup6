@@ -24,10 +24,10 @@ public class LoginControllerTest {
         mvc = standaloneSetup(controller).build();
     }
 
-//    @Test(timeout = 2000)
-//    public void returnViewWhenShowLoginForm() throws Exception {
-//        mvc.perform(get("/user/close")).andExpect(view().name("close/close"));
-//    }
+    @Test(timeout = 2000)
+    public void returnViewWhenShowLoginForm() throws Exception {
+        mvc.perform(get("/user/login")).andExpect(view().name("close/close"));
+    }
 
     @Test(timeout = 2000)
     public void ShowLoginFormWithErrors() throws Exception {

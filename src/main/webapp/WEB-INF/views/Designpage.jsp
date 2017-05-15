@@ -111,7 +111,7 @@
                 <div class="caption centered">
                     <a href="#"><h3>Project name</h3></a>
                 </div>
-                <a href="#"><img ng-src="http://placehold.it/600x340" alt="" class="img-responsive"></a>
+                <a href="#"><img src="http://placehold.it/600x340" alt="" class="img-responsive"></a>
                 <div class="caption">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                         labore
@@ -139,7 +139,7 @@
                 <div class="caption centered">
                     <a href="#"><h3>Project name</h3></a>
                 </div>
-                <a href="#"><img ng-src="http://placehold.it/600x340" alt="" class="img-responsive"></a>
+                <a href="#"><img src="http://placehold.it/600x340" alt="" class="img-responsive"></a>
                 <div class="caption">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                         labore
@@ -166,7 +166,7 @@
                 <div class="caption centered">
                     <a href="#"><h3>Project name</h3></a>
                 </div>
-                <a href="#"><img ng-src="http://placehold.it/600x340" alt="" class="img-responsive"></a>
+                <a href="#"><img src="http://placehold.it/600x340" alt="" class="img-responsive"></a>
                 <div class="caption">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                         labore
@@ -193,7 +193,7 @@
                 <div class="caption centered">
                     <a href="#"><h3>Project name</h3></a>
                 </div>
-                <a href="#"><img ng-src="http://placehold.it/600x340" alt="" class="img-responsive"></a>
+                <a href="#"><img src="http://placehold.it/600x340" alt="" class="img-responsive"></a>
                 <div class="caption">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                         labore
@@ -231,7 +231,7 @@
                 <div class="caption centered">
                     <a href="#"><h3>Event name</h3></a>
                 </div>
-                <a href="#"><img ng-src="http://placehold.it/600x340" alt="" class="img-responsive"></a>
+                <a href="#"><img src="http://placehold.it/600x340" alt="" class="img-responsive"></a>
                 <div class="caption">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                         labore
