@@ -1,5 +1,6 @@
 package net.greatstart.controllers;
 
+import net.greatstart.dto.DtoEmail;
 import net.greatstart.dto.DtoPassword;
 import net.greatstart.model.GenericResponse;
 import net.greatstart.model.User;
@@ -13,12 +14,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -46,10 +50,19 @@ public class PasswordResetController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @GetMapping(value = "/user/resetPassword")
+    public ModelAndView showForgotPassForm() {
+        ModelAndView model = new ModelAndView("user/forgotPassword");
+        model.addObject("email", new DtoEmail());
+        return model;
+    }
+
     @PostMapping(value = "/user/resetPassword")
-    @ResponseBody
-    public GenericResponse resetPassword(HttpServletRequest request, @RequestParam("email") String userEmail) {
-        User user = userService.getUserByEmail(userEmail);
+    public ModelAndView resetPassword(HttpServletRequest request, @Valid @ModelAttribute("email") DtoEmail userEmail, Errors errors) {
+        if (errors.hasErrors()) {
+            return new ModelAndView("user/forgotPassword");
+        }
+        User user = userService.getUserByEmail(userEmail.getEmail());
         if (user == null) {
             throw new RuntimeException("Email not found"); // replace with error message
         }
@@ -58,7 +71,7 @@ public class PasswordResetController {
         String url = request.getRequestURL().toString();
         mailSender.send(constructResetTokenEmail(url, request.getLocale(), token, user));
 //        return new GenericResponse(messages.getMessage("message.resetPasswordEmail", null, request.getLocale()));
-        return new GenericResponse("message.resetPasswordEmail");
+        return new ModelAndView("index");
     }
 
     private SimpleMailMessage constructResetTokenEmail(
