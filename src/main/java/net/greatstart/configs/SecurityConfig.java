@@ -30,7 +30,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
+                .authorizeRequests().antMatchers("/user/updatePassword*",
+            "/user/savePassword*",
+            "/updatePassword*")
+            .hasAuthority("CHANGE_PASSWORD_PRIVILEGE")
                 .antMatchers("/project/new", "/project/my", "/invinterest/add", "/invinterest").authenticated()
                 .and()
                 .formLogin()

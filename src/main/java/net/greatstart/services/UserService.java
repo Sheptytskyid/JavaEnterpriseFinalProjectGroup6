@@ -52,6 +52,11 @@ public class UserService {
         passwordTokenDao.save(myToken);
     }
 
+    public void changeUserPassword(User user, String password) {
+        user.setPassword(passwordEncoder.encode(password));
+        userDao.save(user);
+    }
+
     public User updateUser(User user) {
         return userDao.save(user);
     }

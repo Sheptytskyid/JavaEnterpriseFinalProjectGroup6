@@ -9,6 +9,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -80,5 +81,18 @@ public class PasswordResetController {
             return "redirect:/login?lang=" + locale.getLanguage();
         }
         return "redirect:/updatePassword.html?lang=" + locale.getLanguage();
+    }
+
+    @RequestMapping(value = "/user/savePassword", method = RequestMethod.POST)
+    @ResponseBody
+    public GenericResponse savePassword(Locale locale,
+                                        @Valid PasswordDto passwordDto) {
+        User user =
+            (User) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+
+        userService.changeUserPassword(user, passwordDto.getNewPassword());
+        return new GenericResponse(
+            messages.getMessage("message.resetPasswordSuc", null, locale));
     }
 }
