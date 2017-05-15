@@ -98,10 +98,10 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
-            <a href ng-click="flag=!flag" class="btn btn-success btn-block">Favourites
+            <a href ng-click="flag=!flag;" class="btn btn-success btn-block">Favourites
                 <span  class="fa" ng-class="{'fa-sort-desc' : !flag,
                                  'fa-sort-asc' : flag}"></span></a>
-            <div ng-show="flag">
+            <div uib-collapse="!flag">
                 <div class="well">
                     <div class="panel-info">
                         <div class="panel-body">

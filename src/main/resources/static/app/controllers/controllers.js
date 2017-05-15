@@ -1,4 +1,4 @@
-var mainApp = angular.module('greatStartApp', ['ngRoute']);
+var mainApp = angular.module('greatStartApp', ['ngRoute', 'ngAnimate','ngSanitize', 'ui.bootstrap']);
 mainApp.config(function ($routeProvider) {
     $routeProvider
         .when('/',
@@ -44,10 +44,6 @@ mainApp.config(function ($routeProvider) {
             controller: 'InterestController',
             templateUrl: 'views/interest/Interests.html'
         })
-        .when('/modal-login',{
-            controller: 'MainController',
-            templateUrl: 'views/main/LoginPage.html'
-        })
         .otherwise({redirectTo: '/'});
 });
 
@@ -55,8 +51,30 @@ mainApp.controller('UserController', ['$scope', function ($scope) {
     $scope.flag = false;
 }]);
 
-mainApp.controller('MainController', ['$scope', function ($scope) {
+mainApp.controller('MainController', ['$scope', '$uibModal', function ($scope, $uibModal) {
+    var modalPopup = function () {
+        return $scope.modalInstance = $uibModal.open({
+            templateUrl: 'views/main/LoginPage.html',
+            size: 'sm',
+            backdrop: true,
+            scope: $scope
+        });
+    };
+
+    $scope.openPopup = function () {
+        modalPopup().result
+            .then(function () {
+            })
+            .then(null, function () {
+            });
+    };
+
+    $scope.close = function () {
+        $scope.modalInstance.close();
+    };
+
 }]);
+
 
 mainApp.controller('ProjectController', ['$scope', function ($scope) {
 
