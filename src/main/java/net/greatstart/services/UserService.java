@@ -40,7 +40,6 @@ public class UserService {
         Set<Role> roles = new HashSet<>();
         roles.add(roleService.findOrCreateRole("ROLE_USER"));
         user.setRoles(roles);
-        createUser(user);
         return createUser(user);
     }
 
