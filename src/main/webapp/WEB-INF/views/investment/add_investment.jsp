@@ -1,7 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -15,14 +13,10 @@
 
 	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-
 </head>
 <body>
-
-<%--<form:form method="POST" modelAttribute="sum" class="form-signin">--%>
 <form method="post" action="/project/${project.id}/addInvestment">
 	<div class="container">
-
 		<c:if test="${message != null}">
 
 			<div class="alert alert-danger alert-dismissable">
@@ -35,22 +29,16 @@
 		</c:if>
 	</div>
 	<div class="container">
-
 		<h2 class="form-signin-heading">Add an investment</h2>
-		<p>Here you can add you investment in ${project.desc.name}</p>
+		<p>Here you can add your investment in ${project.desc.name}</p>
 		<p>Total investment needed: ${project.desc.cost-investedSum}</p>
 		<p>Minimal investment: ${project.desc.minInvestment}</p>
-
 		<input type="number" name="sum" placeholder="Your investment"/><br>
-		<%--<form:input type="text" path="sum" class="form-control"--%>
-		<%--placeholder="Your investment"></form:input>--%>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 		<button class="btn btn-lg btn-primary" type="submit">Submit</button>
 	</div>
 </form>
-<%--</form:form>--%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.js"></script>
-
 </body>
 </html>

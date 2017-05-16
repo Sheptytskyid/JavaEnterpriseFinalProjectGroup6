@@ -199,7 +199,6 @@
 										<tr>
 											<th>Phone:</th>
 											<spring:bind path="phoneNumber">
-												<span>${message}</span>
 												<td>
 													<form:input type="text" placeholder="" class="form-control input-md"
 																path="phoneNumber"
