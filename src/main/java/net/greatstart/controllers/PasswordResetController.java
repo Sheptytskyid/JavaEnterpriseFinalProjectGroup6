@@ -60,7 +60,7 @@ public class PasswordResetController {
     }
 
     @PostMapping(value = "/user/resetPassword")
-    public ModelAndView resetPassword(HttpServletRequest request, @Valid @ModelAttribute("user") DtoUser dtoUser, Errors
+    public ModelAndView processEmail(HttpServletRequest request, @Valid @ModelAttribute("user") DtoUser dtoUser, Errors
         errors) {
         ModelAndView model = new ModelAndView("user/forgotPassword");
         if (errors.hasErrors()) {
@@ -83,37 +83,13 @@ public class PasswordResetController {
         return model;
     }
 
-    private boolean sendResetTokenEmail(String contextPath, Locale locale, String token, User user) {
-        StringBuilder messageBody = new StringBuilder();
-        messageBody.append(messages.getMessage("message.resetPassword.body", null, locale))
-            .append("<a href=\"")
-            .append(contextPath)
-            .append("/user/validateToken?id=")
-            .append(user.getId())
-            .append("&token=")
-            .append(token)
-            .append("\">Reset your password</a>");
-        try {
-            MimeMessage mimeMessage = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
-            mimeMessage.setContent(messageBody.toString(), "text/html");
-            helper.setTo(user.getEmail());
-            helper.setSubject(messages.getMessage("message.resetPassword.subject", null, locale));
-            helper.setFrom(env.getProperty("support.email"));
-            mailSender.send(mimeMessage);
-        } catch (MessagingException e) {
-            return false;
-        }
-        return true;
-    }
-
     @GetMapping(value = "/user/validateToken")
     public ModelAndView validatePassToken(Locale locale, @RequestParam("id") long id, @RequestParam("token") String token) {
         String result = securityService.validatePasswordResetToken(id, token);
         ModelAndView model = new ModelAndView();
         if (result != null) {
-            model.addObject("error", messages.getMessage("token.error" + result, null, locale));
-            model.setViewName("redirect:/user/login");
+            model.addObject("message", messages.getMessage("token.error", null, locale) + result);
+            model.setViewName("login/login");
         } else {
             model.setViewName("redirect:/user/changePassword");
         }
@@ -140,5 +116,29 @@ public class PasswordResetController {
             model.addObject("message", messages.getMessage("message.resetPassword.success", null, locale));
         }
         return model;
+    }
+
+    private boolean sendResetTokenEmail(String contextPath, Locale locale, String token, User user) {
+        StringBuilder messageBody = new StringBuilder();
+        messageBody.append(messages.getMessage("message.resetPassword.body", null, locale))
+            .append("<a href=\"")
+            .append(contextPath)
+            .append("/user/validateToken?id=")
+            .append(user.getId())
+            .append("&token=")
+            .append(token)
+            .append("\">Reset your password</a>");
+        try {
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
+            mimeMessage.setContent(messageBody.toString(), "text/html");
+            helper.setTo(user.getEmail());
+            helper.setSubject(messages.getMessage("message.resetPassword.subject", null, locale));
+            helper.setFrom(env.getProperty("support.email"));
+            mailSender.send(mimeMessage);
+        } catch (MessagingException e) {
+            return false;
+        }
+        return true;
     }
 }

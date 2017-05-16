@@ -26,11 +26,10 @@
 <body>
 
 <div class="container">
-<c:if test="${message!=''}">
-    <div align="center"><h3>${message}</h3></div>
-</c:if>
+
     <form:form method="POST" modelAttribute="user" class="form-signin">
         <h2 class="form-signin-heading">Enter your Email</h2>
+        <span>${message}</span>
         <spring:bind path="email">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="email" class="form-control" placeholder="Email"

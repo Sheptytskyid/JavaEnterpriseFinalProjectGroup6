@@ -25,7 +25,6 @@ public class RegistrationController {
     private SecurityService securityService;
     private UserValidationService userValidationService;
 
-
     @Autowired
     public RegistrationController(PasswordEncoder passwordEncoder, UserService userService,
                                   SecurityService securityService, UserValidationService userValidationService) {

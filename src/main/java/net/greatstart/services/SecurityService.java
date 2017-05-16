@@ -14,8 +14,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Date;
 
 @Service
 @Transactional
@@ -51,15 +51,15 @@ public class SecurityService {
             return "invalid token";
         }
 
-        Date currentDate = new Date();
-        if (passToken.getExpiryDate().after(currentDate)) {
-            return "token expired";
+        if (passToken.getExpiryDate().isBefore(LocalDateTime.now()) || passToken.isUsed()) {
+            return "token expired or has been already used";
         }
 
         User user = passToken.getUser();
         Authentication auth = new UsernamePasswordAuthenticationToken(
             user, null, Arrays.asList(new SimpleGrantedAuthority("CHANGE_PASSWORD_PRIVILEGE")));
         SecurityContextHolder.getContext().setAuthentication(auth);
+        passToken.setUsed(true);
         return null;
     }
 }
