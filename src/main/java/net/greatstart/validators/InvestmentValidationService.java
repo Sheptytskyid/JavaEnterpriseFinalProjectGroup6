@@ -8,6 +8,11 @@ import java.math.BigDecimal;
 
 @Component
 public class InvestmentValidationService {
+    private static final String WRONG_MIN_VALUE = "You entered wrong investment value. " +
+            "Min possible investment is: $";
+    private static final String WRONG_MAX_VALUE = "You entered wrong investment value. " +
+            "Max possible investment is: $";
+
     private InvestmentValidationService() {
     }
 
@@ -19,11 +24,11 @@ public class InvestmentValidationService {
         BigDecimal maxInvestment = minInvestment.add(investedSum);
 
         if (sum.compareTo(minInvestment) < 0) {
-            return "You entered wrong investment value. Max possible investment is: $" + minInvestment;
+            return WRONG_MIN_VALUE + minInvestment;
         }
 
         if (sum.compareTo(maxInvestment) > 0) {
-            return "You entered wrong investment value. Max possible investment is: $" + maxInvestment;
+            return WRONG_MAX_VALUE + maxInvestment;
         }
 
 

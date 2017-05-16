@@ -18,7 +18,7 @@
     <p>Total investment needed: ${project.desc.cost-investedAmount}</p>
     <p>Minimal investment: ${project.desc.minInvestment}</p>
 
-    <span>${message}</span>
+    <%--<span>${message}</span>--%>
     <input type="number" name="sum" placeholder="Your investment"/><br>
     <%--<form:input type="text" path="sum" class="form-control"--%>
                 <%--placeholder="Your investment"></form:input>--%>

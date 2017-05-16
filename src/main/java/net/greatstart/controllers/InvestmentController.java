@@ -23,7 +23,10 @@ import java.util.List;
 @Controller
 public class InvestmentController {
     private static final String PROJECT_PAGE = "project/";
-    private static final String EDIT_PROFILE = "redirect:/user/EditUserPage";
+    private static final String INVESTMENTS_VIEW = "investment/investments";
+    private static final String INVESTMENTS_PAGE = "investment";
+    private static final String EDIT_USER_PROFILE = "user/EditUserPage";
+    private static final String REDIRECT = "redirect:/";
 
     private InvestmentService investmentService;
     private ProjectService projectService;
@@ -54,7 +57,7 @@ public class InvestmentController {
         User investor = userService.getUserByEmail(principal.getName());
         if (investor.getContact().getPhoneNumber() == null
                 || investor.getContact().getPhoneNumber().isEmpty()) {
-            ModelAndView modelAndView = new ModelAndView(EDIT_PROFILE);
+            ModelAndView modelAndView = new ModelAndView(REDIRECT + EDIT_USER_PROFILE);
             modelAndView.addObject("message", "Please enter your phone number!");
             return modelAndView;
         }
@@ -69,14 +72,37 @@ public class InvestmentController {
         investmentService.saveInvestment(new Investment(LocalDateTime.now(),
                 project, investor, sum, false, false));
 
-        return new ModelAndView(PROJECT_PAGE + id);
+        return new ModelAndView(REDIRECT + PROJECT_PAGE + id);
     }
 
-    public Investment getInvestmentById(long id) {
+    @GetMapping("investment/{id}")
+    public Investment getInvestmentById(@PathVariable long id) {
         return investmentService.getInvestmentById(id);
     }
 
-    public List<Investment> getAllnvestments() {
-        return investmentService.getAllInvestments();
+    @GetMapping("investment")
+    public ModelAndView getAllInvestments() {
+        ModelAndView modelAndView = new ModelAndView(INVESTMENTS_VIEW);
+        modelAndView.addObject("investmentList",
+                investmentService.getAllInvestments());
+        return modelAndView;
+    }
+
+    @GetMapping("project/{id}/investments")
+    public List<Investment> getAllProjectInvestments(@PathVariable long id) {
+        return projectService.getProjectById(id).getInvestments();
+    }
+
+    @GetMapping("user/{id}/investments")
+    public List<Investment> getAllUserInvestments(Principal principal) {
+        return userService.getUserByEmail(principal.getName()).getInvestments();
+    }
+
+    //todo
+
+    @GetMapping("investment/{id}/delete")
+    public ModelAndView deleteInvestmentById(@PathVariable long id) {
+        investmentService.deleteInvestment(id);
+        return new ModelAndView(REDIRECT + INVESTMENTS_PAGE);
     }
 }
