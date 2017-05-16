@@ -8,6 +8,7 @@ import net.greatstart.services.ProjectService;
 import net.greatstart.services.UserService;
 import net.greatstart.validators.InvestmentValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,6 +41,7 @@ public class InvestmentController {
         this.userService = userService;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/project/{id}/addInvestment")
     public ModelAndView getAddInvestmentForm(@PathVariable long id) {
         Project project = projectService.getProjectById(id);
@@ -49,6 +51,7 @@ public class InvestmentController {
         return model;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/project/{id}/addInvestment")
     public ModelAndView addInvestment(@PathVariable long id,
                                       @RequestParam BigDecimal sum,
