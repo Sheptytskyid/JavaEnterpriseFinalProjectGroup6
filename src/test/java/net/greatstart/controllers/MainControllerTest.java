@@ -24,6 +24,6 @@ public class MainControllerTest {
 
     @Test(timeout = 2000)
     public void frontPageShouldReturnView() throws Exception {
-        mvc.perform(get("/")).andExpect(view().name("index"));
+        mvc.perform(get("/indexjsp")).andExpect(view().name("index"));
     }
 }
