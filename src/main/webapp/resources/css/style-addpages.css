@@ -1,0 +1,34 @@
+.panel-card {
+    position: relative;
+    margin: 3% auto ;
+    background-color: #f5f6fa;
+    border: 6px solid transparent;
+    border-radius: 14px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: 0 10px 10px rgba(0, 10, 10, .30);
+}
+
+.panel-success-card {
+    border-color: green;
+}
+
+.form-group-card {
+    margin-bottom: 15px;
+}
+
+.footer-card-interest {
+    background: #108d19;
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
+
+.button-form-right {
+    float: right !important;
+    margin-right: -74px;
+}
+
+.button-position {
+    position: absolute;
+    top: 250px;
+    left: 400px;
+}
