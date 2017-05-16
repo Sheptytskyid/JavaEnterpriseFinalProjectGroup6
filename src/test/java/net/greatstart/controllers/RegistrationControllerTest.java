@@ -50,7 +50,7 @@ public class RegistrationControllerTest {
 
     @Test(timeout = 2000)
     public void registerShouldReturnView() throws Exception {
-        mvc.perform(get("/user/register")).andExpect(view().name("close/registration"));
+        mvc.perform(get("/user/register")).andExpect(view().name("login/registration"));
     }
 
     @Test(timeout = 2000)
