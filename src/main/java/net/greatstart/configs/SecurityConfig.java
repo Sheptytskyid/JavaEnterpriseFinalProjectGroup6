@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/project/new", "/project/my", "/invinterest/add", "/invinterest").authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/user/close")
+                .loginPage("/user/login")
                 .usernameParameter("email")
                 // TODO: change the routing when home page is ready
                 .defaultSuccessUrl("/project/")
