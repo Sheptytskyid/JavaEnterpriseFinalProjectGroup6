@@ -8,10 +8,10 @@ import java.math.BigDecimal;
 
 @Component
 public class InvestmentValidationService {
-    private static final String WRONG_MIN_VALUE = "You entered wrong investment value. " +
-            "Min possible investment is: $";
-    private static final String WRONG_MAX_VALUE = "You entered wrong investment value. " +
-            "Max possible investment is: $";
+    private static final String WRONG_MIN_VALUE = "You entered wrong investment value. "
+            + "Min possible investment is: $";
+    private static final String WRONG_MAX_VALUE = "You entered wrong investment value. "
+            + "Max possible investment is: $";
 
     private InvestmentValidationService() {
     }
