@@ -54,7 +54,7 @@ public class ProjectController {
     }
 
     @GetMapping(value = "/{id}")
-    public ModelAndView showMyProjects(@PathVariable Long id) {
+    public ModelAndView showProject(@PathVariable Long id) {
         Project project = projectService.getProjectById(id);
         ModelAndView model = new ModelAndView("project/projectPage");
         model.addObject(project);

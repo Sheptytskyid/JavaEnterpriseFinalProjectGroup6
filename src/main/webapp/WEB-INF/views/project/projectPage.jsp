@@ -5,9 +5,10 @@
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <spring:url value="/project/photo" var="projectPhotoUrl"/>
-<c:set var="photo" value="${projectPhotoUrl}/${project.id}"/>
+<%--<c:set var="photo" value="${projectPhotoUrl}/${project.id}"/>--%>
 <spring:url value="/user/photo" var="projectPhotoUrl"/>
 <c:set var="photo" value="${projectPhotoUrl}/${dtoUserProfile.id}"/>
+<c:set var="ivnProgress" value="${(investedAmount*100/project.desc.cost)}"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -240,7 +241,7 @@
 						<div class="progress">
 							<div class="progress-bar progress-bar-info"
 							<%--todo progress bar--%>
-								 style="width: 0%"></div>
+								 style="width: ${ivnProgress}%"></div>
 						</div>
 						<h5>Project need $${project.desc.cost-investedAmount}</h5>
 						<!--todo list of investments for project creator-->

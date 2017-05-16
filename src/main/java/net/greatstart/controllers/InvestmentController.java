@@ -6,9 +6,9 @@ import net.greatstart.model.User;
 import net.greatstart.services.InvestmentService;
 import net.greatstart.services.ProjectService;
 import net.greatstart.services.UserService;
+import net.greatstart.validators.InvestmentValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +23,7 @@ import java.util.List;
 @Controller
 public class InvestmentController {
     private static final String PROJECT_PAGE = "project/";
-
+    private static final String EDIT_PROFILE = "redirect:/user/EditUserPage";
 
     private InvestmentService investmentService;
     private ProjectService projectService;
@@ -50,13 +50,22 @@ public class InvestmentController {
     @PostMapping("/project/{id}/addInvestment")
     public ModelAndView addInvestment(@PathVariable long id,
                                       @RequestParam BigDecimal sum,
-                                      Principal principal,
-                                      Errors errors) {
-        if (errors.hasErrors()) {
-            return new ModelAndView("/project/" + id + "/addInvestment");
-        }
-        Project project = projectService.getProjectById(id);
+                                      Principal principal) {
         User investor = userService.getUserByEmail(principal.getName());
+        if (investor.getContact().getPhoneNumber() == null
+                || investor.getContact().getPhoneNumber().isEmpty()) {
+            ModelAndView modelAndView = new ModelAndView(EDIT_PROFILE);
+            modelAndView.addObject("message", "Please enter your phone number!");
+            return modelAndView;
+        }
+
+        Project project = projectService.getProjectById(id);
+        String message = InvestmentValidationService.validate(sum, project);
+        if (message != null) {
+            ModelAndView modelAndView = new ModelAndView("/project/" + id + "/addInvestment");
+            modelAndView.addObject("message", message);
+            return modelAndView;
+        }
         investmentService.saveInvestment(new Investment(LocalDateTime.now(),
                 project, investor, sum, false, false));
 

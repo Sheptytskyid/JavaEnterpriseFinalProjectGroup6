@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "investments")
 public class Investment extends AbstractModel {
+
     @Column(name = "date")
     private LocalDateTime dateOfInvestment;
 
