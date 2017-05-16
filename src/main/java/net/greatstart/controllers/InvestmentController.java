@@ -27,6 +27,8 @@ public class InvestmentController {
     private static final String INVESTMENTS_PAGE = "investment";
     private static final String EDIT_USER_PROFILE = "user/EditUserPage";
     private static final String REDIRECT = "redirect:/";
+    private static final String INVESTMENT_LIST = "investmentList";
+    private static final String PAGE_NAME = "pageName";
 
     private InvestmentService investmentService;
     private ProjectService projectService;
@@ -88,9 +90,9 @@ public class InvestmentController {
     @GetMapping("investment")
     public ModelAndView getAllInvestments() {
         ModelAndView model = new ModelAndView(INVESTMENTS_VIEW);
-        model.addObject("pageName",
+        model.addObject(PAGE_NAME,
                 "All investments.");
-        model.addObject("investmentList",
+        model.addObject(INVESTMENT_LIST,
                 investmentService.getAllInvestments());
         return model;
     }
@@ -99,10 +101,10 @@ public class InvestmentController {
     public ModelAndView getAllProjectInvestments(@PathVariable long id) {
         ModelAndView model = new ModelAndView(INVESTMENTS_VIEW);
 
-        model.addObject("pageName",
+        model.addObject(PAGE_NAME,
                 "Investments in project: "
                         + projectService.getProjectById(id).getDesc().getName());
-        model.addObject("investmentList",
+        model.addObject(INVESTMENT_LIST,
                 projectService.getProjectById(id).getInvestments());
         return model;
     }
@@ -110,12 +112,12 @@ public class InvestmentController {
     @GetMapping("user/{id}/investments")
     public ModelAndView getAllUserInvestments(Principal principal) {
         ModelAndView model = new ModelAndView(INVESTMENTS_VIEW);
-        model.addObject("pageName",
+        model.addObject(PAGE_NAME,
                 "Investments of user: "
                         + userService.getUserByEmail(principal.getName()).getName()
                         + " "
                         + userService.getUserByEmail(principal.getName()).getLastName());
-        model.addObject("investmentList",
+        model.addObject(INVESTMENT_LIST,
                 userService.getUserByEmail(principal.getName()));
         return model;
     }
