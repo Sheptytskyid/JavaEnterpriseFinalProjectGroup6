@@ -12,7 +12,7 @@ public class LoginController {
 
     @GetMapping(value = "/login")
     public ModelAndView showLoginForm(String error, String logout) {
-        ModelAndView model = new ModelAndView("login/login");
+        ModelAndView model = new ModelAndView("close/close");
         model.addObject(new DtoUser());
         // TODO localization
         if (error != null) {
