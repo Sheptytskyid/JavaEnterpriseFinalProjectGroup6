@@ -176,7 +176,7 @@
 					</div>
 				</div>
 			</div>
-
+			<%--Other--%>
 			<div class="item">
 				<div class="thumbnail">
 					<div class="caption">
@@ -196,6 +196,31 @@
 					</div>
 				</div>
 			</div>
+			<%--Investments--%>
+			<c:if test="${pageContext.request.userPrincipal.name == project.owner.email}">
+				<div class="item">
+					<div class="thumbnail">
+						<div class="caption">
+							<h3>Investments</h3>
+							<hr>
+							<ul>
+								<c:forEach items="${project.investments}" var="investment">
+									<li>
+										Investor:
+										<a href="user/${investment.investor.id}">
+												${investment.investor.name} ${investment.investor.lastName},
+										</a>
+										Date: ${investment.dateOfInvestment},
+										Sum: ${investment.sum}, Paid: ${investment.paid}, Verified: ${investment.verified};
+
+									</li>
+								</c:forEach>
+							</ul>
+
+						</div>
+					</div>
+				</div>
+			</c:if>
 
 			<!--Window of investments for small displays-->
 			<div class="item">
@@ -210,11 +235,9 @@
 							<h4>Total project investment $${project.desc.cost}</h4>
 							<div class="progress">
 								<div class="progress-bar progress-bar-info"
-								<%--todo progress bar--%>
-									 style="width: 0%"></div>
+									 style="width: ${ivnProgress}%"></div>
 							</div>
 							<h4 class="text-right">Project need $${investedAmount}</h4>
-							<!--todo list of investments for project creator-->
 						</div>
 						<div class="panel-footer">
 							<button type="button" class="btn btn-success btn-block" data-toggle="modal"
@@ -240,11 +263,9 @@
 						<h5>Total project investment $${project.desc.cost}</h5>
 						<div class="progress">
 							<div class="progress-bar progress-bar-info"
-							<%--todo progress bar--%>
 								 style="width: ${ivnProgress}%"></div>
 						</div>
 						<h5>Project need $${project.desc.cost-investedAmount}</h5>
-						<!--todo list of investments for project creator-->
 					</div>
 					<div class="panel-footer">
 						<button type="button" class="btn btn-success btn-block" data-toggle="modal"

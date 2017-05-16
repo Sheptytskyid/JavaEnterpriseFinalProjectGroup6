@@ -51,7 +51,6 @@ public class InvestmentController {
         return model;
     }
 
-    @PreAuthorize("isAuthenticated()")
     @PostMapping("/project/{id}/addInvestment")
     public ModelAndView addInvestment(@PathVariable long id,
                                       @RequestParam BigDecimal sum,
@@ -66,8 +65,9 @@ public class InvestmentController {
             return model;
         }
         if (message != null) {
-            ModelAndView model = new ModelAndView("/project/" + id + "/addInvestment");
+            ModelAndView model = new ModelAndView("investment/add_investment");
             model.addObject("message", message);
+            model.addObject(project);
             model.addObject("investedSum", getInvestedSumInProject(id));
             return model;
         }

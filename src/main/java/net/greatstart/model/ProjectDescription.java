@@ -18,7 +18,7 @@ public class ProjectDescription {
     private String name;
 
     @Column(name = "cost")
-    private Integer cost;
+    private BigDecimal cost;
 
     @Column(name = "description")
     private String description;

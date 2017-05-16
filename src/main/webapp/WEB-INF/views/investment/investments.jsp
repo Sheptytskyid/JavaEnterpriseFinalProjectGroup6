@@ -45,7 +45,7 @@
 							Sum: ${investment.sum}; Paid: ${investment.paid}; Verified: ${investment.verified}
 						</li>
 					</ul>
-					<a href="${investment.id}/delete" methods="post">
+					<a href="investment/${investment.id}/delete" methods="post">
 						<button type="button"class="btn btn-sm btn-danger">Delete</button>
 					</a>
 				</div>
