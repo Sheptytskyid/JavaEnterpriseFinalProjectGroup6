@@ -43,31 +43,30 @@ public class InvestmentController {
     @GetMapping("/project/{id}/addInvestment")
     public ModelAndView getAddInvestmentForm(@PathVariable long id) {
         Project project = projectService.getProjectById(id);
-
-        ModelAndView modelAndView = new ModelAndView("investment/add_investment");
-        modelAndView.addObject("investment", new Investment());
-        modelAndView.addObject(project);
-        return modelAndView;
+        ModelAndView model = new ModelAndView("investment/add_investment");
+        model.addObject(project);
+        model.addObject("investedSum", getInvestedSumInProject(id));
+        return model;
     }
 
     @PostMapping("/project/{id}/addInvestment")
     public ModelAndView addInvestment(@PathVariable long id,
                                       @RequestParam BigDecimal sum,
                                       Principal principal) {
+        Project project = projectService.getProjectById(id);
         User investor = userService.getUserByEmail(principal.getName());
+        String message = InvestmentValidationService.validate(sum, project);
         if (investor.getContact().getPhoneNumber() == null
                 || investor.getContact().getPhoneNumber().isEmpty()) {
-            ModelAndView modelAndView = new ModelAndView(REDIRECT + EDIT_USER_PROFILE);
-            modelAndView.addObject("message", "Please enter your phone number!");
-            return modelAndView;
+            ModelAndView model = new ModelAndView(REDIRECT + EDIT_USER_PROFILE);
+            model.addObject("message", "Please enter your phone number!");
+            return model;
         }
-
-        Project project = projectService.getProjectById(id);
-        String message = InvestmentValidationService.validate(sum, project);
         if (message != null) {
-            ModelAndView modelAndView = new ModelAndView("/project/" + id + "/addInvestment");
-            modelAndView.addObject("message", message);
-            return modelAndView;
+            ModelAndView model = new ModelAndView("/project/" + id + "/addInvestment");
+            model.addObject("message", message);
+            model.addObject("investedSum", getInvestedSumInProject(id));
+            return model;
         }
         investmentService.saveInvestment(new Investment(LocalDateTime.now(),
                 project, investor, sum, false, false));
@@ -82,10 +81,10 @@ public class InvestmentController {
 
     @GetMapping("investment")
     public ModelAndView getAllInvestments() {
-        ModelAndView modelAndView = new ModelAndView(INVESTMENTS_VIEW);
-        modelAndView.addObject("investmentList",
+        ModelAndView model = new ModelAndView(INVESTMENTS_VIEW);
+        model.addObject("investmentList",
                 investmentService.getAllInvestments());
-        return modelAndView;
+        return model;
     }
 
     @GetMapping("project/{id}/investments")
@@ -104,5 +103,10 @@ public class InvestmentController {
     public ModelAndView deleteInvestmentById(@PathVariable long id) {
         investmentService.deleteInvestment(id);
         return new ModelAndView(REDIRECT + INVESTMENTS_PAGE);
+    }
+
+    private BigDecimal getInvestedSumInProject(long id) {
+        return projectService.getProjectById(id).getInvestments()
+                .stream().map(Investment::getSum).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

@@ -22,7 +22,6 @@ public class InvestmentValidationService {
                 .stream().map(Investment::getSum).reduce(BigDecimal.ZERO, BigDecimal::add);
         BigDecimal minInvestment = project.getDesc().getMinInvestment();
         BigDecimal maxInvestment = minInvestment.add(investedSum);
-
         if (sum.compareTo(minInvestment) < 0) {
             return WRONG_MIN_VALUE + minInvestment;
         }
@@ -30,8 +29,6 @@ public class InvestmentValidationService {
         if (sum.compareTo(maxInvestment) > 0) {
             return WRONG_MAX_VALUE + maxInvestment;
         }
-
-
         return null;
     }
 }
