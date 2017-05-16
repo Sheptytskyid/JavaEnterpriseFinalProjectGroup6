@@ -7,10 +7,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MainController {
 
-    @RequestMapping(value = "/")
+    @RequestMapping(value = "/indexjsp")
     public ModelAndView frontPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
         return modelAndView;
     }
+
 }
