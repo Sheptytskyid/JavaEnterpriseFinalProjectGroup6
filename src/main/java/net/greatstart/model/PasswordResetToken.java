@@ -32,6 +32,5 @@ public class PasswordResetToken extends AbstractModel {
         this.token = token;
         this.user = user;
         this.expiryDate = new Date();
-
     }
 }

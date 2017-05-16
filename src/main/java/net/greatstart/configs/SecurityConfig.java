@@ -30,24 +30,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests().antMatchers("/user/updatePassword*",
-            "/user/savePassword*",
-            "/updatePassword*")
+            .authorizeRequests().antMatchers("/user/changePassword*", "user/updatePassword*")
             .hasAuthority("CHANGE_PASSWORD_PRIVILEGE")
-                .antMatchers("/project/new", "/project/my", "/invinterest/add", "/invinterest").authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/user/login")
-                .usernameParameter("email")
-                // TODO: change the routing when home page is ready
-                .defaultSuccessUrl("/project/")
-                .and()
-                .logout()
-                .logoutSuccessUrl("/user/login")
-                .and()
-                .rememberMe()
-                .key("greatStartKey")
-                .rememberMeParameter("remember-me");
+            .antMatchers("/project/new", "/project/my", "/invinterest/add", "/invinterest").authenticated()
+            .and()
+            .formLogin()
+            .loginPage("/user/login")
+            .usernameParameter("email")
+            // TODO: change the routing when home page is ready
+            .defaultSuccessUrl("/project/")
+            .and()
+            .logout()
+            .logoutSuccessUrl("/user/login")
+            .and()
+            .rememberMe()
+            .key("greatStartKey")
+            .rememberMeParameter("remember-me");
     }
 
     @Bean

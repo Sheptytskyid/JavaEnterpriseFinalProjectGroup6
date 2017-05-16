@@ -27,8 +27,11 @@
 
 <div class="container">
 
-    <form:form method="POST" modelAttribute="newPassword" class="form-signin">
+    <form:form method="POST" modelAttribute="user" class="form-signin">
         <h2 class="form-signin-heading">Create new password</h2>
+        <spring:bind path="email">
+            <form:input type="hidden" path="email" value="default@default.com"></form:input>
+        </spring:bind>
         <spring:bind path="password">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="password" path="password" class="form-control" placeholder="Password"

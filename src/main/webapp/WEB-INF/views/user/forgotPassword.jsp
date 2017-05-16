@@ -26,8 +26,10 @@
 <body>
 
 <div class="container">
-
-    <form:form method="POST" modelAttribute="email" class="form-signin">
+<c:if test="${message!=''}">
+    <div align="center"><h3>${message}</h3></div>
+</c:if>
+    <form:form method="POST" modelAttribute="user" class="form-signin">
         <h2 class="form-signin-heading">Enter your Email</h2>
         <spring:bind path="email">
             <div class="form-group ${status.error ? 'has-error' : ''}">
@@ -36,15 +38,20 @@
                 <form:errors path="email"></form:errors>
             </div>
         </spring:bind>
-
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+        <spring:bind path="password">
+            <form:input type="hidden" path="password" value="default"></form:input>
+        </spring:bind>
+        <spring:bind path="confirmPassword">
+            <form:input type="hidden" path="confirmPassword" value="default"></form:input>
+        </spring:bind>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
     </form:form>
 
     <h4 class="text-center"><a href="${contextPath}/user/login">Log In</a></h4>
-            <h4 class="text-center"><a href="${contextPath}/user/register">Create an account</a></h4>
-        </div>
+    <h4 class="text-center"><a href="${contextPath}/user/register">Create an account</a></h4>
+</div>
 
-    </form>
+</form>
 
 </div>
 <!-- /container -->

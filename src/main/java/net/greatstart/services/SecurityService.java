@@ -48,12 +48,12 @@ public class SecurityService {
             passwordTokenDao.findByToken(token);
         if ((passToken == null) || (passToken.getUser()
             .getId() != id)) {
-            return "invalidToken";
+            return "invalid token";
         }
 
         Date currentDate = new Date();
         if (passToken.getExpiryDate().after(currentDate)) {
-            return "expired";
+            return "token expired";
         }
 
         User user = passToken.getUser();
