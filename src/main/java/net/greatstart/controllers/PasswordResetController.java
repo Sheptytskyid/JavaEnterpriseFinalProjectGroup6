@@ -31,6 +31,7 @@ import java.util.UUID;
 @Controller
 public class PasswordResetController {
 
+    public static final String MESSAGE = "message";
     private PasswordEncoder passwordEncoder;
     private MessageSource messages;
     private JavaMailSender mailSender;
@@ -68,7 +69,7 @@ public class PasswordResetController {
         }
         User user = userService.getUserByEmail(dtoUser.getEmail());
         if (user == null) {
-            model.addObject("message", messages.getMessage("user.notFound", null, request.getLocale()));
+            model.addObject(MESSAGE, messages.getMessage("user.notFound", null, request.getLocale()));
             return model;
         }
         String passwordResetToken = UUID.randomUUID().toString();
@@ -76,9 +77,9 @@ public class PasswordResetController {
         String url = request.getHeader("origin");
         boolean emailSent = sendResetTokenEmail(url, request.getLocale(), passwordResetToken, user);
         if (emailSent) {
-            model.addObject("message", messages.getMessage("email.sent", null, request.getLocale()));
+            model.addObject(MESSAGE, messages.getMessage("email.sent", null, request.getLocale()));
         } else {
-            model.addObject("message", messages.getMessage("email.error", null, request.getLocale()));
+            model.addObject(MESSAGE, messages.getMessage("email.error", null, request.getLocale()));
         }
         return model;
     }
@@ -88,7 +89,7 @@ public class PasswordResetController {
         String result = securityService.validatePasswordResetToken(id, token);
         ModelAndView model = new ModelAndView();
         if (result != null) {
-            model.addObject("message", messages.getMessage("token.error", null, locale) + result);
+            model.addObject(MESSAGE, messages.getMessage("token.error", null, locale) + result);
             model.setViewName("login/login");
         } else {
             model.setViewName("redirect:/user/changePassword");
@@ -113,7 +114,7 @@ public class PasswordResetController {
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             userService.changeUserPassword(user, passwordEncoder.encode(dtoUser.getPassword()));
             model.setViewName("login/login");
-            model.addObject("message", messages.getMessage("message.resetPassword.success", null, locale));
+            model.addObject(MESSAGE, messages.getMessage("message.resetPassword.success", null, locale));
         }
         return model;
     }
