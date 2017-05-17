@@ -15,7 +15,7 @@
 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 </head>
 <body>
-<form method="post" action="/project/${project.id}/addInvestment">
+<form method="post" action="/project/${project.id}/investment/add">
 	<div class="container">
 		<c:if test="${message != null}">
 
