@@ -33,7 +33,12 @@
 		<p>Here you can add your investment in ${project.desc.name}</p>
 		<p>Total investment needed: ${project.desc.cost-investedSum}</p>
 		<p>Minimal investment: ${project.desc.minInvestment}</p>
-		<input type="number" name="sum" placeholder="Your investment"/><br>
+		<input type="number"
+			   name="sum"
+			   placeholder="Your investment"
+			   min="${project.desc.minInvestment}"
+			   max="${project.desc.cost-investedSum}"
+			   step="${project.desc.minInvestment}"/><br>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 		<button class="btn btn-lg btn-primary" type="submit">Submit</button>
 	</div>
