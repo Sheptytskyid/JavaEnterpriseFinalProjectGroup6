@@ -1,4 +1,4 @@
-<div ng-controller="MainController as $ctrl">
+<div ng-controller="LoginController">
     <div class="modal-header">
         <h4 class="modal-title">Registration
             <button class="close" type="button" ng-click="close()">
@@ -9,20 +9,21 @@
     <div class="modal-body" id="modal-body">
         <form role="form" ng-submit="login()">
             <div class="form-group">
-                <label for="login">Login:</label>
-                <input type="text" class="form-control" placeholder="login"  id="login" name="login" ng-model="credentials.login">
+                <label for="username">Login:</label>
+                <input type="text" class="form-control" placeholder="login" id="username" name="username"
+                       ng-model="credentials.username">
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" class="form-control" placeholder="password" id="password" name="password" ng-model="credentials.password">
+                <input type="password" class="form-control" placeholder="password" id="password" name="password"
+                       ng-model="credentials.password">
             </div>
             <div class="alert alert-danger" ng-show="error">Username or password is incorrect</div>
             <button type="submit" class="btn btn-success">Login</button>
-            <form action="">
-                <button class="btn btn-primary" type="submit">
-                    <span class="fa fa-user-circle-o"></span> Create an account
-                </button>
-            </form>
-        </form>
+            <a href="#!/createAccount" class="btn btn-primary" ng-click="close()">
+                <span class="fa fa-user-circle-o"></span> Create an account
+            </a></form>
+        <div ng-show="authenticated"><a href="" ng-click="logout()">logout</a></div>
+        <!--</form>-->
     </div>
 </div>

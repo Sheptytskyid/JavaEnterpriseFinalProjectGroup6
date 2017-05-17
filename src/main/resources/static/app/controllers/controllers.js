@@ -1,6 +1,6 @@
 var mainApp = angular.module('greatStartApp', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.bootstrap', 'ngImgCrop']);
 
-mainApp.config(function ($routeProvider) {
+mainApp.config(function ($routeProvider, $httpProvider) {
     $routeProvider
         .when('/',
             {
@@ -45,5 +45,11 @@ mainApp.config(function ($routeProvider) {
             controller: 'InterestController',
             templateUrl: 'views/interest/Interests.html'
         })
+        .when('/createAccount', {
+            controller: 'MainController',
+            templateUrl: 'views/main/CreateAccount.html'
+        })
         .otherwise({redirectTo: '/'});
+
+    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 });

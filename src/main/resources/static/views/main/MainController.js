@@ -1,10 +1,11 @@
 var MainController = angular.module('greatStartApp')
     .controller('MainController',
-        ['$scope', '$uibModal','$location','$rootScope', function ($scope, $uibModal, $location, $rootScope, $http) {
+        ['$scope', '$uibModal', '$location', '$rootScope', function ($scope, $uibModal) {
             var modalPopup = function () {
                 return $scope.modalInstance = $uibModal.open({
                     templateUrl: 'views/main/LoginPage.html',
-                    // controller: 'MainController',
+                    controller: 'LoginController',
+                    controllerAs: 'ctrl',
                     size: 'sm',
                     backdrop: true,
                     scope: $scope
@@ -18,46 +19,49 @@ var MainController = angular.module('greatStartApp')
                     .then(null, function () {
                     });
             };
+        }]);
+
+var LoginController = angular.module('greatStartApp')
+    .controller('LoginController',
+        function ($rootScope, $scope, $location, $http) {
 
             $scope.close = function () {
                 $scope.modalInstance.close();
             };
 
-            var authenticate = function (callback) {
-                $http.get('/user').then(function (data) {
-                    if (data.name) {
+            var self = this;
+
+            var authenticate = function (credentials, callback) {
+
+                var headers = credentials ? {
+                        authorization: "Basic " + btoa(credentials.username + ":" + credentials.password)
+                    } : {};
+                $http.get('user', {headers: headers}).then(function (response) {
+                    if (response.data.name) {
                         $rootScope.authenticated = true;
                     } else {
                         $rootScope.authenticated = false;
                     }
                     callback && callback();
-                }).error(function () {
+                }, function () {
                     $rootScope.authenticated = false;
                     callback && callback();
                 });
+
             };
             authenticate();
-            $scope.credentials = {};
-            $scope.login = function () {
-                $http.post('login', $.params($scope.credentials), {
-                    headers: {
-                        "content-type": "application/x-www-form-urlencoded"
-                    }
-                }).then(function (data) {
-                    authenticate(function () {
-                        if ($rootScope.authenticated) {
-                            $location.path("/");
-                            $scope.error = false;
-                        } else {
-                            $location.path("/login");
-                            $scope.error = true;
-                        }
-                    });
-                }).error(function (data) {
-                    $location.path("/login");
-                    $scope.error = true;
-                    $rootScope.authenticated = false;
-                })
-            };
 
-        }]);
+            self.credentials = {};
+            self.login = function () {
+                authenticate(self.credentials, function () {
+                    if ($rootScope.authenticated) {
+                        $location.path("/events");
+                        self.error = false;
+                    } else {
+                        $location.path("/projects");
+                        self.error = true;
+                    }
+                })
+            }
+
+        });
