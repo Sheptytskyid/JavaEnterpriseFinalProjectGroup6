@@ -226,7 +226,6 @@
 			<div class="item">
 				<div class="hidden-lg hidden-md">
 					<!-- PRICE ITEM -->
-					<!--You had here class called panel-red. I've changed it to panel-danger. If You want return it, so I don`t mind-->
 					<div class="panel price panel-danger">
 						<div class="panel-heading  text-center">
 							<h4><strong>Min investment</strong> $${project.desc.minInvestment}</h4>
@@ -310,7 +309,7 @@
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-danger pull-right" type="button" data-dismiss="modal">Cancel</button>
-				<a href="/project/${project.id}/addInvestment" class="btn btn-success pull-right" type="submit">Next</a>
+				<a href="/project/${project.id}/investment/add" class="btn btn-success pull-right" type="submit">Next</a>
 			</div>
 		</div>
 	</div>
