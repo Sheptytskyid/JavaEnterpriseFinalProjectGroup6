@@ -6,6 +6,8 @@ import net.greatstart.model.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -21,6 +23,7 @@ import java.util.Locale;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -48,6 +51,8 @@ public class SecurityServiceTest {
     private MessageSource messages;
     @InjectMocks
     private SecurityService securityService;
+    @Captor
+    private ArgumentCaptor<PasswordResetToken> captor;
     private User user;
 
     @Before
@@ -76,17 +81,6 @@ public class SecurityServiceTest {
     }
 
     @Test
-    public void validateExpiredPasswordResetTokenShouldReturnMessage() throws Exception {
-        PasswordResetToken token = createToken();
-        token.setExpiryDate(LocalDateTime.now());
-        when(messages.getMessage("token.expired", null, LOCALE)).thenReturn(MESSAGE);
-        when(passwordTokenDao.findByToken(TOKEN_VALUE)).thenReturn(token);
-        String result = securityService.validatePasswordResetToken(ID, TOKEN_VALUE, LOCALE);
-        verify(passwordTokenDao, times(1)).findByToken(TOKEN_VALUE);
-        assertEquals(MESSAGE, result);
-    }
-
-    @Test
     public void validateValidPasswordResetTokenShouldReturnNull() throws Exception {
         PasswordResetToken token = createToken();
         token.setExpiryDate(LocalDateTime.now().plusMinutes(1));
@@ -94,6 +88,25 @@ public class SecurityServiceTest {
         String result = securityService.validatePasswordResetToken(ID, TOKEN_VALUE, LOCALE);
         verify(passwordTokenDao, times(1)).findByToken(TOKEN_VALUE);
         assertNull(result);
+    }
+
+    @Test
+    public void validateExpiredPasswordResetTokenShouldReturnMessage() throws Exception {
+        PasswordResetToken token = createToken();
+        token.setExpiryDate(LocalDateTime.now().minusMinutes(1));
+        when(passwordTokenDao.findByToken(TOKEN_VALUE)).thenReturn(token);
+        when(messages.getMessage("token.expired", null, LOCALE)).thenReturn(MESSAGE);
+        String result = securityService.validatePasswordResetToken(ID, TOKEN_VALUE, LOCALE);
+        verify(passwordTokenDao, times(1)).findByToken(TOKEN_VALUE);
+        assertEquals(MESSAGE, result);
+    }
+
+    @Test
+    public void createPasswordResetTokenSavesToken() {
+        securityService.createPasswordResetToken(user);
+        verify(passwordTokenDao,times(1)).save(captor.capture());
+        assertEquals(user, captor.getValue().getUser());
+        assertNotNull(captor.getValue().getToken());
     }
 
     private PasswordResetToken createToken() {

@@ -62,7 +62,7 @@ public class SecurityService {
         return result;
     }
 
-    public PasswordResetToken createPasswordResetTokenForUser(User user) {
+    public PasswordResetToken createPasswordResetToken(User user) {
         String token = UUID.randomUUID().toString();
         PasswordResetToken myToken = new PasswordResetToken(token, user);
         return passwordTokenDao.save(myToken);

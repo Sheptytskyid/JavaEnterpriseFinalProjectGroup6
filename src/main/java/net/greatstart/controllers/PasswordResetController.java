@@ -65,7 +65,7 @@ public class PasswordResetController {
             model.addObject(MESSAGE, messages.getMessage("user.notFound", null, request.getLocale()));
             return model;
         }
-        String passwordResetToken = securityService.createPasswordResetTokenForUser(user).getToken();
+        String passwordResetToken = securityService.createPasswordResetToken(user).getToken();
         String url = request.getHeader("origin");
         boolean emailSent = mailService.sendResetTokenEmail(url, request.getLocale(), passwordResetToken, user);
         if (emailSent) {

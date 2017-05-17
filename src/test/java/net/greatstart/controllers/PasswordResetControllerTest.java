@@ -183,7 +183,7 @@ public class PasswordResetControllerTest {
         PasswordResetToken token = new PasswordResetToken();
         token.setToken(TOKEN_VALUE);
         when(userService.getUserByEmail(dtoUser.getEmail())).thenReturn(user);
-        when(securityService.createPasswordResetTokenForUser(user)).thenReturn(token);
+        when(securityService.createPasswordResetToken(user)).thenReturn(token);
         when(request.getHeader("origin")).thenReturn(LOCALHOST);
         when(request.getLocale()).thenReturn(LOCALE);
         when(mailService.sendResetTokenEmail(LOCALHOST, LOCALE, TOKEN_VALUE, user)).thenReturn(resultOfSendEmail);

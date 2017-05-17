@@ -25,7 +25,7 @@ public class PasswordResetToken extends AbstractModel {
     @Column(name = "exp_date")
     private LocalDateTime expiryDate;
     @Column(name = "is_used")
-    boolean isUsed;
+    private boolean isUsed;
 
     public PasswordResetToken(String token, User user) {
         this.token = token;
