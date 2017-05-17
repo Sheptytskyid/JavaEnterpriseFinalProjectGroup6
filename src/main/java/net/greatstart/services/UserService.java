@@ -2,7 +2,6 @@ package net.greatstart.services;
 
 import net.greatstart.dao.PasswordTokenDao;
 import net.greatstart.dao.UserDao;
-import net.greatstart.model.PasswordResetToken;
 import net.greatstart.model.Role;
 import net.greatstart.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,16 +46,6 @@ public class UserService {
         return createUser(user);
     }
 
-    public void createPasswordResetTokenForUser(User user, String token) {
-        PasswordResetToken myToken = new PasswordResetToken(token, user);
-        passwordTokenDao.save(myToken);
-    }
-
-    public void changeUserPassword(User user, String password) {
-        user.setPassword(password);
-        userDao.save(user);
-    }
-
     public User updateUser(User user) {
         return userDao.save(user);
     }
@@ -73,6 +62,11 @@ public class UserService {
         List<User> users = new ArrayList<>();
         userDao.findAll().forEach(users::add);
         return users;
+    }
+
+    public User changeUserPassword(User user, String password) {
+        user.setPassword(password);
+        return userDao.save(user);
     }
 
     public User getUserByEmail(String email) {

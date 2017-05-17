@@ -7,8 +7,8 @@ import org.springframework.validation.Errors;
 @Component
 public class PasswordValidationService {
 
-    public void validate(DtoUser user, Errors errors) {
-        if (!user.getPassword().equals(user.getConfirmPassword())) {
+    public void validate(DtoUser dtoUser, Errors errors) {
+        if (!dtoUser.getPassword().equals(dtoUser.getConfirmPassword())) {
             errors.rejectValue("confirmPassword",
                 "passwords.do.not.match",
                 "Passwords do not match");
