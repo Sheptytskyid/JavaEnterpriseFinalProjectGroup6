@@ -26,7 +26,7 @@ public class LoginControllerTest {
 
     @Test(timeout = 2000)
     public void returnViewWhenShowLoginForm() throws Exception {
-        mvc.perform(get("/user/login")).andExpect(view().name("close/close"));
+        mvc.perform(get("/user/login")).andExpect(view().name("login/login"));
     }
 
     @Test(timeout = 2000)
