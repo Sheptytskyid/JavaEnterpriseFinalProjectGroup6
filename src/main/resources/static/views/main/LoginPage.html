@@ -7,13 +7,16 @@
         </h4>
     </div>
     <div class="modal-body" id="modal-body">
-        <form action="" method="POST">
+        <form role="form" ng-submit="login()">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="login" value="">
+                <label for="login">Login:</label>
+                <input type="text" class="form-control" placeholder="login"  id="login" name="login" ng-model="credentials.login">
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" placeholder="password" value="">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" placeholder="password" id="password" name="password" ng-model="credentials.password">
             </div>
+            <div class="alert alert-danger" ng-show="error">Username or password is incorrect</div>
             <button type="submit" class="btn btn-success">Login</button>
             <form action="">
                 <button class="btn btn-primary" type="submit">
