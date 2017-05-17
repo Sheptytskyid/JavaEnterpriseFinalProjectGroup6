@@ -25,7 +25,6 @@ public class InvestmentValidationService {
         if (sum.compareTo(minInvestment) < 0) {
             return WRONG_MIN_VALUE + minInvestment;
         }
-
         if (sum.compareTo(maxInvestment) > 0) {
             return WRONG_MAX_VALUE + maxInvestment;
         }

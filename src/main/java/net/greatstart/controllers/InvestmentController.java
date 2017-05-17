@@ -25,7 +25,6 @@ public class InvestmentController {
     private static final String PROJECT_PAGE = "project/";
     private static final String INVESTMENTS_VIEW = "investment/investments";
     private static final String INVESTMENTS_PAGE = "investment";
-    private static final String EDIT_USER_PROFILE = "user/EditUserPage";
     private static final String REDIRECT = "redirect:/";
     private static final String INVESTMENT_LIST = "investmentList";
     private static final String PAGE_NAME = "pageName";
@@ -43,7 +42,7 @@ public class InvestmentController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/project/{id}/addInvestment")
+    @GetMapping("/project/{id}/investment/add")
     public ModelAndView getAddInvestmentForm(@PathVariable long id) {
         Project project = projectService.getProjectById(id);
         ModelAndView model = new ModelAndView("investment/add_investment");
@@ -52,7 +51,7 @@ public class InvestmentController {
         return model;
     }
 
-    @PostMapping("/project/{id}/addInvestment")
+    @PostMapping("/project/{id}/investment/add")
     public ModelAndView addInvestment(@PathVariable long id,
                                       @RequestParam BigDecimal sum,
                                       Principal principal) {
@@ -60,14 +59,6 @@ public class InvestmentController {
         Project project = projectService.getProjectById(id);
         User investor = userService.getUserByEmail(principal.getName());
         String message = InvestmentValidationService.validate(sum, project);
-        if (investor.getContact().getPhoneNumber() == null
-                || investor.getContact().getPhoneNumber().isEmpty()) {
-            model.setViewName(EDIT_USER_PROFILE);
-            model.addObject(principal);
-
-            model.addObject("message", "Please enter your phone number!");
-            return model;
-        }
         if (message != null) {
             model.setViewName("investment/add_investment");
             model.addObject("message", message);

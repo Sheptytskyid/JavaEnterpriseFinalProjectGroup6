@@ -56,7 +56,7 @@ public class ProjectController {
     @GetMapping(value = "/{id}")
     public ModelAndView showProject(@PathVariable Long id) {
         Project project = projectService.getProjectById(id);
-        ModelAndView model = new ModelAndView("project/projectPage");
+        ModelAndView model = new ModelAndView("project/project_page");
         model.addObject(project);
         model.addObject("investedAmount",
                 projectService.getProjectById(id)
