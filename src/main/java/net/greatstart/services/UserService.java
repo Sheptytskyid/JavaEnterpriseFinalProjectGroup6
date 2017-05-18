@@ -1,6 +1,5 @@
 package net.greatstart.services;
 
-import net.greatstart.dao.PasswordTokenDao;
 import net.greatstart.dao.UserDao;
 import net.greatstart.model.Role;
 import net.greatstart.model.User;
@@ -19,13 +18,11 @@ public class UserService {
 
     private UserDao userDao;
     private RoleService roleService;
-    private PasswordTokenDao passwordTokenDao;
 
     @Autowired
-    public UserService(UserDao userDao, RoleService roleService, PasswordTokenDao passwordTokenDao) {
+    public UserService(UserDao userDao, RoleService roleService) {
         this.userDao = userDao;
         this.roleService = roleService;
-        this.passwordTokenDao = passwordTokenDao;
     }
 
     public User createUser(User user) {
