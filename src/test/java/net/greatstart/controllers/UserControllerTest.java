@@ -22,6 +22,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
@@ -131,6 +132,6 @@ public class UserControllerTest {
         dtoUserProfile.setPhoto(bytes);
         when(userService.getUserById(ID)).thenReturn(user);
         when(userConverter.fromUserToDtoProfile(user)).thenReturn(dtoUserProfile);
-        assertEquals(bytes, controller.downloadPhoto(ID));
+        mvc.perform(get("/user/photo/1")).andExpect(content().bytes(bytes));
     }
 }

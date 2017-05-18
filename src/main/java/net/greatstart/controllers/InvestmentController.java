@@ -81,7 +81,7 @@ public class InvestmentController {
         return investmentService.getInvestmentById(id);
     }
 
-    @GetMapping("investment")
+    @GetMapping("/investment")
     public ModelAndView getAllInvestments() {
         ModelAndView model = new ModelAndView(INVESTMENTS_VIEW);
         model.addObject(PAGE_NAME, "All investments.");
@@ -101,21 +101,20 @@ public class InvestmentController {
         return model;
     }
 
-    @GetMapping("user/{id}/investments")
+    @GetMapping("/user/investments")
     public ModelAndView getAllUserInvestments(Principal principal) {
         ModelAndView model = new ModelAndView(INVESTMENTS_VIEW);
-        model.addObject(PAGE_NAME,
-                "Investments of user: "
+        model.addObject(PAGE_NAME,"Investments of user: "
                         + userService.getUserByEmail(principal.getName()).getName()
                         + " "
                         + userService.getUserByEmail(principal.getName()).getLastName());
         model.addObject(INVESTMENT_LIST,
-                userService.getUserByEmail(principal.getName()));
+                userService.getUserByEmail(principal.getName()).getInvestments());
         return model;
     }
 
 
-    @GetMapping("investment/{id}/delete")
+    @GetMapping("/investment/{id}/delete")
     public ModelAndView deleteInvestmentById(@PathVariable long id) {
         investmentService.deleteInvestment(id);
         return new ModelAndView(REDIRECT + INVESTMENTS_PAGE);

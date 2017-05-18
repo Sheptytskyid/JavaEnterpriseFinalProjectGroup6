@@ -23,7 +23,6 @@
 				<button type="button" class="close" data-dismiss="alert">
 					<span class="fa fa-close fa-fw"></span>
 				</button>
-					<%--<strong>You can go mad... </strong><a href="#" class="alert-link">Go wild!</a>--%>
 					${message}
 			</div>
 		</c:if>

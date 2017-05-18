@@ -25,6 +25,7 @@ import java.util.List;
 public class ProjectController {
     private static final String REDIRECT_TO_PROJECTS = "redirect:/project/";
     private static final String PROJECTS = "project/projects";
+    private static final String PROJECT = "project";
 
     private ProjectService projectService;
     private UserService userService;
@@ -57,7 +58,7 @@ public class ProjectController {
     public ModelAndView showProject(@PathVariable Long id) {
         Project project = projectService.getProjectById(id);
         ModelAndView model = new ModelAndView("project/project_page");
-        model.addObject(project);
+        model.addObject(PROJECT, project);
         model.addObject("investedAmount",
                 projectService.getProjectById(id)
                         .getInvestments().stream()
@@ -69,7 +70,7 @@ public class ProjectController {
     @GetMapping(value = "/new")
     public ModelAndView getAddProjectForm() {
         ModelAndView model = new ModelAndView("project/add_project");
-        model.addObject("project", new Project());
+        model.addObject(PROJECT, new Project());
         return model;
     }
 
@@ -91,7 +92,7 @@ public class ProjectController {
         if (id > 0) {
             ModelAndView model = new ModelAndView("project/update_project");
             Project project = projectService.getProjectById(id);
-            model.addObject("project", project);
+            model.addObject(PROJECT, project);
             return model;
         }
         return new ModelAndView(PROJECTS);
