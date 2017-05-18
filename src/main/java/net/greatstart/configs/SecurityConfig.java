@@ -30,17 +30,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         http
+//                .httpBasic().and()
                 .authorizeRequests()
-                .antMatchers("/project/new", "/project/my", "/invinterest/add", "/invinterest").authenticated()
+                .antMatchers("/project/new", "/project/my", "/invinterest/add", "/invinterest", "/views/main/About.html").authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/user/login")
+//                .loginPage("/views/main/LoginPage.html")
                 .usernameParameter("email")
                 // TODO: change the routing when home page is ready
-                .defaultSuccessUrl("/project/")
+                .defaultSuccessUrl("/")
                 .and()
                 .logout()
-                .logoutSuccessUrl("/project/")
+                .logoutSuccessUrl("/")
                 .and()
                 .rememberMe()
                 .key("greatStartKey")

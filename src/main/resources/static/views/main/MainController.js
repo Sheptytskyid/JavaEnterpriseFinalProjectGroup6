@@ -36,7 +36,7 @@ var MainController = angular.module('greatStartApp')
             var authenticate = function (credentials, callback) {
 
                 var headers = credentials ? {
-                    authorization: "Basic " + btoa(credentials.username + ":" + credentials.password)
+                    authorization: "Basic " + btoa(credentials.email + ":" + credentials.password)
                 } : {};
                 $http.get('user', {headers: headers}).then(function (response) {
                     if (response.data.name) {
