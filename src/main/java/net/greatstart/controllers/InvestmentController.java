@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Controller
 public class InvestmentController {
@@ -69,7 +70,7 @@ public class InvestmentController {
             model.addObject("investedSum", getInvestedSumInProject(id));
             return model;
         }
-        investmentService.saveInvestment(new Investment(LocalDateTime.now(),
+        investmentService.saveInvestment(new Investment(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES),
                 project, investor, sum, false, false));
 
         model.setViewName(REDIRECT + PROJECT_PAGE + id);
