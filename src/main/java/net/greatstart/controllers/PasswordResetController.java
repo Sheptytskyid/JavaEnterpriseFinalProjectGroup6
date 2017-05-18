@@ -9,6 +9,7 @@ import net.greatstart.validators.PasswordValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -89,6 +90,7 @@ public class PasswordResetController {
         return model;
     }
 
+    @PreAuthorize("hasAuthority('CHANGE_PASSWORD_PRIVILEGE')")
     @GetMapping(value = "/user/changePassword")
     public ModelAndView showChangePasswordForm() {
         ModelAndView model = new ModelAndView("user/updatePassword");
@@ -96,6 +98,7 @@ public class PasswordResetController {
         return model;
     }
 
+    @PreAuthorize("hasAuthority('CHANGE_PASSWORD_PRIVILEGE')")
     @PostMapping(value = "/user/changePassword")
     public ModelAndView savePassword(Locale locale, @Valid @ModelAttribute("user") DtoUser dtoUser, Errors errors) {
         ModelAndView model = new ModelAndView();
@@ -105,11 +108,10 @@ public class PasswordResetController {
         } else {
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             userService.changeUserPassword(user, passwordEncoder.encode(dtoUser.getPassword()));
+            securityService.expireToken(user);
             model.setViewName("login/login");
             model.addObject(MESSAGE, messages.getMessage("message.resetPassword.success", null, locale));
         }
         return model;
     }
-
-
 }

@@ -1,5 +1,6 @@
 package net.greatstart.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "password_reset_tokens")
 public class PasswordResetToken extends AbstractModel {
@@ -27,10 +29,4 @@ public class PasswordResetToken extends AbstractModel {
     @Column(name = "is_used")
     private boolean isUsed;
 
-    public PasswordResetToken(String token, User user) {
-        this.token = token;
-        this.user = user;
-        this.expiryDate = LocalDateTime.now().plusHours(6);
-        this.isUsed = false;
-    }
 }

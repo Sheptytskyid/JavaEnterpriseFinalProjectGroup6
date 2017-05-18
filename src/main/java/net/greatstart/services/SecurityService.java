@@ -64,8 +64,14 @@ public class SecurityService {
 
     public PasswordResetToken createPasswordResetToken(User user) {
         String token = UUID.randomUUID().toString();
-        PasswordResetToken myToken = new PasswordResetToken(token, user);
+        PasswordResetToken myToken = new PasswordResetToken(token, user, LocalDateTime.now().plusHours(6), false);
         return passwordTokenDao.save(myToken);
+    }
+
+    public void expireToken(User user) {
+        PasswordResetToken token = passwordTokenDao.findFirstByUserIdOrderByIdDesc(user.getId());
+        token.setUsed(true);
+        passwordTokenDao.save(token);
     }
 
     private void authoriseToken(PasswordResetToken passToken) {
@@ -73,6 +79,5 @@ public class SecurityService {
         Authentication auth = new UsernamePasswordAuthenticationToken(
             user, null, Arrays.asList(new SimpleGrantedAuthority("CHANGE_PASSWORD_PRIVILEGE")));
         SecurityContextHolder.getContext().setAuthentication(auth);
-        passToken.setUsed(true);
     }
 }

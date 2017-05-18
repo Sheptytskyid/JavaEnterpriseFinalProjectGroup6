@@ -19,7 +19,7 @@ public class PasswordResetTokenTest {
     public void constructorShouldSetFields() {
         User user = new User();
         String token = TOKEN_VALUE;
-        PasswordResetToken passwordResetToken = new PasswordResetToken(token, user);
+        PasswordResetToken passwordResetToken = new PasswordResetToken(token, user, LocalDateTime.now().plusHours(6), false);
         assertFalse(passwordResetToken.isUsed());
         assertEquals(TOKEN_VALUE, passwordResetToken.getToken());
         assertEquals(user, passwordResetToken.getUser());

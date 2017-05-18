@@ -25,6 +25,7 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -107,6 +108,16 @@ public class SecurityServiceTest {
         verify(passwordTokenDao,times(1)).save(captor.capture());
         assertEquals(user, captor.getValue().getUser());
         assertNotNull(captor.getValue().getToken());
+    }
+
+    @Test
+    public void expireToken() throws Exception {
+        PasswordResetToken token = createToken();
+        when(passwordTokenDao.findFirstByUserIdOrderByIdDesc(user.getId())).thenReturn(token);
+        securityService.expireToken(user);
+        assertTrue(token.isUsed());
+        verify(passwordTokenDao, times(1)).save(token);
+
     }
 
     private PasswordResetToken createToken() {
