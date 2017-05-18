@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -30,13 +31,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         http
-//                .httpBasic().and()
+
                 .authorizeRequests()
                 .antMatchers("/project/new", "/project/my", "/invinterest/add", "/invinterest", "/views/main/About.html").authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/user/login")
-//                .loginPage("/views/main/LoginPage.html")
                 .usernameParameter("email")
                 // TODO: change the routing when home page is ready
                 .defaultSuccessUrl("/")
@@ -46,7 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .rememberMe()
                 .key("greatStartKey")
-                .rememberMeParameter("remember-me");
+                .rememberMeParameter("remember-me").and()
+                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }
 
     @Bean
