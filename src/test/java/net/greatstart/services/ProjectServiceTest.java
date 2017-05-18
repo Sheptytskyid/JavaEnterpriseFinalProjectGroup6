@@ -67,7 +67,7 @@ public class ProjectServiceTest {
         assertEquals(projectService.getNProjects(10), projects);
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void invokeDaoWhenGetAllProjectsOfUser() {
         String email = "test@test.ua";
         User user = new User();

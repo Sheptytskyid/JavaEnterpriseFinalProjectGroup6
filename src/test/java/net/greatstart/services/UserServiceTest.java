@@ -41,14 +41,14 @@ public class UserServiceTest {
         user = new User();
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void shouldInvokeUserDaoWhenCreateUser() throws Exception {
         when(userDao.save(user)).thenReturn(user);
         assertEquals(userService.createUser(user), user);
     }
 
 
-    @Test
+    @Test(timeout = 2000)
     public void createUserByEmailAndPassword() throws Exception {
         user.setName(NAME);
         user.setEmail(EMAIL);
@@ -63,27 +63,27 @@ public class UserServiceTest {
         assertEquals(userService.createUser(user.getEmail(), user.getPassword()), user);
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void returnUserWhenUpdateUser() throws Exception {
         when(userDao.save(user)).thenReturn(user);
         assertEquals(userService.updateUser(user), user);
         verify(userDao, times(1)).save(user);
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void invokeUserDaoWhenDeleteUser() throws Exception {
         userService.deleteUser(ID);
         verify(userDao, times(1)).delete(ID);
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void invokeUserDaoWhenGetUserById() throws Exception {
         when(userDao.findOne(ID)).thenReturn(user);
         assertEquals(userService.getUserById(ID), user);
         verify(userDao, times(1)).findOne(ID);
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void changeUserPassword() throws Exception {
         when(userDao.save(user)).thenReturn(user);
         user = userService.changeUserPassword(user, PASSWORD);
@@ -91,14 +91,14 @@ public class UserServiceTest {
         verify(userDao, times(1)).save(user);
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void invokeUserDaoWhenGetAllUsers() throws Exception {
         when(userDao.findAll()).thenReturn(new ArrayList<>());
         userService.getAllUsers();
         verify(userDao, times(1)).findAll();
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void invokeUserDaoWhenGetUserByEmail() throws Exception {
         when(userDao.findByEmail(user.getEmail())).thenReturn(user);
         assertEquals(userService.getUserByEmail(user.getEmail()), user);

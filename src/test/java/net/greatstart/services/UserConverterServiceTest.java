@@ -42,7 +42,7 @@ public class UserConverterServiceTest {
         dtoUserProfile.setPhoneNumber(NEW_PHONE);
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void fromUserToDtoProfile() throws Exception {
         DtoUserProfile dtoUser = userConverter.fromUserToDtoProfile(user);
         assertEquals(ID, dtoUser.getId().longValue());
@@ -53,7 +53,7 @@ public class UserConverterServiceTest {
         assertEquals(INITIALS, dtoUser.getInitial());
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void updateUserFromDto() throws Exception {
         userConverter.updateUserFromDto(user, dtoUserProfile);
         assertEquals(NEW_ADDRESS, user.getContact().getAddress());

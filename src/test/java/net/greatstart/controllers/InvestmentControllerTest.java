@@ -68,21 +68,8 @@ public class InvestmentControllerTest {
                 .andExpect(model().attribute("investedSum", new BigDecimal(579)));
     }
 
-/*    @Test
+    @Test(timeout = 2000)
     public void addInvestment() throws Exception {
-        Project project = new Project();
-        ProjectDescription desc = new ProjectDescription();
-        desc.setName(TEST_PROJECT_NAME);
-        project.setDesc(desc);
-        mockMvc.perform(post("/project/new")
-                .principal(principal)
-                .param("desc.name", TEST_PROJECT_NAME))
-                .andExpect(view().name(REDIRECT_TO_PROJECTS));
-        verify(projectService).saveProject(project);
-    }*/
-
-    @Test
-    public void getInvestmentById() throws Exception {
     }
 
     @Test(timeout = 2000)
@@ -106,7 +93,7 @@ public class InvestmentControllerTest {
                 .andExpect(model().attribute(INVESTMENT_LIST, investments));
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void getAllUserInvestments() throws Exception {
         User user = new User();
         user.setName("Ivan");

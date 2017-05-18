@@ -67,7 +67,7 @@ public class UserControllerTest {
                 .andExpect(view().name(SHOW_PROFILE));
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void showProfileAndVerifyInteractions() throws Exception {
         user.setId(ID);
         when(userService.getUserById(ID)).thenReturn(user);
@@ -125,7 +125,7 @@ public class UserControllerTest {
         assertEquals("redirect:" + TEST_USER_PROFILE, modelAndView.getViewName());
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void downloadPhoto() throws Exception {
         byte[] bytes = new byte[] {0, 1, 0};
         DtoUserProfile dtoUserProfile = new DtoUserProfile();
