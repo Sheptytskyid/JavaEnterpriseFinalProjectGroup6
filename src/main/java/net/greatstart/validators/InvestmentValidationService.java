@@ -13,10 +13,7 @@ public class InvestmentValidationService {
     private static final String WRONG_MAX_VALUE = "You entered wrong investment value. "
             + "Max possible investment is: $";
 
-    private InvestmentValidationService() {
-    }
-
-    public static String validate(BigDecimal sum, Project project) {
+    public String validate(BigDecimal sum, Project project) {
 
         BigDecimal investedSum = project.getInvestments()
                 .stream().map(Investment::getSum).reduce(BigDecimal.ZERO, BigDecimal::add);

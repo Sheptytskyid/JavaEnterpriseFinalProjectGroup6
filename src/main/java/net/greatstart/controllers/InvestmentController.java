@@ -32,13 +32,16 @@ public class InvestmentController {
     private InvestmentService investmentService;
     private ProjectService projectService;
     private UserService userService;
+    private InvestmentValidationService investmentValidationService;
 
     @Autowired
     public InvestmentController(InvestmentService investmentService,
-                                ProjectService projectService, UserService userService) {
+                                ProjectService projectService, UserService userService, InvestmentValidationService
+                                        investmentValidationService) {
         this.investmentService = investmentService;
         this.projectService = projectService;
         this.userService = userService;
+        this.investmentValidationService = investmentValidationService;
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -46,7 +49,7 @@ public class InvestmentController {
     public ModelAndView getAddInvestmentForm(@PathVariable long id) {
         Project project = projectService.getProjectById(id);
         ModelAndView model = new ModelAndView("investment/add_investment");
-        model.addObject(project);
+        model.addObject("project", project);
         model.addObject("investedSum", getInvestedSumInProject(id));
         return model;
     }
@@ -58,7 +61,7 @@ public class InvestmentController {
         ModelAndView model = new ModelAndView();
         Project project = projectService.getProjectById(id);
         User investor = userService.getUserByEmail(principal.getName());
-        String message = InvestmentValidationService.validate(sum, project);
+        String message = investmentValidationService.validate(sum, project);
         if (message != null) {
             model.setViewName("investment/add_investment");
             model.addObject("message", message);
@@ -73,7 +76,7 @@ public class InvestmentController {
         return model;
     }
 
-    @GetMapping("investment/{id}")
+    @GetMapping("/investment/{id}")
     public Investment getInvestmentById(@PathVariable long id) {
         return investmentService.getInvestmentById(id);
     }
@@ -81,14 +84,12 @@ public class InvestmentController {
     @GetMapping("investment")
     public ModelAndView getAllInvestments() {
         ModelAndView model = new ModelAndView(INVESTMENTS_VIEW);
-        model.addObject(PAGE_NAME,
-                "All investments.");
-        model.addObject(INVESTMENT_LIST,
-                investmentService.getAllInvestments());
+        model.addObject(PAGE_NAME, "All investments.");
+        model.addObject(INVESTMENT_LIST, investmentService.getAllInvestments());
         return model;
     }
 
-    @GetMapping("project/{id}/investments")
+    @GetMapping("/project/{id}/investments")
     public ModelAndView getAllProjectInvestments(@PathVariable long id) {
         ModelAndView model = new ModelAndView(INVESTMENTS_VIEW);
 
