@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 
 @Data
 public class DtoUser {
+
     @NotNull
     @Pattern(regexp = "|^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*"
             + "@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message = "{email.valid}")
