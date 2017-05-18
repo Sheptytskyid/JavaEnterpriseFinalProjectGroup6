@@ -105,6 +105,4 @@ public class UserController {
         DtoUserProfile user = userConverter.fromUserToDtoProfile(userService.getUserById(id));
         return user.getPhoto();
     }
-
-
 }
