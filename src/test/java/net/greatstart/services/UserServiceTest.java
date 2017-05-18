@@ -3,6 +3,7 @@ package net.greatstart.services;
 import net.greatstart.dao.UserDao;
 import net.greatstart.model.Role;
 import net.greatstart.model.User;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -21,15 +22,24 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
 
-    public static final long ID = 1L;
+    private static final long ID = 1L;
+    private static final String NAME = "Admin";
+    private static final String EMAIL = "admin@example.com";
+    private static final String PASSWORD = "1111";
+    private static final String ROLE_NAME = "ROLE_USER";
+
     @Mock
     private UserDao userDao;
     @Mock
     private RoleService roleService;
     @InjectMocks
     private UserService userService;
-    private User user = new User();
+    private User user;
 
+    @Before
+    public void setUp() {
+        user = new User();
+    }
 
     @Test
     public void shouldInvokeUserDaoWhenCreateUser() throws Exception {
@@ -37,20 +47,18 @@ public class UserServiceTest {
         assertEquals(userService.createUser(user), user);
     }
 
+
     @Test
     public void createUserByEmailAndPassword() throws Exception {
-        String email = "admin@example.com";
-        String password = "1111";
-        String roleName = "ROLE_USER";
-        user.setName("Admin");
-        user.setEmail(email);
-        user.setPassword(password);
-        Role role = new Role(roleName);
+        user.setName(NAME);
+        user.setEmail(EMAIL);
+        user.setPassword(PASSWORD);
+        Role role = new Role(ROLE_NAME);
         Set<Role> roles = new HashSet<>();
         roles.add(role);
         user.setRoles(roles);
 
-        when(roleService.findOrCreateRole(roleName)).thenReturn(role);
+        when(roleService.findOrCreateRole(ROLE_NAME)).thenReturn(role);
         when(userDao.save(user)).thenReturn(user);
         assertEquals(userService.createUser(user.getEmail(), user.getPassword()), user);
     }
@@ -73,6 +81,14 @@ public class UserServiceTest {
         when(userDao.findOne(ID)).thenReturn(user);
         assertEquals(userService.getUserById(ID), user);
         verify(userDao, times(1)).findOne(ID);
+    }
+
+    @Test
+    public void changeUserPassword() throws Exception {
+        when(userDao.save(user)).thenReturn(user);
+        user = userService.changeUserPassword(user, PASSWORD);
+        assertEquals(PASSWORD, user.getPassword());
+        verify(userDao, times(1)).save(user);
     }
 
     @Test

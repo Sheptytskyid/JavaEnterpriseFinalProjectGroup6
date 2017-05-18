@@ -19,6 +19,7 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/user/register")
 public class RegistrationController {
+
     private PasswordEncoder passwordEncoder;
     private UserService userService;
     private SecurityService securityService;
@@ -33,7 +34,7 @@ public class RegistrationController {
         this.userValidationService = userValidationService;
     }
 
-    private static final String REGISTRATION_PAGE = "close/registration";
+    private static final String REGISTRATION_PAGE = "login/registration";
 
     @GetMapping
     public ModelAndView register() {
