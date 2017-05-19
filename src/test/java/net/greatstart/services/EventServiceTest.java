@@ -34,14 +34,14 @@ public class EventServiceTest {
         event = new Event();
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void saveEventShouldSaveAndReturnEvent() throws Exception {
         when(eventDao.save(event)).thenReturn(event);
         assertEquals(event, eventService.saveEvent(event));
         verify(eventDao, times(1)).save(event);
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void deleteEventShouldFindAndDeleteEvent() throws Exception {
         when(eventDao.findOne(ID)).thenReturn(event);
         eventService.deleteEvent(ID);
@@ -49,14 +49,14 @@ public class EventServiceTest {
         verify(eventDao, times(1)).delete(event);
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void getEventByIdShouldFindAndReturnEvent() throws Exception {
         when(eventDao.findOne(ID)).thenReturn(event);
         assertEquals(event, eventService.getEventById(ID));
         verify(eventDao, times(1)).findOne(ID);
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void getAllEvents() throws Exception {
         List<Event> events = new ArrayList<>();
         events.add(event);

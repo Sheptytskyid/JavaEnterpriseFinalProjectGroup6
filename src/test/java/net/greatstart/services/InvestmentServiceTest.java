@@ -34,27 +34,27 @@ public class InvestmentServiceTest {
         investments.add(investment);
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void saveInvestment() throws Exception {
         when(investmentDao.save(investment)).thenReturn(investment);
         assertEquals(investment, investmentService.saveInvestment(investment));
         verify(investmentDao, times(1)).save(investment);
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void deleteInvestment() throws Exception {
         investmentService.deleteInvestment(1L);
         verify(investmentDao,times(1)).delete(1L);
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void getInvestmentById() throws Exception {
         when(investmentDao.findOne(1L)).thenReturn(investment);
         assertEquals(investment, investmentService.getInvestmentById(1L));
         verify(investmentDao, times(1)).findOne(1L);
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void getAllInvestments() throws Exception {
         when(investmentDao.findAll()).thenReturn(investments);
         assertEquals(investments, investmentService.getAllInvestments());

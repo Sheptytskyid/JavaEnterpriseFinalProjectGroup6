@@ -57,6 +57,7 @@ public class InvestmentControllerTest {
     private UserService userService;
     @InjectMocks
     private InvestmentController investmentController;
+    private User user;
     private Project project;
     private List<Investment> investments;
     private MockMvc mvc;
@@ -65,6 +66,13 @@ public class InvestmentControllerTest {
 
     @Before
     public void setUp() throws Exception {
+        user = new User();
+        user.setName("Ivan");
+        user.setLastName("Mazepa");
+        user.setEmail(TEST_EMAIL);
+        when(principal.getName()).thenReturn(TEST_EMAIL);
+        when(userService.getUserByEmail(TEST_EMAIL)).thenReturn(user);
+        user.setInvestments(investments);
         mvc = standaloneSetup(investmentController).build();
         project = new Project();
         Investment investment1 = new Investment();
@@ -85,11 +93,7 @@ public class InvestmentControllerTest {
     }
 
     @Test(timeout = 2000)
-    public void addCorrectInvestment() throws Exception {
-        User user = new User();
-        user.setName("Ivan");
-        user.setLastName("Mazepa");
-        user.setEmail(TEST_EMAIL);
+    public void saveValidInvestmentShouldInvokeSaveServiceMethodAndRedirectToProjectPage() throws Exception {
         Investment investment = createInvestment(project, user, new BigDecimal(2000));
         when(principal.getName()).thenReturn(TEST_EMAIL);
         when(userService.getUserByEmail(TEST_EMAIL)).thenReturn(user);
@@ -112,14 +116,7 @@ public class InvestmentControllerTest {
     }
 
     @Test(timeout = 2000)
-    public void addCWrongInvestment() throws Exception {
-        User user = new User();
-        user.setName("Ivan");
-        user.setLastName("Mazepa");
-        user.setEmail(TEST_EMAIL);
-        when(principal.getName()).thenReturn(TEST_EMAIL);
-        when(userService.getUserByEmail(TEST_EMAIL)).thenReturn(user);
-        when(projectService.getProjectById(1)).thenReturn(project);
+    public void saveInvalidInvestmentShouldReturnToAddInvestmentPage() throws Exception {
         when(investmentValidationService.validate(new BigDecimal(2500), project))
                 .thenReturn("Some error.");
         mvc.perform(post("/project/1/investment/add")
@@ -134,7 +131,7 @@ public class InvestmentControllerTest {
     }
 
     @Test(timeout = 2000)
-    public void getAllInvestments() throws Exception {
+    public void getAllInvestmentsShouldReturnPageWithAllInvestmentsFromAllProjects() throws Exception {
         when(investmentService.getAllInvestments()).thenReturn(investments);
         mvc.perform(get("/investment"))
                 .andExpect(view().name(INVESTMENTS_VIEW))
@@ -143,7 +140,7 @@ public class InvestmentControllerTest {
     }
 
     @Test(timeout = 2000)
-    public void getAllProjectInvestments() throws Exception {
+    public void getAllProjectInvestmentsShouldReturnPageWithAllInvestmentsFromIdProject() throws Exception {
         ProjectDescription projectDescription = new ProjectDescription();
         projectDescription.setName("Babylon");
         project.setDesc(projectDescription);
@@ -155,14 +152,7 @@ public class InvestmentControllerTest {
     }
 
     @Test(timeout = 2000)
-    public void getAllUserInvestments() throws Exception {
-        User user = new User();
-        user.setName("Ivan");
-        user.setLastName("Mazepa");
-        user.setEmail(TEST_EMAIL);
-        when(principal.getName()).thenReturn(TEST_EMAIL);
-        when(userService.getUserByEmail(TEST_EMAIL)).thenReturn(user);
-        user.setInvestments(investments);
+    public void getAllUserInvestmentsShouldReturnPageWithAllInvestmentsOfCurrentUser() throws Exception {
         when(userService.getUserById(1)).thenReturn(user);
         mvc.perform(get("/user/investments").principal(principal))
                 .andExpect(view().name(INVESTMENTS_VIEW))
@@ -171,7 +161,7 @@ public class InvestmentControllerTest {
     }
 
     @Test(timeout = 2000)
-    public void deleteInvestmentById() throws Exception {
+    public void deleteInvestmentByIdShouldInvokeServiceDeleteMethodAndReturnToAllInvestmentsPage() throws Exception {
         mvc.perform(get("/investment/1/delete"))
                 .andExpect(view().name("redirect:/investment"));
         verify(investmentService, times(1)).deleteInvestment(1L);

@@ -46,7 +46,7 @@ public class MailServiceTest {
         user.setEmail(EMAIL);
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void sendResetTokenEmail() throws Exception {
         when(messages.getMessage("message.resetPassword.body", null, locale)).thenReturn(MESSAGE);
         when(mailSender.createMimeMessage()).thenReturn(mimeMessage);

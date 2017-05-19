@@ -24,33 +24,33 @@ public class RoleServiceTest {
     @InjectMocks
     private RoleService roleService;
 
-    @Test(timeout = 2000)
+    @Test
     public void invokeRoleDaoWhenAddRole() throws Exception {
         roleService.addRole(role);
         verify(roleDao, times(1)).save(role);
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void findRoleByNameWhenFindOrCreateRole() throws Exception {
         roleService.findOrCreateRole(ROLE_USER);
         verify(roleDao, times(1)).getByName(ROLE_USER);
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void returnExistingRoleWhenFindOrCreateRole() throws Exception {
         when(roleDao.getByName(ROLE_USER)).thenReturn(role);
         Role returnedRole = roleService.findOrCreateRole(ROLE_USER);
         assertEquals(role, returnedRole);
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void shouldNotSaveExistingRoleWhenFindOrCreateRole() throws Exception {
         when(roleDao.getByName(ROLE_USER)).thenReturn(role);
         roleService.findOrCreateRole(ROLE_USER);
         verify(roleDao, times(0)).save(role);
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void saveNonExistingRoleWhenFindOrCreateRole() throws Exception {
         when(roleDao.getByName(ROLE_USER)).thenReturn(null);
         roleService.findOrCreateRole(ROLE_USER);

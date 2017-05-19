@@ -32,25 +32,25 @@ public class ProjectServiceTest {
     private ProjectService projectService;
     private Project project = new Project();
 
-    @Test(timeout = 2000)
+    @Test
     public void invokeProjectDaoWhenSaveProject() throws Exception {
         projectService.saveProject(project);
         verify(projectDao, times(1)).save(project);
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void invokeProjectDaoWhenDeleteProject() throws Exception {
         projectService.deleteProject(1L);
         verify(projectDao, times(1)).delete(1L);
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void returnProjectWhenGetProjectById() throws Exception {
         when(projectDao.findOne(1L)).thenReturn(project);
         assertEquals(projectService.getProjectById(1L),project);
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void invokeProjectDaoWhenGetAllProjects() throws Exception {
         List<Project> projects = new ArrayList<>();
         projects.add(project);
@@ -58,7 +58,7 @@ public class ProjectServiceTest {
         assertEquals(projectService.getAllProjects(),projects);
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void invokeDaoWhenGetNProjects() throws Exception {
         Pageable pageable = new PageRequest(0, 10);
         List<Project> projects = new ArrayList<>();
@@ -67,7 +67,7 @@ public class ProjectServiceTest {
         assertEquals(projectService.getNProjects(10), projects);
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void invokeDaoWhenGetAllProjectsOfUser() {
         String email = "test@test.ua";
         User user = new User();
