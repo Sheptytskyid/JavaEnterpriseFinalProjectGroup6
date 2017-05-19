@@ -63,17 +63,15 @@ public class InvestmentController {
         Project project = projectService.getProjectById(id);
         User investor = userService.getUserByEmail(principal.getName());
         String message = investmentValidationService.validate(sum, project);
+        model.setViewName(REDIRECT + PROJECT_PAGE + id);
         if (message != null) {
             model.setViewName("investment/add_investment");
             model.addObject("message", message);
             model.addObject(project);
             model.addObject("investedSum", getInvestedSumInProject(id));
-            return model;
         }
-        investmentService.saveInvestment(new Investment(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES),
-                project, investor, sum, false, false));
+        investmentService.saveInvestment(createInvestment(project, investor, sum));
 
-        model.setViewName(REDIRECT + PROJECT_PAGE + id);
         return model;
     }
 
@@ -105,10 +103,10 @@ public class InvestmentController {
     @GetMapping("/user/investments")
     public ModelAndView getAllUserInvestments(Principal principal) {
         ModelAndView model = new ModelAndView(INVESTMENTS_VIEW);
-        model.addObject(PAGE_NAME,"Investments of user: "
-                        + userService.getUserByEmail(principal.getName()).getName()
-                        + " "
-                        + userService.getUserByEmail(principal.getName()).getLastName());
+        model.addObject(PAGE_NAME, "Investments of user: "
+                + userService.getUserByEmail(principal.getName()).getName()
+                + " "
+                + userService.getUserByEmail(principal.getName()).getLastName());
         model.addObject(INVESTMENT_LIST,
                 userService.getUserByEmail(principal.getName()).getInvestments());
         return model;
@@ -125,4 +123,10 @@ public class InvestmentController {
         return projectService.getProjectById(id).getInvestments()
                 .stream().map(Investment::getSum).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
+
+    private Investment createInvestment(Project project, User user, BigDecimal sum) {
+        return new Investment(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS),
+                project, user, sum, false, false);
+    }
+
 }

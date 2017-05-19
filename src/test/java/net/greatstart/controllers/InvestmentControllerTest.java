@@ -11,6 +11,8 @@ import net.greatstart.validators.InvestmentValidationService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -23,7 +25,11 @@ import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -54,6 +60,8 @@ public class InvestmentControllerTest {
     private Project project;
     private List<Investment> investments;
     private MockMvc mvc;
+    @Captor
+    private ArgumentCaptor<Investment> captor;
 
     @Before
     public void setUp() throws Exception {
@@ -82,8 +90,7 @@ public class InvestmentControllerTest {
         user.setName("Ivan");
         user.setLastName("Mazepa");
         user.setEmail(TEST_EMAIL);
-        Investment investment = new Investment(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES),
-                project, user, new BigDecimal(2000), false, false);
+        Investment investment = createInvestment(project, user, new BigDecimal(2000));
         when(principal.getName()).thenReturn(TEST_EMAIL);
         when(userService.getUserByEmail(TEST_EMAIL)).thenReturn(user);
         when(projectService.getProjectById(1)).thenReturn(project);
@@ -94,7 +101,14 @@ public class InvestmentControllerTest {
                 .param("sum", "2000"))
                 .andExpect(view().name(REDIRECT + PROJECT_PAGE + 1));
 
-        verify(investmentService, times(1)).saveInvestment(investment);
+        verify(investmentService, times(1)).saveInvestment(captor.capture());
+        assertEquals(investment.getSum(), captor.getValue().getSum());
+        assertEquals(investment.getInvestor(), captor.getValue().getInvestor());
+        assertEquals(investment.getProject(), captor.getValue().getProject());
+        assertTrue((investment.getDateOfInvestment()
+                .compareTo(captor.getValue().getDateOfInvestment()) <= 1)
+                && (investment.getDateOfInvestment()
+                .compareTo(captor.getValue().getDateOfInvestment()) >= -1));
     }
 
     @Test(timeout = 2000)
@@ -163,4 +177,8 @@ public class InvestmentControllerTest {
         verify(investmentService, times(1)).deleteInvestment(1L);
     }
 
+    private Investment createInvestment(Project investmentProject, User user, BigDecimal sum) {
+        return new Investment(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS),
+                project, user, sum, false, false);
+    }
 }
