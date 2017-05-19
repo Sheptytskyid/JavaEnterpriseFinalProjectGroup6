@@ -103,9 +103,9 @@ public class InvestmentController {
     @GetMapping("/user/investments")
     public ModelAndView getAllUserInvestments(Principal principal) {
         ModelAndView model = new ModelAndView(INVESTMENTS_VIEW);
-        model.addObject(PAGE_NAME, String.format("Investments of user: %s %s"
-                ,userService.getUserByEmail(principal.getName()).getName()
-                ,userService.getUserByEmail(principal.getName()).getLastName()));
+        model.addObject(PAGE_NAME, String.format("Investments of user: %s %s",
+                userService.getUserByEmail(principal.getName()).getName(),
+                userService.getUserByEmail(principal.getName()).getLastName()));
         model.addObject(INVESTMENT_LIST,
                 userService.getUserByEmail(principal.getName()).getInvestments());
         return model;
