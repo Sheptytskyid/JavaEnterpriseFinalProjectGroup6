@@ -11,7 +11,7 @@ public class UserValidationService {
     public void validate(DtoUser user, Errors errors, UserService userService) {
         if (user != null) {
             if (userService.getUserByEmail(user.getEmail()) != null) {
-                errors.rejectValue("username",
+                errors.rejectValue("email",
                         "user.exists",
                         "A user with such username already exists");
             }

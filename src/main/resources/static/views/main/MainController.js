@@ -61,6 +61,7 @@ var MainController = angular.module('greatStartApp')
                         $scope.error = false;
                         $scope.close();
                     } else {
+                        $location.path("/");
                         $scope.error = true;
                     }
                 })
