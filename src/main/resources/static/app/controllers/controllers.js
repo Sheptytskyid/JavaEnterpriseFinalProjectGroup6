@@ -11,6 +11,9 @@ mainApp.config(function ($routeProvider, $httpProvider) {
             {
                 controller: 'MainController',
                 templateUrl: 'views/main/About.html'
+                // resolve: {
+                //     checkIfUserLogon: checkIfUserHasSession()
+                // }
             })
         .when('/help',
             {
@@ -52,4 +55,24 @@ mainApp.config(function ($routeProvider, $httpProvider) {
         .otherwise({redirectTo: '/'});
 
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+
+    // function checkIfUserHasSession(userService, $log, $location, $rootScope,$q) {
+    //     var def = $q.defer();
+    //     if (!$rootScope.authenticated) {
+    //         userService.authenticate().then(
+    //             function (logined) {
+    //                 $log.error("User logon in app, redirect to home page");
+    //                 $location.path('/');
+    //                 def.error("User logon in app, redirect to home page");
+    //             },
+    //             function (notLogined) {
+    //                 $log.error("User not login yet, resolve login page");
+    //                 def.resolve("User not login yet, resolve login page");
+    //             });
+    //     } else {
+    //         def.resolve("User not login yet, resolve login page")
+    //     }
+    //     return def.promise;
+    // }
+
 });
