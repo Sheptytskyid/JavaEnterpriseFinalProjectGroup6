@@ -11,22 +11,28 @@ mainApp.config(function ($routeProvider, $httpProvider) {
             {
                 controller: 'MainController',
                 templateUrl: 'views/main/About.html'
-                // resolve: {
-                //     checkIfUserLogon: checkIfUserHasSession()
-                // }
             })
         .when('/help',
             {
                 controller: 'MainController',
-                templateUrl: 'views/main/Help.html'
+                templateUrl: 'views/main/Help.html',
+                resolve: {
+                    checkIfUserLogon: checkIfUserHasSession
+                }
             })
         .when('/user', {
             controller: 'UserController',
-            templateUrl: 'views/user/UserPage.html'
+            templateUrl: 'views/user/UserPage.html',
+            resolve: {
+                checkIfUserLogon: checkIfUserHasSession
+            }
         })
         .when('/editUser', {
             controller: 'UserController',
-            templateUrl: 'views/user/EditUser.html'
+            templateUrl: 'views/user/EditUser.html',
+            resolve: {
+                checkIfUserLogon: checkIfUserHasSession
+            }
         })
         .when('/projects', {
             controller: 'ProjectController',
@@ -56,23 +62,10 @@ mainApp.config(function ($routeProvider, $httpProvider) {
 
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
-    // function checkIfUserHasSession(userService, $log, $location, $rootScope,$q) {
-    //     var def = $q.defer();
-    //     if (!$rootScope.authenticated) {
-    //         userService.authenticate().then(
-    //             function (logined) {
-    //                 $log.error("User logon in app, redirect to home page");
-    //                 $location.path('/');
-    //                 def.error("User logon in app, redirect to home page");
-    //             },
-    //             function (notLogined) {
-    //                 $log.error("User not login yet, resolve login page");
-    //                 def.resolve("User not login yet, resolve login page");
-    //             });
-    //     } else {
-    //         def.resolve("User not login yet, resolve login page")
-    //     }
-    //     return def.promise;
-    // }
+    function checkIfUserHasSession($location, $rootScope) {
+        if (!$rootScope.authenticated) {
+            $location.path('/');
+        }
+    }
 
 });
