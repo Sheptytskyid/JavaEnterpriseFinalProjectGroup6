@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         http
-
+                .httpBasic().and()
                 .authorizeRequests()
                 .antMatchers("/project/new", "/project/my", "/invinterest/add", "/invinterest", "/views/main/About.html").authenticated()
                 .and()
