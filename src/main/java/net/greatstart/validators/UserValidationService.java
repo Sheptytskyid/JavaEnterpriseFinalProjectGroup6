@@ -13,7 +13,7 @@ public class UserValidationService {
             if (userService.getUserByEmail(user.getEmail()) != null) {
                 errors.rejectValue("email",
                         "user.exists",
-                        "A user with such username already exists");
+                        "A user with such email already exists");
             }
             if (!user.getPassword().equals(user.getConfirmPassword())) {
                 errors.rejectValue("confirmPassword",
