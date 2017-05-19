@@ -27,15 +27,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-            .userDetailsService(new GreatStartUserDetailsService(userService))
-            .passwordEncoder(passwordEncoder());
+                .userDetailsService(new GreatStartUserDetailsService(userService))
+                .passwordEncoder(passwordEncoder());
     }
 
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .httpBasic().and()
                 .authorizeRequests()
-                .antMatchers("/project/new", "/project/my", "/invinterest/add", "/invinterest", "/views/main/About.html").authenticated()
+                .antMatchers("/project/new", "/project/my", "/invinterest/add",
+                        "/invinterest", "/views/main/About.html").authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/user/login")
