@@ -26,27 +26,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(new GreatStartUserDetailsService(userService))
-                .passwordEncoder(passwordEncoder());
+            .userDetailsService(new GreatStartUserDetailsService(userService))
+            .passwordEncoder(passwordEncoder());
     }
 
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .antMatchers("/project/new", "/project/my", "/invinterest/add", "/invinterest").authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/user/login")
-                .usernameParameter("email")
-                // TODO: change the routing when home page is ready
-                .defaultSuccessUrl("/project/")
-                .and()
-                .logout()
-                .logoutSuccessUrl("/user/login")
-                .and()
-                .rememberMe()
-                .key("greatStartKey")
-                .rememberMeParameter("remember-me");
+            .authorizeRequests()
+            .antMatchers("/project/new", "/project/my", "/invinterest/add", "/invinterest").authenticated()
+            .and()
+            .formLogin()
+            .loginPage("/user/login")
+            .usernameParameter("email")
+            // TODO: change the routing when home page is ready
+            .defaultSuccessUrl("/project/")
+            .and()
+            .logout()
+            .logoutSuccessUrl("/user/login")
+            .and()
+            .rememberMe()
+            .key("greatStartKey")
+            .rememberMeParameter("remember-me");
     }
 
     @Bean
