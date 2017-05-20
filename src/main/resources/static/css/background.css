@@ -1,0 +1,10 @@
+#bg {
+	background: white;
+	height:100%;
+}
+
+#bg img {
+	text-align:center;
+	display:block; 
+	margin:0 auto;
+}

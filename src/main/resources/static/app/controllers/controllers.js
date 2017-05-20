@@ -45,5 +45,8 @@ mainApp.config(function ($routeProvider) {
             controller: 'InterestController',
             templateUrl: 'views/interest/Interests.html'
         })
+        .when('/under_construction', {
+            templateUrl: 'views/other/UnderConstruction.html'
+        })
         .otherwise({redirectTo: '/'});
 });
