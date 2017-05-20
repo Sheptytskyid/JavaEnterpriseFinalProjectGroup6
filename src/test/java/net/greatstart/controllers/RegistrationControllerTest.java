@@ -61,7 +61,8 @@ public class RegistrationControllerTest {
         ModelAndView modelAndView = controller.processRegistration(user, errors);
         verify(userValidationService, times(1)).validate(user, errors, userService);
         verify(userService, times(1)).createUser(user.getEmail(), passwordEncoder.encode(user.getPassword()));
-        verify(securityService, times(1)).autoLogin(user.getEmail(), user.getPassword());
+        verify(securityService, times(
+                1)).autoLogin(user.getEmail(), user.getPassword());
         assertEquals(modelAndView.getViewName(), "redirect:/");
     }
 

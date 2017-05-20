@@ -77,14 +77,14 @@ public class PasswordResetControllerTest {
         mvc = standaloneSetup(controller).build();
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void showForgotPassForm() throws Exception {
         mvc.perform(get("/user/resetPassword"))
             .andExpect(view().name("user/forgotPassword"))
             .andExpect(model().attribute("user", new DtoUser()));
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void processInvalidEmailShouldReturnModelWithErrors() throws Exception {
         DtoUser dtoUser = new DtoUser();
         dtoUser.setEmail(INVALID_EMAIL);
@@ -93,7 +93,7 @@ public class PasswordResetControllerTest {
             .andExpect(model().attributeHasFieldErrors("user", "email"));
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void processNonExistingEmailShouldReturnModelWithMessage() throws Exception {
         DtoUser dtoUser = getValidDtoUser();
         when(userService.getUserByEmail(dtoUser.getEmail())).thenReturn(null);
@@ -104,7 +104,7 @@ public class PasswordResetControllerTest {
             .andExpect(model().attributeExists("message"));
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void processValidExistingEmailWhenSendingFailsShouldReturnModelWithMessage() throws Exception {
         DtoUser dtoUser = prepareProcessValidExistingEmailTest(false);
         assertTrue(controller.processEmail(request, dtoUser, new BindException(dtoUser, "user"))
@@ -114,7 +114,7 @@ public class PasswordResetControllerTest {
 
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void processValidExistingEmailWhenSendingSucceedsShouldReturnModelWithMessage() throws Exception {
         DtoUser dtoUser = prepareProcessValidExistingEmailTest(true);
         assertTrue(controller.processEmail(request, dtoUser, new BindException(dtoUser, "user"))
@@ -124,13 +124,13 @@ public class PasswordResetControllerTest {
 
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void validateInvalidPassTokenShouldRedirect() throws Exception {
         mvc.perform(get("/user/validateToken").param("id", ID).param("token", TOKEN_VALUE))
             .andExpect(view().name("redirect:/user/changePassword"));
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void validateValidPassTokenShouldOpenLoginPage() throws Exception {
         when(securityService.validatePasswordResetToken(Long.valueOf(ID), TOKEN_VALUE, LOCALE)).thenReturn(RESULT);
         mvc.perform(get("/user/validateToken").param("id", ID).param("token", TOKEN_VALUE))
@@ -138,14 +138,14 @@ public class PasswordResetControllerTest {
             .andExpect(model().attributeExists(MESSAGE));
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void showChangePasswordForm() throws Exception {
         mvc.perform(get("/user/changePassword"))
             .andExpect(view().name("user/updatePassword"))
             .andExpect(model().attribute("user", new DtoUser()));
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void saveInvalidPasswordShouldRedirectBackToForm() throws Exception {
         DtoUser dtoUser = new DtoUser();
         mvc.perform(post("/user/changePassword").flashAttr("user", dtoUser))
@@ -153,7 +153,7 @@ public class PasswordResetControllerTest {
             .andExpect(model().attributeHasFieldErrors("user", "password"));
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void saveValidPasswordShouldChangeUserPassword() throws Exception {
         DtoUser dtoUser = getValidDtoUser();
         User user = new User();
