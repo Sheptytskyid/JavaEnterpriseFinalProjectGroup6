@@ -15,7 +15,7 @@ public class PasswordResetTokenTest {
 
     private static final String TOKEN_VALUE = "1";
 
-    @Test
+    @Test(timeout = 2000)
     public void constructorShouldSetFields() {
         User user = new User();
         String token = TOKEN_VALUE;

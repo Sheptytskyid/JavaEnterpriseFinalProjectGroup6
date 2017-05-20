@@ -33,7 +33,7 @@ public class GreatStartUserDetailsServiceTest {
         userDetailsService.loadUserByUsername(EMAIL);
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void loadUserByUsername() throws Exception {
         net.greatstart.model.User user = new User();
         Set<Role> roles = new HashSet<>();
