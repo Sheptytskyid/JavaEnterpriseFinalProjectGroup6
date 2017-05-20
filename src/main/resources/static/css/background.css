@@ -1,0 +1,14 @@
+#bg {
+	background: white;
+	height:110%;
+	position: relative;
+	top: -20px;
+}
+
+#bg img {
+	text-align:center;
+	display:block;
+	margin:0 auto;
+	position: relative;
+	top: 70px;
+}
