@@ -85,7 +85,7 @@
                         <c:forEach items="${projectList}" var="project">
                             <tr>
                                 <td>${project.id}</td>
-                                <td>${project.desc.name}</td>
+                                <td><a href="/project/${project.id}">${project.desc.name}</a></td>
                                 <td>${project.desc.goal}</td>
                                 <td>${project.category.name}</td>
                                 <td>${project.desc.cost}</td>

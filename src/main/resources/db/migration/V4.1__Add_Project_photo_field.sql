@@ -1,0 +1,1 @@
+ALTER TABLE startup_platform.projects ADD COLUMN photo OID NULL;

@@ -22,6 +22,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
@@ -66,7 +67,7 @@ public class UserControllerTest {
                 .andExpect(view().name(SHOW_PROFILE));
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void showProfileAndVerifyInteractions() throws Exception {
         user.setId(ID);
         when(userService.getUserById(ID)).thenReturn(user);
@@ -124,13 +125,13 @@ public class UserControllerTest {
         assertEquals("redirect:" + TEST_USER_PROFILE, modelAndView.getViewName());
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void downloadPhoto() throws Exception {
         byte[] bytes = new byte[] {0, 1, 0};
         DtoUserProfile dtoUserProfile = new DtoUserProfile();
         dtoUserProfile.setPhoto(bytes);
         when(userService.getUserById(ID)).thenReturn(user);
         when(userConverter.fromUserToDtoProfile(user)).thenReturn(dtoUserProfile);
-        assertEquals(bytes, controller.downloadPhoto(ID));
+        mvc.perform(get("/user/photo/1")).andExpect(content().bytes(bytes));
     }
 }

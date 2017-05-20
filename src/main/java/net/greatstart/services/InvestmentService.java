@@ -24,7 +24,11 @@ public class InvestmentService {
         return investmentDao.save(investment);
     }
 
-    public Investment getnvestmentById(long id) {
+    public void deleteInvestment(long id) {
+        investmentDao.delete(id);
+    }
+
+    public Investment getInvestmentById(long id) {
         return investmentDao.findOne(id);
     }
 
