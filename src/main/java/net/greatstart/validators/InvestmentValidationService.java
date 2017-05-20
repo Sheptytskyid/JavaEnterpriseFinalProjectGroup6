@@ -25,7 +25,8 @@ public class InvestmentValidationService {
         if (sum.compareTo(minInvestment) < 0) {
             return WRONG_MIN_VALUE + minInvestment;
         }
-        if (sum.divideAndRemainder(minInvestment)[1].compareTo(BigDecimal.ZERO) != 0) {
+        if (sum.compareTo(BigDecimal.ZERO) != 0
+                && sum.divideAndRemainder(minInvestment)[1].compareTo(BigDecimal.ZERO) != 0) {
             return WRONG_STEP_VALUE + minInvestment;
         }
         if (sum.compareTo(maxInvestment) > 0) {

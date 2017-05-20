@@ -70,9 +70,6 @@ public class InvestmentControllerTest {
         user.setName("Ivan");
         user.setLastName("Mazepa");
         user.setEmail(TEST_EMAIL);
-        when(principal.getName()).thenReturn(TEST_EMAIL);
-        when(userService.getUserByEmail(TEST_EMAIL)).thenReturn(user);
-        user.setInvestments(investments);
         mvc = standaloneSetup(investmentController).build();
         project = new Project();
         Investment investment1 = new Investment();
@@ -81,6 +78,7 @@ public class InvestmentControllerTest {
         investment2.setSum(new BigDecimal(2000));
         investments = Arrays.asList(investment1, investment2);
         project.setInvestments(investments);
+        user.setInvestments(investments);
     }
 
     @Test(timeout = 2000)
@@ -98,7 +96,7 @@ public class InvestmentControllerTest {
         when(principal.getName()).thenReturn(TEST_EMAIL);
         when(userService.getUserByEmail(TEST_EMAIL)).thenReturn(user);
         when(projectService.getProjectById(1)).thenReturn(project);
-        when(investmentValidationService.validate(new BigDecimal(2000), project))
+        when(investmentValidationService.validate(new BigDecimal(0), project))
                 .thenReturn(null);
         mvc.perform(post("/project/1/investment/add")
                 .principal(principal)
@@ -117,6 +115,9 @@ public class InvestmentControllerTest {
 
     @Test(timeout = 2000)
     public void saveInvalidInvestmentShouldReturnToAddInvestmentPage() throws Exception {
+        when(principal.getName()).thenReturn(TEST_EMAIL);
+        when(userService.getUserByEmail(TEST_EMAIL)).thenReturn(user);
+        when(projectService.getProjectById(1)).thenReturn(project);
         when(investmentValidationService.validate(new BigDecimal(2500), project))
                 .thenReturn("Some error.");
         mvc.perform(post("/project/1/investment/add")
@@ -153,6 +154,8 @@ public class InvestmentControllerTest {
 
     @Test(timeout = 2000)
     public void getAllUserInvestmentsShouldReturnPageWithAllInvestmentsOfCurrentUser() throws Exception {
+        when(principal.getName()).thenReturn(TEST_EMAIL);
+        when(userService.getUserByEmail(TEST_EMAIL)).thenReturn(user);
         when(userService.getUserById(1)).thenReturn(user);
         mvc.perform(get("/user/investments").principal(principal))
                 .andExpect(view().name(INVESTMENTS_VIEW))
