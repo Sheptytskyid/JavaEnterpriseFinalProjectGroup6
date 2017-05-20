@@ -6,7 +6,7 @@ var MainController = angular.module('greatStartApp')
                     templateUrl: 'views/main/LoginPage.html',
                     controller: 'LoginController',
                     size: 'sm',
-                    backdrop: true,
+                    backdrop: 'static',
                     scope: $scope
                 });
             };

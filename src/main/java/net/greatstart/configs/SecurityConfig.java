@@ -35,8 +35,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .httpBasic().and()
                 .authorizeRequests()
-                .antMatchers("/project/new", "/project/my", "/invinterest/add",
-                        "/invinterest", "/views/main/Help.html", "/views/user/UserPage.html",
+                .antMatchers("/project/new",
+                        "/project/my",
+                        "/invinterest/add",
+                        "/invinterest",
+                        "/views/main/Help.html",
+                        "/views/user/UserPage.html",
                         "/views/user/EditUser.html").authenticated()
                 .and()
                 .formLogin()
