@@ -26,27 +26,27 @@ public class InvestmentInterestServiceTest {
     private InvestmentInterestService invInterestService;
     private InvestmentInterest invInterest = new InvestmentInterest();
 
-    @Test(timeout = 2000)
+    @Test
     public void invokeInvestmentInterestDaoWhenSaveInvestmentInterest() {
         invInterestService.saveInvestmentInterest(invInterest);
         verify(investmentInterestDao, times(1)).save(invInterest);
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void invokeInvestmentInterestDaoWhenDeleteInvestmentInterest() {
         when(invInterestService.getInvestmentInterestById(ID)).thenReturn(invInterest);
         invInterestService.deleteInvestmentInterest(ID);
         verify(investmentInterestDao, times(1)).delete(invInterest);
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void returnEntityWhenGetInvestmentInterestById() {
         when(investmentInterestDao.findOne(ID)).thenReturn(invInterest);
         InvestmentInterest result = invInterestService.getInvestmentInterestById(ID);
         assertEquals(invInterest, result);
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void returnListOfInvestmentInterestWhenGetAll() {
         List<InvestmentInterest> investmentInterests = new ArrayList<>();
         investmentInterests.add(invInterest);

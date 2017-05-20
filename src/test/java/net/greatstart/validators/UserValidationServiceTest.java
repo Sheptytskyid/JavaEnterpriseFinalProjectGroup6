@@ -28,7 +28,7 @@ public class UserValidationServiceTest {
     @InjectMocks
     private UserValidationService userValidationService;
 
-    @Test
+    @Test(timeout = 2000)
     public void validate() throws Exception {
         DtoUser dtoUser = new DtoUser();
         dtoUser.setEmail(EMAIL);

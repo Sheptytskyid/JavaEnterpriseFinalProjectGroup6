@@ -19,7 +19,7 @@ public class PasswordValidationServiceTest {
     @InjectMocks
     private PasswordValidationService service;
 
-    @Test
+    @Test(timeout = 2000)
     public void validate() throws Exception {
         dtoUser.setPassword("1");
         dtoUser.setConfirmPassword("2");
