@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Template</title>
+
+    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/card.css" rel="stylesheet">
+    <link href="css/action.css" rel="stylesheet">
+    <link href="css/style-addpages.css" rel="stylesheet">
+
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+</head>
+<body>
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#responsive-menu">
+                <span class="sr-only">Menu</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Great<span class="fa fa-rocket fa-lg" aria-hidden="true">
+                <text/>
+            </span>Start</a>
+        </div>
+        <div class="collapse navbar-collapse" id="responsive-menu">
+            <ul class="nav navbar-nav navbar-left">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Events</a></li>
+                <li><a href="#">Projects</a></li>
+                <li>
+                    <form role="search" class="navbar-form navbar-left">
+                        <div class="form-group">
+                            <input type="text" placeholder="Search" class="form-control">
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container" style="margin-top: 10%;">
+    <div class="row">
+        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6 col-lg-offset-3">
+            <div class="panel-card panel-success-card">
+                <div class="text-center"><h3>Create event</h3></div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="name">Name</label>
+                                <div class="col-xs-12 col-md-8 col-lg-8" style="margin-bottom: 25px">
+                                    <input class="form-control" id="name" placeholder="Name"
+                                           name="name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="description">Description</label>
+                                <div class="col-xs-12 col-md-8 col-lg-8" style="margin-bottom: 25px">
+                                    <textarea class="form-control" id="description" style="resize: none;"
+                                              placeholder="Description" name="description"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="location">Location</label>
+                                <div class="col-xs-12 col-md-8 col-lg-8" style="margin-bottom: 25px">
+                                    <input id="location" name="location" type="text" placeholder="Location"
+                                           class="form-control input-md">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="date">Date and time of event</label>
+                                <div class="col-xs-12 col-md-8 col-lg-8" style="margin-bottom: 25px">
+                                    <input id="date" name="date" type="datetime-local" placeholder="Date and time"
+                                           class="form-control input-md">
+                                </div>
+                            </div>
+                            <div class="form-group text-right">
+                                <label class="col-md-4 control-label" for="singlebutton"></label>
+                                <div class="col-xs-12" style="margin-bottom: 5px">
+                                    <a href="#">
+                                        <button id="singlebutton" name="singlebutton" style="width: 85px"
+                                                class="btn btn-success">Add
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+</body>
+</html>

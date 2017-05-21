@@ -1,0 +1,89 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-success" style="border: 0">
+                <div class="panel-heading" style="background: #f5f5f5;border: 0">
+                    <a class="btn btn-edit pull-right" href="#!/user">
+                        <span class="glyphicon glyphicon-pencil"></span></a>
+                    <h4>User Profile</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4  hidden-xs">
+                            <div class="cropArea">
+                                <img-crop image="myImage" result-image="myCroppedImage"></img-crop>
+                            </div>
+                            <div>
+                                <label class="btn btn-default btn-file">
+                                    Browse <input accept="image/*" type="file" style="display: none;" id="fileInput">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+                            <div class="panel-info">
+                                <div class="panel-body">
+                                    <form method="POST" id="user_form"></form>
+                                    <div class="row">
+                                        <div class="col-md-offset-1 col-xs-12">
+                                            <table class="table">
+                                                <tr>
+                                                    <th>First name:</th>
+                                                    <td>
+                                                        <input type="text" placeholder="First name"
+                                                               class="form-control input-md"
+                                                               form="user_form">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Last name:</th>
+                                                    <td>
+                                                        <input type="text" placeholder="Last name"
+                                                               class="form-control input-md"
+                                                               form="user_form">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Email:</th>
+                                                    <td>
+                                                        <input type="text" placeholder="username@example.com"
+                                                               class="form-control input-md" form="user_form"
+                                                               readonly="true">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Phone:</th>
+                                                    <td>
+                                                        <input type="text" placeholder="" class="form-control input-md"
+                                                               form="user_form">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Address:</th>
+                                                    <td>
+                                                        <input type="text" placeholder="" class="form-control input-md"
+                                                               form="user_form">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th></th>
+                                                    <td>
+                                                        <div class="btn-group">
+                                                            <button class="btn btn-success"
+                                                                    type="submit" form="user_form">Save
+                                                            </button>
+                                                            <a class="btn btn-danger" href="#!/user">Cancel</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

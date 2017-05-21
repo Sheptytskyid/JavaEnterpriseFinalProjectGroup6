@@ -22,6 +22,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
@@ -31,23 +32,29 @@ public class UserControllerTest {
     private static final String SHOW_PROFILE = "user/UserPage";
     private static final String EDIT_PROFILE = "user/EditUserPage";
     private static final String ERROR_PROFILE = "redirect:/";
-    private static final long TEST_ID = 1L;
-    private static final String TEST_USER_PROFILE = "/user/" + TEST_ID;
+    private static final long ID = 1L;
+    private static final String TEST_USER_PROFILE = "/user/" + ID;
     private static final String TEST_EMAIL = "";
 
     @Mock
     private UserService userService;
     @Mock
     private UserConverterService userConverter;
-    @InjectMocks
-    private UserController controller;
-    private MockMvc mvc;
     @Mock
     private Principal principal;
     @Mock
     private BindingResult bindingResult;
     @Mock
     private MultipartFile file;
+    @InjectMocks
+    private UserController controller;
+    private MockMvc mvc;
+    private User user;
+
+    @Before
+    public void setUp() {
+        user = new User();
+    }
 
     @Before
     public void init() {
@@ -60,15 +67,14 @@ public class UserControllerTest {
                 .andExpect(view().name(SHOW_PROFILE));
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void showProfileAndVerifyInteractions() throws Exception {
-        User user = new User();
-        user.setId(TEST_ID);
-        when(userService.getUserById(TEST_ID)).thenReturn(user);
+        user.setId(ID);
+        when(userService.getUserById(ID)).thenReturn(user);
         when(userConverter.fromUserToDtoProfile(user)).thenReturn(new DtoUserProfile());
         mvc.perform(get(TEST_USER_PROFILE))
                 .andExpect(view().name(SHOW_PROFILE));
-        verify(userService).getUserById(TEST_ID);
+        verify(userService).getUserById(ID);
         verify(userConverter).fromUserToDtoProfile(user);
     }
 
@@ -80,14 +86,13 @@ public class UserControllerTest {
 
     @Test(timeout = 2000)
     public void getEditProfile() throws Exception {
-        User user = new User();
         user.setEmail(TEST_EMAIL);
-        when(userService.getUserById(TEST_ID)).thenReturn(user);
+        when(userService.getUserById(ID)).thenReturn(user);
         when(userConverter.fromUserToDtoProfile(user)).thenReturn(new DtoUserProfile());
         when(principal.getName()).thenReturn(TEST_EMAIL);
         mvc.perform(get(TEST_USER_PROFILE + "/edit").principal(principal))
                 .andExpect(view().name(EDIT_PROFILE));
-        verify(userService).getUserById(TEST_ID);
+        verify(userService).getUserById(ID);
         verify(userConverter).fromUserToDtoProfile(user);
     }
 
@@ -100,7 +105,7 @@ public class UserControllerTest {
     @Test(timeout = 2000)
     public void saveEditedProfileWrongUser() throws Exception {
         ModelAndView modelAndView = controller
-                .saveEditedProfile(TEST_ID, new DtoUserProfile(), bindingResult, principal, file);
+                .saveEditedProfile(ID, new DtoUserProfile(), bindingResult, principal, file);
 
         assertEquals("redirect:" + TEST_USER_PROFILE, modelAndView.getViewName());
         verify(userService).getUserByEmail(null);
@@ -110,13 +115,23 @@ public class UserControllerTest {
     public void saveEditedProfileCorrectUser() throws Exception {
         DtoUserProfile dtoUser = new DtoUserProfile();
         User user = new User();
-        user.setId(TEST_ID);
+        user.setId(ID);
         when(userService.getUserByEmail(null)).thenReturn(user);
-        when(userService.getUserById(TEST_ID)).thenReturn(user);
+        when(userService.getUserById(ID)).thenReturn(user);
         ModelAndView modelAndView = controller
-                .saveEditedProfile(TEST_ID, dtoUser, bindingResult, principal, file);
+                .saveEditedProfile(ID, dtoUser, bindingResult, principal, file);
         verify(userConverter).updateUserFromDto(user, dtoUser);
         verify(userService).updateUser(user);
         assertEquals("redirect:" + TEST_USER_PROFILE, modelAndView.getViewName());
+    }
+
+    @Test(timeout = 2000)
+    public void downloadPhoto() throws Exception {
+        byte[] bytes = new byte[] {0, 1, 0};
+        DtoUserProfile dtoUserProfile = new DtoUserProfile();
+        dtoUserProfile.setPhoto(bytes);
+        when(userService.getUserById(ID)).thenReturn(user);
+        when(userConverter.fromUserToDtoProfile(user)).thenReturn(dtoUserProfile);
+        mvc.perform(get("/user/photo/1")).andExpect(content().bytes(bytes));
     }
 }

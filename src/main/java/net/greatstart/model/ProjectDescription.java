@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.persistence.Lob;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
@@ -17,7 +18,7 @@ public class ProjectDescription {
     private String name;
 
     @Column(name = "cost")
-    private Integer cost;
+    private BigDecimal cost;
 
     @Column(name = "description")
     private String description;
@@ -29,7 +30,7 @@ public class ProjectDescription {
     private LocalDate addStart;
 
     @Column(name = "min_invest")
-    private Integer minInvestment;
+    private BigDecimal minInvestment;
 
     @Column(name = "verified")
     private Boolean isVerified;
@@ -39,6 +40,7 @@ public class ProjectDescription {
 
     @Column(name = "other")
     private String other;
+
     @Column(name = "logo_url")
     private String logotype;
 

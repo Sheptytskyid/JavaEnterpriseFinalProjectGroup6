@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" ng-cloak ng-app="greatStartApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GreatStart</title>
+
+    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/card.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/action.css" rel="stylesheet">
+    <link href="css/ng-img-crop.css" rel="stylesheet">
+
+
+</head>
+<body>
+<div ng-include="'views/main/Navbar.html'"></div>
+
+<!--Placeholder for views-->
+<div>
+    <div ng-view></div>
+</div>
+
+
+<script src="js/vendor/angular.js"></script>
+<script src="js/vendor/angular-animate.js"></script>
+<script src="js/vendor/angular-route.js"></script>
+<script src="js/vendor/angular-sanitize.js"></script>
+<script src="js/vendor/ng-img-crop.js"></script>
+<script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="js/vendor/bootstrap.js"></script>
+<script src="app/controllers/controllers.js"></script>
+<script src="app/service/UserService.js"></script>
+<script src="views/main/MainController.js"></script>
+<script src="views/main/LoginController.js"></script>
+<script src="views/interest/InterestController.js"></script>
+<script src="views/project/ProjectController.js"></script>
+<script src="views/event/EventController.js"></script>
+<script src="views/user/UserController.js"></script>
+</body>
+</html>

@@ -1,6 +1,8 @@
 package net.greatstart.model;
 
 import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -49,13 +51,15 @@ public class User extends AbstractModel {
     @Embedded
     private Contact contact;
 
-    @OneToMany(mappedBy = "inv", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "investor", fetch = FetchType.LAZY)
+
     private List<Investment> investments;
 
-    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
     private List<Project> ownedProjects;
 
-    @OneToMany(mappedBy = "investor", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "investor")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<InvestmentInterest> investmentInterests;
 
 }

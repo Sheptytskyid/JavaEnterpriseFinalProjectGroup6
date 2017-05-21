@@ -61,6 +61,11 @@ public class UserService {
         return users;
     }
 
+    public User changeUserPassword(User user, String password) {
+        user.setPassword(password);
+        return userDao.save(user);
+    }
+
     public User getUserByEmail(String email) {
         return userDao.findByEmail(email);
     }

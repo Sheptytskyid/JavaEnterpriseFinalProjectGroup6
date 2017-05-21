@@ -1,0 +1,30 @@
+<div ng-controller="LoginController">
+    <div class="modal-header">
+        <h4 class="modal-title">Registration
+            <button class="close" type="button" ng-click="close()">
+                <span class="fa fa-close"></span>
+            </button>
+        </h4>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <form role="form" ng-submit="login()">
+            <div class="form-group">
+                <label for="email">Login:</label>
+                <input type="text" class="form-control" placeholder="login" id="email" name="email"
+                       ng-model="credentials.email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" placeholder="password" id="password" name="password"
+                       ng-model="credentials.password">
+            </div>
+            <div class="alert alert-danger" ng-show="error">
+                Username or password is incorrect
+            </div>
+            <button type="submit" class="btn btn-success">Login</button>
+            <a href="#!/createAccount" class="btn btn-primary" ng-click="close()">
+                <span class="fa fa-user-circle-o"></span> Create an account
+            </a>
+        </form>
+    </div>
+</div>
