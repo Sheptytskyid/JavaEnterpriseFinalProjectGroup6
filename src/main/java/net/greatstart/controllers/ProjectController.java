@@ -1,12 +1,14 @@
 package net.greatstart.controllers;
 
 import net.greatstart.dto.DtoProject;
+import net.greatstart.mappers.ProjectMapper;
 import net.greatstart.model.Investment;
 import net.greatstart.model.Project;
 import net.greatstart.model.User;
 import net.greatstart.services.ProjectService;
 import net.greatstart.services.UserService;
-import net.greatstart.services.converters.ProjectConverterService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
@@ -20,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
@@ -31,17 +34,20 @@ public class ProjectController {
     private static final String PROJECTS = "project/projects";
     private static final String PROJECT = "dtoProject";
 
+    private final Logger logger = LoggerFactory.getLogger(ProjectController.class);
+
     private ProjectService projectService;
     private UserService userService;
-    private ProjectConverterService projectConverter;
+
+    private ProjectMapper projectMapper;
 
     @Autowired
     public ProjectController(ProjectService projectService,
                              UserService userService,
-                             ProjectConverterService projectConverter) {
+                             ProjectMapper projectMapper) {
         this.projectService = projectService;
         this.userService = userService;
-        this.projectConverter = projectConverter;
+        this.projectMapper = projectMapper;
     }
 
     @RequestMapping({"", "/"})
@@ -90,8 +96,9 @@ public class ProjectController {
         if (errors.hasErrors()) {
             return new ModelAndView("project/add_project");
         }
+        saveImage(dtoProject, file);
         User owner = userService.getUserByEmail(principal.getName());
-        Project project = projectConverter.newProjectFromDto(dtoProject, file);
+        Project project = projectMapper.projectFromDto(dtoProject);
         project.setOwner(owner);
         projectService.saveProject(project);
         return new ModelAndView(REDIRECT_TO_PROJECTS);
@@ -102,7 +109,7 @@ public class ProjectController {
         if (id > 0) {
             ModelAndView model = new ModelAndView("project/update_project");
             Project project = projectService.getProjectById(id);
-            model.addObject(PROJECT, projectConverter.fromProjectToDto(project));
+            model.addObject(PROJECT, projectMapper.fromProjectToDto(project));
             return model;
         }
         return new ModelAndView(PROJECTS);
@@ -114,8 +121,8 @@ public class ProjectController {
         if (errors.hasErrors()) {
             return new ModelAndView("project/update_project");
         }
-        Project project = projectService.getProjectById(id);
-        projectConverter.updateProjectFromDto(project, dtoProject, file);
+        saveImage(dtoProject, file);
+        Project project = projectMapper.projectFromDto(dtoProject);
         projectService.saveProject(project);
         return new ModelAndView(REDIRECT_TO_PROJECTS);
     }
@@ -126,11 +133,26 @@ public class ProjectController {
         return new ModelAndView(REDIRECT_TO_PROJECTS);
     }
 
+    private void saveImage(DtoProject dtoProject, MultipartFile image) {
+        if (image != null && !image.isEmpty()) {
+            byte[] content = null;
+            try {
+                logger.info("File name: " + image.getName());
+                logger.info("File size: " + image.getSize());
+                logger.info("File content type: " + image.getContentType());
+                content = image.getBytes();
+            } catch (IOException e) {
+                logger.error("Error saving upload file", e);
+            }
+            dtoProject.getDesc().setImage(content);
+        }
+    }
+
     @GetMapping(value = "/{id}/image")
     @ResponseBody
     public byte[] downloadImage(@PathVariable("id") Long id) {
-        DtoProject project = projectConverter.fromProjectToDto(projectService.getProjectById(id));
-        return project.getImage();
+        DtoProject project = projectMapper.fromProjectToDto(projectService.getProjectById(id));
+        return project.getDesc().getImage();
     }
 
 }

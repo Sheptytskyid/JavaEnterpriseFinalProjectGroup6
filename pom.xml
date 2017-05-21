@@ -22,6 +22,7 @@
         <!--Project dependencies, that differs from spring-boot-starter standard versions-->
         <flyway-core.version>4.2.0</flyway-core.version>
         <hibernate-core.version>5.2.10.Final</hibernate-core.version>
+        <org.mapstruct.version>1.2.0.Beta2</org.mapstruct.version>
     </properties>
 
     <dependencies>
@@ -94,6 +95,17 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-java8</artifactId>
             <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${org.mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>${org.mapstruct.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
