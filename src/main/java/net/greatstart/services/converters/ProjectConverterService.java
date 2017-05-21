@@ -47,21 +47,25 @@ public class ProjectConverterService {
     }
 
     public void updateProjectFromDto(Project project, DtoProject dtoProject, MultipartFile image) {
-        saveImage(dtoProject, image);
-        ProjectDescription desc = getProjectDescFromDto(dtoProject);
-        project.setDesc(desc);
-        Category category = categoryService.findCategoryByName(dtoProject.getCategory());
-        project.setCategory(category);
+        if (dtoProject != null) {
+            saveImage(dtoProject, image);
+            ProjectDescription desc = getProjectDescFromDto(dtoProject);
+            project.setDesc(desc);
+            Category category = categoryService.findCategoryByName(dtoProject.getCategory());
+            project.setCategory(category);
+        }
     }
 
     public Project newProjectFromDto(DtoProject dtoProject, MultipartFile image) {
-        saveImage(dtoProject, image);
         Project project = new Project();
-        ProjectDescription desc = getProjectDescFromDto(dtoProject);
-        desc.setAddDate(LocalDate.now());
-        Category category = categoryService.findCategoryByName(dtoProject.getCategory());
-        project.setCategory(category);
-        project.setDesc(desc);
+        if (dtoProject != null) {
+            saveImage(dtoProject, image);
+            ProjectDescription desc = getProjectDescFromDto(dtoProject);
+            desc.setAddDate(LocalDate.now());
+            Category category = categoryService.findCategoryByName(dtoProject.getCategory());
+            project.setCategory(category);
+            project.setDesc(desc);
+        }
         return project;
     }
 
@@ -81,7 +85,7 @@ public class ProjectConverterService {
     }
 
     private void saveImage(DtoProject dtoProject, MultipartFile image) {
-        if (!image.isEmpty()) {
+        if (image != null && !image.isEmpty()) {
             byte[] content = null;
             try {
                 logger.info("File name: " + image.getName());
