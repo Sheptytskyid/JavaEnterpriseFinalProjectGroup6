@@ -18,14 +18,10 @@ import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -150,7 +146,7 @@ public class ProjectControllerTest {
         Project project = new Project();
         ProjectDescription desc = new ProjectDescription();
         byte[] photo = {0, 1, 1, 1, 0};
-        desc.setPhoto(photo);
+        desc.setImage(photo);
         project.setDesc(desc);
         when(projectService.getProjectById(1L)).thenReturn(project);
         mockMvc.perform(get("/project/photo/1"))

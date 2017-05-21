@@ -1,4 +1,4 @@
-package net.greatstart.services;
+package net.greatstart.services.converters;
 
 import net.greatstart.dto.DtoUserProfile;
 import net.greatstart.model.Contact;

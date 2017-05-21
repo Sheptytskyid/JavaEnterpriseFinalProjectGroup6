@@ -2,8 +2,8 @@ package net.greatstart.controllers;
 
 import net.greatstart.dto.DtoUserProfile;
 import net.greatstart.model.User;
-import net.greatstart.services.UserConverterService;
 import net.greatstart.services.UserService;
+import net.greatstart.services.converters.UserConverterService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
