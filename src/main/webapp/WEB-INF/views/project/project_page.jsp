@@ -141,7 +141,7 @@
 			<div class="item">
 				<div class="thumbnail">
 					<c:choose>
-						<c:when test="${project.desc.photo == null}">
+						<c:when test="${project.desc.image == null}">
 							<img src="http://placehold.it/800x450" alt="" class="img-responsive">
 						</c:when>
 						<c:otherwise>

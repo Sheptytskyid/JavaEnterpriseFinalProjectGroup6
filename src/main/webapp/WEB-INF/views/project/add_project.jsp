@@ -28,47 +28,47 @@
 
 <div class="container">
 
-    <form:form method="POST" modelAttribute="project" class="form-signin">
+    <form:form method="POST" modelAttribute="dtoProject" class="form-signin">
         <h2 class="form-signin-heading">Add a project</h2>
-        <spring:bind path="desc.name">
+        <spring:bind path="name">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="desc.name" class="form-control" placeholder="Project name"
+                <form:input type="text" path="name" class="form-control" placeholder="Project name"
                             autofocus="true"></form:input>
-                <form:errors path="desc.name"></form:errors>
+                <form:errors path="name"></form:errors>
             </div>
         </spring:bind>
 
-        <spring:bind path="desc.description">
+        <spring:bind path="description">
             <div class="form-group">
-                <form:textarea type="text" path="desc.description" class="form-control" placeholder="Description"></form:textarea>
+                <form:textarea type="text" path="description" class="form-control" placeholder="Description"></form:textarea>
             </div>
         </spring:bind>
 
-        <spring:bind path="desc.goal">
+        <spring:bind path="goal">
             <div class="form-group">
-                <form:input type="text" path="desc.goal" class="form-control" placeholder="Goal"></form:input>
+                <form:input type="text" path="goal" class="form-control" placeholder="Goal"></form:input>
             </div>
         </spring:bind>
 
-        <spring:bind path="category.name">
+        <spring:bind path="category">
             <div class="form-group">
-                <form:input type="text" path="category.name" class="form-control" placeholder="Category"></form:input>
+                <form:input type="text" path="category" class="form-control" placeholder="Category"></form:input>
             </div>
         </spring:bind>
 
-        <spring:bind path="desc.cost">
+        <spring:bind path="cost">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="desc.cost" class="form-control"
+                <form:input type="text" path="cost" class="form-control"
                             placeholder="Total cost"></form:input>
-                <form:errors path="desc.cost"></form:errors>
+                <form:errors path="cost"></form:errors>
             </div>
         </spring:bind>
 
-        <spring:bind path="desc.minInvestment">
+        <spring:bind path="minInvestment">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="desc.minInvestment" class="form-control"
+                <form:input type="text" path="minInvestment" class="form-control"
                             placeholder="Minimum investment"></form:input>
-                <form:errors path="desc.minInvestment"></form:errors>
+                <form:errors path="minInvestment"></form:errors>
             </div>
         </spring:bind>
 

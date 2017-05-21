@@ -3,6 +3,7 @@ package net.greatstart.services;
 import net.greatstart.dto.DtoUserProfile;
 import net.greatstart.model.Contact;
 import net.greatstart.model.User;
+import net.greatstart.services.converters.UserConverterService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -46,6 +46,7 @@ public class ProjectDescription {
 
     @Basic(fetch = FetchType.LAZY)
     @Lob
-    @Column(name = "photo")
-    private byte[] photo;
+    @Column(name = "image")
+    private byte[] image;
+
 }
