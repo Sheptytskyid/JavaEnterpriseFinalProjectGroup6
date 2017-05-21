@@ -14,7 +14,7 @@ var UserController = angular.module('greatStartApp')
         $scope.myCroppedImage = '';
 
         $scope.user = {};
-        $http.get('http://localgost:8080/api/user/1').then(function (success) {
+        $http.get('http://localhost:8080/api/user/1').then(function (success) {
             $scope.user = success.data;
         });
 
