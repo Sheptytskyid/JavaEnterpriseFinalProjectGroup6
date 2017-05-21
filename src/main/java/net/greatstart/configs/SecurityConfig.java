@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -26,27 +27,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-            .userDetailsService(new GreatStartUserDetailsService(userService))
-            .passwordEncoder(passwordEncoder());
+                .userDetailsService(new GreatStartUserDetailsService(userService))
+                .passwordEncoder(passwordEncoder());
     }
 
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .authorizeRequests()
-            .antMatchers("/project/new", "/project/my", "/invinterest/add", "/invinterest").authenticated()
-            .and()
-            .formLogin()
-            .loginPage("/user/login")
-            .usernameParameter("email")
-            // TODO: change the routing when home page is ready
-            .defaultSuccessUrl("/project/")
-            .and()
-            .logout()
-            .logoutSuccessUrl("/user/login")
-            .and()
-            .rememberMe()
-            .key("greatStartKey")
-            .rememberMeParameter("remember-me");
+                .httpBasic().and()
+                .authorizeRequests()
+                .antMatchers("/project/new",
+                        "/project/my",
+                        "/invinterest/add",
+                        "/invinterest",
+                        "/views/main/Help.html",
+                        "/views/user/UserPage.html",
+                        "/views/user/EditUser.html").authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/user/login")
+                .usernameParameter("email")
+                // TODO: change the routing when home page is ready
+                .defaultSuccessUrl("/")
+                .and()
+                .logout()
+                .logoutSuccessUrl("/")
+                .and()
+                .rememberMe()
+                .key("greatStartKey")
+                .rememberMeParameter("remember-me").and()
+                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }
 
     @Bean

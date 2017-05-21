@@ -1,6 +1,6 @@
 var mainApp = angular.module('greatStartApp', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.bootstrap', 'ngImgCrop']);
 
-mainApp.config(function ($routeProvider) {
+mainApp.config(function ($routeProvider, $httpProvider) {
     $routeProvider
         .when('/',
             {
@@ -15,15 +15,24 @@ mainApp.config(function ($routeProvider) {
         .when('/help',
             {
                 controller: 'MainController',
-                templateUrl: 'views/main/Help.html'
+                templateUrl: 'views/main/Help.html',
+                resolve: {
+                    checkIfUserLogon: checkIfUserHasSession
+                }
             })
         .when('/user', {
             controller: 'UserController',
-            templateUrl: 'views/user/UserPage.html'
+            templateUrl: 'views/user/UserPage.html',
+            resolve: {
+                checkIfUserLogon: checkIfUserHasSession
+            }
         })
         .when('/editUser', {
             controller: 'UserController',
-            templateUrl: 'views/user/EditUser.html'
+            templateUrl: 'views/user/EditUser.html',
+            resolve: {
+                checkIfUserLogon: checkIfUserHasSession
+            }
         })
         .when('/projects', {
             controller: 'ProjectController',
@@ -47,6 +56,16 @@ mainApp.config(function ($routeProvider) {
         })
         .when('/under_construction', {
             templateUrl: 'views/other/UnderConstruction.html'
+
         })
         .otherwise({redirectTo: '/'});
+
+    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+
+    function checkIfUserHasSession($location, $rootScope) {
+        if (!$rootScope.authenticated) {
+            $location.path('/');
+        }
+    }
+
 });
