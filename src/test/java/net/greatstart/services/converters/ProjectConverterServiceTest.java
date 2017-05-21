@@ -4,6 +4,7 @@ import net.greatstart.dto.DtoProject;
 import net.greatstart.model.Category;
 import net.greatstart.model.Project;
 import net.greatstart.model.ProjectDescription;
+import net.greatstart.model.User;
 import net.greatstart.services.CategoryService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,6 +47,7 @@ public class ProjectConverterServiceTest {
     public void fromValidProjectToDto() throws Exception {
         Project project = new Project();
         ProjectDescription desc = new ProjectDescription();
+        project.setOwner(new User());
         desc.setAddDate(DATE_ADDED);
         desc.setAddStart(DATE_START);
         desc.setName(NAME);
@@ -54,6 +56,9 @@ public class ProjectConverterServiceTest {
         desc.setDescription(DESC);
         desc.setCost(COST);
         desc.setMinInvestment(MIN_INVESTMENT);
+        desc.setIsVerified(true);
+        desc.setOther("");
+        desc.setLogotype("");
         project.setDesc(desc);
         Category category = new Category();
         category.setName(CATEGORY);
