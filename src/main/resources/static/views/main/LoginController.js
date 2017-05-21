@@ -1,16 +1,16 @@
 var loginController = angular.module('greatStartApp')
     .controller('LoginController',
-        function (userService, $rootScope, $scope, $http, $location) {
+        function (loginService, $rootScope, $scope) {
 
             $scope.close = function () {
                 $scope.modalInstance.close();
             };
 
-            userService.authenticate();
+            loginService.authenticate();
 
             $scope.credentials = {};
             $scope.login = function () {
-                userService.authenticate($scope.credentials, function () {
+                loginService.authenticate($scope.credentials, function () {
                     if ($rootScope.authenticated) {
                         //if login success
                         $scope.error = false;

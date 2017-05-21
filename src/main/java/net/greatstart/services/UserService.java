@@ -52,6 +52,7 @@ public class UserService {
     }
 
     public User getUserById(long id) {
+        System.out.println("return user by id "+ id);
         return userDao.findOne(id);
     }
 

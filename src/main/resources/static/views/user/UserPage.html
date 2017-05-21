@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" ng-controller="UserController">
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-success" style="border:0">
@@ -20,23 +20,23 @@
                                 <table class="table">
                                     <tr>
                                         <th>First name:</th>
-                                        <td>User`s First Name</td>
+                                        <td>{{user.name}}</td>
                                     </tr>
                                     <tr>
                                         <th>Last name:</th>
-                                        <td>User`s Last Name</td>
+                                        <td>{{user.lastName}}</td>
                                     </tr>
                                     <tr>
                                         <th>Email:</th>
-                                        <td>User`s username</td>
+                                        <td>{{user.email}}</td>
                                     </tr>
                                     <tr>
                                         <th>Phone:</th>
-                                        <td>User`s phone</td>
+                                        <td>{{user.phoneNumber}}</td>
                                     </tr>
                                     <tr>
                                         <th>Address:</th>
-                                        <td>User`s address</td>
+                                        <td>{{user.address}}</td>
                                     </tr>
                                     <tr>
                                         <th></th>

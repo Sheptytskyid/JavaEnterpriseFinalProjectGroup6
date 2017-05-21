@@ -1,22 +1,31 @@
-var userService = angular.module('greatStartApp')
-    .factory('userService', function ($rootScope, $http) {
-        return {
-            authenticate: function (credentials, callback) {
+angular.module('greatStartApp')
+    .factory('userService', function ($http, $q) {
+        var factory = {
+            getUser: getUser,
+            updateUser: updateUser
 
-                var headers = credentials ? {
-                    authorization: "Basic " + btoa(credentials.email + ":" + credentials.password)
-                } : {};
-                $http.get('user', {headers: headers}).then(function (response) {
-                    if (response.data.name) {
-                        $rootScope.authenticated = true;
-                    } else {
-                        $rootScope.authenticated = false;
-                    }
-                    callback && callback();
-                }, function () {
-                    $rootScope.authenticated = false;
-                    callback && callback();
+        };
+        return factory;
+
+        function getUser(id) {
+            var def = $q.defer();
+            $http.get('http://localgost:8080/api/user/' + id)
+                .then(function (success) {
+                    def.resolve(success.data);
+                }, function (error) {
+                    def.reject(error)
                 });
-            }
+            return def;
+        }
+
+        function updateUser(id) {
+            var def = $q.defer();
+            $http.put('http://localgost:8080/api/user/' + id)
+                .then(function (success) {
+                    def.resolve(success.data);
+                }, function (error) {
+                    def.reject(error);
+                });
+            return def.promise;
         }
     });
