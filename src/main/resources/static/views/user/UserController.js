@@ -1,10 +1,5 @@
 var UserController = angular.module('greatStartApp')
-    .controller('UserController', ['$scope', 'userService', '$http', function ($scope, $http, userService) {
-
-        $scope.user = {};
-        $http.get('http://localgost:8080/api/user/1').then(function (success) {
-            $scope.user = success.data;
-        });
+    .controller('UserController', ['$scope', 'userService', '$http', function ($scope, userService, $http) {
 
         // $scope.submit = ngSubmit;
         // $scope.updateUser = updateUser;
@@ -12,11 +7,12 @@ var UserController = angular.module('greatStartApp')
         $scope.flag = false;
         $scope.myImage = '';
         $scope.myCroppedImage = '';
-
         $scope.user = {};
         $http.get('http://localhost:8080/api/user/1').then(function (success) {
             $scope.user = success.data;
         });
+
+        // $scope.user = userService.getUser(1);
 
         // function updateUser(user, id) {
         //     userService.updateUser(user, id)
@@ -30,7 +26,7 @@ var UserController = angular.module('greatStartApp')
         // function getUser(id) {
         //     userService.getUser(id).then(
         //         function (user) {
-        //             $scope.user = user;
+        //             return user;
         //         }
         //     )
         // }

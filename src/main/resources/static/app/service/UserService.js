@@ -1,5 +1,5 @@
 angular.module('greatStartApp')
-    .factory('userService', function ($http, $q) {
+    .factory('userService', function ($http) {
         var factory = {
             getUser: getUser,
             updateUser: updateUser
@@ -8,24 +8,18 @@ angular.module('greatStartApp')
         return factory;
 
         function getUser(id) {
-            var def = $q.defer();
-            $http.get('http://localgost:8080/api/user/' + id)
-                .then(function (success) {
-                    def.resolve(success.data);
-                }, function (error) {
-                    def.reject(error)
-                });
-            return def;
+            var user =
+                $http.get('http://localhost:8080/api/user/' + id)
+                    .then(function (success) {
+                        user = success.data;
+                    });
+            return user;
         }
 
         function updateUser(id) {
-            var def = $q.defer();
-            $http.put('http://localgost:8080/api/user/' + id)
+            $http.put('http://localhost:8080/api/user/' + id)
                 .then(function (success) {
-                    def.resolve(success.data);
-                }, function (error) {
-                    def.reject(error);
+                    return success;
                 });
-            return def.promise;
         }
     });
