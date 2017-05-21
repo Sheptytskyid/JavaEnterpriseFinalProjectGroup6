@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -83,12 +85,13 @@ public class ProjectController {
     @PostMapping(value = "/new")
     public ModelAndView addProject(@Valid DtoProject dtoProject,
                                    Errors errors,
-                                   Principal principal) {
+                                   Principal principal,
+                                   @RequestParam(value = "file", required = false) MultipartFile file) {
         if (errors.hasErrors()) {
             return new ModelAndView("project/add_project");
         }
         User owner = userService.getUserByEmail(principal.getName());
-        Project project = projectConverter.newProjectFromDto(dtoProject);
+        Project project = projectConverter.newProjectFromDto(dtoProject, file);
         project.setOwner(owner);
         projectService.saveProject(project);
         return new ModelAndView(REDIRECT_TO_PROJECTS);
@@ -106,12 +109,13 @@ public class ProjectController {
     }
 
     @PostMapping(value = "/{id}/update")
-    public ModelAndView updateProject(@PathVariable Long id, @Valid DtoProject dtoProject, Errors errors) {
+    public ModelAndView updateProject(@PathVariable Long id, @Valid DtoProject dtoProject, Errors errors,
+                                      @RequestParam(value = "file", required = false) MultipartFile file) {
         if (errors.hasErrors()) {
             return new ModelAndView("project/update_project");
         }
         Project project = projectService.getProjectById(id);
-        projectConverter.updateProjectFromDto(project, dtoProject);
+        projectConverter.updateProjectFromDto(project, dtoProject, file);
         projectService.saveProject(project);
         return new ModelAndView(REDIRECT_TO_PROJECTS);
     }

@@ -1,10 +1,11 @@
 package net.greatstart.controllers;
 
+import net.greatstart.dto.DtoProject;
 import net.greatstart.model.Investment;
 import net.greatstart.model.Project;
-import net.greatstart.model.ProjectDescription;
 import net.greatstart.services.ProjectService;
 import net.greatstart.services.UserService;
+import net.greatstart.services.converters.ProjectConverterService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,6 +32,9 @@ public class ProjectControllerTest {
 
     @Mock
     private UserService userService;
+
+    @Mock
+    private ProjectConverterService projectConverter;
     @InjectMocks
     private ProjectController controller;
     private MockMvc mockMvc;
@@ -57,7 +61,6 @@ public class ProjectControllerTest {
         when(projectService.getProjectById(1L)).thenReturn(project);
         mockMvc.perform(get("/project/1"))
                 .andExpect(view().name("project/project_page"))
-                .andExpect(model().attribute("project", project))
                 .andExpect(model().attribute("investedAmount", new BigDecimal(579)));
     }
 
@@ -84,12 +87,12 @@ public class ProjectControllerTest {
     @Test(timeout = 2000)
     public void addProjectWithName() throws Exception {
         Project project = new Project();
-        ProjectDescription desc = new ProjectDescription();
-        desc.setName(TEST_PROJECT_NAME);
-        project.setDesc(desc);
+        DtoProject dtoProject = new DtoProject();
+        dtoProject.setName(TEST_PROJECT_NAME);
+        when(projectConverter.newProjectFromDto(dtoProject, null)).thenReturn(project);
         mockMvc.perform(post("/project/new")
                 .principal(principal)
-                .param("desc.name", TEST_PROJECT_NAME))
+                .param("name", TEST_PROJECT_NAME))
                 .andExpect(view().name(REDIRECT_TO_PROJECTS));
         verify(projectService, times(1)).saveProject(project);
     }
@@ -98,7 +101,7 @@ public class ProjectControllerTest {
     public void addEmptyProject() throws Exception {
         mockMvc.perform(post("/project/new")
                 .principal(principal))
-                .andExpect(view().name(REDIRECT_TO_PROJECTS));
+                .andExpect(view().name("project/add_project"));
         verify(projectService, times(0)).saveProject(null);
     }
 
@@ -124,12 +127,12 @@ public class ProjectControllerTest {
 
     @Test(timeout = 2000)
     public void updateProjectShouldReturnViewAndInvokeServiceMethod() throws Exception {
+        DtoProject dtoProject = new DtoProject();
+        dtoProject.setDescription(TEST_PROJECT_NAME);
         Project project = new Project();
-        ProjectDescription desc = new ProjectDescription();
-        desc.setName(TEST_PROJECT_NAME);
-        project.setDesc(desc);
+        when(projectService.getProjectById(2)).thenReturn(project);
         mockMvc.perform(post("/project/2/update")
-                .param("desc.name", TEST_PROJECT_NAME))
+                .param("name", TEST_PROJECT_NAME))
                 .andExpect(view().name(REDIRECT_TO_PROJECTS));
         verify(projectService, times(1)).saveProject(project);
     }
@@ -142,14 +145,14 @@ public class ProjectControllerTest {
     }
 
     @Test(timeout = 2000)
-    public void downloadPhoto() throws Exception {
-        Project project = new Project();
-        ProjectDescription desc = new ProjectDescription();
-        byte[] photo = {0, 1, 1, 1, 0};
-        desc.setImage(photo);
-        project.setDesc(desc);
-        when(projectService.getProjectById(1L)).thenReturn(project);
-        mockMvc.perform(get("/project/photo/1"))
+    public void downloadImage() throws Exception {
+        DtoProject project = new DtoProject();
+        byte[] photo = {90, 81, 81, 81, 90};
+        project.setImage(photo);
+        Project emptyProject = new Project();
+        when(projectService.getProjectById(1L)).thenReturn(emptyProject);
+        when(projectConverter.fromProjectToDto(emptyProject)).thenReturn(project);
+        mockMvc.perform(get("/project/1/image"))
                 .andExpect(content().bytes(photo));
 
     }
