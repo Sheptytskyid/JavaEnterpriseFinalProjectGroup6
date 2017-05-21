@@ -66,7 +66,7 @@ public class ProjectController {
     public ModelAndView showProject(@PathVariable Long id) {
         Project project = projectService.getProjectById(id);
         ModelAndView model = new ModelAndView("project/project_page");
-        model.addObject(PROJECT, project);
+        model.addObject("project", project);
         model.addObject("investedAmount",
                 projectService.getProjectById(id)
                         .getInvestments().stream()
