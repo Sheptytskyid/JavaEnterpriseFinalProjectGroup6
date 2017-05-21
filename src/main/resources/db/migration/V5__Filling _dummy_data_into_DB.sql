@@ -5,6 +5,9 @@ TRUNCATE TABLE startup_platform.users CASCADE;
 TRUNCATE TABLE startup_platform.user_types CASCADE;
 TRUNCATE TABLE startup_platform.roles CASCADE;
 TRUNCATE TABLE startup_platform.categories CASCADE;
+CREATE TABLE IF NOT EXISTS startup_platform.event (
+  id INTEGER NOT NULL PRIMARY KEY
+);
 TRUNCATE TABLE startup_platform.event CASCADE;
 
 DROP TABLE startup_platform.projects CASCADE;
@@ -66,6 +69,8 @@ CREATE TABLE IF NOT EXISTS startup_platform.investments (
 
 ALTER TABLE startup_platform.investments ADD COLUMN verified BOOLEAN NULL;
 ALTER TABLE startup_platform.investments ADD COLUMN paid BOOLEAN NULL;
+
+
 
 --   ----------------------------------------------------------------------------------------------
 -- Fill user_types table
