@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.mock.web.MockMultipartFile;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -34,6 +35,9 @@ public class ProjectConverterServiceTest {
 
     @Mock
     private CategoryService categoryService;
+
+    @Mock
+    private MockMultipartFile image;
 
     @InjectMocks
     private ProjectConverterService projectConverter;
@@ -84,7 +88,7 @@ public class ProjectConverterServiceTest {
         DtoProject dtoProject = new DtoProject();
         dtoProject.setId(ID);
         dtoProject.setName(NEW_NAME);
-        projectConverter.updateProjectFromDto(project, dtoProject, null);
+        projectConverter.updateProjectFromDto(project, dtoProject, image);
         assertEquals(NEW_NAME, project.getDesc().getName());
     }
 
@@ -101,7 +105,7 @@ public class ProjectConverterServiceTest {
         Category category = new Category();
         category.setName(CATEGORY);
         when(categoryService.findCategoryByName(CATEGORY)).thenReturn(category);
-        Project project = projectConverter.newProjectFromDto(dtoProject, null);
+        Project project = projectConverter.newProjectFromDto(dtoProject, image);
         assertNotNull(project);
         assertEquals(NAME, project.getDesc().getName());
         assertEquals(GOAL, project.getDesc().getGoal());
