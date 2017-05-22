@@ -3,8 +3,11 @@ package net.greatstart.controllers;
 import net.greatstart.dto.DtoProject;
 import net.greatstart.dto.DtoProjectDescription;
 import net.greatstart.mappers.ProjectMapper;
+import net.greatstart.model.Category;
 import net.greatstart.model.Investment;
 import net.greatstart.model.Project;
+import net.greatstart.model.ProjectDescription;
+import net.greatstart.model.User;
 import net.greatstart.services.ProjectService;
 import net.greatstart.services.UserService;
 import org.junit.Before;
@@ -20,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -70,6 +74,8 @@ public class ProjectControllerTest {
         List<Investment> investments = Arrays.asList(investment1, investment2);
         Project project = new Project();
         project.setInvestments(investments);
+        project.setOwner(new User());
+        project.setCategory(new Category());
         when(projectService.getProjectById(1L)).thenReturn(project);
         mockMvc.perform(get("/project/1"))
                 .andExpect(view().name("project/project_page"))
@@ -170,11 +176,32 @@ public class ProjectControllerTest {
         byte[] photo = {90, 81, 81, 81, 90};
         dtoDesc.setImage(photo);
         project.setDesc(dtoDesc);
-        Project emptyProject = new Project();
-        when(projectService.getProjectById(1L)).thenReturn(emptyProject);
-        when(projectMapper.fromProjectToDto(emptyProject)).thenReturn(project);
+        Project testProject = getTestProject();
+        when(projectService.getProjectById(1L)).thenReturn(testProject);
+        when(projectMapper.fromProjectToDto(testProject)).thenReturn(project);
         mockMvc.perform(get("/project/1/image"))
                 .andExpect(content().bytes(photo));
 
+    }
+
+    private Project getTestProject() {
+        Project project = new Project();
+        ProjectDescription desc = new ProjectDescription();
+        desc.setName(TEST_PROJECT_NAME);
+        desc.setLogotype("");
+        desc.setOther("");
+        desc.setIsVerified(false);
+        desc.setGoal("");
+        desc.setAddStart(LocalDate.now());
+        desc.setAddDate(LocalDate.now());
+        byte[] image = {0, 1, 1, 5, 1};
+        desc.setImage(image);
+        desc.setCost(new BigDecimal(10000));
+        desc.setMinInvestment(new BigDecimal(100));
+        project.setId(1L);
+        project.setDesc(desc);
+        project.setOwner(new User());
+        project.setCategory(new Category());
+        return project;
     }
 }
