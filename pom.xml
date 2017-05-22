@@ -150,6 +150,7 @@
                 <excludes>
                     <exclude>**/configs/**</exclude>
                     <exclude>**/*Main.*</exclude>
+                    <exclude>**/mappers/**</exclude>
                 </excludes>
                 </configuration>
                 <executions>

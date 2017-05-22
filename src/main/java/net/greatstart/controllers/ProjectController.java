@@ -5,6 +5,7 @@ import net.greatstart.mappers.ProjectMapper;
 import net.greatstart.model.Investment;
 import net.greatstart.model.Project;
 import net.greatstart.model.User;
+import net.greatstart.services.CategoryService;
 import net.greatstart.services.ProjectService;
 import net.greatstart.services.UserService;
 import org.slf4j.Logger;
@@ -38,16 +39,19 @@ public class ProjectController {
 
     private ProjectService projectService;
     private UserService userService;
+    private CategoryService categoryService;
 
     private ProjectMapper projectMapper;
 
     @Autowired
     public ProjectController(ProjectService projectService,
                              UserService userService,
-                             ProjectMapper projectMapper) {
+                             ProjectMapper projectMapper,
+                             CategoryService categoryService) {
         this.projectService = projectService;
         this.userService = userService;
         this.projectMapper = projectMapper;
+        this.categoryService = categoryService;
     }
 
     @RequestMapping({"", "/"})
