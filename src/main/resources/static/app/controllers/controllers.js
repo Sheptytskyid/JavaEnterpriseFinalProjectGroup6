@@ -54,9 +54,9 @@ mainApp.config(function ($routeProvider, $httpProvider) {
             controller: 'InterestController',
             templateUrl: 'views/interest/Interests.html'
         })
-        .when('/createAccount', {
-            controller: 'MainController',
-            templateUrl: 'views/main/CreateAccount.html'
+        .when('/under_construction', {
+            templateUrl: 'views/other/UnderConstruction.html'
+
         })
         .otherwise({redirectTo: '/'});
 
