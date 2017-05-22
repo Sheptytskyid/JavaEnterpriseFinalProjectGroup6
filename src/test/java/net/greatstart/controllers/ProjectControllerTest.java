@@ -139,13 +139,21 @@ public class ProjectControllerTest {
     @Test(timeout = 2000)
     public void updateProjectShouldReturnViewAndInvokeServiceMethod() throws Exception {
         DtoProject dtoProject = new DtoProject();
+        dtoProject.setId(1L);
         DtoProjectDescription dtoDesc = new DtoProjectDescription();
         dtoDesc.setDescription(TEST_PROJECT_NAME);
         dtoProject.setDesc(dtoDesc);
         Project project = new Project();
-        when(projectMapper.projectFromDto(any())).thenReturn(project);
-        ModelAndView view = controller.addProject(dtoProject, bindingResult, principal, multipartFile);
+        project.setId(1L);
+        when(projectMapper.projectFromDto(dtoProject)).thenReturn(project);
+        ModelAndView view = controller.updateProject(1L, dtoProject, bindingResult, multipartFile);
         verify(projectService, times(1)).saveProject(project);
+    }
+
+    @Test(timeout = 2000)
+    public void updateProjectInvalidProject() throws Exception {
+        mockMvc.perform(post("/project/1/update"))
+                .andExpect(view().name("project/update_project"));
     }
 
     @Test(timeout = 2000)

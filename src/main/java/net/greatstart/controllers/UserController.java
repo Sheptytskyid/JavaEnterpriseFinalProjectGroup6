@@ -47,6 +47,7 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView(SHOW_PROFILE);
         if (user != null) {
             DtoUserProfile dtoUser = userMapper.fromUserToDtoProfile(user);
+            dtoUser.setInitial(userService.getInitials(user.getName(), user.getLastName()));
             modelAndView.addObject(dtoUser);
         }
         return modelAndView;
@@ -60,6 +61,7 @@ public class UserController {
         if (entityUser != null && principal != null
                 && entityUser.getEmail().equals(principal.getName())) {
             DtoUserProfile user = userMapper.fromUserToDtoProfile(entityUser);
+            user.setInitial(userService.getInitials(entityUser.getName(), entityUser.getLastName()));
             modelAndView.addObject(user);
         } else {
             modelAndView = new ModelAndView(ERROR_PROFILE);
