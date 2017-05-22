@@ -24,10 +24,10 @@ public class ProjectDescription {
     private String description;
 
     @Column(name = "date_added")
-    private LocalDate addDate;
+    private LocalDate dateAdded;
 
     @Column(name = "date_start")
-    private LocalDate addStart;
+    private LocalDate dateStart;
 
     @Column(name = "min_invest")
     private BigDecimal minInvestment;

@@ -6,7 +6,6 @@ import net.greatstart.mappers.ProjectMapper;
 import net.greatstart.model.Category;
 import net.greatstart.model.Investment;
 import net.greatstart.model.Project;
-import net.greatstart.model.ProjectDescription;
 import net.greatstart.model.User;
 import net.greatstart.services.ProjectService;
 import net.greatstart.services.UserService;
@@ -23,10 +22,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
 import java.security.Principal;
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
+import static net.greatstart.MapperHelper.TEST_PROJECT_NAME;
+import static net.greatstart.MapperHelper.getTestProject;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -55,7 +55,6 @@ public class ProjectControllerTest {
 
     private MockMvc mockMvc;
     private final String REDIRECT_TO_PROJECTS = "redirect:/project/";
-    private final String TEST_PROJECT_NAME = "New project";
 
     private final String USERNAME = "";
     private Principal principal = () -> USERNAME;
@@ -181,26 +180,5 @@ public class ProjectControllerTest {
         mockMvc.perform(get("/project/1/image"))
                 .andExpect(content().bytes(photo));
 
-    }
-
-    private Project getTestProject() {
-        Project project = new Project();
-        ProjectDescription desc = new ProjectDescription();
-        desc.setName(TEST_PROJECT_NAME);
-        desc.setLogotype("");
-        desc.setOther("");
-        desc.setIsVerified(false);
-        desc.setGoal("");
-        desc.setAddStart(LocalDate.now());
-        desc.setAddDate(LocalDate.now());
-        byte[] image = {0, 1, 1, 5, 1};
-        desc.setImage(image);
-        desc.setCost(new BigDecimal(10000));
-        desc.setMinInvestment(new BigDecimal(100));
-        project.setId(1L);
-        project.setDesc(desc);
-        project.setOwner(new User());
-        project.setCategory(new Category());
-        return project;
     }
 }
