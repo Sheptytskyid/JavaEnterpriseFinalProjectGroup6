@@ -27,7 +27,7 @@ before_script:
 
 script:
   - mvn clean test jacoco:report coveralls:report
-  - mvn sonar:sonar
+  - sonar-scanner
 
 services:
   - postgresql
