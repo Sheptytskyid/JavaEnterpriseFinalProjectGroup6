@@ -9,9 +9,12 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-4  hidden-xs">
-                            <img class="img-responsive img-circle big-photo"
-                                 ng-src="http://vev.ru/uploads/images/00/07/64/2011/10/12/c26b1b.jpg" alt=""/>
+                        <div class="col-lg-4 col-md-4 col-sm-4  hidden-xs" ng-if="currentUser.photo!=null">
+                            <img  ng-if="currentUser.photo!=null" class="img-responsive img-circle big-photo"
+                                 ng-src="data:image/JPEG;base64,{{currentUser.photo}}" alt=""/>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4  hidden-xs" ng-if="currentUser.photo==null">
+                            <p class="initials-logo">{{currentUser.initial}}</p>
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                             <div class="panel-info">

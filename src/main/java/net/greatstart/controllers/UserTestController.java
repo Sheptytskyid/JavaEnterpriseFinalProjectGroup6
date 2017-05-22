@@ -16,7 +16,6 @@ import java.security.Principal;
 public class UserTestController {
     private UserService userService;
     private UserConverterService userConverter;
-//    private User currentUser;
 
     @Autowired
     public UserTestController(UserService userService, UserConverterService userConverter) {
@@ -30,15 +29,15 @@ public class UserTestController {
     }
 
     @GetMapping("/api/current")
-    public ResponseEntity<?> getUser(Principal principal) {
+    public DtoUserProfile getUser(Principal principal) {
         User user = userService.getUserByEmail(principal.getName());
         DtoUserProfile dtoUser = new DtoUserProfile();
         if (user != null) {
             dtoUser = userConverter.fromUserToDtoProfile(user);
-        } else {
-            return new ResponseEntity("User with id " + dtoUser.getId() + "notFound", HttpStatus.NOT_FOUND);
+//            return new ResponseEntity<DtoUserProfile>(dtoUser, HttpStatus.OK);
+            return dtoUser;
         }
-        return new ResponseEntity<DtoUserProfile>(dtoUser, HttpStatus.OK);
+        return dtoUser;
     }
 
     @PostMapping("/api/user/{id}")
