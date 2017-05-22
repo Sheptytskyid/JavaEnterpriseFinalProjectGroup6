@@ -104,7 +104,7 @@ public class ProjectControllerTest {
 
     @Test(timeout = 2000)
     public void addProjectWithName() throws Exception {
-        Project project = new Project();
+        Project project = getTestProject();
         DtoProject dtoProject = new DtoProject();
         DtoProjectDescription dtoDesc = new DtoProjectDescription();
         dtoDesc.setName(TEST_PROJECT_NAME);
@@ -149,8 +149,7 @@ public class ProjectControllerTest {
         DtoProjectDescription dtoDesc = new DtoProjectDescription();
         dtoDesc.setDescription(TEST_PROJECT_NAME);
         dtoProject.setDesc(dtoDesc);
-        Project project = new Project();
-        project.setId(1L);
+        Project project = getTestProject();
         when(projectMapper.projectFromDto(dtoProject)).thenReturn(project);
         ModelAndView view = controller.updateProject(1L, dtoProject, bindingResult, multipartFile);
         verify(projectService, times(1)).saveProject(project);
