@@ -20,20 +20,6 @@ mainApp.config(function ($routeProvider, $httpProvider) {
                     checkIfUserLogon: checkIfUserHasSession
                 }
             })
-        .when('/user', {
-            controller: 'UserController',
-            templateUrl: 'views/user/UserPage.html',
-            resolve: {
-                checkIfUserLogon: checkIfUserHasSession
-            }
-        })
-        .when('/editUser', {
-            controller: 'UserController',
-            templateUrl: 'views/user/EditUser.html',
-            resolve: {
-                checkIfUserLogon: checkIfUserHasSession
-            }
-        })
         .when('/projects', {
             controller: 'ProjectController',
             templateUrl: 'views/project/Projects.html'
@@ -57,6 +43,20 @@ mainApp.config(function ($routeProvider, $httpProvider) {
         .when('/under_construction', {
             templateUrl: 'views/other/UnderConstruction.html'
 
+        })
+        .when('/user/:id', {
+            controller: 'UserController',
+            templateUrl: 'views/user/UserPage.html',
+            resolve: {
+                checkIfUserLogon: checkIfUserHasSession
+            }
+        })
+        .when('/user/:id/edit', {
+            controller: 'UserController',
+            templateUrl: 'views/user/EditUser.html',
+            resolve: {
+                checkIfUserLogon: checkIfUserHasSession
+            }
         })
         .otherwise({redirectTo: '/'});
 

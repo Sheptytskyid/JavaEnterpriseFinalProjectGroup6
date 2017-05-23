@@ -8,12 +8,7 @@ import net.greatstart.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -45,8 +40,18 @@ public class UserRestController {
         return dtoUser;
     }
 
-    @PostMapping("/api/user/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable("id") long id, @RequestBody DtoUserProfile dtoUser) {
+    @GetMapping("/api/user/{id}")
+    public ResponseEntity<DtoUserProfile> getUserById(@PathVariable("id") long id) {
+        User user = userService.getUserById(id);
+        if (user != null) {
+            DtoUserProfile dtoUser = userConverter.fromUserToDtoProfile(user);
+            return new ResponseEntity<DtoUserProfile>(dtoUser, HttpStatus.OK);
+        }
+        return new ResponseEntity<DtoUserProfile>(HttpStatus.NOT_FOUND);
+    }
+
+    @PutMapping("/api/user/{id}")
+    public ResponseEntity<DtoUserProfile> updateUser(@PathVariable("id") long id, @RequestBody DtoUserProfile dtoUser) {
         DtoUserProfile currentDtoUser = new DtoUserProfile();
         User currentUser = userService.getUserById(id);
         if (currentUser != null && id == currentUser.getId()) {

@@ -19,6 +19,9 @@ var UserController = angular.module('greatStartApp')
 
 
         $scope.user = angular.copy($rootScope.currentUser);
+        $rootScope.$watch('currentUser', function () {
+            $scope.user = angular.copy($rootScope.currentUser);
+        });
 
         $scope.update = function (user) {
             User.update({id: user.id}, user, function () {
