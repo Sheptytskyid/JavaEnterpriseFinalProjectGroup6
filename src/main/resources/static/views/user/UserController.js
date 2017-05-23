@@ -1,28 +1,9 @@
 var UserController = angular.module('greatStartApp')
-    .controller('UserController', ['$scope', 'userService', '$http', function ($scope, userService) {
+    .controller('UserController', function ($scope, $rootScope, User) {
 
-        $scope.updateUser = updateUser;
-        // $scope.getCurrentUser = getCurrentUser;
         $scope.flag = false;
         $scope.myImage = '';
         $scope.myCroppedImage = '';
-
-        function updateUser(user, id) {
-            userService.updateUser(user, id)
-                .then(function (success) {
-                    $scope.user_form.$setPristine();
-                }, function (error) {
-
-                });
-        }
-
-        // function getCurrentUser() {
-        //     userService.getUser(id).then(
-        //         function (user) {
-        //             return user;
-        //         }
-        //     )
-        // }
 
         var handleFileSelect = function (evt) {
             var file = evt.currentTarget.files[0];
@@ -35,6 +16,38 @@ var UserController = angular.module('greatStartApp')
             reader.readAsDataURL(file);
         };
         angular.element(document.querySelector('#fileInput')).on('change', handleFileSelect);
-    }
-    ])
-;
+
+
+        $scope.user = angular.copy($rootScope.currentUser);
+
+        $scope.update = function (user) {
+            User.update({id: user.id}, user, function () {
+                User.get({id: user.id});
+            })
+        };
+
+        $scope.submit = function () {
+            if ($scope.user.id === null) {
+                console.log('Saving New User', $scope.user);
+                $scope.createUser();
+            } else {
+                console.log('Upddating user with id ', $scope.user.id);
+                $scope.update($scope.user);
+                console.log('User updated with id ', $scope.user.id);
+            }
+            $scope.reset();
+        };
+
+        $scope.reset = function () {
+            $scope.user = new User();
+            $scope.userForm.$setPristine();
+        };
+
+        $scope.getUser = function () {
+            User.get({id: $scope.user.id});
+        }
+
+        //TODO write create method for todo
+
+
+    });

@@ -1,4 +1,4 @@
-var mainApp = angular.module('greatStartApp', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.bootstrap', 'ngImgCrop']);
+var mainApp = angular.module('greatStartApp', ['ngRoute','ngResource', 'ngAnimate', 'ngSanitize', 'ui.bootstrap', 'ngImgCrop']);
 
 mainApp.config(function ($routeProvider, $httpProvider) {
     $routeProvider
