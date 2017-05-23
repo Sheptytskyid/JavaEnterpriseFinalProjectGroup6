@@ -27,9 +27,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -168,6 +166,12 @@ public class InvestmentControllerTest {
         mvc.perform(get("/investment/1/delete"))
                 .andExpect(view().name("redirect:/investment"));
         verify(investmentService, times(1)).deleteInvestment(1L);
+    }
+
+    @Test(timeout = 2000)
+    public void getInvestmentById() throws Exception {
+        mvc.perform(get("/investment/1"));
+        verify(investmentService).getInvestmentById(1L);
     }
 
     private Investment createInvestment(Project investmentProject, User user, BigDecimal sum) {
