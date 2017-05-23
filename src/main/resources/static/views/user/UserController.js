@@ -24,14 +24,28 @@ var UserController = angular.module('greatStartApp')
         };
         angular.element(document.querySelector('#fileInput')).on('change', handleFileSelect);
 
+        function dataURItoBlob(dataURI) {
+            var byteString = atob(dataURI.split(',')[1]);
+            var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+            var ab = new ArrayBuffer(byteString.length);
+            var ia = new Uint8Array(ab);
+            for (var i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+
+            var blob = new Blob([ab], {type: mimeString});
+            return blob;
+        }
+
 
         $scope.user = angular.copy($rootScope.currentUser);
         $rootScope.$watch('currentUser', function () {
             $scope.user = angular.copy($rootScope.currentUser);
-            console.log("From $rootScope", $scope.user);
+            console.log("Copy from $rootScope", $scope.user);
         });
 
         $scope.update = function (user) {
+            user.photo = dataURItoBlob($scope.myCroppedImage);
             User.update({id: user.id}, user, function () {
                 User.get({id: user.id});
             })
@@ -47,16 +61,10 @@ var UserController = angular.module('greatStartApp')
                 $scope.update($scope.user);
                 console.log('User updated with id ', $scope.user.id);
                 $scope.$emit('LOAD');
+                // $window.location.reload();
                 // $location.path('/user/:id', $scope.user.id);
-                $window.location.reload();
                 $scope.$emit('UNLOAD');
             }
-            // $scope.reset();
-        };
-
-        $scope.reset = function () {
-            $scope.user = new User();
-            $scope.userForm.$setPristine();
         };
 
         $scope.getUser = function () {
