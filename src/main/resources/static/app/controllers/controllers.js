@@ -1,4 +1,4 @@
-var mainApp = angular.module('greatStartApp', ['ngRoute','ngResource', 'ngAnimate', 'ngSanitize', 'ui.bootstrap', 'ngImgCrop']);
+var mainApp = angular.module('greatStartApp', ['ngRoute', 'ngResource', 'ngAnimate', 'ngSanitize', 'ui.bootstrap', 'ngImgCrop']);
 
 mainApp.config(function ($routeProvider, $httpProvider) {
     $routeProvider
@@ -44,6 +44,10 @@ mainApp.config(function ($routeProvider, $httpProvider) {
             templateUrl: 'views/other/UnderConstruction.html'
 
         })
+        .when('/createAccount', {
+            templateUrl: 'views/main/CreateAccount.html',
+            controller: 'UserController'
+        })
         .when('/user/:id', {
             controller: 'UserController',
             templateUrl: 'views/user/UserPage.html',
@@ -63,7 +67,7 @@ mainApp.config(function ($routeProvider, $httpProvider) {
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
     function checkIfUserHasSession($location, $rootScope) {
-        if ($rootScope.authenticated===false) {
+        if ($rootScope.authenticated === false) {
             $location.path('/');
         }
     }
