@@ -1,9 +1,16 @@
 var UserController = angular.module('greatStartApp')
-    .controller('UserController', function ($scope, $rootScope, User) {
+    .controller('UserController', function ($scope, $rootScope, User, $location, $window) {
 
         $scope.flag = false;
         $scope.myImage = '';
         $scope.myCroppedImage = '';
+
+        $scope.$on('LOAD', function () {
+            $scope.loading = true;
+        });
+        $scope.$on('UNLOAD', function () {
+            $scope.loading = false;
+        });
 
         var handleFileSelect = function (evt) {
             var file = evt.currentTarget.files[0];
@@ -21,6 +28,7 @@ var UserController = angular.module('greatStartApp')
         $scope.user = angular.copy($rootScope.currentUser);
         $rootScope.$watch('currentUser', function () {
             $scope.user = angular.copy($rootScope.currentUser);
+            console.log("From $rootScope", $scope.user);
         });
 
         $scope.update = function (user) {
@@ -34,11 +42,16 @@ var UserController = angular.module('greatStartApp')
                 console.log('Saving New User', $scope.user);
                 $scope.createUser();
             } else {
+
                 console.log('Upddating user with id ', $scope.user.id);
                 $scope.update($scope.user);
                 console.log('User updated with id ', $scope.user.id);
+                $scope.$emit('LOAD');
+                // $location.path('/user/:id', $scope.user.id);
+                $window.location.reload();
+                $scope.$emit('UNLOAD');
             }
-            $scope.reset();
+            // $scope.reset();
         };
 
         $scope.reset = function () {
