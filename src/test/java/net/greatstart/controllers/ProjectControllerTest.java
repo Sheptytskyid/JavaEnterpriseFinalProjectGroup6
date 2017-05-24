@@ -1,8 +1,12 @@
 package net.greatstart.controllers;
 
+import net.greatstart.dto.DtoProject;
+import net.greatstart.dto.DtoProjectDescription;
+import net.greatstart.mappers.ProjectMapper;
+import net.greatstart.model.Category;
 import net.greatstart.model.Investment;
 import net.greatstart.model.Project;
-import net.greatstart.model.ProjectDescription;
+import net.greatstart.model.User;
 import net.greatstart.services.ProjectService;
 import net.greatstart.services.UserService;
 import org.junit.Before;
@@ -11,21 +15,22 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static net.greatstart.MapperHelper.TEST_PROJECT_NAME;
+import static net.greatstart.MapperHelper.getTestProject;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -35,11 +40,21 @@ public class ProjectControllerTest {
 
     @Mock
     private UserService userService;
+
+    @Mock
+    ProjectMapper projectMapper;
+
+    @Mock
+    BindingResult bindingResult;
+
+    @Mock
+    MockMultipartFile multipartFile;
+
     @InjectMocks
     private ProjectController controller;
+
     private MockMvc mockMvc;
     private final String REDIRECT_TO_PROJECTS = "redirect:/project/";
-    private final String TEST_PROJECT_NAME = "New project";
 
     private final String USERNAME = "";
     private Principal principal = () -> USERNAME;
@@ -58,10 +73,11 @@ public class ProjectControllerTest {
         List<Investment> investments = Arrays.asList(investment1, investment2);
         Project project = new Project();
         project.setInvestments(investments);
+        project.setOwner(new User());
+        project.setCategory(new Category());
         when(projectService.getProjectById(1L)).thenReturn(project);
         mockMvc.perform(get("/project/1"))
                 .andExpect(view().name("project/project_page"))
-                .andExpect(model().attribute("project", project))
                 .andExpect(model().attribute("investedAmount", new BigDecimal(579)));
     }
 
@@ -87,14 +103,13 @@ public class ProjectControllerTest {
 
     @Test(timeout = 2000)
     public void addProjectWithName() throws Exception {
-        Project project = new Project();
-        ProjectDescription desc = new ProjectDescription();
-        desc.setName(TEST_PROJECT_NAME);
-        project.setDesc(desc);
-        mockMvc.perform(post("/project/new")
-                .principal(principal)
-                .param("desc.name", TEST_PROJECT_NAME))
-                .andExpect(view().name(REDIRECT_TO_PROJECTS));
+        Project project = getTestProject();
+        DtoProject dtoProject = new DtoProject();
+        DtoProjectDescription dtoDesc = new DtoProjectDescription();
+        dtoDesc.setName(TEST_PROJECT_NAME);
+        dtoProject.setDesc(dtoDesc);
+        when(projectMapper.projectFromDto(dtoProject)).thenReturn(project);
+        ModelAndView view = controller.addProject(dtoProject, bindingResult, principal, multipartFile);
         verify(projectService, times(1)).saveProject(project);
     }
 
@@ -102,7 +117,7 @@ public class ProjectControllerTest {
     public void addEmptyProject() throws Exception {
         mockMvc.perform(post("/project/new")
                 .principal(principal))
-                .andExpect(view().name(REDIRECT_TO_PROJECTS));
+                .andExpect(view().name("project/add_project"));
         verify(projectService, times(0)).saveProject(null);
     }
 
@@ -128,14 +143,21 @@ public class ProjectControllerTest {
 
     @Test(timeout = 2000)
     public void updateProjectShouldReturnViewAndInvokeServiceMethod() throws Exception {
-        Project project = new Project();
-        ProjectDescription desc = new ProjectDescription();
-        desc.setName(TEST_PROJECT_NAME);
-        project.setDesc(desc);
-        mockMvc.perform(post("/project/2/update")
-                .param("desc.name", TEST_PROJECT_NAME))
-                .andExpect(view().name(REDIRECT_TO_PROJECTS));
+        DtoProject dtoProject = new DtoProject();
+        dtoProject.setId(1L);
+        DtoProjectDescription dtoDesc = new DtoProjectDescription();
+        dtoDesc.setDescription(TEST_PROJECT_NAME);
+        dtoProject.setDesc(dtoDesc);
+        Project project = getTestProject();
+        when(projectMapper.projectFromDto(dtoProject)).thenReturn(project);
+        ModelAndView view = controller.updateProject(1L, dtoProject, bindingResult, multipartFile);
         verify(projectService, times(1)).saveProject(project);
+    }
+
+    @Test(timeout = 2000)
+    public void updateProjectInvalidProject() throws Exception {
+        mockMvc.perform(post("/project/1/update"))
+                .andExpect(view().name("project/update_project"));
     }
 
     @Test(timeout = 2000)
@@ -146,14 +168,16 @@ public class ProjectControllerTest {
     }
 
     @Test(timeout = 2000)
-    public void downloadPhoto() throws Exception {
-        Project project = new Project();
-        ProjectDescription desc = new ProjectDescription();
-        byte[] photo = {0, 1, 1, 1, 0};
-        desc.setPhoto(photo);
-        project.setDesc(desc);
-        when(projectService.getProjectById(1L)).thenReturn(project);
-        mockMvc.perform(get("/project/photo/1"))
+    public void downloadImage() throws Exception {
+        DtoProject project = new DtoProject();
+        DtoProjectDescription dtoDesc = new DtoProjectDescription();
+        byte[] photo = {90, 81, 81, 81, 90};
+        dtoDesc.setImage(photo);
+        project.setDesc(dtoDesc);
+        Project testProject = getTestProject();
+        when(projectService.getProjectById(1L)).thenReturn(testProject);
+        when(projectMapper.fromProjectToDto(testProject)).thenReturn(project);
+        mockMvc.perform(get("/project/1/image"))
                 .andExpect(content().bytes(photo));
 
     }
