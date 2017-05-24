@@ -44,7 +44,7 @@ public class UserRestController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/api/user/{id}")
+    @GetMapping(value = "/api/user/{id}")
     public ResponseEntity<DtoUserProfile> getUserById(@PathVariable("id") long id) {
         User user = userService.getUserById(id);
         if (user != null) {
@@ -58,15 +58,17 @@ public class UserRestController {
     public ResponseEntity<DtoUserProfile> updateUser(
             @PathVariable("id") long id,
             @Valid @RequestBody DtoUserProfile dtoUser) {
-        DtoUserProfile currentDtoUser = new DtoUserProfile();
+        DtoUserProfile currentDtoUser;
         User currentUser = userService.getUserById(id);
         if (currentUser != null && id == currentUser.getId()) {
             User entityUser = userMapper.fromDtoProfileToUser(dtoUser);
             entityUser.setPassword(currentUser.getPassword());
             userService.updateUser(entityUser);
             currentDtoUser = userMapper.fromUserToDtoProfile(entityUser);
+            return new ResponseEntity<>(currentDtoUser, HttpStatus.OK);
         }
-        return new ResponseEntity<>(currentDtoUser, HttpStatus.OK);
+        return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
     }
 
 }
