@@ -6,7 +6,7 @@ var userService = angular.module('greatStartApp')
                 var headers = credentials ? {
                     authorization: "Basic " + btoa(credentials.email + ":" + credentials.password)
                 } : {};
-                $http.get('user', {headers: headers}).then(function (response) {
+                $http.get('/user', {headers: headers}).then(function (response) {
                     if (response.data.name) {
                         $rootScope.authenticated = true;
                         $http.get('http://localhost:8080/api/current').then(function (success) {

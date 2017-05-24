@@ -5,11 +5,12 @@ var UserController = angular.module('greatStartApp')
         $scope.myImage = '';
         $scope.myCroppedImage = '';
         $scope.isImageChange = false;
-
         $scope.user = angular.copy($rootScope.currentUser);
         $rootScope.$watch('currentUser', function () {
             $scope.user = angular.copy($rootScope.currentUser);
         });
+
+
 
         var handleFileSelect = function (evt) {
             var file = evt.currentTarget.files[0];
@@ -28,8 +29,8 @@ var UserController = angular.module('greatStartApp')
         angular.element(document.querySelector('#fileInput')).on('change', handleFileSelect);
 
         $scope.update = function (user) {
-            User.update({id: user.id}, user, function () {
-                $rootScope.currentUser = User.get({id: user.id});
+            return $scope.user = User.update({id: user.id}, user, function () {
+                $rootScope.currentUser = User.get({id: user.id})
             })
         };
 
@@ -41,16 +42,22 @@ var UserController = angular.module('greatStartApp')
                 if ($scope.isImageChange) {
                     $scope.user.photo = $scope.myCroppedImage.replace(/^data:image\/[a-z]+;base64,/, "");
                 }
-                $scope.update($scope.user);
-                $location.path('/user/:id', $scope.user.id);
+                $scope.update($scope.user).$promise.then(function (success) {
+                    $location.path('/user/:id', $scope.user.id);
+                },function (error) {
+                    $scope.error=true;
+                });
+
             }
+        };
+
+        //TODO write create method for user
+        $scope.createUser=function () {
+
         };
 
         $scope.getUser = function () {
             User.get({id: $scope.user.id});
         }
-
-        //TODO write create method for user
-
 
     });
