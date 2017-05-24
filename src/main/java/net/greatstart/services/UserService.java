@@ -52,7 +52,6 @@ public class UserService {
     }
 
     public User getUserById(long id) {
-        System.out.println("return user by id " + id);
         return userDao.findOne(id);
     }
 
@@ -68,7 +67,6 @@ public class UserService {
     }
 
     public User getUserByEmail(String email) {
-        System.out.println("find by email " + email);
         return userDao.findByEmail(email);
     }
 

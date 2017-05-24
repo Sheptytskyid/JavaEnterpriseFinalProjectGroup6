@@ -39,9 +39,9 @@ public class UserRestController {
         User user = userService.getUserByEmail(principal.getName());
         if (user != null) {
             DtoUserProfile dtoUser = userMapper.fromUserToDtoProfile(user);
-            return new ResponseEntity<DtoUserProfile>(dtoUser, HttpStatus.OK);
+            return new ResponseEntity<>(dtoUser, HttpStatus.OK);
         }
-        return new ResponseEntity<DtoUserProfile>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/api/user/{id}")
@@ -49,12 +49,12 @@ public class UserRestController {
         User user = userService.getUserById(id);
         if (user != null) {
             DtoUserProfile dtoUser = userMapper.fromUserToDtoProfile(user);
-            return new ResponseEntity<DtoUserProfile>(dtoUser, HttpStatus.OK);
+            return new ResponseEntity<>(dtoUser, HttpStatus.OK);
         }
-        return new ResponseEntity<DtoUserProfile>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PutMapping("/api/user/{id}/upload")
+    @PutMapping("/api/user/{id}")
     public ResponseEntity<DtoUserProfile> updateUser(
             @PathVariable("id") long id,
             @Valid @RequestBody DtoUserProfile dtoUser) {
@@ -66,7 +66,7 @@ public class UserRestController {
             userService.updateUser(entityUser);
             currentDtoUser = userMapper.fromUserToDtoProfile(entityUser);
         }
-        return new ResponseEntity<DtoUserProfile>(currentDtoUser, HttpStatus.OK);
+        return new ResponseEntity<>(currentDtoUser, HttpStatus.OK);
     }
 
 }

@@ -4,17 +4,20 @@ var UserController = angular.module('greatStartApp')
         $scope.flag = false;
         $scope.myImage = '';
         $scope.myCroppedImage = '';
+        $scope.isImageChange = false;
 
         $scope.user = angular.copy($rootScope.currentUser);
         $rootScope.$watch('currentUser', function () {
             $scope.user = angular.copy($rootScope.currentUser);
         });
+
         var handleFileSelect = function (evt) {
             var file = evt.currentTarget.files[0];
             var reader = new FileReader();
             reader.onload = function (evt) {
                 $scope.$apply(function ($scope) {
                     $scope.myImage = evt.target.result;
+                    $scope.isImageChange = true;
                 });
             };
 
@@ -25,10 +28,7 @@ var UserController = angular.module('greatStartApp')
         angular.element(document.querySelector('#fileInput')).on('change', handleFileSelect);
 
         $scope.update = function (user) {
-            if ($scope.myCroppedImage !== null) {
-                user.photo = $scope.myCroppedImage.replace(/^data:image\/[a-z]+;base64,/, "");
-            }
-            User.update({id: user.id}, user, $scope.myCroppedImage, function () {
+            User.update({id: user.id}, user, function () {
                 User.get({id: user.id});
             })
         };
@@ -38,6 +38,9 @@ var UserController = angular.module('greatStartApp')
                 console.log('Saving New User', $scope.user);
                 $scope.createUser();
             } else {
+                if ($scope.isImageChange) {
+                    $scope.user.photo = $scope.myCroppedImage.replace(/^data:image\/[a-z]+;base64,/, "");
+                }
                 $scope.update($scope.user);
                 $location.path('/user/:id', $scope.user.id);
                 $window.location.reload();
