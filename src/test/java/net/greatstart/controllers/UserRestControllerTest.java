@@ -11,12 +11,12 @@ import java.security.Principal;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UserTestControllerTest {
+public class UserRestControllerTest {
     @Mock
     private Principal principal;
 
     @InjectMocks
-    private UserTestController controller;
+    private UserRestController controller;
 
     @Test
     public void user() throws Exception {
