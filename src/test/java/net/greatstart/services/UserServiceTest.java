@@ -15,9 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
@@ -103,5 +101,17 @@ public class UserServiceTest {
         when(userDao.findByEmail(user.getEmail())).thenReturn(user);
         assertEquals(userService.getUserByEmail(user.getEmail()), user);
         verify(userDao, times(1)).findByEmail(user.getEmail());
+    }
+
+    @Test
+    public void getInitialsFromTwoNames() throws Exception {
+        String initials = userService.getInitials("test", "User");
+        assertEquals("T.U.", initials);
+    }
+
+    @Test
+    public void getInitialsFromOneName() throws Exception {
+        String initials = userService.getInitials("test", null);
+        assertEquals("T", initials);
     }
 }

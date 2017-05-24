@@ -1,8 +1,8 @@
 package net.greatstart.controllers;
 
 import net.greatstart.dto.DtoUserProfile;
+import net.greatstart.mappers.UserProfileMapper;
 import net.greatstart.model.User;
-import net.greatstart.services.UserConverterService;
 import net.greatstart.services.UserService;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,7 +39,7 @@ public class UserControllerTest {
     @Mock
     private UserService userService;
     @Mock
-    private UserConverterService userConverter;
+    private UserProfileMapper userMapper;
     @Mock
     private Principal principal;
     @Mock
@@ -71,11 +71,11 @@ public class UserControllerTest {
     public void showProfileAndVerifyInteractions() throws Exception {
         user.setId(ID);
         when(userService.getUserById(ID)).thenReturn(user);
-        when(userConverter.fromUserToDtoProfile(user)).thenReturn(new DtoUserProfile());
+        when(userMapper.fromUserToDtoProfile(user)).thenReturn(new DtoUserProfile());
         mvc.perform(get(TEST_USER_PROFILE))
                 .andExpect(view().name(SHOW_PROFILE));
         verify(userService).getUserById(ID);
-        verify(userConverter).fromUserToDtoProfile(user);
+        verify(userMapper).fromUserToDtoProfile(user);
     }
 
     @Test(timeout = 2000)
@@ -88,12 +88,12 @@ public class UserControllerTest {
     public void getEditProfile() throws Exception {
         user.setEmail(TEST_EMAIL);
         when(userService.getUserById(ID)).thenReturn(user);
-        when(userConverter.fromUserToDtoProfile(user)).thenReturn(new DtoUserProfile());
+        when(userMapper.fromUserToDtoProfile(user)).thenReturn(new DtoUserProfile());
         when(principal.getName()).thenReturn(TEST_EMAIL);
         mvc.perform(get(TEST_USER_PROFILE + "/edit").principal(principal))
                 .andExpect(view().name(EDIT_PROFILE));
         verify(userService).getUserById(ID);
-        verify(userConverter).fromUserToDtoProfile(user);
+        verify(userMapper).fromUserToDtoProfile(user);
     }
 
     @Test(timeout = 2000)
@@ -118,9 +118,10 @@ public class UserControllerTest {
         user.setId(ID);
         when(userService.getUserByEmail(null)).thenReturn(user);
         when(userService.getUserById(ID)).thenReturn(user);
+        when(userMapper.fromDtoProfileToUser(dtoUser)).thenReturn(user);
         ModelAndView modelAndView = controller
                 .saveEditedProfile(ID, dtoUser, bindingResult, principal, file);
-        verify(userConverter).updateUserFromDto(user, dtoUser);
+        verify(userMapper).fromDtoProfileToUser(dtoUser);
         verify(userService).updateUser(user);
         assertEquals("redirect:" + TEST_USER_PROFILE, modelAndView.getViewName());
     }
@@ -131,7 +132,7 @@ public class UserControllerTest {
         DtoUserProfile dtoUserProfile = new DtoUserProfile();
         dtoUserProfile.setPhoto(bytes);
         when(userService.getUserById(ID)).thenReturn(user);
-        when(userConverter.fromUserToDtoProfile(user)).thenReturn(dtoUserProfile);
+        when(userMapper.fromUserToDtoProfile(user)).thenReturn(dtoUserProfile);
         mvc.perform(get("/user/photo/1")).andExpect(content().bytes(bytes));
     }
 }

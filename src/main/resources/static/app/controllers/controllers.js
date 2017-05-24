@@ -67,7 +67,7 @@ mainApp.config(function ($routeProvider, $httpProvider) {
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
     function checkIfUserHasSession($location, $rootScope) {
-        if ($rootScope.authenticated === false) {
+        if ($rootScope.authenticated===false) {
             $location.path('/');
         }
     }
