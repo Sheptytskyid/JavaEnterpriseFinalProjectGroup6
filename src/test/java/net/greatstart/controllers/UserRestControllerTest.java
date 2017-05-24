@@ -97,6 +97,20 @@ public class UserRestControllerTest {
     }
 
     @Test
+    public void updateUser_withWrongId_ShouldReturnCode404()
+            throws Exception {
+        user.setId(2L);
+        dtoUser.setName("TestName");
+        when(userService.getUserById(ID)).thenReturn(user);
+        when(userMapper.fromDtoProfileToUser(dtoUser)).thenReturn(user);
+        mvc.perform(put(TEST_USER_PROFILE).contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(dtoUser)))
+                .andExpect(status().isNotFound());
+        verify(userService, times(1)).getUserById(ID);
+        verifyNoMoreInteractions(userService);
+        verifyNoMoreInteractions(userMapper);
+    }
+
+    @Test
     public void updateUser_FailValidation_ShouldReturnCode400() throws Exception{
         user.setId(ID);
         dtoUser.setName("Fail");
