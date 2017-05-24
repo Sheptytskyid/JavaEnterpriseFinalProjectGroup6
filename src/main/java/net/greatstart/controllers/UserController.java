@@ -1,8 +1,8 @@
 package net.greatstart.controllers;
 
 import net.greatstart.dto.DtoUserProfile;
+import net.greatstart.mappers.UserProfileMapper;
 import net.greatstart.model.User;
-import net.greatstart.services.UserConverterService;
 import net.greatstart.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,13 +31,13 @@ public class UserController {
     private static final String ERROR_PROFILE = "redirect:/";
 
     private UserService userService;
-    private UserConverterService userConverter;
+    private UserProfileMapper userMapper;
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    public UserController(UserService userService, UserConverterService userConverterService) {
+    public UserController(UserService userService, UserProfileMapper userMapper) {
         this.userService = userService;
-        this.userConverter = userConverterService;
+        this.userMapper = userMapper;
     }
 
     // TODO error pages (no such user etc.); enable admin user to edit profiles
@@ -46,7 +46,8 @@ public class UserController {
         User user = userService.getUserById(id);
         ModelAndView modelAndView = new ModelAndView(SHOW_PROFILE);
         if (user != null) {
-            DtoUserProfile dtoUser = userConverter.fromUserToDtoProfile(user);
+            DtoUserProfile dtoUser = userMapper.fromUserToDtoProfile(user);
+            dtoUser.setInitial(userService.getInitials(user.getName(), user.getLastName()));
             modelAndView.addObject(dtoUser);
         }
         return modelAndView;
@@ -59,7 +60,8 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView(EDIT_PROFILE);
         if (entityUser != null && principal != null
                 && entityUser.getEmail().equals(principal.getName())) {
-            DtoUserProfile user = userConverter.fromUserToDtoProfile(entityUser);
+            DtoUserProfile user = userMapper.fromUserToDtoProfile(entityUser);
+            user.setInitial(userService.getInitials(entityUser.getName(), entityUser.getLastName()));
             modelAndView.addObject(user);
         } else {
             modelAndView = new ModelAndView(ERROR_PROFILE);
@@ -92,8 +94,8 @@ public class UserController {
         }
         User currentUser = userService.getUserByEmail(principal.getName());
         if (currentUser != null && id == currentUser.getId()) {
-            User entityUser = userService.getUserById(id);
-            userConverter.updateUserFromDto(entityUser, dtoUser);
+            User entityUser = userMapper.fromDtoProfileToUser(dtoUser);
+            entityUser.setPassword(currentUser.getPassword());
             userService.updateUser(entityUser);
         }
         return new ModelAndView("redirect:/user/" + id);
@@ -102,7 +104,7 @@ public class UserController {
     @GetMapping(value = "/photo/{id}")
     @ResponseBody
     public byte[] downloadPhoto(@PathVariable("id") Long id) {
-        DtoUserProfile user = userConverter.fromUserToDtoProfile(userService.getUserById(id));
+        DtoUserProfile user = userMapper.fromUserToDtoProfile(userService.getUserById(id));
         return user.getPhoto();
     }
 }

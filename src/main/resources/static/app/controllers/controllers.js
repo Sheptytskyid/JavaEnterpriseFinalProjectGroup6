@@ -54,16 +54,16 @@ mainApp.config(function ($routeProvider, $httpProvider) {
             controller: 'InterestController',
             templateUrl: 'views/interest/Interests.html'
         })
-        .when('/createAccount', {
-            controller: 'MainController',
-            templateUrl: 'views/main/CreateAccount.html'
+        .when('/under_construction', {
+            templateUrl: 'views/other/UnderConstruction.html'
+
         })
         .otherwise({redirectTo: '/'});
 
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
     function checkIfUserHasSession($location, $rootScope) {
-        if (!$rootScope.authenticated) {
+        if ($rootScope.authenticated===false) {
             $location.path('/');
         }
     }
