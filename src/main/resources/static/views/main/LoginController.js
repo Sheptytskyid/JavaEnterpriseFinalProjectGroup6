@@ -1,6 +1,5 @@
-var loginController = angular.module('greatStartApp')
-    .controller('LoginController',
-        function (userService, $rootScope, $scope, $http, $location) {
+var loginController = angular.module('greatStartApp').controller('LoginController',
+        function (userService, $rootScope, $scope, $http, $uibModal) {
 
             $scope.close = function () {
                 $scope.modalInstance.close();
@@ -21,4 +20,13 @@ var loginController = angular.module('greatStartApp')
                 })
             };
 
+            $scope.forgotPass = function () {
+                return $scope.modalInstance = $uibModal.open({
+                    templateUrl: 'views/main/ForgotPassword.html',
+                    controller: 'PasswordResetController',
+                    size: 'sm',
+                    backdrop: 'static',
+                    scope: $scope
+                });
+            };
         });
