@@ -1,8 +1,8 @@
 var PasswordResetController = angular.module('greatStartApp').controller('PasswordResetController',
-        function (userService, $rootScope, $scope, $http, $location) {
+        function (userService, $rootScope, $scope, $http, $uibModal) {
 
             $scope.close = function () {
-                $scope.modalInstance.close();
+                $scope.forgotPassModal.close();
             };
 
             $scope.sendLink = function () {
