@@ -26,7 +26,6 @@ var UserController = angular.module('greatStartApp')
 
         $scope.update = function (user) {
             if ($scope.myCroppedImage !== null) {
-                console.log(myCroppedImage);
                 user.photo = $scope.myCroppedImage.replace(/^data:image\/[a-z]+;base64,/, "");
             }
             User.update({id: user.id}, user, $scope.myCroppedImage, function () {
