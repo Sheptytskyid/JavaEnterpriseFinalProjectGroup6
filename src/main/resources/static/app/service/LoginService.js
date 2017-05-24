@@ -1,5 +1,5 @@
 var userService = angular.module('greatStartApp')
-    .factory('loginService', function ($rootScope, $http) {
+    .factory('LoginService', function ($rootScope, $http) {
         return {
             authenticate: function (credentials, callback) {
 
