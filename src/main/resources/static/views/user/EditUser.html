@@ -11,17 +11,16 @@
                     <form class="form-horizontal" role="form" ng-submit="submit()" id="userForm">
                         <div class="row">
                             <div class="col-lg-4 col-md-4 col-sm-4  hidden-xs">
-
                                 <div class="cropArea">
-                                    <img-crop image="myImage" result-image="myCroppedImage" result-image-size="320"></img-crop>
+                                    <img-crop image="myImage" result-image="myCroppedImage"
+                                              result-image-size="320" on-load-begin="123"></img-crop>
                                 </div>
                                 <div>
                                     <label class="btn btn-default btn-file">
-                                        Browse <input accept="image/*" type="file" style="display: block;"
+                                        Browse <input accept="image/*" type="file" style="display: none;"
                                                       id="fileInput" class="form-control">
                                     </label>
                                 </div>
-                                <img ng-src="{{myCroppedImage}}"/>
                             </div>
                             <div class="col-sm-6 col-xs-12">
                                 <div class="panel-info">

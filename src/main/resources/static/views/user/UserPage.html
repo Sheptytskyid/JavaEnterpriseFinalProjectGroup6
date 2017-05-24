@@ -11,8 +11,8 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-4  hidden-xs" ng-if="currentUser.photo!=null">
-                            <img  ng-if="currentUser.photo!=null" class="img-responsive img-circle big-photo"
-                                 ng-src="data:image/JPEG;base64,{{currentUser.photo}}" alt=""/>
+                            <img  class="img-responsive img-circle big-photo"
+                                  ng-src="data:image/png;base64,{{currentUser.photo}}" alt=""/>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4  hidden-xs" ng-if="currentUser.photo==null">
                             <p class="initials-logo">{{currentUser.initial}}</p>
