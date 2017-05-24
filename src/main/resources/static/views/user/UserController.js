@@ -1,5 +1,5 @@
 var UserController = angular.module('greatStartApp')
-    .controller('UserController', function ($scope, $rootScope, User, $location, $window) {
+    .controller('UserController', function ($scope, $rootScope, User, $location) {
 
         $scope.flag = false;
         $scope.myImage = '';
@@ -29,7 +29,7 @@ var UserController = angular.module('greatStartApp')
 
         $scope.update = function (user) {
             User.update({id: user.id}, user, function () {
-                User.get({id: user.id});
+                $rootScope.currentUser = User.get({id: user.id});
             })
         };
 
@@ -43,7 +43,6 @@ var UserController = angular.module('greatStartApp')
                 }
                 $scope.update($scope.user);
                 $location.path('/user/:id', $scope.user.id);
-                $window.location.reload();
             }
         };
 
