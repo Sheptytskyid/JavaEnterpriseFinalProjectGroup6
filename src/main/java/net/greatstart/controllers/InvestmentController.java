@@ -1,5 +1,6 @@
 package net.greatstart.controllers;
 
+import net.greatstart.dto.DtoInvestment;
 import net.greatstart.model.Investment;
 import net.greatstart.model.Project;
 import net.greatstart.model.User;
@@ -10,16 +11,14 @@ import net.greatstart.validators.InvestmentValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 @Controller
 public class InvestmentController {
@@ -76,8 +75,9 @@ public class InvestmentController {
     }
 
     @GetMapping("/investment/{id}")
-    public Investment getInvestmentById(@PathVariable long id) {
-        return investmentService.getInvestmentById(id);
+    @ResponseBody
+    public DtoInvestment getInvestmentById(@PathVariable long id) {
+        return investmentService.getDtoInvestmentById(id);
     }
 
     @GetMapping("/investment")
@@ -86,6 +86,12 @@ public class InvestmentController {
         model.addObject(PAGE_NAME, "All investments.");
         model.addObject(INVESTMENT_LIST, investmentService.getAllInvestments());
         return model;
+    }
+
+    @GetMapping("/investment/json")
+    @ResponseBody
+    public List<DtoInvestment> getInvestments() {
+        return investmentService.getAllDtoInvestments();
     }
 
     @GetMapping("/project/{id}/investments")

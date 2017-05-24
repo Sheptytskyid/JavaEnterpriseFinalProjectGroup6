@@ -31,7 +31,7 @@ public class Investment extends AbstractModel {
     @JoinColumn(name = "project_id")
     Project project;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id")
     User investor;
 

@@ -19,7 +19,7 @@ public class Project extends AbstractModel {
     @Embedded
     private ProjectDescription desc;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private User owner;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "project")
