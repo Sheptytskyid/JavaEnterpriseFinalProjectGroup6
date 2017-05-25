@@ -5,7 +5,8 @@ var UserController = angular.module('greatStartApp')
         $scope.myImage = '';
         $scope.myCroppedImage = '';
         $scope.isImageChange = false;
-        //TODO: this method retrieve currentUser
+
+        //TODO: this method retrieve currentUser. Need to think how to rewrite it in right way
         $scope.user = angular.copy($rootScope.currentUser);
         $rootScope.$watch('currentUser', function () {
             $scope.user = angular.copy($rootScope.currentUser);

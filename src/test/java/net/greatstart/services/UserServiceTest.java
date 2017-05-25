@@ -57,6 +57,8 @@ public class UserServiceTest {
 
     @Test
     public void createUserByEmailAndPassword() throws Exception {
+        user = new User();
+        user.setName(NAME);
         user.setEmail(EMAIL);
         user.setPassword(PASSWORD);
         Role role = new Role(ROLE_NAME);
