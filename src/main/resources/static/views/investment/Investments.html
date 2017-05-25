@@ -6,20 +6,29 @@
             <li class="list-group-item {{investment.paid ? 'list-group-item-success' :
         (investment.verified ? 'list-group-item-warning' : 'list-group-item-danger')}}"
                 data-color="">
-                {{investment.id}}
-                <a href="#">
-                    {{investment.investor.name}}
-                </a>
-                <a href="#">
-                    {{ investment.project.desc.name}}
-                </a>
+                <div class="row">
+                    <div class="col-xs-3">
+                        {{investment.id}}
+                        <a href="#">
+                            {{investment.investor.name}}
+                        </a>
+                    </div>
+                    <div class="col-xs-4">
+                        <a href="#">
+                            {{ investment.project.desc.name}}
+                        </a>
+                    </div>
+                    <div class="col-md-3 hidden-sm hidden-xs">
 
-                {{investment.dateOfInvestment.dayOfMonth}}-
-                {{investment.dateOfInvestment.month}}-
-                {{investment.dateOfInvestment.year}}
-                {{investment.dateOfInvestment.hour}}:
-                {{investment.dateOfInvestment.minute}}
-                {{investment.sum | currency:2}}
+                        {{investment.dateOfInvestment.year}}
+                        {{investment.dateOfInvestment.month}}
+                        {{investment.dateOfInvestment.dayOfMonth}},
+                        {{investment.dateOfInvestment.hour}}:{{investment.dateOfInvestment.minute}}
+                    </div>
+                    <div class="col-xs-2">
+                        {{investment.sum | currency}}
+                    </div>
+                </div>
             </li>
         </ul>
     </div>
