@@ -8,6 +8,7 @@ import net.greatstart.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,30 +45,26 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(value = "/api/user/{id}")
     public ResponseEntity<DtoUserProfile> getUserById(@PathVariable("id") long id) {
-        User user = userService.getUserById(id);
+        DtoUserProfile user = userService.getUserById(id);
         if (user != null) {
-            DtoUserProfile dtoUser = userMapper.fromUserToDtoProfile(user);
-            return new ResponseEntity<>(dtoUser, HttpStatus.OK);
+            return new ResponseEntity<>(user, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PutMapping("/api/user/{id}")
     public ResponseEntity<DtoUserProfile> updateUser(
             @PathVariable("id") long id,
             @Valid @RequestBody DtoUserProfile dtoUser) {
-        DtoUserProfile currentDtoUser;
-        User currentUser = userService.getUserById(id);
-        if (currentUser != null && id == currentUser.getId()) {
-            User entityUser = userMapper.fromDtoProfileToUser(dtoUser);
-            entityUser.setPassword(currentUser.getPassword());
-            userService.updateUser(entityUser);
-            currentDtoUser = userMapper.fromUserToDtoProfile(entityUser);
+        DtoUserProfile currentDtoUser = userService.updateUser(dtoUser, id);
+        if (currentDtoUser != null) {
             return new ResponseEntity<>(currentDtoUser, HttpStatus.OK);
         }
-        return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
     }
 

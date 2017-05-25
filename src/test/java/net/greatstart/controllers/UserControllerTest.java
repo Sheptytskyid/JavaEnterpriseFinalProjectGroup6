@@ -61,58 +61,46 @@ public class UserControllerTest {
         when(userService.getUserById(ID)).thenReturn(null);
         mvc.perform(get(TEST_USER_PROFILE)).andExpect(status().isNotFound());
         verify(userService, times(1)).getUserById(ID);
-        verifyNoMoreInteractions(userMapper);
         verifyNoMoreInteractions(userService);
 
     }
 
     @Test
     public void findById_UserFound_ShouldReturnFoundUserEntity() throws Exception {
-        when(userService.getUserById(ID)).thenReturn(user);
+        when(userService.getUserById(ID)).thenReturn(dtoUser);
         mvc.perform(get(TEST_USER_PROFILE))
                 .andExpect(status().isOk());
         verify(userService, times(1)).getUserById(ID);
-        verify(userMapper, times(1)).fromUserToDtoProfile(user);
         verifyNoMoreInteractions(userService);
-        verifyNoMoreInteractions(userMapper);
     }
 
     @Test
     public void updateUser_UserSuccessfullyUpdatedAndSuccessfullyPassValidation_ShouldReturnUpdatedUser()
             throws Exception {
         dtoUser.setName("TestName");
-        when(userService.getUserById(ID)).thenReturn(user);
-        when(userMapper.fromDtoProfileToUser(dtoUser)).thenReturn(user);
-        when(userMapper.fromUserToDtoProfile(user)).thenReturn(dtoUser);
+        when(userService.updateUser(dtoUser, ID)).thenReturn(dtoUser);
         mvc.perform(put(TEST_USER_PROFILE).contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(dtoUser)))
                 .andExpect(status().isOk());
-        verify(userService, times(1)).getUserById(ID);
-        verify(userMapper, times(1)).fromDtoProfileToUser(dtoUser);
-        verify(userService, times(1)).updateUser(user);
-        verify(userMapper, times(1)).fromUserToDtoProfile(user);
+        verify(userService, times(1)).updateUser(dtoUser, ID);
         verifyNoMoreInteractions(userService);
-        verifyNoMoreInteractions(userMapper);
     }
 
     @Test
     public void updateUser_withWrongId_ShouldReturnCode404()
             throws Exception {
-        user.setId(2L);
         dtoUser.setName("TestName");
-        when(userService.getUserById(ID)).thenReturn(user);
-        when(userMapper.fromDtoProfileToUser(dtoUser)).thenReturn(user);
+        dtoUser.setId(2L);
+        when(userService.updateUser(dtoUser, ID)).thenReturn(null);
         mvc.perform(put(TEST_USER_PROFILE).contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(dtoUser)))
                 .andExpect(status().isNotFound());
-        verify(userService, times(1)).getUserById(ID);
+        verify(userService, times(1)).updateUser(dtoUser, ID);
         verifyNoMoreInteractions(userService);
-        verifyNoMoreInteractions(userMapper);
     }
 
     @Test
     public void updateUser_FailValidation_ShouldReturnCode400() throws Exception {
-        user.setId(ID);
         dtoUser.setName("Fail");
-        when(userService.getUserById(ID)).thenReturn(user);
+        when(userService.getUserById(ID)).thenReturn(dtoUser);
         mvc.perform(put(TEST_USER_PROFILE).contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(dtoUser)))
                 .andExpect(status().isBadRequest());
         verifyNoMoreInteractions(userService);

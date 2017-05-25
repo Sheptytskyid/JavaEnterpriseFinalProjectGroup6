@@ -1,6 +1,8 @@
 package net.greatstart.services;
 
 import net.greatstart.dao.UserDao;
+import net.greatstart.dto.DtoUserProfile;
+import net.greatstart.mappers.UserProfileMapper;
 import net.greatstart.model.Role;
 import net.greatstart.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +18,18 @@ import java.util.Set;
 @Transactional
 public class UserService {
 
+    private UserProfileMapper userMapper;
     private UserDao userDao;
     private RoleService roleService;
 
     @Autowired
-    public UserService(UserDao userDao, RoleService roleService) {
+    public UserService(UserProfileMapper userMapper, UserDao userDao, RoleService roleService) {
+        this.userMapper = userMapper;
         this.userDao = userDao;
         this.roleService = roleService;
     }
+
+    //ToDo: Rewrite method for create/delete User
 
     public User createUser(User user) {
         return userDao.save(user);
@@ -43,16 +49,27 @@ public class UserService {
         return createUser(user);
     }
 
-    public User updateUser(User user) {
-        return userDao.save(user);
+    public DtoUserProfile updateUser(DtoUserProfile dtoUser, long id) {
+        DtoUserProfile currentDtoUser = null;
+        User currentUser = userDao.findOne(dtoUser.getId());
+        if (currentUser != null && id == currentUser.getId()) {
+            User entity = userMapper.fromDtoProfileToUser(dtoUser);
+            entity.setPassword(currentUser.getPassword());
+            userDao.save(entity);
+            currentDtoUser = userMapper.fromUserToDtoProfile(entity);
+            return currentDtoUser;
+        }
+        return currentDtoUser;
+
     }
 
     public void deleteUser(long id) {
         userDao.delete(id);
     }
 
-    public User getUserById(long id) {
-        return userDao.findOne(id);
+    public DtoUserProfile getUserById(long id) {
+        return userMapper.fromUserToDtoProfile(userDao.findOne(id));
+
     }
 
     public List<User> getAllUsers() {
