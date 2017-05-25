@@ -1,17 +1,20 @@
-<div class="container">
+<div class="container" ng-controller="UserController">
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-success" style="border:0">
                 <div class="panel-heading" style="background: #f5f5f5 ">
-                    <a class="btn btn-edit pull-right" href="#!/editUser">
+                    <a class="btn btn-edit pull-right" href="#!user/{{currentUser.id}}/edit">
                         <span class="glyphicon glyphicon-pencil"></span></a>
                     <h4>User Profile</h4>
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-4  hidden-xs">
-                            <img class="img-responsive img-circle big-photo"
-                                 ng-src="http://vev.ru/uploads/images/00/07/64/2011/10/12/c26b1b.jpg" alt=""/>
+                        <div class="col-lg-4 col-md-4 col-sm-4  hidden-xs" ng-if="currentUser.photo!=null">
+                            <img  class="img-responsive img-circle big-photo"
+                                  ng-src="data:image/png;base64,{{currentUser.photo}}" alt=""/>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4  hidden-xs" ng-if="currentUser.photo==null">
+                            <p class="initials-logo">{{currentUser.initial}}</p>
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                             <div class="panel-info">
@@ -20,23 +23,23 @@
                                 <table class="table">
                                     <tr>
                                         <th>First name:</th>
-                                        <td>User`s First Name</td>
+                                        <td>{{currentUser.name}}</td>
                                     </tr>
                                     <tr>
                                         <th>Last name:</th>
-                                        <td>User`s Last Name</td>
+                                        <td>{{currentUser.lastName}}</td>
                                     </tr>
                                     <tr>
                                         <th>Email:</th>
-                                        <td>User`s username</td>
+                                        <td>{{currentUser.email}}</td>
                                     </tr>
                                     <tr>
                                         <th>Phone:</th>
-                                        <td>User`s phone</td>
+                                        <td>{{currentUser.phoneNumber}}</td>
                                     </tr>
                                     <tr>
                                         <th>Address:</th>
-                                        <td>User`s address</td>
+                                        <td>{{currentUser.address}}</td>
                                     </tr>
                                     <tr>
                                         <th></th>
