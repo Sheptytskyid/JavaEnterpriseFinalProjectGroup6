@@ -1,4 +1,4 @@
-var mainApp = angular.module('greatStartApp', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.bootstrap', 'ngImgCrop']);
+var mainApp = angular.module('greatStartApp', ['ngRoute', 'ngResource', 'ngAnimate', 'ngSanitize', 'ui.bootstrap', 'ngImgCrop']);
 
 mainApp.config(function ($routeProvider, $httpProvider) {
     $routeProvider
@@ -20,20 +20,6 @@ mainApp.config(function ($routeProvider, $httpProvider) {
                     checkIfUserLogon: checkIfUserHasSession
                 }
             })
-        .when('/user', {
-            controller: 'UserController',
-            templateUrl: 'views/user/UserPage.html',
-            resolve: {
-                checkIfUserLogon: checkIfUserHasSession
-            }
-        })
-        .when('/editUser', {
-            controller: 'UserController',
-            templateUrl: 'views/user/EditUser.html',
-            resolve: {
-                checkIfUserLogon: checkIfUserHasSession
-            }
-        })
         .when('/projects', {
             controller: 'ProjectController',
             templateUrl: 'views/project/Projects.html'
@@ -61,6 +47,24 @@ mainApp.config(function ($routeProvider, $httpProvider) {
         .when('/under_construction', {
             templateUrl: 'views/other/UnderConstruction.html'
 
+        })
+        .when('/createAccount', {
+            templateUrl: 'views/main/CreateAccount.html',
+            controller: 'UserController'
+        })
+        .when('/user/:id', {
+            controller: 'UserController',
+            templateUrl: 'views/user/UserPage.html',
+            resolve: {
+                checkIfUserLogon: checkIfUserHasSession
+            }
+        })
+        .when('/user/:id/edit', {
+            controller: 'UserController',
+            templateUrl: 'views/user/EditUser.html',
+            resolve: {
+                checkIfUserLogon: checkIfUserHasSession
+            }
         })
         .otherwise({redirectTo: '/'});
 
