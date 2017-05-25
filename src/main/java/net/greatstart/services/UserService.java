@@ -50,16 +50,14 @@ public class UserService {
     }
 
     public DtoUserProfile updateUser(DtoUserProfile dtoUser, long id) {
-        DtoUserProfile currentDtoUser = null;
         User currentUser = userDao.findOne(dtoUser.getId());
         if (currentUser != null && id == currentUser.getId()) {
             User entity = userMapper.fromDtoProfileToUser(dtoUser);
             entity.setPassword(currentUser.getPassword());
             userDao.save(entity);
-            currentDtoUser = userMapper.fromUserToDtoProfile(entity);
-            return currentDtoUser;
+            return userMapper.fromUserToDtoProfile(entity);
         }
-        return currentDtoUser;
+        return null;
 
     }
 
