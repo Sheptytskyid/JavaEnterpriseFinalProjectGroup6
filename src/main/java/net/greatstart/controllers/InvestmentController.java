@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-@Controller
+@Controller/*("/api")*/
 public class InvestmentController {
     private static final String PROJECT_PAGE = "project/";
     private static final String INVESTMENTS_VIEW = "investment/investments";
@@ -77,6 +77,7 @@ public class InvestmentController {
     @GetMapping("/investment/{id}")
     @ResponseBody
     public DtoInvestment getInvestmentById(@PathVariable long id) {
+
         return investmentService.getDtoInvestmentById(id);
     }
 

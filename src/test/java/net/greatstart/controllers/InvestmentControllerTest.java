@@ -109,6 +109,7 @@ public class InvestmentControllerTest {
                 .compareTo(captor.getValue().getDateOfInvestment()) <= 1)
                 && (investment.getDateOfInvestment()
                 .compareTo(captor.getValue().getDateOfInvestment()) >= -1));
+        verifyNoMoreInteractions(investmentService);
     }
 
     @Test(timeout = 2000)

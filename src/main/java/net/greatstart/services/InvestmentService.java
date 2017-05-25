@@ -48,7 +48,7 @@ public class InvestmentService {
 
     public List<DtoInvestment> getAllDtoInvestments() {
         List<DtoInvestment> investments = new ArrayList<>();
-        investmentDao.findAll().forEach(e -> investments.add(investmentMapper.fromInvestmentToDto(e)));
+        investmentDao.findAll().forEach(investment -> investments.add(investmentMapper.fromInvestmentToDto(investment)));
         return investments;
     }
 }
