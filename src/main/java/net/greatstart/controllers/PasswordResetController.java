@@ -9,6 +9,7 @@ import net.greatstart.validators.PasswordValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -55,26 +56,16 @@ public class PasswordResetController {
     }
 
     @PostMapping(value = "/user/resetPassword")
-    public ModelAndView processEmail(HttpServletRequest request, @Valid @ModelAttribute("user") DtoUser dtoUser, Errors
-        errors) {
-        ModelAndView model = new ModelAndView("user/forgotPassword");
-        if (errors.hasErrors()) {
-            return model;
-        }
+    public HttpStatus processEmail(HttpServletRequest request, @ModelAttribute("Object") DtoUser dtoUser) {
         User user = userService.getUserByEmail(dtoUser.getEmail());
-        if (user == null) {
-            model.addObject(MESSAGE, messages.getMessage("user.notFound", null, request.getLocale()));
-            return model;
-        }
         String passwordResetToken = securityService.createPasswordResetToken(user).getToken();
         String url = request.getHeader("origin");
         boolean emailSent = mailService.sendResetTokenEmail(url, request.getLocale(), passwordResetToken, user);
         if (emailSent) {
-            model.addObject(MESSAGE, messages.getMessage("email.sent", null, request.getLocale()));
+            return HttpStatus.OK;
         } else {
-            model.addObject(MESSAGE, messages.getMessage("email.error", null, request.getLocale()));
+            return HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        return model;
     }
 
     @GetMapping(value = "/user/validateToken")
