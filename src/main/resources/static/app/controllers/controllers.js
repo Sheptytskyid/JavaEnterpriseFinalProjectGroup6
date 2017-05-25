@@ -54,6 +54,10 @@ mainApp.config(function ($routeProvider, $httpProvider) {
             controller: 'InterestController',
             templateUrl: 'views/interest/Interests.html'
         })
+        .when('/investment', {
+            controller: 'InvestmentController',
+            templateUrl: 'views/investment/Investments.html'
+        })
         .when('/under_construction', {
             templateUrl: 'views/other/UnderConstruction.html'
 

@@ -20,7 +20,8 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-@Controller/*("/api")*/
+@Controller
+@RequestMapping("/api")
 public class InvestmentController {
     private static final String PROJECT_PAGE = "project/";
     private static final String INVESTMENTS_VIEW = "investment/investments";

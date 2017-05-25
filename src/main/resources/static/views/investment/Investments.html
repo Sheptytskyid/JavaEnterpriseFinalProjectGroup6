@@ -1,0 +1,37 @@
+<div class="container">
+
+    <div class="well" style="max-height: 210px; overflow: auto;">
+        <ul ng-repeat="investment in investments"
+            class="list-group checked-list-box">
+            <li class="list-group-item {{investment.paid ? 'list-group-item-success' :
+        (investment.verified ? 'list-group-item-warning' : 'list-group-item-danger')}}"
+                data-color="">
+                {{investment.id}}
+                <a href="#">
+                    {{investment.investor.name}}
+                </a>
+                <a href="#">
+                    {{ investment.project.desc.name}}
+                </a>
+
+                {{investment.dateOfInvestment.dayOfMonth}}-
+                {{investment.dateOfInvestment.month}}-
+                {{investment.dateOfInvestment.year}}
+                {{investment.dateOfInvestment.hour}}:
+                {{investment.dateOfInvestment.minute}}
+                {{investment.sum | currency:2}}
+            </li>
+        </ul>
+    </div>
+</div>
+<!--
+    <ul id="check-list-box" class="list-group checked-list-box">
+        <li class="list-group-item">Cras justo odio</li>
+        <li class="list-group-item" data-color="success">Dapibus ac facilisis in</li>
+        <li class="list-group-item" data-color="info">Morbi leo risus</li>
+        <li class="list-group-item" data-color="warning">Porta ac consectetur ac</li>
+        <li class="list-group-item" data-color="danger">Vestibulum at eros</li>
+    </ul>
+    <br />
+    <button class="btn btn-primary col-xs-12" id="get-checked-data">Get Checked Data</button>
+-->
