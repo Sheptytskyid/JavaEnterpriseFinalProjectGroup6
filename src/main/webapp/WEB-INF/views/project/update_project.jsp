@@ -28,7 +28,7 @@
 
 <div class="container">
 
-    <form:form method="POST" modelAttribute="project" class="form-signin">
+    <form:form method="POST" modelAttribute="dtoProject" class="form-signin">
         <h2 class="form-signin-heading">Update project</h2>
         <spring:bind path="desc.name">
             <div class="form-group ${status.error ? 'has-error' : ''}">

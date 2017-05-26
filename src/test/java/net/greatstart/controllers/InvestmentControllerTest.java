@@ -1,5 +1,6 @@
 package net.greatstart.controllers;
 
+import net.greatstart.dto.DtoUserProfile;
 import net.greatstart.model.Investment;
 import net.greatstart.model.Project;
 import net.greatstart.model.ProjectDescription;
@@ -25,11 +26,11 @@ import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 
+import static net.greatstart.MapperHelper.getTestDtoUserProfile;
+import static net.greatstart.MapperHelper.getTestUser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -58,6 +59,7 @@ public class InvestmentControllerTest {
     @InjectMocks
     private InvestmentController investmentController;
     private User user;
+    private DtoUserProfile dtoUser;
     private Project project;
     private List<Investment> investments;
     private MockMvc mvc;
@@ -66,7 +68,8 @@ public class InvestmentControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        user = new User();
+        dtoUser = getTestDtoUserProfile();
+        user = getTestUser();
         user.setName("Ivan");
         user.setLastName("Mazepa");
         user.setEmail(TEST_EMAIL);
@@ -156,7 +159,7 @@ public class InvestmentControllerTest {
     public void getAllUserInvestmentsShouldReturnPageWithAllInvestmentsOfCurrentUser() throws Exception {
         when(principal.getName()).thenReturn(TEST_EMAIL);
         when(userService.getUserByEmail(TEST_EMAIL)).thenReturn(user);
-        when(userService.getUserById(1)).thenReturn(user);
+        when(userService.getUserById(1)).thenReturn(dtoUser);
         mvc.perform(get("/user/investments").principal(principal))
                 .andExpect(view().name(INVESTMENTS_VIEW))
                 .andExpect(model().attribute(PAGE_NAME, "Investments of user: Ivan Mazepa"))
@@ -168,6 +171,12 @@ public class InvestmentControllerTest {
         mvc.perform(get("/investment/1/delete"))
                 .andExpect(view().name("redirect:/investment"));
         verify(investmentService, times(1)).deleteInvestment(1L);
+    }
+
+    @Test(timeout = 2000)
+    public void getInvestmentById() throws Exception {
+        mvc.perform(get("/investment/1"));
+        verify(investmentService).getInvestmentById(1L);
     }
 
     private Investment createInvestment(Project investmentProject, User user, BigDecimal sum) {

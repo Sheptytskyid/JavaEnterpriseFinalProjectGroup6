@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
@@ -51,6 +52,11 @@ public class RegistrationControllerTest {
     @Test(timeout = 2000)
     public void registerShouldReturnView() throws Exception {
         mvc.perform(get("/user/register")).andExpect(view().name("login/registration"));
+    }
+
+    @Test(timeout = 2000)
+    public void processRegistrationWrongUser() throws Exception {
+        mvc.perform(post("/user/register")).andExpect(view().name("login/registration"));
     }
 
     @Test(timeout = 2000)
