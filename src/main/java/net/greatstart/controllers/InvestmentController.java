@@ -26,7 +26,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Controller
-@RequestMapping("/api")
+/*@RequestMapping("/api")*/
 public class InvestmentController {
     private static final String PROJECT_PAGE = "project/";
     private static final String INVESTMENTS_VIEW = "investment/investments";
@@ -74,13 +74,13 @@ public class InvestmentController {
             model.addObject("message", message);
             model.addObject(project);
             model.addObject("investedSum", getInvestedSumInProject(id));
+        } else {
+            investmentService.saveInvestment(createInvestment(project, investor, sum));
         }
-        investmentService.saveInvestment(createInvestment(project, investor, sum));
-
         return model;
     }
 
-    @GetMapping("/investment/{id}")
+    @GetMapping("/api/investment/{id}")
     @ResponseBody
     public DtoInvestment getInvestmentById(@PathVariable long id) {
 
@@ -95,7 +95,7 @@ public class InvestmentController {
         return model;
     }
 
-    @GetMapping("/investment/json")
+    @GetMapping("/api/investment/json")
     @ResponseBody
     public List<DtoInvestment> getInvestments() {
         return investmentService.getAllDtoInvestments();

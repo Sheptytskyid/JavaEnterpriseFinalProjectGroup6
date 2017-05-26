@@ -91,6 +91,7 @@ public class InvestmentControllerTest {
                 .andExpect(view().name("investment/add_investment"))
                 .andExpect(model().attribute("project", project))
                 .andExpect(model().attribute("investedSum", new BigDecimal(5000)));
+        verifyNoMoreInteractions(investmentService);
     }
 
     @Test(timeout = 2000)
@@ -131,8 +132,7 @@ public class InvestmentControllerTest {
                 .andExpect(model().attribute("message", "Some error."))
                 .andExpect(model().attribute("project", project))
                 .andExpect(model().attribute("investedSum", new BigDecimal(5000)));
-
-        verify(investmentService, times(0)).saveInvestment(null);
+        verifyNoMoreInteractions(investmentService);
     }
 
     @Test(timeout = 2000)
@@ -172,12 +172,14 @@ public class InvestmentControllerTest {
         mvc.perform(get("/investment/1/delete"))
                 .andExpect(view().name("redirect:/investment"));
         verify(investmentService, times(1)).deleteInvestment(1L);
+        verifyNoMoreInteractions(investmentService);
     }
 
     @Test(timeout = 2000)
     public void getInvestmentById() throws Exception {
-        mvc.perform(get("/investment/1"));
-        verify(investmentService).getInvestmentById(1L);
+        mvc.perform(get("/api/investment/1"));
+        verify(investmentService).getDtoInvestmentById(1L);
+        verifyNoMoreInteractions(investmentService);
     }
 
     private Investment createInvestment(Project investmentProject, User user, BigDecimal sum) {
