@@ -5,7 +5,7 @@ var MainController = angular.module('greatStartApp')
                 return $scope.modalInstance = $uibModal.open({
                     templateUrl: 'views/main/LoginPage.html',
                     controller: 'LoginController',
-                    size: 'sm',
+                    size: 'md',
                     backdrop: 'static',
                     scope: $scope
                 });

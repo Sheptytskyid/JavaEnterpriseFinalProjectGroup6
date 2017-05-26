@@ -6,18 +6,23 @@ import net.greatstart.services.MailService;
 import net.greatstart.services.SecurityService;
 import net.greatstart.services.UserService;
 import net.greatstart.validators.PasswordValidationService;
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,34 +52,21 @@ public class PasswordResetController {
         this.mailService = mailService;
     }
 
-    @GetMapping(value = "/user/resetPassword")
-    public ModelAndView showForgotPassForm() {
-        ModelAndView model = new ModelAndView("user/forgotPassword");
-        model.addObject("user", new DtoUser());
-        return model;
-    }
-
-    @PostMapping(value = "/user/resetPassword")
-    public ModelAndView processEmail(HttpServletRequest request, @Valid @ModelAttribute("user") DtoUser dtoUser, Errors
-        errors) {
-        ModelAndView model = new ModelAndView("user/forgotPassword");
-        if (errors.hasErrors()) {
-            return model;
-        }
-        User user = userService.getUserByEmail(dtoUser.getEmail());
+    @GetMapping(value = "/api/resetPassword")
+    @ResponseBody
+    public ResponseEntity<String> processEmail(HttpServletRequest request, @RequestParam("email") String email) {
+        User user = userService.getUserByEmail(email);
         if (user == null) {
-            model.addObject(MESSAGE, messages.getMessage("user.notFound", null, request.getLocale()));
-            return model;
+            throw new ServiceException(messages.getMessage("user.notFound", null, request.getLocale()));
         }
         String passwordResetToken = securityService.createPasswordResetToken(user).getToken();
         String url = request.getHeader("origin");
-        boolean emailSent = mailService.sendResetTokenEmail(url, request.getLocale(), passwordResetToken, user);
-        if (emailSent) {
-            model.addObject(MESSAGE, messages.getMessage("email.sent", null, request.getLocale()));
+//        boolean emailSent = mailService.sendResetTokenEmail(url, request.getLocale(), passwordResetToken, user);
+        if (true) {
+            return new ResponseEntity<>(messages.getMessage("email.sent", null, request.getLocale()),HttpStatus.OK);
         } else {
-            model.addObject(MESSAGE, messages.getMessage("email.error", null, request.getLocale()));
+            throw new ServiceException(messages.getMessage("email.error", null, request.getLocale()));
         }
-        return model;
     }
 
     @GetMapping(value = "/user/validateToken")
@@ -113,5 +105,11 @@ public class PasswordResetController {
             model.addObject(MESSAGE, messages.getMessage("message.resetPassword.success", null, locale));
         }
         return model;
+    }
+
+    @ExceptionHandler(ServiceException.class)
+    @ResponseBody
+    public ResponseEntity<Exception> rulesForException(HttpServletRequest request, ServiceException exception) {
+        return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
     }
 }
