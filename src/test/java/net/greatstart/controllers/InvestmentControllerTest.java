@@ -1,5 +1,6 @@
 package net.greatstart.controllers;
 
+import net.greatstart.dto.DtoUserProfile;
 import net.greatstart.model.Investment;
 import net.greatstart.model.Project;
 import net.greatstart.model.ProjectDescription;
@@ -25,6 +26,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 
+import static net.greatstart.MapperHelper.getTestDtoUserProfile;
+import static net.greatstart.MapperHelper.getTestUser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
@@ -56,6 +59,7 @@ public class InvestmentControllerTest {
     @InjectMocks
     private InvestmentController investmentController;
     private User user;
+    private DtoUserProfile dtoUser;
     private Project project;
     private List<Investment> investments;
     private MockMvc mvc;
@@ -64,7 +68,8 @@ public class InvestmentControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        user = new User();
+        dtoUser = getTestDtoUserProfile();
+        user = getTestUser();
         user.setName("Ivan");
         user.setLastName("Mazepa");
         user.setEmail(TEST_EMAIL);
@@ -154,7 +159,7 @@ public class InvestmentControllerTest {
     public void getAllUserInvestmentsShouldReturnPageWithAllInvestmentsOfCurrentUser() throws Exception {
         when(principal.getName()).thenReturn(TEST_EMAIL);
         when(userService.getUserByEmail(TEST_EMAIL)).thenReturn(user);
-        when(userService.getUserById(1)).thenReturn(user);
+        when(userService.getUserById(1)).thenReturn(dtoUser);
         mvc.perform(get("/user/investments").principal(principal))
                 .andExpect(view().name(INVESTMENTS_VIEW))
                 .andExpect(model().attribute(PAGE_NAME, "Investments of user: Ivan Mazepa"))

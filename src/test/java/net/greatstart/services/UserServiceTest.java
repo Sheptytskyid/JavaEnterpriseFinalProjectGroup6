@@ -1,6 +1,8 @@
 package net.greatstart.services;
 
 import net.greatstart.dao.UserDao;
+import net.greatstart.dto.DtoUserProfile;
+import net.greatstart.mappers.UserProfileMapper;
 import net.greatstart.model.Role;
 import net.greatstart.model.User;
 import org.junit.Before;
@@ -14,6 +16,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import static net.greatstart.MapperHelper.getTestDtoUserProfile;
+import static net.greatstart.MapperHelper.getTestUser;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -30,14 +34,19 @@ public class UserServiceTest {
     private UserDao userDao;
     @Mock
     private RoleService roleService;
+    @Mock
+    private UserProfileMapper userMapper;
     @InjectMocks
     private UserService userService;
     private User user;
+    private DtoUserProfile dtoUser;
 
     @Before
     public void setUp() {
-        user = new User();
+        user = getTestUser();
+        dtoUser = getTestDtoUserProfile();
     }
+
 
     @Test
     public void shouldInvokeUserDaoWhenCreateUser() throws Exception {
@@ -48,6 +57,7 @@ public class UserServiceTest {
 
     @Test
     public void createUserByEmailAndPassword() throws Exception {
+        user = new User();
         user.setName(NAME);
         user.setEmail(EMAIL);
         user.setPassword(PASSWORD);
@@ -58,14 +68,22 @@ public class UserServiceTest {
 
         when(roleService.findOrCreateRole(ROLE_NAME)).thenReturn(role);
         when(userDao.save(user)).thenReturn(user);
-        assertEquals(userService.createUser(user.getEmail(), user.getPassword()), user);
+        assertEquals(user, userService.createUser(user.getEmail(), user.getPassword()));
     }
 
     @Test
     public void returnUserWhenUpdateUser() throws Exception {
+        when(userDao.findOne(user.getId())).thenReturn(user);
+        when(userMapper.fromDtoProfileToUser(dtoUser)).thenReturn(user);
         when(userDao.save(user)).thenReturn(user);
-        assertEquals(userService.updateUser(user), user);
+        when(userMapper.fromUserToDtoProfile(user)).thenReturn(dtoUser);
+        assertEquals(dtoUser, userService.updateUser(dtoUser, dtoUser.getId()));
+        verify(userDao, times(1)).findOne(dtoUser.getId());
+        verify(userMapper, times(1)).fromDtoProfileToUser(dtoUser);
         verify(userDao, times(1)).save(user);
+        verify(userMapper, times(1)).fromUserToDtoProfile(user);
+        verifyNoMoreInteractions(userDao);
+        verifyNoMoreInteractions(userMapper);
     }
 
     @Test
@@ -76,8 +94,9 @@ public class UserServiceTest {
 
     @Test
     public void invokeUserDaoWhenGetUserById() throws Exception {
+        when(userMapper.fromUserToDtoProfile(user)).thenReturn(dtoUser);
         when(userDao.findOne(ID)).thenReturn(user);
-        assertEquals(userService.getUserById(ID), user);
+        assertEquals(userService.getUserById(ID), dtoUser);
         verify(userDao, times(1)).findOne(ID);
     }
 
