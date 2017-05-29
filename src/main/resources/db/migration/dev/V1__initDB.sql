@@ -20,6 +20,8 @@ CREATE TABLE IF NOT EXISTS startup_platform.users (
   phone VARCHAR(24) NULL,
   address VARCHAR NULL,
   email VARCHAR(45) NOT NULL,
+  last_name VARCHAR NULL,
+  photo OID NULL,
   PRIMARY KEY (id),
   CONSTRAINT USER_TYPE_FK
   FOREIGN KEY (type_id)
@@ -51,8 +53,10 @@ CREATE TABLE IF NOT EXISTS startup_platform.projects (
   description VARCHAR     NULL,
   goal        VARCHAR     NULL,
   other       VARCHAR     NULL,
+  stage       VARCHAR(35) NULL,
   logo_url    VARCHAR     NULL,
   verified    BOOLEAN     NULL,
+  image       OID         NULL,
   PRIMARY KEY (id),
   CONSTRAINT OWNER_FK
   FOREIGN KEY (owner_id)
@@ -100,8 +104,10 @@ CREATE TABLE IF NOT EXISTS startup_platform.users_roles (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS startup_platform.investment_interests (
   id          INT     NOT NULL,
-  user_id     BIGINT  NOT NULL,
+  user_id   BIGINT    NULL,
   category_id INT     NULL,
+  description VARCHAR NOT NULL,
+  goal VARCHAR NOT NULL,
   sum         DECIMAL NULL,
   PRIMARY KEY (id),
   CONSTRAINT INVESTOR_INTEREST_FK
@@ -125,6 +131,8 @@ CREATE TABLE IF NOT EXISTS startup_platform.investments (
   project_id BIGINT NOT NULL,
   date TIMESTAMP NULL,
   sum DECIMAL NULL,
+  verified BOOLEAN NULL,
+  paid BOOLEAN NULL,
   PRIMARY KEY (id),
   CONSTRAINT INVESTOR_FK
   FOREIGN KEY (user_id)
@@ -136,3 +144,7 @@ CREATE TABLE IF NOT EXISTS startup_platform.investments (
   REFERENCES startup_platform.projects (id)
     ON DELETE RESTRICT
     ON UPDATE CASCADE);
+
+CREATE TABLE IF NOT EXISTS startup_platform.event (
+  id INTEGER NOT NULL PRIMARY KEY
+);
