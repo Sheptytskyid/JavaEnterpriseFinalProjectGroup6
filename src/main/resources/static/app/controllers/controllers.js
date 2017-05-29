@@ -42,7 +42,7 @@ mainApp.config(function ($routeProvider, $httpProvider) {
         })
         .when('/investment', {
             controller: 'InvestmentController',
-            templateUrl: 'views/investment/InvestmentsUser.html'
+            templateUrl: 'views/investment/Investments.html'
         })
         .when('/under_construction', {
             templateUrl: 'views/other/UnderConstruction.html'
