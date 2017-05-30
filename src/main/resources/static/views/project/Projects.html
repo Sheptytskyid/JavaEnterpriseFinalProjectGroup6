@@ -6,7 +6,7 @@
                 <div class="item">
                     <div class="thumbnail">
                         <div class="caption centered">
-                            <a href="#"><h3>{{project.desc.name}}</h3></a>
+                            <a href="/project/{{project.id}}"><h3>{{project.desc.name}}</h3></a>
                         </div>
                         <a href="#"><img src="http://placehold.it/600x340" alt="" class="img-responsive"></a>
                         <div class="caption">
@@ -18,8 +18,8 @@
                                     <div><em class="fa fa-dollar"></em>{{project.desc.minInvestment}}</div>
                                 </div>
                                 <div class="col-xs-6">
-                                    <div class="right-box">Still needed</div>
-                                    <div class="right-box"><em class="fa fa-dollar"></em>9999</div>
+                                    <div class="right-box">Total needed</div>
+                                    <div class="right-box"><em class="fa fa-dollar"></em>{{project.desc.cost}}</div>
                                 </div>
                             </div>
                         </div>
@@ -30,17 +30,5 @@
         </div>
     </div>
 </div>
-<div class="container">
-    <div class="row centered">
-        <ul class="pagination">
-            <li class="disabled"><a href="#">«</a></li>
-            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">»</a></li>
-        </ul>
-    </div>
-</div>
+
 <div ng-include="'views/main/Footer.html'"></div>
