@@ -54,7 +54,7 @@ public class PasswordResetController {
 
     @GetMapping(value = "/api/resetPassword")
     @ResponseBody
-    public ResponseEntity<String> processEmail(HttpServletRequest request, @RequestParam("email") String email) {
+    public ResponseEntity<String[]> processEmail(HttpServletRequest request, @RequestParam("email") String email) {
         User user = userService.getUserByEmail(email);
         if (user == null) {
             throw new ServiceException(messages.getMessage("user.notFound", null, request.getLocale()));
@@ -63,7 +63,7 @@ public class PasswordResetController {
         String url = request.getHeader("origin");
 //        boolean emailSent = mailService.sendResetTokenEmail(url, request.getLocale(), passwordResetToken, user);
         if (true) {
-            return new ResponseEntity<>(messages.getMessage("email.sent", null, request.getLocale()),HttpStatus.OK);
+            return new ResponseEntity<>(new String[] {messages.getMessage("email.sent", null, request.getLocale())},HttpStatus.OK);
         } else {
             throw new ServiceException(messages.getMessage("email.error", null, request.getLocale()));
         }
