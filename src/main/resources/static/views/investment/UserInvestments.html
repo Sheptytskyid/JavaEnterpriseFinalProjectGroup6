@@ -1,7 +1,7 @@
 <div class="container" ng-controller="InvestmentController">
 
     <div class="well" style="max-height: 210px; overflow: auto;">
-        <ul ng-repeat="investment in investments"
+        <ul ng-repeat="investment in currentUser.investments"
             class="list-group checked-list-box">
             <li class="list-group-item {{investment.paid ? 'list-group-item-success' :
         (investment.verified ? 'list-group-item-warning' : 'list-group-item-danger')}}"

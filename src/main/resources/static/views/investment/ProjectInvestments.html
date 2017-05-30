@@ -1,36 +1,31 @@
-<div class="container" ng-controller="InvestmentController">
-
-    <div class="well" style="max-height: 210px; overflow: auto;">
-        <ul ng-repeat="investment in investments"
-            class="list-group checked-list-box">
-            <li ng-if="investment.investor.email == currentUser."
-                class="list-group-item {{investment.paid ? 'list-group-item-success' :
+<div ng-controller="ProjectController"
+     style="max-height: 210px; overflow: auto;">
+	<ul ng-repeat="investment in project.dtoInvestments"
+	    class="list-group checked-list-box">
+		<!--ng-if="project.investor.email == currentUser."-->
+		<li class="list-group-item {{investment.paid ? 'list-group-item-success' :
         (investment.verified ? 'list-group-item-warning' : 'list-group-item-danger')}}"
-                data-color="">
-                <div class="row">
-                    <div class="col-xs-6 col-sm-4 col-md-5">
-                        <a href="#">
-                            {{investment.investor.name}}
-                        </a>
-                    </div>
-                    <div class="col-sm-4 col-md-3 hidden-xs">
-
-                        {{investment.dateOfInvestment.year}}
-                        {{investment.dateOfInvestment.month}}
-                        {{investment.dateOfInvestment.dayOfMonth}},
-                        {{investment.dateOfInvestment.hour}}:{{investment.dateOfInvestment.minute}}
-                    </div>
-                    <div class="col-xs-6 col-sm-2">
-                        {{investment.sum | currency}}
-                    </div>
-                    <div class="col-sm-2 hidden-xs">
-                        <span class="{{investment.paid ? 'hidden' :
-                        (investment.verified ? 'label label-warning' :'label label-danger')}}">
-                            {{investment.verified ? "Not paid" : "Not verified"}}
-                        </span>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
-</div>
+		    style="height: 44px;">
+			<div class="col-xs-4 col-sm-4 col-md-5">
+				<a href="#">
+					{{investment.investor.name}}
+				</a>
+			</div>
+			<div class="col-xs-5 col-sm-4 col-md-3">
+				{{investment.dateOfInvestment.year}}
+				{{investment.dateOfInvestment.month}}
+				{{investment.dateOfInvestment.dayOfMonth}},
+				{{investment.dateOfInvestment.hour}}:{{investment.dateOfInvestment.minute}}
+			</div>
+			<div class="col-xs-3 col-sm-2">
+				{{investment.sum | currency}}
+			</div>
+			<div class="col-sm-2 hidden-xs">
+				<span class="{{investment.paid ? 'hidden' :
+                       (investment.verified ? 'label label-warning' :'label label-danger')}}">
+					{{investment.verified ? "Not paid" : "Not verified"}}
+				</span>
+			</div>
+		</li>
+	</ul>
+</div

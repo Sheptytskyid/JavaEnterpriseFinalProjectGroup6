@@ -24,9 +24,12 @@ mainApp.config(function ($routeProvider, $httpProvider) {
             controller: 'ProjectController',
             templateUrl: 'views/project/Projects.html'
         })
-        .when('/project', {
+        .when('/project/:id', {
             controller: 'ProjectController',
             templateUrl: 'views/project/ProjectPage.html'
+            /*resolve: {
+                checkIfUserLogon: checkIfUserHasSession
+            }*/
         })
         .when('/events', {
             controller: 'EventController',
@@ -42,7 +45,7 @@ mainApp.config(function ($routeProvider, $httpProvider) {
         })
         .when('/investment', {
             controller: 'InvestmentController',
-            templateUrl: 'views/investment/UserInvestments.html'
+            templateUrl: 'views/investment/Investments.html'
         })
         .when('/under_construction', {
             templateUrl: 'views/other/UnderConstruction.html'

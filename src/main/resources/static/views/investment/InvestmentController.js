@@ -1,29 +1,25 @@
 angular.module('greatStartApp')
     .controller('InvestmentController', function ($scope, Investment) {
 
-        var getAllInvestments = function () {
-            return Investment.query();
+        $scope.getAllInvestments = function () {
+            var investments = Investment.query({}, function () {
+                $scope.investments = investments;
+            });
         };
 
         $scope.deleteInvestment = function (id) {
             Investment.delete({id: id});
-            // callback && c
-            //todo refresh page after deleting investment
+            location.reload();
         };
 
         $scope.verifyInvestment = function (investment) {
             // Investment.save({id: id});
             //todo update verified investment field
-            // callback && c
-            location.reload();
         };
 
         $scope.payInvestment = function (investment) {
             // Investment.save({id: id});
             //todo update paid investment field
-            // callback && c
-            location.reload();
         };
 
-        $scope.investments = getAllInvestments();
     });

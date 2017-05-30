@@ -1,0 +1,22 @@
+<div class="modal fade" id="modal-invest" ng-controller="ProjectController">
+	<div class="modal-dialog">
+		<div class="modal-content ">
+			<div class="modal-header">
+				<button class="close" type="button" data-dismiss="modal">
+					<span class="fa fa-close"></span>
+				</button>
+				<h4 class="modal-title">Invest in project: "{{project.desc.name}}".</h4>
+			</div>
+			<div class="modal-body text-center">
+				<p>Thank you for your interest in our project!</p>
+				<p>To be able to invest you have to be logged in and have money <span class="fa fa-smile-o"></span>.
+				</p>
+				<p>Pressing Next you agree with our terms and policy.</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-danger pull-right" type="button" data-dismiss="modal">Cancel</button>
+				<a href="#" class="btn btn-success pull-right" type="submit">Next</a>
+			</div>
+		</div>
+	</div>
+</div>

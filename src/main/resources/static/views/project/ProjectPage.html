@@ -1,172 +1,117 @@
-<div class="centered">
-    <div class="container col-xs-12">
-        <div class="row">
-            <!-- /PRICE ITEM -->
-            <div class="col-xs-12 col-md-7 col-md-offset-1 col-lg-8">
-                <!--Project name and goal-->
-                <div class="item">
-                    <div class="thumbnail">
-                        <div ng-if="project.desc.image!=null">
-                            <img src="http://placehold.it/800x450" alt="" class="img-responsive">
-                        </div>
-                        <div ng-if="project.desc.image==null">
-                            <img src="http://placehold.it/800x450" alt="" class="img-responsive">
-                        </div>
-                        <div class="caption">
-                            <h3>${project.desc.name}</h3>
-                            <p>${project.desc.goal}</p>
-                        </div>
-                    </div>
-                </div>
-                <!--Description-->
-                <div class="item">
-                    <div class="thumbnail">
-                        <div class="caption">
-                            <h3>Project description</h3>
-                            <hr>
-                            <p>${project.desc.description}</p>
-                        </div>
-                    </div>
-                </div>
-                <!--Category-->
-                <div class="item">
-                    <div class="thumbnail">
-                        <div class="caption">
-                            <h3>Category</h3>
-                            <hr>
-                            <p>${project.category}</p>
-                        </div>
-                    </div>
-                </div>
-                <%--Other--%>
-                <div class="item">
-                    <div class="thumbnail">
-                        <div class="caption">
-                            <h3>Other</h3>
-                            <hr>
-                            <p></p>
-                        </div>
-                    </div>
-                </div>
-                <%--Investments--%>
-                <!--<c:if test="${pageContext.request.userPrincipal.name == project.owner.email}">
-                    <div class="item">
-                        <div class="thumbnail">
-                            <div class="caption">
-                                <h3>Investments</h3>
-                                <hr>
-                                <ul>
-                                    <c:forEach items="${project.investments}" var="investment">
-                                        <li>
-                                            Investor:
-                                            <a href="user/${investment.investor.id}">
-                                                ${investment.investor.name} ${investment.investor.lastName},
-                                            </a>
-                                            Date: ${investment.dateOfInvestment},
-                                            Sum: ${investment.sum}, Paid: ${investment.paid}, Verified: ${investment.verified};
+<div ng-controller="ProjectController" ng-init="getProject()">
+	<div class="row">
+		<!-- /PRICE ITEM -->
+		<div class="col-xs-10 col-md-7 col-xs-offset-1 col-lg-8">
+			<!--Project name and goal-->
+			<div class="item">
+				<div class="thumbnail">
+					<div ng-if="project.desc.image!=null">
+						<img src="http://placehold.it/800x450" alt="" class="centered img-responsive">
+					</div>
+					<div ng-if="project.desc.image==null">
+						<img src="http://placehold.it/800x450" alt="" class="centered img-responsive">
+					</div>
+					<div class="caption">
+						<h3>{{project.desc.name}}</h3>
+						<p>{{project.desc.goal}}</p>
+					</div>
+				</div>
+			</div>
+			<!--Description-->
+			<div class="item">
+				<div class="thumbnail">
+					<div class="caption">
+						<h3>Project description</h3>
+						<hr>
+						<p>{{project.desc.description}}</p>
+					</div>
+				</div>
+			</div>
+			<!--Category-->
+			<div class="item">
+				<div class="thumbnail">
+					<div class="caption">
+						<h3>Category</h3>
+						<hr>
+						<p>{{project.category.name}}</p>
+					</div>
+				</div>
+			</div>
+			<!--Other-->
+			<div class="item">
+				<div class="thumbnail">
+					<div class="caption">
+						<h3>Other</h3>
+						<hr>
+						<p></p>
+					</div>
+				</div>
+			</div>
+			<!--Investments-->
+			<div class="item">
+				<div class="thumbnail">
+					<div class="caption">
+						<div ng-include="'views/investment/ProjectInvestments.html'"></div>
+					</div>
+				</div>
+			</div>
 
-                                        </li>
-                                    </c:forEach>
-                                </ul>
+			<!--Window of investments info for small displays-->
+			<div class="item">
+				<div class="hidden-lg hidden-md">
+					<!-- PRICE ITEM -->
+					<div class="panel price panel-danger">
+						<div class="panel-heading  text-center">
+							<h4><strong>Min investment</strong> ${{project.desc.minInvestment}}</h4>
+						</div>
+						<div class="panel-body text-center">
+							<h4>Total project investment ${{project.desc.cost}}</h4>
+							<div class="progress" ng-init="investedAmount(project)">
+								<div class="progress-bar progress-bar-info"
+								     style="" ></div>
+								<!--todo investment progress bar width according to invested amount-->
+							</div>
+							<!--todo invested amount-->
+							<h4 class="text-right">Project need ${{project.desc.cost}}</h4>
+						</div>
+						<div class="panel-footer">
+							<button type="button" class="btn btn-success btn-block" data-toggle="modal"
+							        data-target="#modal-invest">I
+								want to invest
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3 col-md-offset-8 col-lg-offset-9 col-lg-2 hidden-sm hidden-xs " style="position: fixed">
+			<div class="item">
+				<!-- PRICE ITEM -->
+				<div class="panel price panel-danger">
+					<div class="panel-heading">
+						<h4><strong>Min investment</strong></h4>
+						<h3 class="text-right">${{project.desc.minInvestment}}</h3>
+					</div>
+					<div class="panel-body text-right">
 
-                            </div>
-                        </div>
-                    </div>
-                </c:if>-->
-                <div ng-include="'views/investment/ProjectInvestment.html'"></div>
-
-
-                <!--Window of investments for small displays-->
-                <div class="item">
-                    <div class="hidden-lg hidden-md">
-                        <!-- PRICE ITEM -->
-                        <div class="panel price panel-danger">
-                            <div class="panel-heading  text-center">
-                                <h4><strong>Min investment</strong> $${project.desc.minInvestment}</h4>
-                            </div>
-                            <div class="panel-body text-center">
-                                <h4>Total project investment $${project.desc.cost}</h4>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-info"
-                                         style="width: ${ivnProgress}%"></div>
-                                </div>
-                                <h4 class="text-right">Project need $${project.desc.cost - investedAmount}</h4>
-                            </div>
-                            <div class="panel-footer">
-                                <button type="button" class="btn btn-success btn-block" data-toggle="modal"
-                                        data-target="#modal-invest">I
-                                    want to invest
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-md-offset-8 col-lg-offset-9 col-lg-2 hidden-sm hidden-xs " style="position: fixed">
-                <div class="item">
-
-                    <!-- PRICE ITEM -->
-                    <div class="panel price panel-danger">
-                        <div class="panel-heading">
-                            <h4><strong>Min investment</strong></h4>
-                            <h3 class="text-right">$${project.desc.minInvestment}</h3>
-                        </div>
-                        <div class="panel-body text-right">
-
-                            <h5>Total project investment $${project.desc.cost}</h5>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-info"
-                                     style="width: ${ivnProgress}%"></div>
-                            </div>
-                            <h5>Project need $${project.desc.cost-investedAmount}</h5>
-                        </div>
-                        <div class="panel-footer">
-                            <button type="button" class="btn btn-success btn-block" data-toggle="modal"
-                                    data-target="#modal-invest">I
-                                want to invest
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-
-            <div class="footer">
-                <div class="container">
-                    <div class="row centered">
-                        <a href="#"><span class="fa fa-twitter"></span></a>
-                        <a href="#"><span class="fa fa-facebook"></span></a>
-                        <a href="#"><span class="fa fa-vk"></span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!--Modal-->
-    <div class="modal fade" id="modal-invest">
-        <div class="modal-dialog">
-            <div class="modal-content ">
-                <div class="modal-header">
-                    <button class="close" type="button" data-dismiss="modal">
-                        <span class="fa fa-close"></span>
-                    </button>
-                    <h4 class="modal-title">Invest in project: "${project.desc.name}".</h4>
-                </div>
-                <div class="modal-body text-center">
-                    <p>Thank you for your interest in our project!</p>
-                    <p>To be able to invest you have to be logged in and have money <span class="fa fa-smile-o"></span>.
-                    </p>
-                    <p>Pressing Next you agree with our terms and policy.</p>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-danger pull-right" type="button" data-dismiss="modal">Cancel</button>
-                    <a href="/project/${project.id}/investment/add" class="btn btn-success pull-right" type="submit">Next</a>
-                </div>
-            </div>
-        </div>
-    </div>
+						<h5>Total project investment ${{project.desc.cost}}</h5>
+						<div class="progress">
+							<div class="progress-bar progress-bar-info"
+							     style="width: 25%"></div>
+							<!--todo investment progress bar width according to invested amount-->
+						</div>
+						<!--todo investmented amount-->
+						<h5>Project need ${{project.desc.cost}}</h5>
+					</div>
+					<div class="panel-footer">
+						<button type="button" class="btn btn-success btn-block" data-toggle="modal"
+						        data-target="#modal-invest">I
+							want to invest
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <div ng-include="'views/main/Footer.html'"></div>

@@ -14,6 +14,7 @@ public class DtoProject {
     private DtoCategory category;
     @Valid
     private DtoProjectDescription desc;
+
     private List<DtoInvestment> dtoInvestments;
 
 }
