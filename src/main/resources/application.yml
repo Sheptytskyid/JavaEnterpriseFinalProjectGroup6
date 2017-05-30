@@ -23,7 +23,7 @@ support:
 
 ---
 spring:
-  profiles: default
+  profiles: prod
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
@@ -41,18 +41,16 @@ server:
   port: 8080
 ---
 spring:
-  profiles: dev
+  profiles: default
 #  datasource:
 #    url: jdbc:h2:mem:AZ;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
 #    driverClassName: org.h2.Driver
 #    username: sa
 #    password:
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    hibernate:
-      ddl-auto: create-drop
-      hbm2ddl:
-        import_files_sql_extractor: org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor
+#  jpa:
+#    database-platform: org.hibernate.dialect.H2Dialect
+#    hibernate:
+#      ddl-auto: create-drop
 server:
   port: 9001
 
