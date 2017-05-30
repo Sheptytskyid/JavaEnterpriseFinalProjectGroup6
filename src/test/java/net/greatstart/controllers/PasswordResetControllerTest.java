@@ -6,7 +6,6 @@ import net.greatstart.model.User;
 import net.greatstart.services.MailService;
 import net.greatstart.services.SecurityService;
 import net.greatstart.services.UserService;
-import net.greatstart.validators.PasswordValidationService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,8 +57,6 @@ public class PasswordResetControllerTest {
     private UserService userService;
     @Mock
     private SecurityService securityService;
-    @Mock
-    private PasswordValidationService validationService;
     @Mock
     private HttpServletRequest request;
     @Mock
