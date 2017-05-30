@@ -28,12 +28,12 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: root
-  jpa:
-    properties:
-      hibernate:
-        default_schema: startup_platform
-    hibernate:
-      ddl-auto: update
+#  jpa:
+#    properties:
+#      hibernate:
+#        default_schema: startup_platform
+#    hibernate:
+#      ddl-auto: update
 security:
   basic:
     enabled: false
