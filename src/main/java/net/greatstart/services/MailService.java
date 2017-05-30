@@ -51,7 +51,7 @@ public class MailService {
         passResetLink
             .append("<a href=\"")
             .append(contextPath)
-            .append("/user/validateToken?id=")
+            .append("user/validateToken?id=")
             .append(user.getId())
             .append("&token=")
             .append(token)
