@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -43,6 +44,11 @@ public class UserController {
             return new ResponseEntity<>(dtoUser, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/api/user")
+    public List<User> getAllUsers() {
+       return userService.getAllUsers();
     }
 
     @PreAuthorize("isAuthenticated()")
