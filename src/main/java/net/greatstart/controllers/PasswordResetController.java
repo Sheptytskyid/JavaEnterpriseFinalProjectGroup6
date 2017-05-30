@@ -32,7 +32,7 @@ import java.util.Locale;
 @Controller
 public class PasswordResetController {
 
-    public static final String MESSAGE = "message";
+    private static final String MESSAGE = "message";
     private PasswordEncoder passwordEncoder;
     private MessageSource messages;
     private UserService userService;
@@ -60,7 +60,7 @@ public class PasswordResetController {
             throw new ServiceException(messages.getMessage("user.notFound", null, request.getLocale()));
         }
         String passwordResetToken = securityService.createPasswordResetToken(user).getToken();
-        String url = request.getHeader("origin");
+        String url = request.getHeader("referer");
         boolean emailSent = mailService.sendResetTokenEmail(url, request.getLocale(), passwordResetToken, user);
         if (emailSent) {
             return new ResponseEntity<>(new String[]{messages.getMessage("email.sent", null, request.getLocale())},
