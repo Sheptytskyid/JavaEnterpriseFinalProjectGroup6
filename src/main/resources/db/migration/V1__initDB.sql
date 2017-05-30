@@ -3,7 +3,7 @@ CREATE SCHEMA IF NOT EXISTS startup_platform;
 -- -----------------------------------------------------
 -- Table user_types
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS user_types (
+CREATE TABLE IF NOT EXISTS startup_platform.user_types (
   id INT NOT NULL,
   name VARCHAR(45) NULL,
   PRIMARY KEY (id));
@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS user_types (
 -- -----------------------------------------------------
 -- Table users
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE IF NOT EXISTS startup_platform.users (
   id BIGINT NOT NULL,
   type_id INT NULL,
   name VARCHAR(60) NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS users (
 -- -----------------------------------------------------
 -- Table categories
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS categories (
+CREATE TABLE IF NOT EXISTS startup_platform.categories (
   id INT NOT NULL,
   name VARCHAR(45) NULL,
   PRIMARY KEY (id));
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS categories (
 -- -----------------------------------------------------
 -- Table projects
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS projects (
+CREATE TABLE IF NOT EXISTS startup_platform.projects (
   id          BIGINT      NOT NULL,
   name        VARCHAR(60) NULL,
   owner_id    BIGINT      NULL,
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS projects (
 -- -----------------------------------------------------
 -- Table roles
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS roles (
+CREATE TABLE IF NOT EXISTS startup_platform.roles (
   id INT NOT NULL,
   name VARCHAR(45) NULL,
   PRIMARY KEY (id));
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS roles (
 -- -----------------------------------------------------
 -- Table users_roles
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS users_roles (
+CREATE TABLE IF NOT EXISTS startup_platform.users_roles (
   user_id BIGINT NOT NULL,
   role_id INT NOT NULL,
   PRIMARY KEY (user_id, role_id),
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS users_roles (
 -- -----------------------------------------------------
 -- Table investment_interests
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS investment_interests (
+CREATE TABLE IF NOT EXISTS startup_platform.investment_interests (
   id          INT     NOT NULL,
   user_id   BIGINT    NULL,
   category_id INT     NULL,
@@ -125,7 +125,7 @@ CREATE TABLE IF NOT EXISTS investment_interests (
 -- -----------------------------------------------------
 -- Table investments
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS investments (
+CREATE TABLE IF NOT EXISTS startup_platform.investments (
   id BIGINT NOT NULL,
   user_id BIGINT NOT NULL,
   project_id BIGINT NOT NULL,
@@ -149,6 +149,6 @@ CREATE TABLE IF NOT EXISTS investments (
 -- Table events
 -- -----------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS event (
+CREATE TABLE IF NOT EXISTS startup_platform.event (
   id INTEGER NOT NULL PRIMARY KEY
 );
