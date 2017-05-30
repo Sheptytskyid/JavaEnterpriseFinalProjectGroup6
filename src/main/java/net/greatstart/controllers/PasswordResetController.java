@@ -61,9 +61,10 @@ public class PasswordResetController {
         }
         String passwordResetToken = securityService.createPasswordResetToken(user).getToken();
         String url = request.getHeader("origin");
-//        boolean emailSent = mailService.sendResetTokenEmail(url, request.getLocale(), passwordResetToken, user);
-        if (true) {
-            return new ResponseEntity<>(new String[] {messages.getMessage("email.sent", null, request.getLocale())},HttpStatus.OK);
+        boolean emailSent = mailService.sendResetTokenEmail(url, request.getLocale(), passwordResetToken, user);
+        if (emailSent) {
+            return new ResponseEntity<>(new String[]{messages.getMessage("email.sent", null, request.getLocale())},
+                HttpStatus.OK);
         } else {
             throw new ServiceException(messages.getMessage("email.error", null, request.getLocale()));
         }

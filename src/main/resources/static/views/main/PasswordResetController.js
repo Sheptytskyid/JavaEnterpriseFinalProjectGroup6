@@ -6,11 +6,13 @@ var PasswordResetController = angular.module('greatStartApp').controller('Passwo
         };
 
         $scope.submit = function () {
+            $scope.message = null;
+            $scope.error = null;
             var data = passwordResetService.query({email:$scope.email}, function(){
-                console.log(data[0]);
-
+                $scope.message = data[0];
+                $scope.submitted = true;
             }, function(error) {
-                $scope.error = error;
+                $scope.error = error.data.message;
             });
         };
     });
