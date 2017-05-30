@@ -68,11 +68,9 @@
 							<h4>Total project investment ${{project.desc.cost}}</h4>
 							<div class="progress" ng-init="investedAmount(project)">
 								<div class="progress-bar progress-bar-info"
-								     style="" ></div>
-								<!--todo investment progress bar width according to invested amount-->
+								     style="{{invProgressWithWidth}}" ></div>
 							</div>
-							<!--todo invested amount-->
-							<h4 class="text-right">Project need ${{project.desc.cost}}</h4>
+							<h4 class="text-right">Project need ${{project.desc.cost-investedAmount}}</h4>
 						</div>
 						<div class="panel-footer">
 							<button type="button" class="btn btn-success btn-block" data-toggle="modal"
@@ -97,11 +95,9 @@
 						<h5>Total project investment ${{project.desc.cost}}</h5>
 						<div class="progress">
 							<div class="progress-bar progress-bar-info"
-							     style="width: 25%"></div>
-							<!--todo investment progress bar width according to invested amount-->
+							     style="{{invProgressWithWidth}}"></div>
 						</div>
-						<!--todo investmented amount-->
-						<h5>Project need ${{project.desc.cost}}</h5>
+						<h5>Project need ${{project.desc.cost-investedAmount}}</h5>
 					</div>
 					<div class="panel-footer">
 						<button type="button" class="btn btn-success btn-block" data-toggle="modal"
