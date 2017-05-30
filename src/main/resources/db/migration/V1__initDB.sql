@@ -25,9 +25,9 @@ CREATE TABLE IF NOT EXISTS startup_platform.users (
   PRIMARY KEY (id),
   CONSTRAINT USER_TYPE_FK
   FOREIGN KEY (type_id)
-  REFERENCES user_types (id)
-    ON DELETE SET NULL
-    ON UPDATE CASCADE);
+  REFERENCES startup_platform.user_types (id)
+  ON DELETE SET NULL
+  ON UPDATE CASCADE);
 
 
 -- -----------------------------------------------------
@@ -60,12 +60,12 @@ CREATE TABLE IF NOT EXISTS startup_platform.projects (
   PRIMARY KEY (id),
   CONSTRAINT OWNER_FK
   FOREIGN KEY (owner_id)
-  REFERENCES users (id)
+  REFERENCES startup_platform.users (id)
   ON DELETE RESTRICT
   ON UPDATE CASCADE,
   CONSTRAINT CATEGORY_FK
   FOREIGN KEY (category_id)
-  REFERENCES categories (id)
+  REFERENCES startup_platform.categories (id)
   ON DELETE SET NULL
   ON UPDATE CASCADE
 );
@@ -89,14 +89,14 @@ CREATE TABLE IF NOT EXISTS startup_platform.users_roles (
   PRIMARY KEY (user_id, role_id),
   CONSTRAINT ROLE_FK
   FOREIGN KEY (role_id)
-  REFERENCES roles (id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
+  REFERENCES startup_platform.roles (id)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
   CONSTRAINT USER_ROLE_FK
   FOREIGN KEY (user_id)
-  REFERENCES users (id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE);
+  REFERENCES startup_platform.users (id)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE);
 
 
 -- -----------------------------------------------------
@@ -112,12 +112,12 @@ CREATE TABLE IF NOT EXISTS startup_platform.investment_interests (
   PRIMARY KEY (id),
   CONSTRAINT INVESTOR_INTEREST_FK
   FOREIGN KEY (user_id)
-  REFERENCES users (id)
+  REFERENCES startup_platform.users (id)
   ON DELETE CASCADE
   ON UPDATE CASCADE,
   CONSTRAINT INVEST_CATEGORY_FK
   FOREIGN KEY (category_id)
-  REFERENCES categories (id)
+  REFERENCES startup_platform.categories (id)
   ON DELETE SET NULL
   ON UPDATE CASCADE
 );
@@ -136,14 +136,14 @@ CREATE TABLE IF NOT EXISTS startup_platform.investments (
   PRIMARY KEY (id),
   CONSTRAINT INVESTOR_FK
   FOREIGN KEY (user_id)
-  REFERENCES users (id)
-    ON DELETE RESTRICT
-    ON UPDATE CASCADE,
+  REFERENCES startup_platform.users (id)
+  ON DELETE RESTRICT
+  ON UPDATE CASCADE,
   CONSTRAINT INVEST_PROJECT_FK
   FOREIGN KEY (project_id)
-  REFERENCES projects (id)
-    ON DELETE RESTRICT
-    ON UPDATE CASCADE);
+  REFERENCES startup_platform.projects (id)
+  ON DELETE RESTRICT
+  ON UPDATE CASCADE);
 
 -- -----------------------------------------------------
 -- Table events
