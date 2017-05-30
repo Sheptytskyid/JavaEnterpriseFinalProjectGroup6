@@ -1,9 +1,6 @@
 package net.greatstart;
 
-import net.greatstart.dto.DtoCategory;
-import net.greatstart.dto.DtoProject;
-import net.greatstart.dto.DtoProjectDescription;
-import net.greatstart.dto.DtoUserProfile;
+import net.greatstart.dto.*;
 import net.greatstart.model.Category;
 import net.greatstart.model.Contact;
 import net.greatstart.model.Project;
@@ -12,6 +9,8 @@ import net.greatstart.model.User;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class MapperHelper {
     public static final Long TEST_ID = 1L;
@@ -92,6 +91,17 @@ public class MapperHelper {
         dtoUser.setEmail(TEST_EMAIL);
         dtoUser.setPhoto(TEST_IMAGE);
         return dtoUser;
+    }
+
+    public static DtoInvestment getTestDtoInvestment(BigDecimal sum) {
+        DtoInvestment dtoInvestment = new DtoInvestment();
+        dtoInvestment.setDateOfInvestment(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+        dtoInvestment.setInvestor(getTestDtoUserProfile());
+        dtoInvestment.setProject(getTestDtoProject());
+        dtoInvestment.setPaid(false);
+        dtoInvestment.setVerified(false);
+        dtoInvestment.setSum(sum);
+        return dtoInvestment;
     }
 
 }

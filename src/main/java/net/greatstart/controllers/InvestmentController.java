@@ -1,6 +1,7 @@
 package net.greatstart.controllers;
 
 import net.greatstart.dto.DtoInvestment;
+import net.greatstart.mappers.CycleAvoidingMappingContext;
 import net.greatstart.mappers.InvestmentMapper;
 import net.greatstart.model.Investment;
 import net.greatstart.model.Project;
@@ -56,6 +57,72 @@ public class InvestmentController {
         this.investmentValidationService = investmentValidationService;
     }
 
+    @GetMapping("/api/investment/{id}")
+    @ResponseBody
+    public DtoInvestment getInvestmentById(@PathVariable long id) {
+
+        return investmentService.getDtoInvestmentById(id);
+    }
+
+    @PutMapping("/api/investment/{id}")
+    @ResponseBody
+    public ResponseEntity<DtoInvestment> updateInvestment(@PathVariable long id,
+                                                          @RequestBody DtoInvestment investment) {
+        if (investmentService.getInvestmentById(id) != null) {
+            investmentService.deleteInvestment(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/api/investment/{id}")
+    @ResponseBody
+    public ResponseEntity<Investment> deleteInvestmentById(@PathVariable long id) {
+        if (investmentService.getInvestmentById(id) != null) {
+            investmentService.deleteInvestment(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/api/investment")
+    @ResponseBody
+    public List<DtoInvestment> getInvestments() {
+        return investmentService.getAllDtoInvestments();
+    }
+
+    @GetMapping("/api/project/{id}/investments")
+    @ResponseBody
+    public ResponseEntity<List<DtoInvestment>> getAllProjectInvestments(@PathVariable long id) {
+        List<DtoInvestment> investments = new ArrayList<>();
+        projectService.getProjectById(id).getInvestments()
+                .forEach(investment -> investments.add(investmentMapper
+                        .fromInvestmentToDto(investment, new CycleAvoidingMappingContext())));
+        if (investments.isEmpty()) {
+            return new ResponseEntity<>(investments, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/investment")
+    public ModelAndView getAllInvestments() {
+        ModelAndView model = new ModelAndView(INVESTMENTS_VIEW);
+        model.addObject(PAGE_NAME, "All investments.");
+        model.addObject(INVESTMENT_LIST, investmentService.getAllInvestments());
+        return model;
+    }
+
+    @GetMapping("/user/investments")
+    public ModelAndView getAllUserInvestments(Principal principal) {
+        ModelAndView model = new ModelAndView(INVESTMENTS_VIEW);
+        model.addObject(PAGE_NAME, String.format("Investments of user: %s %s",
+                userService.getUserByEmail(principal.getName()).getName(),
+                userService.getUserByEmail(principal.getName()).getLastName()));
+        model.addObject(INVESTMENT_LIST,
+                userService.getUserByEmail(principal.getName()).getInvestments());
+        return model;
+    }
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/project/{id}/investment/add")
     public ModelAndView getAddInvestmentForm(@PathVariable long id) {
@@ -65,6 +132,7 @@ public class InvestmentController {
         model.addObject("investedSum", getInvestedSumInProject(id));
         return model;
     }
+
 
     @PostMapping("/project/{id}/investment/add")
     public ModelAndView addInvestment(@PathVariable long id,
@@ -84,71 +152,6 @@ public class InvestmentController {
             investmentService.saveInvestment(createInvestment(project, investor, sum));
         }
         return model;
-    }
-
-    @PutMapping("/api/investment/{id}")
-    public ResponseEntity<DtoInvestment> updateInvestment(@PathVariable long id,
-                                                          @RequestBody DtoInvestment investment) {
-        if (investmentService.getInvestmentById(id) != null) {
-            investmentService.deleteInvestment(id);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @GetMapping("/api/investment/{id}")
-    @ResponseBody
-    public DtoInvestment getInvestmentById(@PathVariable long id) {
-
-        return investmentService.getDtoInvestmentById(id);
-    }
-
-    @GetMapping("/investment")
-    public ModelAndView getAllInvestments() {
-        ModelAndView model = new ModelAndView(INVESTMENTS_VIEW);
-        model.addObject(PAGE_NAME, "All investments.");
-        model.addObject(INVESTMENT_LIST, investmentService.getAllInvestments());
-        return model;
-    }
-
-    @GetMapping("/api/investment")
-    @ResponseBody
-    public List<DtoInvestment> getInvestments() {
-        return investmentService.getAllDtoInvestments();
-    }
-
-    @GetMapping("/api/project/{id}/investments")
-    @ResponseBody
-    public ResponseEntity<List<DtoInvestment>> getAllProjectInvestments(@PathVariable long id) {
-        List<DtoInvestment> investments = new ArrayList<>();
-        projectService.getProjectById(id).getInvestments()
-                .forEach(investment -> investments.add(investmentMapper.fromInvestmentToDto(investment)));
-        if (investments.isEmpty()) {
-            return new ResponseEntity<>(investments, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @GetMapping("/user/investments")
-    public ModelAndView getAllUserInvestments(Principal principal) {
-        ModelAndView model = new ModelAndView(INVESTMENTS_VIEW);
-        model.addObject(PAGE_NAME, String.format("Investments of user: %s %s",
-                userService.getUserByEmail(principal.getName()).getName(),
-                userService.getUserByEmail(principal.getName()).getLastName()));
-        model.addObject(INVESTMENT_LIST,
-                userService.getUserByEmail(principal.getName()).getInvestments());
-        return model;
-    }
-
-
-    @DeleteMapping("/api/investment/{id}")
-    @ResponseBody
-    public ResponseEntity<Investment> deleteInvestmentById(@PathVariable long id) {
-        if (investmentService.getInvestmentById(id) != null) {
-            investmentService.deleteInvestment(id);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     private BigDecimal getInvestedSumInProject(long id) {

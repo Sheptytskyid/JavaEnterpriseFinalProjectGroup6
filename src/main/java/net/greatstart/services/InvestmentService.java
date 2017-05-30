@@ -2,6 +2,7 @@ package net.greatstart.services;
 
 import net.greatstart.dao.InvestmentDao;
 import net.greatstart.dto.DtoInvestment;
+import net.greatstart.mappers.CycleAvoidingMappingContext;
 import net.greatstart.mappers.InvestmentMapper;
 import net.greatstart.model.Investment;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ public class InvestmentService {
     }
 
     public DtoInvestment getDtoInvestmentById(long id) {
-        return investmentMapper.fromInvestmentToDto(investmentDao.findOne(id));
+        return investmentMapper.fromInvestmentToDto(investmentDao.findOne(id), new CycleAvoidingMappingContext());
     }
 
     public List<Investment> getAllInvestments() {
@@ -48,7 +49,8 @@ public class InvestmentService {
 
     public List<DtoInvestment> getAllDtoInvestments() {
         List<DtoInvestment> investments = new ArrayList<>();
-        investmentDao.findAll().forEach(investment -> investments.add(investmentMapper.fromInvestmentToDto(investment)));
+        investmentDao.findAll().forEach(investment -> investments.add(investmentMapper
+                .fromInvestmentToDto(investment, new CycleAvoidingMappingContext())));
         return investments;
     }
 }

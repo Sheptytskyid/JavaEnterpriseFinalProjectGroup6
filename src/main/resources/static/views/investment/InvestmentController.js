@@ -15,14 +15,14 @@ angular.module('greatStartApp')
             // Investment.save({id: id});
             //todo update verified investment field
             // callback && c
-            //todo refresh page after deleting investment
+            location.reload();
         };
 
         $scope.payInvestment = function (investment) {
             // Investment.save({id: id});
             //todo update paid investment field
             // callback && c
-            //todo refresh page after deleting investment
+            location.reload();
         };
 
         $scope.investments = getAllInvestments();

@@ -3,7 +3,8 @@
     <div class="well" style="max-height: 210px; overflow: auto;">
         <ul ng-repeat="investment in investments"
             class="list-group checked-list-box">
-            <li class="list-group-item {{investment.paid ? 'list-group-item-success' :
+            <li ng-if="investment.investor.email == currentUser."
+                class="list-group-item {{investment.paid ? 'list-group-item-success' :
         (investment.verified ? 'list-group-item-warning' : 'list-group-item-danger')}}"
                 data-color="">
                 <div class="row">

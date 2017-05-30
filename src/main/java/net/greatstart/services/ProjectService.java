@@ -1,6 +1,9 @@
 package net.greatstart.services;
 
 import net.greatstart.dao.ProjectDao;
+import net.greatstart.dto.DtoProject;
+import net.greatstart.mappers.CycleAvoidingMappingContext;
+import net.greatstart.mappers.ProjectMapper;
 import net.greatstart.model.Project;
 import net.greatstart.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +21,14 @@ public class ProjectService {
 
     private ProjectDao projectDao;
     private UserService userService;
+    private ProjectMapper projectMapper;
+    private CycleAvoidingMappingContext mappingContext = new CycleAvoidingMappingContext();
 
     @Autowired
-    public ProjectService(ProjectDao projectDao, UserService userService) {
+    public ProjectService(ProjectDao projectDao, UserService userService, ProjectMapper projectMapper) {
         this.projectDao = projectDao;
         this.userService = userService;
+        this.projectMapper = projectMapper;
     }
 
     public Project saveProject(Project project) {
@@ -51,5 +57,9 @@ public class ProjectService {
     public List<Project> getAllProjectsOfUser(String email) {
         User user = userService.getUserByEmail(email);
         return projectDao.findByOwner(user);
+    }
+
+    public DtoProject getDtoProjectById(Long id) {
+        return projectMapper.fromProjectToDto(projectDao.findOne(id), mappingContext);
     }
 }

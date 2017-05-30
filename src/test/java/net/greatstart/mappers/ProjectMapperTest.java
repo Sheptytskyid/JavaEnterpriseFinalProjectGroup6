@@ -18,7 +18,7 @@ public class ProjectMapperTest {
     @Test
     public void fromProjectToDto() throws Exception {
         Project project = getTestProject();
-        DtoProject dtoProject = projectMapper.fromProjectToDto(project);
+        DtoProject dtoProject = projectMapper.fromProjectToDto(project, new CycleAvoidingMappingContext());
         assertNotNull(dtoProject);
         assertEquals(project.getId(), dtoProject.getId().longValue());
         DtoProjectDescription dtoDesc = dtoProject.getDesc();
