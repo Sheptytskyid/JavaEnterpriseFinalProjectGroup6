@@ -1,4 +1,5 @@
-CREATE SCHEMA startup_platform;
+-- DROP SCHEMA IF EXISTS startup_platform CASCADE;
+CREATE SCHEMA IF NOT EXISTS startup_platform;
 
 -- -----------------------------------------------------
 -- Table startup_platform.user_types
@@ -47,8 +48,8 @@ CREATE TABLE IF NOT EXISTS startup_platform.projects (
   owner_id    BIGINT      NULL,
   category_id INT         NULL,
   cost        DECIMAL     NULL,
-  date_added  TIMESTAMP   NULL,
-  date_start  TIMESTAMP   NULL,
+  date_added  TIMESTAMP(0)   NULL,
+  date_start  TIMESTAMP(0)   NULL,
   min_invest  DECIMAL     NULL,
   description VARCHAR     NULL,
   goal        VARCHAR     NULL,
@@ -129,7 +130,7 @@ CREATE TABLE IF NOT EXISTS startup_platform.investments (
   id BIGINT NOT NULL,
   user_id BIGINT NOT NULL,
   project_id BIGINT NOT NULL,
-  date TIMESTAMP NULL,
+  date TIMESTAMP(0) NULL,
   sum DECIMAL NULL,
   verified BOOLEAN NULL,
   paid BOOLEAN NULL,
@@ -144,6 +145,10 @@ CREATE TABLE IF NOT EXISTS startup_platform.investments (
   REFERENCES startup_platform.projects (id)
     ON DELETE RESTRICT
     ON UPDATE CASCADE);
+
+-- -----------------------------------------------------
+-- Table startup_platform.events
+-- -----------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS startup_platform.event (
   id INTEGER NOT NULL PRIMARY KEY
