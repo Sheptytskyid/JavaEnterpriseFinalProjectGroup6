@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -47,8 +48,11 @@ public class UserController {
     }
 
     @GetMapping("/api/user")
-    public List<User> getAllUsers() {
-       return userService.getAllUsers();
+    public ResponseEntity<List<DtoUserProfile>> getAllUsers() {
+        List<DtoUserProfile> users = new ArrayList<>();
+        userService.getAllUsers().forEach(user -> users.add(userMapper.fromUserToDtoProfile(user)));
+        List<User> user = userService.getAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @PreAuthorize("isAuthenticated()")

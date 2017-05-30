@@ -1,5 +1,4 @@
--- DROP SCHEMA IF EXISTS startup_platform CASCADE;
--- CREATE SCHEMA IF NOT EXISTS startup_platform;
+CREATE SCHEMA IF NOT EXISTS startup_platform;
 
 -- -----------------------------------------------------
 -- Table user_types
