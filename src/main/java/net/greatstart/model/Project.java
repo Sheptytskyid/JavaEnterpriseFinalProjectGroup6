@@ -1,5 +1,6 @@
 package net.greatstart.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.CascadeType;
@@ -19,9 +20,11 @@ public class Project extends AbstractModel {
     @Embedded
     private ProjectDescription desc;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     private User owner;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "project")
     private List<Investment> investments;
 
