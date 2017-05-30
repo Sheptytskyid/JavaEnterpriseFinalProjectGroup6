@@ -47,7 +47,7 @@ public class SecurityConfigDev extends WebSecurityConfigurerAdapter {
                         "/invinterest",
                         "/views/main/Help.html",
                         "/views/user/UserPage.html",
-                        "/views/user/EditUser.html").authenticated()
+                        "/views/user/EditUser.html").permitAll()
                 .and()
                 .authorizeRequests().antMatchers("/").permitAll()
                 .and().authorizeRequests().antMatchers("/console/**").permitAll()

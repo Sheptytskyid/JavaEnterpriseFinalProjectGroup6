@@ -1,19 +1,19 @@
 -- DROP SCHEMA IF EXISTS startup_platform CASCADE;
-CREATE SCHEMA IF NOT EXISTS startup_platform;
+-- CREATE SCHEMA IF NOT EXISTS startup_platform;
 
 -- -----------------------------------------------------
--- Table startup_platform.user_types
+-- Table user_types
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS startup_platform.user_types (
+CREATE TABLE IF NOT EXISTS user_types (
   id INT NOT NULL,
   name VARCHAR(45) NULL,
   PRIMARY KEY (id));
 
 
 -- -----------------------------------------------------
--- Table startup_platform.users
+-- Table users
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS startup_platform.users (
+CREATE TABLE IF NOT EXISTS users (
   id BIGINT NOT NULL,
   type_id INT NULL,
   name VARCHAR(60) NOT NULL,
@@ -26,23 +26,23 @@ CREATE TABLE IF NOT EXISTS startup_platform.users (
   PRIMARY KEY (id),
   CONSTRAINT USER_TYPE_FK
   FOREIGN KEY (type_id)
-  REFERENCES startup_platform.user_types (id)
+  REFERENCES user_types (id)
     ON DELETE SET NULL
     ON UPDATE CASCADE);
 
 
 -- -----------------------------------------------------
--- Table startup_platform.categories
+-- Table categories
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS startup_platform.categories (
+CREATE TABLE IF NOT EXISTS categories (
   id INT NOT NULL,
   name VARCHAR(45) NULL,
   PRIMARY KEY (id));
 
 -- -----------------------------------------------------
--- Table startup_platform.projects
+-- Table projects
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS startup_platform.projects (
+CREATE TABLE IF NOT EXISTS projects (
   id          BIGINT      NOT NULL,
   name        VARCHAR(60) NULL,
   owner_id    BIGINT      NULL,
@@ -61,49 +61,49 @@ CREATE TABLE IF NOT EXISTS startup_platform.projects (
   PRIMARY KEY (id),
   CONSTRAINT OWNER_FK
   FOREIGN KEY (owner_id)
-  REFERENCES startup_platform.users (id)
+  REFERENCES users (id)
   ON DELETE RESTRICT
   ON UPDATE CASCADE,
   CONSTRAINT CATEGORY_FK
   FOREIGN KEY (category_id)
-  REFERENCES startup_platform.categories (id)
+  REFERENCES categories (id)
   ON DELETE SET NULL
   ON UPDATE CASCADE
 );
 
 
 -- -----------------------------------------------------
--- Table startup_platform.roles
+-- Table roles
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS startup_platform.roles (
+CREATE TABLE IF NOT EXISTS roles (
   id INT NOT NULL,
   name VARCHAR(45) NULL,
   PRIMARY KEY (id));
 
 
 -- -----------------------------------------------------
--- Table startup_platform.users_roles
+-- Table users_roles
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS startup_platform.users_roles (
+CREATE TABLE IF NOT EXISTS users_roles (
   user_id BIGINT NOT NULL,
   role_id INT NOT NULL,
   PRIMARY KEY (user_id, role_id),
   CONSTRAINT ROLE_FK
   FOREIGN KEY (role_id)
-  REFERENCES startup_platform.roles (id)
+  REFERENCES roles (id)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT USER_ROLE_FK
   FOREIGN KEY (user_id)
-  REFERENCES startup_platform.users (id)
+  REFERENCES users (id)
     ON DELETE CASCADE
     ON UPDATE CASCADE);
 
 
 -- -----------------------------------------------------
--- Table startup_platform.investment_interests
+-- Table investment_interests
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS startup_platform.investment_interests (
+CREATE TABLE IF NOT EXISTS investment_interests (
   id          INT     NOT NULL,
   user_id   BIGINT    NULL,
   category_id INT     NULL,
@@ -113,20 +113,20 @@ CREATE TABLE IF NOT EXISTS startup_platform.investment_interests (
   PRIMARY KEY (id),
   CONSTRAINT INVESTOR_INTEREST_FK
   FOREIGN KEY (user_id)
-  REFERENCES startup_platform.users (id)
+  REFERENCES users (id)
   ON DELETE CASCADE
   ON UPDATE CASCADE,
   CONSTRAINT INVEST_CATEGORY_FK
   FOREIGN KEY (category_id)
-  REFERENCES startup_platform.categories (id)
+  REFERENCES categories (id)
   ON DELETE SET NULL
   ON UPDATE CASCADE
 );
 
 -- -----------------------------------------------------
--- Table startup_platform.investments
+-- Table investments
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS startup_platform.investments (
+CREATE TABLE IF NOT EXISTS investments (
   id BIGINT NOT NULL,
   user_id BIGINT NOT NULL,
   project_id BIGINT NOT NULL,
@@ -137,19 +137,19 @@ CREATE TABLE IF NOT EXISTS startup_platform.investments (
   PRIMARY KEY (id),
   CONSTRAINT INVESTOR_FK
   FOREIGN KEY (user_id)
-  REFERENCES startup_platform.users (id)
+  REFERENCES users (id)
     ON DELETE RESTRICT
     ON UPDATE CASCADE,
   CONSTRAINT INVEST_PROJECT_FK
   FOREIGN KEY (project_id)
-  REFERENCES startup_platform.projects (id)
+  REFERENCES projects (id)
     ON DELETE RESTRICT
     ON UPDATE CASCADE);
 
 -- -----------------------------------------------------
--- Table startup_platform.events
+-- Table events
 -- -----------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS startup_platform.event (
+CREATE TABLE IF NOT EXISTS event (
   id INTEGER NOT NULL PRIMARY KEY
 );
