@@ -28,6 +28,13 @@ mainApp.config(function ($routeProvider, $httpProvider) {
             controller: 'ProjectController',
             templateUrl: 'views/project/ProjectPage.html'
         })
+        .when('/project/:id/edit', {
+            controller: 'ProjectController',
+            templateUrl: 'views/project/EditProject.html',
+            resolve: {
+                checkIfUserLogon: checkIfUserHasSession
+            }
+        })
         .when('/events', {
             controller: 'EventController',
             templateUrl: 'views/event/Events.html'
