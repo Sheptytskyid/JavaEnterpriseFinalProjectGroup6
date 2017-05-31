@@ -13,5 +13,4 @@ angular.module('greatStartApp')
             $scope.createUser($scope.user);
         };
 
-
     });
