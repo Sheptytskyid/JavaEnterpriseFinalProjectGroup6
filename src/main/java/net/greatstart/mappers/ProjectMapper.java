@@ -28,7 +28,11 @@ public interface ProjectMapper {
 
     List<DtoInvestment> investmentsToDtoInvestments(List<Investment> investments);
 
-    @Mapping(target = "project.desc.image", ignore = true)
+    @Mappings({
+            @Mapping(target = "project.desc.image", ignore = true),
+            @Mapping(target = "project.owner.photo", ignore = true),
+            @Mapping(target = "investor.photo", ignore = true)
+    })
     DtoInvestment fromInvestmentToDto(Investment investment);
 
 }

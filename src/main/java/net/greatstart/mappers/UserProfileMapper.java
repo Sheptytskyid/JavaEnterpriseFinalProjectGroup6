@@ -13,6 +13,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface UserProfileMapper {
+
     @Mappings({
             @Mapping(target = "address", source = "contact.address"),
             @Mapping(target = "phoneNumber", source = "contact.phoneNumber"),
@@ -28,6 +29,10 @@ public interface UserProfileMapper {
 
     List<DtoInvestment> investmentsToDtoInvestments(List<Investment> investments);
 
-    @Mapping(target = "project.desc.image", ignore = true)
+    @Mappings({
+            @Mapping(target = "project.desc.image", ignore = true),
+            @Mapping(target = "project.owner.photo", ignore = true),
+            @Mapping(target = "investor.photo", ignore = true)
+    })
     DtoInvestment fromInvestmentToDto(Investment investment);
 }
