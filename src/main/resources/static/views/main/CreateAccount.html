@@ -1,82 +1,36 @@
-<div class="centered">
-    <h1>Here must be page with CREATE ACCOUNT</h1>
+<div class="row" ng-controller="RegisterController">
+    <form class="form-horizontal" role="form" ng-submit="submit()" id="createUser">
+        <input type="text" ng-model="user.id">
+        <div class="col-md-offset-1 col-xs-12">
+            <div class="form-group">
+                <label for="email" class="col-xs-3 control-label">Email:</label>
+                <div class="col-xs-9">
+                    <input type="text" ng-model="user.email" placeholder="username@example.com"
+                           class="form-control input-md" id="email"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password" class="col-xs-3 control-label">Password:</label>
+                <div class="col-xs-9">
+                    <input type="password" ng-model="user.password" class="form-control input-md" id="password"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword" class="col-xs-3 control-label">Confirm Password:</label>
+                <div class="col-xs-9">
+                    <input type="password" ng-model="user.confirmPassword" class="form-control input-md"
+                           id="confirmPassword"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="btn-group">
+                    <button class="btn btn-success" type="submit">{{!user.id ? 'Create' :'Save'}}</button>
+                    <a class="btn btn-danger" ng-href="#!/user/{{user.id}}">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 
-<div class="row">
-    <input type="hidden" ng-model="user.id">
-    <div class="col-md-offset-1 col-xs-12">
-        <div class="form-group">
-            <label for="firstName" class="col-xs-3 control-label">First name:</label>
-            <div class="col-xs-9">
-                <input type="text" placeholder="First name" ng-model="user.name" class="form-control input-md"
-                       id="firstName">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="lastName" class="col-xs-3 control-label">Last name:</label>
-            <div class="col-xs-9">
-                <input type="text" placeholder="Last name" ng-model="user.lastName" class="form-control input-md"
-                       id="lastName">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="email" class="col-xs-3 control-label">Email:</label>
-            <div class="col-xs-9">
-                <input type="text" ng-model="user.email" placeholder="username@example.com"
-                       class="form-control input-md" id="email" readonly="true"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="phoneNumber" class="col-xs-3 control-label">Phone:</label>
-            <div class="col-xs-9">
-                <input type="text" ng-model="user.phoneNumber" class="form-control input-md" id="phoneNumber"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="address" class="col-xs-3 control-label">Phone:</label>
-            <div class="col-xs-9">
-                <input type="text" ng-model="user.address" class="form-control input-md" id="address"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="btn-group">
-                <button class="btn btn-success" type="submit">{{!user.id ? 'Create' :'Save'}}</button>
-                <a class="btn btn-danger" ng-href="#!/user/{{user.id}}">Cancel</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container">
-
-    <form:form method="POST" modelAttribute="userForm" class="form-signin">
-        <h2 class="form-signin-heading">Create your account</h2>
-        <spring:bind path="email">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="email" class="form-control" placeholder="Email"
-                            autofocus="true"></form:input>
-                <form:errors path="email"></form:errors>
-            </div>
-        </spring:bind>
-
-        <spring:bind path="password">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="password" path="password" class="form-control" placeholder="Password"></form:input>
-                <form:errors path="password"></form:errors>
-            </div>
-        </spring:bind>
-
-        <spring:bind path="confirmPassword">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="password" path="confirmPassword" class="form-control"
-                            placeholder="Confirm your password"></form:input>
-                <form:errors path="confirmPassword"></form:errors>
-            </div>
-        </spring:bind>
-
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-    </form:form>
-
-</div>
 
 <div ng-include="'views/main/Footer.html'"></div>
