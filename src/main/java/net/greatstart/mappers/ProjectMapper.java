@@ -7,6 +7,7 @@ import net.greatstart.model.Project;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -14,9 +15,13 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface ProjectMapper {
 
-    ProjectMapper MAPPER = Mappers.getMapper( ProjectMapper.class );
+    ProjectMapper MAPPER = Mappers.getMapper(ProjectMapper.class);
 
-    @Mapping(source = "investments", target = "dtoInvestments")
+    @Mappings({
+            @Mapping(source = "investments", target = "dtoInvestments"),
+            @Mapping(target = "owner.dtoInvestments", ignore = true),
+            @Mapping(target = "owner.photo", ignore = true)
+    })
     DtoProject fromProjectToDto(Project project, @Context CycleAvoidingMappingContext context);
 
     Project projectFromDto(DtoProject dtoProject);
@@ -25,4 +30,5 @@ public interface ProjectMapper {
 
     @Mapping(target = "project.desc.image", ignore = true)
     DtoInvestment fromInvestmentToDto(Investment investment);
+
 }

@@ -18,6 +18,7 @@ import java.util.Set;
 
 import static net.greatstart.MapperHelper.getTestDtoUserProfile;
 import static net.greatstart.MapperHelper.getTestUser;
+import static net.greatstart.MapperHelper.CONTEXT;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -76,12 +77,12 @@ public class UserServiceTest {
         when(userDao.findOne(user.getId())).thenReturn(user);
         when(userMapper.fromDtoProfileToUser(dtoUser)).thenReturn(user);
         when(userDao.save(user)).thenReturn(user);
-        when(userMapper.fromUserToDtoProfile(user)).thenReturn(dtoUser);
+        when(userMapper.fromUserToDtoProfile(user, CONTEXT)).thenReturn(dtoUser);
         assertEquals(dtoUser, userService.updateUser(dtoUser, dtoUser.getId()));
         verify(userDao, times(1)).findOne(dtoUser.getId());
         verify(userMapper, times(1)).fromDtoProfileToUser(dtoUser);
         verify(userDao, times(1)).save(user);
-        verify(userMapper, times(1)).fromUserToDtoProfile(user);
+        verify(userMapper, times(1)).fromUserToDtoProfile(user, CONTEXT);
         verifyNoMoreInteractions(userDao);
         verifyNoMoreInteractions(userMapper);
     }
@@ -94,7 +95,7 @@ public class UserServiceTest {
 
     @Test
     public void invokeUserDaoWhenGetUserById() throws Exception {
-        when(userMapper.fromUserToDtoProfile(user)).thenReturn(dtoUser);
+        when(userMapper.fromUserToDtoProfile(user, CONTEXT)).thenReturn(dtoUser);
         when(userDao.findOne(ID)).thenReturn(user);
         assertEquals(userService.getUserById(ID), dtoUser);
         verify(userDao, times(1)).findOne(ID);

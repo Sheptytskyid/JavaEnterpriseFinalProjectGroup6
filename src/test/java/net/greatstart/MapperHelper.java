@@ -1,6 +1,7 @@
 package net.greatstart;
 
 import net.greatstart.dto.*;
+import net.greatstart.mappers.CycleAvoidingMappingContext;
 import net.greatstart.model.Category;
 import net.greatstart.model.Contact;
 import net.greatstart.model.Project;
@@ -32,6 +33,8 @@ public class MapperHelper {
     public static final String TEST_PHONE = "+38 044 123 45 67";
     public static final String TEST_USER_LAST_NAME = "User";
     public static final String TEST_EMAIL = "email@example.com";
+    public static final CycleAvoidingMappingContext CONTEXT = new CycleAvoidingMappingContext();
+
 
     public static Project getTestProject() {
         Project project = new Project();

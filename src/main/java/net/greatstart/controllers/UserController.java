@@ -2,6 +2,7 @@ package net.greatstart.controllers;
 
 
 import net.greatstart.dto.DtoUserProfile;
+import net.greatstart.mappers.CycleAvoidingMappingContext;
 import net.greatstart.mappers.UserProfileMapper;
 import net.greatstart.model.User;
 import net.greatstart.services.UserService;
@@ -23,6 +24,7 @@ import java.security.Principal;
 public class UserController {
     private UserService userService;
     private UserProfileMapper userMapper;
+    private CycleAvoidingMappingContext mappingContext = new CycleAvoidingMappingContext();
 
     @Autowired
     public UserController(UserService userService, UserProfileMapper userMapper) {
@@ -39,7 +41,7 @@ public class UserController {
     public ResponseEntity<DtoUserProfile> getUser(Principal principal) {
         User user = userService.getUserByEmail(principal.getName());
         if (user != null) {
-            DtoUserProfile dtoUser = userMapper.fromUserToDtoProfile(user);
+            DtoUserProfile dtoUser = userMapper.fromUserToDtoProfile(user, mappingContext);
             return new ResponseEntity<>(dtoUser, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

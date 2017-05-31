@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Data
 public class DtoUserProfile {
@@ -17,4 +18,5 @@ public class DtoUserProfile {
     private String lastName;
     private byte[] photo;
     private String initial;
+    private List<DtoInvestment> dtoInvestments;
 }
