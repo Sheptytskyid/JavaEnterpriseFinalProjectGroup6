@@ -42,7 +42,9 @@ var ProjectController = angular.module('greatStartApp')
             return Project.query();
         };
 
-        $scope.project = Project.get({id: $routeParams.id});
+        if ($routeParams.id) {
+            $scope.project = Project.get({id: $routeParams.id});
+        }
 
         $scope.projects = allProjects();
 
