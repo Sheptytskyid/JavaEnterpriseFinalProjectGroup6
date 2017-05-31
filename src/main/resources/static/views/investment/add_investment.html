@@ -1,14 +1,15 @@
 <div ng-controller="InvestmentController">
 	<div class="modal-header">
-		<button class="close" type="button" ng-click="closeInvestmentModal()">
+		<!--todo close button-->
+		<!--<button class="close" type="button" ng-click="closeInvestmentModal()">
 			<span class="fa fa-close"></span>
-		</button>
-		<h3 class="modal-title">Add an investment</h3>
+		</button>-->
+		<h3 class="modaltitle">Add an investment</h3>
 	</div>
 	<div class="modal-body">
 		<p>Here you can add you investment in "{{project.desc.name}}"</p>
-		<p>Total investment needed: {{project.desc.cost - investedAmount}}</p>
-		<p>Minimal investment: {{project.desc.minInvestment}}</p>
+		<p>Total investment needed: ${{project.desc.cost - investedAmount}}</p>
+		<p>Minimal investment: ${{project.desc.minInvestment}}</p>
 		<div>
 			<div class="form-group">
 				<input type="number"

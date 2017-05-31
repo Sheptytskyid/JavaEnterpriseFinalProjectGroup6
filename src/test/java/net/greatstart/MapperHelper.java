@@ -1,6 +1,7 @@
 package net.greatstart;
 
 import net.greatstart.dto.DtoCategory;
+import net.greatstart.dto.DtoInvestment;
 import net.greatstart.dto.DtoProject;
 import net.greatstart.dto.DtoProjectDescription;
 import net.greatstart.dto.DtoUser;

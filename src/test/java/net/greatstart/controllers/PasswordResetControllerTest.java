@@ -24,10 +24,9 @@ import org.springframework.validation.BindException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
+import static net.greatstart.MapperHelper.getTestDtoUser;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -39,7 +38,6 @@ public class PasswordResetControllerTest {
 
     private static final String VALID_PASSWORD = "validPassword";
     private static final String INVALID_EMAIL = "invalid";
-    private static final String VALID_EMAIL = "valid@email.com";
     private static final String LOCALHOST = "http://localhost:8080/";
     private static final Locale LOCALE = new Locale("en");
     private static final String TOKEN_VALUE = "1";
@@ -95,7 +93,7 @@ public class PasswordResetControllerTest {
 
     @Test(timeout = 2000)
     public void processNonExistingEmailShouldReturnModelWithMessage() throws Exception {
-        DtoUser dtoUser = getValidDtoUser();
+        DtoUser dtoUser = getTestDtoUser();
         when(userService.getUserByEmail(dtoUser.getEmail())).thenReturn(null);
         when(request.getLocale()).thenReturn(LOCALE);
         when(messages.getMessage("user.notFound", null, LOCALE)).thenReturn("test");
@@ -155,7 +153,7 @@ public class PasswordResetControllerTest {
 
     @Test(timeout = 2000)
     public void saveValidPasswordShouldChangeUserPassword() throws Exception {
-        DtoUser dtoUser = getValidDtoUser();
+        DtoUser dtoUser = getTestDtoUser();
         User user = new User();
         when(securityContext.getAuthentication()).thenReturn(authentication);
         when(authentication.getPrincipal()).thenReturn(user);
@@ -169,16 +167,8 @@ public class PasswordResetControllerTest {
 
     }
 
-    private DtoUser getValidDtoUser() {
-        DtoUser dtoUser = new DtoUser();
-        dtoUser.setEmail(VALID_EMAIL);
-        dtoUser.setPassword(VALID_PASSWORD);
-        dtoUser.setConfirmPassword(VALID_PASSWORD);
-        return dtoUser;
-    }
-
     private DtoUser prepareProcessValidExistingEmailTest(boolean resultOfSendEmail ) {
-        DtoUser dtoUser = getValidDtoUser();
+        DtoUser dtoUser = getTestDtoUser();
         User user = new User();
         PasswordResetToken token = new PasswordResetToken();
         token.setToken(TOKEN_VALUE);

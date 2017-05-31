@@ -43,6 +43,8 @@ var ProjectController = angular.module('greatStartApp')
         };
 
         $scope.openCreateInvestmentModal = function () {
+            $scope.projectModal.close();
+
             $scope.investmentModal = $uibModal.open({
                 templateUrl: 'views/investment/add_investment.html',
                 controller: 'InvestmentController',
@@ -50,6 +52,6 @@ var ProjectController = angular.module('greatStartApp')
                 backdrop: 'true',
                 scope: $scope
             });
-            $scope.projectModal.dismiss();
+
         };
     });
