@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,10 +17,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
+
 
 @RestController
 public class PasswordResetController {
@@ -61,25 +59,16 @@ public class PasswordResetController {
         }
     }
 
-    @GetMapping(value = "/user/validateToken")
-    public ModelAndView validatePassToken(Locale locale, @RequestParam("id") long id, @RequestParam("token") String token) {
-        String result = securityService.validatePasswordResetToken(id, token, locale);
-        ModelAndView model = new ModelAndView();
-        if (result != null) {
-            model.setViewName("redirect:/");
-            //TODO: implement displaying errors, maybe in some generic error page
-        } else {
-            model.setViewName("redirect:/#!/user/changePassword");
-        }
-        return model;
-    }
-
-    @PreAuthorize("hasAuthority('CHANGE_PASSWORD_PRIVILEGE')")
     @PostMapping(value = "/user/resetPassword")
-    public HttpStatus savePassword(Locale locale, @RequestBody String password) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        userService.changeUserPassword(user, passwordEncoder.encode(password));
-        securityService.expireToken(user);
+    public HttpStatus savePassword(Locale locale, @RequestBody String password, @RequestParam String token) {
+        String validationResult = securityService.validatePasswordResetToken(token, locale);
+        if (validationResult != null) {
+            return HttpStatus.BAD_REQUEST;
+        } else {
+            User user = securityService.getUserByToken(token);
+            userService.changeUserPassword(user, passwordEncoder.encode(password));
+            securityService.expireToken(user);
+        }
         return HttpStatus.OK;
     }
 

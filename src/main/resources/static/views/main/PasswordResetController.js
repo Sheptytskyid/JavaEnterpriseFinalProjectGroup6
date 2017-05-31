@@ -1,5 +1,5 @@
 var PasswordResetController = angular.module('greatStartApp').controller('PasswordResetController',
-    function ($rootScope, $scope, passwordResetService) {
+    function ($rootScope, $scope, $routeParams, passwordResetService) {
 
         $scope.close = function () {
             $scope.forgotPassModal.dismiss();
@@ -22,7 +22,7 @@ var PasswordResetController = angular.module('greatStartApp').controller('Passwo
             $scope.message = null;
             $scope.error = null;
             if(validatePassword()) {
-            passwordResetService.save($scope.password, function (){
+            passwordResetService.save({token:$routeParams.token}, $scope.password, function (){
                 $scope.message = "Password successfully changed!";
             }, function(){
                 $scope.submitted = false;
@@ -46,5 +46,6 @@ var PasswordResetController = angular.module('greatStartApp').controller('Passwo
             } else {
                 return true;
             }
-        }
+        };
     });
+

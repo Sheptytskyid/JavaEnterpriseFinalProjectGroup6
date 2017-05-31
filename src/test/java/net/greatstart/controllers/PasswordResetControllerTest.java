@@ -127,7 +127,7 @@ public class PasswordResetControllerTest {
 
     @Test(timeout = 2000)
     public void validateValidPassTokenShouldOpenLoginPage() throws Exception {
-        when(securityService.validatePasswordResetToken(Long.valueOf(ID), TOKEN_VALUE, LOCALE)).thenReturn(RESULT);
+        when(securityService.validatePasswordResetToken(TOKEN_VALUE, LOCALE)).thenReturn(RESULT);
         mvc.perform(get("/user/validateToken").param("id", ID).param("token", TOKEN_VALUE))
             .andExpect(view().name(LOGIN_PAGE))
             .andExpect(model().attributeExists(MESSAGE));

@@ -76,7 +76,7 @@ public class SecurityServiceTest {
     @Test
     public void validateNonExistingPasswordResetTokenShouldReturnMessage() throws Exception {
         when(messages.getMessage("token.invalid", null, LOCALE)).thenReturn(MESSAGE);
-        String result = securityService.validatePasswordResetToken(ID, TOKEN_VALUE, LOCALE);
+        String result = securityService.validatePasswordResetToken(TOKEN_VALUE, LOCALE);
         verify(passwordTokenDao, times(1)).findByToken(TOKEN_VALUE);
         assertEquals(MESSAGE, result);
     }
@@ -86,7 +86,7 @@ public class SecurityServiceTest {
         PasswordResetToken token = createToken();
         token.setExpiryDate(LocalDateTime.now().plusMinutes(1));
         when(passwordTokenDao.findByToken(TOKEN_VALUE)).thenReturn(token);
-        String result = securityService.validatePasswordResetToken(ID, TOKEN_VALUE, LOCALE);
+        String result = securityService.validatePasswordResetToken(TOKEN_VALUE, LOCALE);
         verify(passwordTokenDao, times(1)).findByToken(TOKEN_VALUE);
         assertNull(result);
     }
@@ -97,7 +97,7 @@ public class SecurityServiceTest {
         token.setExpiryDate(LocalDateTime.now().minusMinutes(1));
         when(passwordTokenDao.findByToken(TOKEN_VALUE)).thenReturn(token);
         when(messages.getMessage("token.expired", null, LOCALE)).thenReturn(MESSAGE);
-        String result = securityService.validatePasswordResetToken(ID, TOKEN_VALUE, LOCALE);
+        String result = securityService.validatePasswordResetToken(TOKEN_VALUE, LOCALE);
         verify(passwordTokenDao, times(1)).findByToken(TOKEN_VALUE);
         assertEquals(MESSAGE, result);
     }

@@ -28,7 +28,7 @@ public class MailService {
     }
 
     public boolean sendResetTokenEmail(String contextPath, Locale locale, String token, User user) {
-        StringBuilder passResetLink = buildPassResetLink(contextPath, token, user);
+        StringBuilder passResetLink = buildPassResetLink(contextPath, token);
         StringBuilder messageBody = new StringBuilder();
         messageBody.append(messages.getMessage("message.resetPassword.body", null, locale))
             .append(passResetLink);
@@ -46,14 +46,12 @@ public class MailService {
         return true;
     }
 
-    private StringBuilder buildPassResetLink(String contextPath, String token, User user) {
+    private StringBuilder buildPassResetLink(String contextPath, String token) {
         StringBuilder passResetLink = new StringBuilder();
         passResetLink
             .append("<a href=\"")
             .append(contextPath)
-            .append("user/validateToken?id=")
-            .append(user.getId())
-            .append("&token=")
+            .append("#!/user/changePassword?token=")
             .append(token)
             .append("\">Reset your password</a>");
         return passResetLink;
