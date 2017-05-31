@@ -49,4 +49,8 @@ public class ProjectDescription {
     @Column(name = "image")
     private byte[] image;
 
+    @Column(name = "stage")
+    private String stage;
+
+
 }
