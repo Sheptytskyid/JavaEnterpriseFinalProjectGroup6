@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 public class DtoUserProfile {
     private Long id;
     @NotNull
-    @Size(min = 3, max = 35, message = "{name.size}")
+    @Size(min = 2, max = 35, message = "{name.size}")
     private String name;
     private String address;
     private String phoneNumber;
