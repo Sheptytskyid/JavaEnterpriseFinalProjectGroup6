@@ -1,4 +1,4 @@
-var MainController = angular.module('greatStartApp')
+angular.module('greatStartApp')
     .controller('MainController',
         ['$location', 'LoginService', '$scope', '$uibModal', '$http', '$rootScope', function ($location, LoginService, $scope, $uibModal, $http, $rootScope) {
             var modalPopup = function () {
