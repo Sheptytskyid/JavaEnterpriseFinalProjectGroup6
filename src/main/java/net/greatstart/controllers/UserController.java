@@ -80,7 +80,6 @@ public class UserController {
 
     @PostMapping("/api/user")
     public ResponseEntity<DtoUser> processRegistration(@Valid @RequestBody DtoUser user) {
-
         if (userService.getUserByEmail(user.getEmail()) == null) {
             userService.createUser(user.getEmail(), passwordEncoder.encode(user.getPassword()));
             securityService.autoLogin(user.getEmail(), user.getPassword());
