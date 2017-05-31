@@ -1,6 +1,6 @@
 var loginController = angular.module('greatStartApp')
     .controller('LoginController',
-        function (LoginService, $rootScope, $scope, $uibModal) {
+        function (LoginService, $rootScope, $scope) {
 
             $scope.close = function () {
                 $scope.modalInstance.close();
