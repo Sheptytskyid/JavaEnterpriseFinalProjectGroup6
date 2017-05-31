@@ -45,7 +45,7 @@ public class ProjectRestController {
     @RequestMapping({"", "/"})
     public ResponseEntity<Collection<Project>> getProjects() {
         List<Project> projectList = projectService.getAllProjects();
-        return  new ResponseEntity<Collection<Project>>(projectList, HttpStatus.OK);
+        return  new ResponseEntity<>(projectList, HttpStatus.OK);
     }
 
 }
