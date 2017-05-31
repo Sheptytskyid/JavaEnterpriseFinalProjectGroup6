@@ -20,7 +20,7 @@ spring:
   messages:
     basename: MessagesBundle
 support:
-  email: GreatStartSupport@ukr.net
+  email: greatstartmail@gmail.com
 
 ---
 spring:
