@@ -1,5 +1,5 @@
 var ProjectController = angular.module('greatStartApp')
-    .controller('ProjectController', function ($scope, $routeParams, Project) {
+    .controller('ProjectController', function ($scope, $rootScope, $routeParams, Project) {
         var investedAmount = function (project) {
             var result = 0;
             for (var i = 0; i < project.dtoInvestments.length; i++) {

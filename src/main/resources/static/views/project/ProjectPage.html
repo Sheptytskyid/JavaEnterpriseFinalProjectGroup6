@@ -48,10 +48,14 @@
 				</div>
 			</div>
 			<!--Investments-->
-			<div class="item">
-				<div class="thumbnail">
-					<div class="caption">
-						<div ng-include="'views/investment/ProjectInvestments.html'"></div>
+			<!--todo: hide investments if user is not project owner	-->
+			<!--<div ng-if="currentUser!=null && currentUser.email == project.owner.email">-->
+			<div ng-if="authenticated">
+				<div class="item">
+					<div class="thumbnail">
+						<div class="caption">
+							<div ng-include="'views/investment/ProjectInvestments.html'"></div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -68,7 +72,7 @@
 							<h4>Total project investment ${{project.desc.cost}}</h4>
 							<div class="progress" ng-init="investedAmount(project)">
 								<div class="progress-bar progress-bar-info"
-								     style="{{invProgressWithWidth}}" ></div>
+								     style="{{invProgressWithWidth}}"></div>
 							</div>
 							<h4 class="text-right">Project need ${{project.desc.cost-investedAmount}}</h4>
 						</div>
