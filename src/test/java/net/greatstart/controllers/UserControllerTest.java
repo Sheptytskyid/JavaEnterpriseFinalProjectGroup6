@@ -136,7 +136,7 @@ public class UserControllerTest {
     }
 
 
-    @Test(timeout = 2000)
+    @Test
     public void UnsuccessfulProcessRegistrationWrongUser() throws Exception {
         dtoUser.setEmail("wrong");
         dtoUser.setPassword("354");
@@ -146,7 +146,7 @@ public class UserControllerTest {
         verifyNoMoreInteractions(securityService);
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void UnsuccessfulProcessRegistration_UserAlreadyExist() throws Exception {
         when(userService.getUserByEmail(dtoUser.getEmail())).thenReturn(user);
         mvc.perform(post(CREATE_USER).contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(dtoUser)))
@@ -156,7 +156,7 @@ public class UserControllerTest {
         verifyNoMoreInteractions(securityService);
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void SuccessfulProcessRegistration() throws Exception {
         dtoUser.setEmail(EMAIL);
         dtoUser.setPassword(PASS);
