@@ -6,9 +6,9 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
   mail:
-    host: smtp.meta.ua
+    host: smtp.ukr.net
     port: 465
-    username: GS.Support@meta.ua
+    username: GreatStartSupport@ukr.net
     password: metaPassword
     properties:
       mail:
@@ -19,7 +19,7 @@ spring:
   messages:
     basename: MessagesBundle
 support:
-  email: GS.Support@meta.ua
+  email: GreatStartSupport@ukr.net
 
 ---
 spring:
