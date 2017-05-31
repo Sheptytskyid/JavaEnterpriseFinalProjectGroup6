@@ -7,7 +7,6 @@ import net.greatstart.mappers.UserProfileMapper;
 import net.greatstart.model.User;
 import net.greatstart.services.SecurityService;
 import net.greatstart.services.UserService;
-import net.greatstart.validators.UserValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
