@@ -1,5 +1,5 @@
 var ProjectController = angular.module('greatStartApp')
-    .controller('ProjectController', function ($scope, $rootScope, $routeParams, Project) {
+    .controller('ProjectController', function ($rootScope, $scope, $uibModal, $routeParams, Project) {
         var investedAmount = function (project) {
             var result = 0;
             for (var i = 0; i < project.dtoInvestments.length; i++) {
@@ -28,7 +28,28 @@ var ProjectController = angular.module('greatStartApp')
             });
         };
 
-        $scope.openModal = function () {
+        $scope.closeApproveModal = function () {
+            $scope.projectModal.dismiss();
+        };
 
+        $scope.openApproveModal = function () {
+            $scope.projectModal = $uibModal.open({
+                templateUrl: 'views/project/ApproveCreateInvestmentModal.html',
+                controller: 'ProjectController',
+                size: 'md',
+                backdrop: 'true',
+                scope: $scope
+            });
+        };
+
+        $scope.openCreateInvestmentModal = function () {
+            $scope.investmentModal = $uibModal.open({
+                templateUrl: 'views/investment/add_investment.html',
+                controller: 'InvestmentController',
+                size: 'md',
+                backdrop: 'true',
+                scope: $scope
+            });
+            $scope.projectModal.dismiss();
         };
     });

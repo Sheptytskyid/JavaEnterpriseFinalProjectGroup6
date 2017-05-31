@@ -22,4 +22,9 @@ angular.module('greatStartApp')
             //todo update paid investment field
         };
 
+        $scope.closeInvestmentModal = function () {
+            console.log($scope.investmentModal);
+            $scope.investmentModal.dismiss();
+        };
+
     });
