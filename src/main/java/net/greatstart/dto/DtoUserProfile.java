@@ -1,5 +1,6 @@
 package net.greatstart.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -16,9 +17,9 @@ public class DtoUserProfile {
     private String email;
     private String lastName;
     private byte[] photo;
-    private String initial;
 
-    public String getInitial() {
+    @JsonSerialize
+    public String initial() {
         StringBuilder initials = new StringBuilder();
         if (lastName != null && !lastName.isEmpty()) {
             initials.append(name.substring(0, 1).toUpperCase())

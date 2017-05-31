@@ -35,7 +35,6 @@ public class MapperHelper {
     public static final String TEST_USER_LAST_NAME = "User";
     public static final String TEST_EMAIL = "email@example.com";
     public static String TEST_PASSWORD = "password";
-    public static String TEST_INITIAL = "T.U.";
 
     public static Project getTestProject() {
         Project project = new Project();
@@ -94,7 +93,6 @@ public class MapperHelper {
         dtoUser.setPhoneNumber(TEST_PHONE);
         dtoUser.setEmail(TEST_EMAIL);
         dtoUser.setPhoto(TEST_IMAGE);
-        dtoUser.setInitial(TEST_INITIAL);
         return dtoUser;
     }
 
