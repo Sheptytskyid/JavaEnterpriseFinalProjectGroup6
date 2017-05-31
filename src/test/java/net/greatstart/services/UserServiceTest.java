@@ -122,15 +122,4 @@ public class UserServiceTest {
         verify(userDao, times(1)).findByEmail(user.getEmail());
     }
 
-    @Test
-    public void getInitialsFromTwoNames() throws Exception {
-        String initials = userService.getInitials("test", "User");
-        assertEquals("T.U.", initials);
-    }
-
-    @Test
-    public void getInitialsFromOneName() throws Exception {
-        String initials = userService.getInitials("test", null);
-        assertEquals("T", initials);
-    }
 }
