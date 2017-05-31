@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,17 +30,15 @@ public class UserController {
     private UserProfileMapper userMapper;
     private SecurityService securityService;
     private PasswordEncoder passwordEncoder;
-    private UserValidationService userValidationService;
 
     @Autowired
     public UserController(UserService userService, UserProfileMapper userMapper,
                           SecurityService securityService,
-                          PasswordEncoder passwordEncoder, UserValidationService userValidationService) {
+                          PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.userMapper = userMapper;
         this.securityService = securityService;
         this.passwordEncoder = passwordEncoder;
-        this.userValidationService = userValidationService;
     }
 
     @RequestMapping("/user")
@@ -91,9 +88,9 @@ public class UserController {
         if (userService.getUserByEmail(user.getEmail()) == null) {
             userService.createUser(user.getEmail(), passwordEncoder.encode(user.getPassword()));
             securityService.autoLogin(user.getEmail(), user.getPassword());
-            return new ResponseEntity<DtoUser>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-        return new ResponseEntity<DtoUser>(HttpStatus.CONFLICT);
+        return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 
     private String getInitials(String firstName, String lastName) {
