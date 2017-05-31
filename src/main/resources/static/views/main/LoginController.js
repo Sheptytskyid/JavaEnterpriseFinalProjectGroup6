@@ -20,14 +20,4 @@ var loginController = angular.module('greatStartApp')
                     }
                 })
             };
-
-            $scope.forgotPass = function () {
-                $scope.forgotPassModal = $uibModal.open({
-                    templateUrl: 'views/main/ForgotPassword.html',
-                    controller: 'PasswordResetController',
-                    size: 'sm',
-                    backdrop: 'static',
-                    scope: $scope
-                });
-            };
         });
