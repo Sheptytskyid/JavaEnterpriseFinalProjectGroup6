@@ -50,7 +50,6 @@ public class UserController {
         User user = userService.getUserByEmail(principal.getName());
         if (user != null) {
             DtoUserProfile dtoUser = userMapper.fromUserToDtoProfile(user);
-            dtoUser.setInitial(getInitials(dtoUser.getName(), dtoUser.getLastName()));
             return new ResponseEntity<>(dtoUser, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -61,7 +60,6 @@ public class UserController {
     public ResponseEntity<DtoUserProfile> getUserById(@PathVariable("id") long id) {
         DtoUserProfile user = userService.getUserById(id);
         if (user != null) {
-            user.setInitial(getInitials(user.getName(), user.getLastName()));
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -74,7 +72,6 @@ public class UserController {
             @Valid @RequestBody DtoUserProfile dtoUser) {
         DtoUserProfile currentDtoUser = userService.updateUser(dtoUser, id);
         if (currentDtoUser != null) {
-            currentDtoUser.setInitial(getInitials(currentDtoUser.getName(), currentDtoUser.getLastName()));
             return new ResponseEntity<>(currentDtoUser, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -90,19 +87,6 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.CONFLICT);
-    }
-
-    private String getInitials(String firstName, String lastName) {
-        StringBuilder initials = new StringBuilder();
-        if (lastName != null && !lastName.isEmpty()) {
-            initials.append(firstName.substring(0, 1).toUpperCase())
-                    .append(".")
-                    .append(lastName.substring(0, 1).toUpperCase())
-                    .append(".");
-        } else {
-            initials.append(firstName.substring(0, 1).toUpperCase());
-        }
-        return initials.toString();
     }
 
 }

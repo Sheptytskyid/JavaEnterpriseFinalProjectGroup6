@@ -17,4 +17,18 @@ public class DtoUserProfile {
     private String lastName;
     private byte[] photo;
     private String initial;
+
+    public String getInitial() {
+        StringBuilder initials = new StringBuilder();
+        if (lastName != null && !lastName.isEmpty()) {
+            initials.append(name.substring(0, 1).toUpperCase())
+                    .append(".")
+                    .append(lastName.substring(0, 1).toUpperCase())
+                    .append(".");
+        } else {
+            initials.append(name.substring(0, 1).toUpperCase());
+        }
+        return initials.toString();
+    }
+
 }
