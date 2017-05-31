@@ -27,4 +27,8 @@ var ProjectController = angular.module('greatStartApp')
                 $scope.projects = projects;
             });
         };
+
+        $scope.openModal = function () {
+
+        };
     });
