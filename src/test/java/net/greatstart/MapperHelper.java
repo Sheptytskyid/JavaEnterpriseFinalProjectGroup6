@@ -1,6 +1,10 @@
 package net.greatstart;
 
-import net.greatstart.dto.*;
+import net.greatstart.dto.DtoCategory;
+import net.greatstart.dto.DtoProject;
+import net.greatstart.dto.DtoProjectDescription;
+import net.greatstart.dto.DtoUser;
+import net.greatstart.dto.DtoUserProfile;
 import net.greatstart.mappers.CycleAvoidingMappingContext;
 import net.greatstart.model.Category;
 import net.greatstart.model.Contact;
@@ -35,6 +39,7 @@ public class MapperHelper {
     public static final String TEST_EMAIL = "email@example.com";
     public static final CycleAvoidingMappingContext CONTEXT = new CycleAvoidingMappingContext();
 
+    public static String TEST_PASSWORD = "password";
 
     public static Project getTestProject() {
         Project project = new Project();
@@ -93,6 +98,14 @@ public class MapperHelper {
         dtoUser.setPhoneNumber(TEST_PHONE);
         dtoUser.setEmail(TEST_EMAIL);
         dtoUser.setPhoto(TEST_IMAGE);
+        return dtoUser;
+    }
+
+    public static DtoUser getTestDtoUser() {
+        DtoUser dtoUser = new DtoUser();
+        dtoUser.setEmail(TEST_EMAIL);
+        dtoUser.setPassword(TEST_PASSWORD);
+        dtoUser.setConfirmPassword(TEST_PASSWORD);
         return dtoUser;
     }
 
