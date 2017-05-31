@@ -1,4 +1,4 @@
-var UserController = angular.module('greatStartApp')
+angular.module('greatStartApp')
     .controller('UserController', function ($scope, $rootScope, User, $location) {
 
         $scope.flag = false;
@@ -11,7 +11,6 @@ var UserController = angular.module('greatStartApp')
         $rootScope.$watch('currentUser', function () {
             $scope.user = angular.copy($rootScope.currentUser);
         });
-
 
 
         var handleFileSelect = function (evt) {
@@ -37,24 +36,14 @@ var UserController = angular.module('greatStartApp')
         };
 
         $scope.submit = function () {
-            if ($scope.user.id === null) {
-                console.log('Saving New User', $scope.user);
-                $scope.createUser();
-            } else {
-                if ($scope.isImageChange) {
-                    $scope.user.photo = $scope.myCroppedImage.replace(/^data:image\/[a-z]+;base64,/, "");
-                }
-                $scope.update($scope.user).$promise.then(function (success) {
-                    $location.path('/user/:id', $scope.user.id);
-                },function (error) {
-                    $scope.error=true;
-                });
-
+            if ($scope.isImageChange) {
+                $scope.user.photo = $scope.myCroppedImage.replace(/^data:image\/[a-z]+;base64,/, "");
             }
-        };
-
-        //TODO write create method for user
-        $scope.createUser=function () {
+            $scope.update($scope.user).$promise.then(function (success) {
+                $location.path('/user/:id', $scope.user.id);
+            }, function (error) {
+                $scope.error = true;
+            });
 
         };
 
