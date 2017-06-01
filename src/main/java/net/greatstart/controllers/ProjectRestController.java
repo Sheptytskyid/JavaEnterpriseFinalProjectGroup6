@@ -30,7 +30,7 @@ public class ProjectRestController {
     private static final String PROJECTS = "project/projects";
     private static final String PROJECT = "dtoProject";
 
-    private final Logger logger = LoggerFactory.getLogger(ProjectController.class);
+    private final Logger logger = LoggerFactory.getLogger(ProjectRestController.class);
 
     private ProjectService projectService;
     private UserService userService;

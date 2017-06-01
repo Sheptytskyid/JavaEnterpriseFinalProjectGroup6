@@ -33,6 +33,14 @@
             <div class="col-xs-9">
                 <input type="number" min="0" ng-model="project.desc.minInvestment" class="form-control input-md" id="minInvestment"/>
             </div>
+            <div class="form-validation"
+                 ng-show="project.desc.minInvestment > project.desc.cost">
+                Minimum investment must be <= cost!
+            </div>
+            <div class="form-validation"
+                 ng-show="project.desc.minInvestment <= project.desc.cost && project.desc.minInvestment != null && project.desc.cost % project.desc.minInvestment !== 0">
+                Cost must be exactly divisible by min. investment
+            </div>
         </div>
         <div class="form-group">
             <label for="dateStart" class="col-xs-3 control-label">Starts on:</label>
@@ -43,9 +51,10 @@
         <div class="form-group">
             <div class="btn-group">
                 <button class="btn btn-success" type="submit">Save</button>
-                <a class="btn btn-danger" ng-href="#!/user/{{user.id}}">Cancel</a>
+                <a class="btn btn-danger" ng-href="#!/project/{{project.id}}">Cancel</a>
             </div>
         </div>
     </div>
 </div>
+
 

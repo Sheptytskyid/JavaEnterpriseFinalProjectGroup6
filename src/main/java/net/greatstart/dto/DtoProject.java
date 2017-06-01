@@ -10,8 +10,8 @@ public class DtoProject {
     private Long id;
     @Valid
     @NotNull
-    private DtoCategory category;
-    @Valid
     private DtoProjectDescription desc;
+    @Valid
+    private DtoCategory category;
 
 }
