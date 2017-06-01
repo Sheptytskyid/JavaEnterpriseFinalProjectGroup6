@@ -20,5 +20,4 @@ var loginController = angular.module('greatStartApp')
                     }
                 })
             };
-
         });

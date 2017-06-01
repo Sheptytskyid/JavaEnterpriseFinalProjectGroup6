@@ -5,7 +5,7 @@ angular.module('greatStartApp')
                 return $scope.modalInstance = $uibModal.open({
                     templateUrl: 'views/main/LoginPage.html',
                     controller: 'LoginController',
-                    size: 'sm',
+                    size: 'md',
                     backdrop: 'static',
                     scope: $scope
                 });
@@ -23,6 +23,17 @@ angular.module('greatStartApp')
                 $http.post('logout', {}).finally(function () {
                     $location.path("/");
                     $rootScope.authenticated = false;
+                });
+            };
+
+            $scope.forgotPass = function () {
+                $scope.modalInstance.dismiss();
+                $scope.forgotPassModal = $uibModal.open({
+                    templateUrl: 'views/main/ForgotPassword.html',
+                    controller: 'PasswordResetController',
+                    size: 'sm',
+                    backdrop: 'static',
+                    scope: $scope
                 });
             };
 
