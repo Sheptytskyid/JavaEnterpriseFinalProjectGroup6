@@ -2,11 +2,11 @@ package net.greatstart.configs;
 
 import net.greatstart.services.GreatStartUserDetailsService;
 import net.greatstart.services.UserService;
+import org.h2.server.web.WebServlet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,16 +16,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
-@Profile("prod")
-@Order(2)
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SpringSecurityDev extends WebSecurityConfigurerAdapter {
     private UserService userService;
 
     @Autowired
-    public SecurityConfig(UserService userService) {
+    public SpringSecurityDev(UserService userService) {
         this.userService = userService;
     }
 
@@ -47,6 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/views/user/UserPage.html",
                         "/views/user/EditUser.html").authenticated()
                 .and()
+                .authorizeRequests().antMatchers("/console/**").permitAll()
+                .and()
                 .formLogin()
                 .loginPage("/user/login")
                 .usernameParameter("email")
@@ -58,12 +58,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .rememberMe()
                 .key("greatStartKey")
-                .rememberMeParameter("remember-me").and()
-                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+                .rememberMeParameter("remember-me");
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    ServletRegistrationBean h2servletRegistration() {
+        ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());
+        registrationBean.addUrlMappings("/console/*");
+        return registrationBean;
     }
 }
