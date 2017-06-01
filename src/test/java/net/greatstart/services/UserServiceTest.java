@@ -19,7 +19,10 @@ import java.util.Set;
 import static net.greatstart.MapperHelper.getTestDtoUserProfile;
 import static net.greatstart.MapperHelper.getTestUser;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
@@ -122,15 +125,4 @@ public class UserServiceTest {
         verify(userDao, times(1)).findByEmail(user.getEmail());
     }
 
-    @Test
-    public void getInitialsFromTwoNames() throws Exception {
-        String initials = userService.getInitials("test", "User");
-        assertEquals("T.U.", initials);
-    }
-
-    @Test
-    public void getInitialsFromOneName() throws Exception {
-        String initials = userService.getInitials("test", null);
-        assertEquals("T", initials);
-    }
 }

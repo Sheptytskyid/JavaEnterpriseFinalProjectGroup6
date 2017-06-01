@@ -53,7 +53,14 @@ mainApp.config(function ($routeProvider, $httpProvider) {
         })
         .when('/createAccount', {
             templateUrl: 'views/main/CreateAccount.html',
-            controller: 'UserController'
+            controller: 'RegisterController'
+        })
+        .when('/user/changePassword/', {
+            controller: 'PasswordResetController',
+            templateUrl: 'views/user/ChangePassword.html',
+            resolve: {
+                checkIfUserLogon: checkIfUserHasSession
+            }
         })
         .when('/user/:id', {
             controller: 'UserController',

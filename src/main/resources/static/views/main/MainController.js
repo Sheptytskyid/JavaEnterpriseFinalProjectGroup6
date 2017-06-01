@@ -1,11 +1,11 @@
-var MainController = angular.module('greatStartApp')
+angular.module('greatStartApp')
     .controller('MainController',
         ['$location', 'LoginService', '$scope', '$uibModal', '$http', '$rootScope', function ($location, LoginService, $scope, $uibModal, $http, $rootScope) {
             var modalPopup = function () {
                 return $scope.modalInstance = $uibModal.open({
                     templateUrl: 'views/main/LoginPage.html',
                     controller: 'LoginController',
-                    size: 'sm',
+                    size: 'md',
                     backdrop: 'static',
                     scope: $scope
                 });
@@ -23,6 +23,17 @@ var MainController = angular.module('greatStartApp')
                 $http.post('logout', {}).finally(function () {
                     $location.path("/");
                     $rootScope.authenticated = false;
+                });
+            };
+
+            $scope.forgotPass = function () {
+                $scope.modalInstance.dismiss();
+                $scope.forgotPassModal = $uibModal.open({
+                    templateUrl: 'views/main/ForgotPassword.html',
+                    controller: 'PasswordResetController',
+                    size: 'sm',
+                    backdrop: 'static',
+                    scope: $scope
                 });
             };
 

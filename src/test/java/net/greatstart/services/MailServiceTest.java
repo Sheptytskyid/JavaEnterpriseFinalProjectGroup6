@@ -12,6 +12,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
 import static org.mockito.Mockito.times;
@@ -34,6 +35,8 @@ public class MailServiceTest {
     private Environment env;
     @Mock
     private MimeMessage mimeMessage;
+    @Mock
+    private HttpServletRequest request;
     @InjectMocks
     private MailService mailService;
     private Locale locale;
@@ -52,7 +55,7 @@ public class MailServiceTest {
         when(mailSender.createMimeMessage()).thenReturn(mimeMessage);
         when(env.getProperty("support.email")).thenReturn(SUPPORT_EMAIL);
         when(messages.getMessage("message.resetPassword.subject", null, locale)).thenReturn(MESSAGE);
-        mailService.sendResetTokenEmail(LOCALHOST, locale, TOKEN_VALUE, user);
+        mailService.sendResetTokenEmail(request, locale, TOKEN_VALUE, user);
         verify(mailSender, times(1)).send(mimeMessage);
     }
 }
