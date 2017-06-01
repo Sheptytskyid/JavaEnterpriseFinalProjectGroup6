@@ -67,7 +67,6 @@ public class UserService {
 
     public DtoUserProfile getUserById(long id) {
         return userMapper.fromUserToDtoProfile(userDao.findOne(id));
-
     }
 
     public List<User> getAllUsers() {

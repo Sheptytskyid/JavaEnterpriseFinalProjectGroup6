@@ -51,11 +51,12 @@ public class User extends AbstractModel {
     @Embedded
     private Contact contact;
 
-    @OneToMany(mappedBy = "investor", fetch = FetchType.LAZY)
-
+    @OneToMany(mappedBy = "investor")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Investment> investments;
 
-    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "owner")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Project> ownedProjects;
 
     @OneToMany(mappedBy = "investor")
