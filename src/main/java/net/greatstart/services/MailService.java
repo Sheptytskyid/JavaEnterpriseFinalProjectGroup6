@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
 @Service
@@ -27,16 +28,12 @@ public class MailService {
         this.env = env;
     }
 
-    public boolean sendResetTokenEmail(String contextPath, Locale locale, String token, User user) {
+    public boolean sendResetTokenEmail(HttpServletRequest request, Locale locale, String token, User user) {
+        String url = request.getHeader("referer");
+        StringBuilder passResetLink = buildPassResetLink(url, token);
         StringBuilder messageBody = new StringBuilder();
         messageBody.append(messages.getMessage("message.resetPassword.body", null, locale))
-            .append("<a href=\"")
-            .append(contextPath)
-            .append("/user/validateToken?id=")
-            .append(user.getId())
-            .append("&token=")
-            .append(token)
-            .append("\">Reset your password</a>");
+            .append(passResetLink);
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
@@ -49,5 +46,16 @@ public class MailService {
             return false;
         }
         return true;
+    }
+
+    private StringBuilder buildPassResetLink(String contextPath, String token) {
+        StringBuilder passResetLink = new StringBuilder();
+        passResetLink
+            .append("<a href=\"")
+            .append(contextPath)
+            .append("#!/user/changePassword?token=")
+            .append(token)
+            .append("\">Reset your password</a>");
+        return passResetLink;
     }
 }
