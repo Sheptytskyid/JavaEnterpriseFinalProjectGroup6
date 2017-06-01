@@ -20,7 +20,10 @@ import static net.greatstart.MapperHelper.getTestDtoUserProfile;
 import static net.greatstart.MapperHelper.getTestUser;
 import static net.greatstart.MapperHelper.CONTEXT;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {

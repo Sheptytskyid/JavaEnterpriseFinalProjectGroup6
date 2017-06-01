@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -49,15 +46,13 @@ public class SecurityService {
         }
     }
 
-    public String validatePasswordResetToken(long userId, String token, Locale locale) {
+    public String validatePasswordResetToken(String token, Locale locale) {
         String result = null;
         PasswordResetToken passToken = passwordTokenDao.findByToken(token);
-        if ((passToken == null) || (passToken.getUser().getId() != userId)) {
+        if (passToken == null) {
             result =  messages.getMessage("token.invalid", null, locale);
         } else if (passToken.getExpiryDate().isBefore(LocalDateTime.now()) || passToken.isUsed()) {
             result =  messages.getMessage("token.expired", null, locale);
-        } else {
-            authoriseToken(passToken);
         }
         return result;
     }
@@ -68,16 +63,14 @@ public class SecurityService {
         return passwordTokenDao.save(myToken);
     }
 
+    public User getUserByToken(String token) {
+        PasswordResetToken passToken = passwordTokenDao.findByToken(token);
+        return passToken.getUser();
+    }
+
     public void expireToken(User user) {
         PasswordResetToken token = passwordTokenDao.findFirstByUserIdOrderByIdDesc(user.getId());
         token.setUsed(true);
         passwordTokenDao.save(token);
-    }
-
-    private void authoriseToken(PasswordResetToken passToken) {
-        User user = passToken.getUser();
-        Authentication auth = new UsernamePasswordAuthenticationToken(
-            user, null, Arrays.asList(new SimpleGrantedAuthority("CHANGE_PASSWORD_PRIVILEGE")));
-        SecurityContextHolder.getContext().setAuthentication(auth);
     }
 }

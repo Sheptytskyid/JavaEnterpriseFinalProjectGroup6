@@ -14,7 +14,7 @@ public class DtoUser {
             + "@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message = "{email.valid}")
     private String email;
     @NotNull
-    @Size(min = 5, max = 35, message = "{password.size}")
+    @Size(min = 5, max = 15, message = "{password.size}")
     private String password;
     @NotNull
     private String confirmPassword;
