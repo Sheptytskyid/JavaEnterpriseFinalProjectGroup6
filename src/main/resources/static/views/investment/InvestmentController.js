@@ -1,5 +1,5 @@
 angular.module('greatStartApp')
-    .controller('InvestmentController', function ($scope, Investment) {
+    .controller('InvestmentController', function ($scope, $location, Investment) {
 
         $scope.getAllInvestments = function () {
             var investments = Investment.query({}, function () {
@@ -7,9 +7,21 @@ angular.module('greatStartApp')
             });
         };
 
-        $scope.deleteInvestment = function (id) {
-            Investment.delete({id: id});
-            location.reload();
+        $scope.createInvestment = function () {
+            $scope.investment.investor = $scope.currentUser;
+            $scope.investment.investor.photo = null;
+            $scope.investment.project = $scope.project;
+            $scope.investment.project.image = null;
+            $scope.investment.verified = false;
+            $scope.investment.paid = false;
+            console.log('Saving New Investment: ', $scope.investment);
+            Investment.save($scope.investment, function () {
+                console.log('Investment saved', $scope.investment);
+                $location.path('/project/' + project.id);
+            }, function (error) {
+                $scope.error = true;
+            });
+            $scope.closeInvestmentModal();
         };
 
         $scope.verifyInvestment = function (investment) {
@@ -22,7 +34,11 @@ angular.module('greatStartApp')
             //todo update paid investment field
         };
 
-        // todo close modal window
+        $scope.deleteInvestment = function (id) {
+            Investment.delete({id: id});
+            location.reload();
+        };
+
         $scope.closeInvestmentModal = function () {
             $scope.investmentModal.dismiss();
         };

@@ -10,24 +10,20 @@
 		<p>Here you can add you investment in "{{project.desc.name}}"</p>
 		<p>Total investment needed: ${{project.desc.cost - investedAmount}}</p>
 		<p>Minimal investment: ${{project.desc.minInvestment}}</p>
-		<div>
+		<form class="form-horizontal" role="form" ng-submit="createInvestment()">
 			<div class="form-group">
-				<input type="number"
-				       name="sum"
+				<input id="sum"
+				       type="number"
+				       ng-model="investment.sum"
 				       placeholder="Amount of investment"
 				       min="{{project.desc.minInvestment}}"
-				       max="{{project.desc.cost-investedAmount}}"
+				       max="{{project.desc.cost - investedAmount}}"
 				       step="{{project.desc.minInvestment}}"/>
+
 			</div>
-		</div>
-		<div class="form-group centered">
-			<div style="margin-bottom: 5px">
-				<a href="#">
-					<button id="singlebutton" name="singlebutton" style=""
-					        class="btn btn-success">Submit
-					</button>
-				</a>
+			<div class="form-group centered">
+				<button type="submit" class="btn btn-success">Submit</button>
 			</div>
-		</div>
+		</form>
 	</div>
 </div>
