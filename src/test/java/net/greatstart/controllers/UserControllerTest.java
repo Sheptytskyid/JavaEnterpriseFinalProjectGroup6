@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.greatstart.dto.DtoUser;
 import net.greatstart.dto.DtoUserProfile;
-import net.greatstart.mappers.UserProfileMapper;
 import net.greatstart.model.User;
 import net.greatstart.services.SecurityService;
 import net.greatstart.services.UserService;
@@ -24,17 +23,10 @@ import org.springframework.validation.Errors;
 
 import java.security.Principal;
 
-import static net.greatstart.MapperHelper.getTestDtoUser;
-import static net.greatstart.MapperHelper.getTestDtoUserProfile;
-import static net.greatstart.MapperHelper.getTestUser;
+import static net.greatstart.MapperHelper.*;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
@@ -52,8 +44,6 @@ public class UserControllerTest {
     private Principal principal;
     @Mock
     private UserService userService;
-    @Mock
-    private UserProfileMapper userMapper;
     @Mock
     private PasswordEncoder passwordEncoder;
     @Mock

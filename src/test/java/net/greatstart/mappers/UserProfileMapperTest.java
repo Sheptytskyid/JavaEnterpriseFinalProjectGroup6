@@ -6,9 +6,7 @@ import net.greatstart.model.User;
 import org.junit.Test;
 import org.mapstruct.factory.Mappers;
 
-import static net.greatstart.MapperHelper.CONTEXT;
-import static net.greatstart.MapperHelper.getTestDtoUserProfile;
-import static net.greatstart.MapperHelper.getTestUser;
+import static net.greatstart.MapperHelper.*;
 import static org.junit.Assert.*;
 
 public class UserProfileMapperTest {
@@ -16,7 +14,7 @@ public class UserProfileMapperTest {
 
     @Test
     public void fromUserToDtoProfile() throws Exception {
-        User user = getTestUser();
+        User user = getFullTestUser();
         DtoUserProfile dtoUser = userMapper.fromUserToDtoProfile(user, CONTEXT);
         assertNotNull(dtoUser);
         Contact contact = user.getContact();
@@ -27,6 +25,8 @@ public class UserProfileMapperTest {
         assertEquals(contact.getAddress(), dtoUser.getAddress());
         assertEquals(contact.getPhoneNumber(), dtoUser.getPhoneNumber());
         assertArrayEquals(user.getPhoto(), dtoUser.getPhoto());
+//        assertArrayEquals(user.getOwnedProjects(), dtoUser.getOwnedProjects());
+//        assertArrayEquals(user.getInvestments(), dtoUser.getDtoInvestments());
     }
 
     @Test
