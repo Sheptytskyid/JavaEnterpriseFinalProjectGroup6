@@ -34,8 +34,8 @@ var ProjectController = angular.module('greatStartApp')
 
         $scope.openApproveModal = function () {
             $scope.projectModal = $uibModal.open({
-                templateUrl: 'views/project/ApproveCreateInvestmentModal.html',
-                controller: 'ProjectController',
+                templateUrl: 'views/investment/ApproveCreateInvestmentModal.html',
+                controller: 'InvestmentController',
                 size: 'md',
                 backdrop: 'true',
                 scope: $scope
@@ -43,7 +43,7 @@ var ProjectController = angular.module('greatStartApp')
         };
 
         $scope.openCreateInvestmentModal = function () {
-            $scope.projectModal.close();
+            $scope.closeApproveModal();
 
             $scope.investmentModal = $uibModal.open({
                 templateUrl: 'views/investment/add_investment.html',

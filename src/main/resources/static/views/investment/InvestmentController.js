@@ -23,8 +23,11 @@ angular.module('greatStartApp')
         };
 
         // todo close modal window
-        /*$scope.closeInvestmentModal = function () {
-            $scope.investmentModal.close();
-        };*/
+        $scope.closeInvestmentModal = function () {
+            $scope.investmentModal.dismiss();
+        };
 
+        $scope.closeApproveModal = function () {
+            $scope.projectModal.dismiss();
+        };
     });
