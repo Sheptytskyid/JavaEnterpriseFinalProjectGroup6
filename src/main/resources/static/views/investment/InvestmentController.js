@@ -11,6 +11,7 @@ angular.module('greatStartApp')
             $scope.investment.investor = $scope.currentUser;
             $scope.investment.investor.photo = null;
             $scope.investment.investor.dtoInvestments = null;
+            $scope.investment.investor.projects = null;
             $scope.investment.project = $scope.project;
             $scope.investment.project.image = null;
             $scope.investment.project.dtoInvestments = null;

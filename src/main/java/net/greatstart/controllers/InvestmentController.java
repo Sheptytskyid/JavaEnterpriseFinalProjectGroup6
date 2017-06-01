@@ -58,19 +58,19 @@ public class InvestmentController {
     @ResponseBody
     public ResponseEntity<DtoInvestment> createInvestment(@Valid @RequestBody DtoInvestment investment) {
         //todo create investment
-        System.out.println(investment);
+//        System.out.println(investment);
         Investment currentInvestment = investmentMapper.investmentFromDto(investment);
-        System.out.println(currentInvestment);
+//        System.out.println(currentInvestment);
         currentInvestment.setDateOfInvestment(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
         currentInvestment.setVerified(false);
         currentInvestment.setVerified(false);
-        System.out.println(currentInvestment);
+//        System.out.println(currentInvestment);
         Long id = investment.getProject().getId();
         Project currentProject = projectService.getProjectById(id);
         currentInvestment.setProject(currentProject);
-        System.out.println(currentInvestment);
+//        System.out.println(currentInvestment);
         currentInvestment.setInvestor(userService.getUser(investment.getInvestor().getId()));
-        System.out.println(currentInvestment);
+//        System.out.println(currentInvestment);
         investmentService.saveInvestment(currentInvestment);
         return new ResponseEntity<>(HttpStatus.OK);
     }
