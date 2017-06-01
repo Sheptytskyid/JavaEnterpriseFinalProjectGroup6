@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -37,9 +38,10 @@ public class InvestmentController {
 
     @Autowired
     public InvestmentController(InvestmentService investmentService,
-                                ProjectService projectService, UserService userService, InvestmentValidationService
+                                InvestmentMapper investmentMapper, ProjectService projectService, UserService userService, InvestmentValidationService
                                         investmentValidationService) {
         this.investmentService = investmentService;
+        this.investmentMapper = investmentMapper;
         this.projectService = projectService;
         this.userService = userService;
         this.investmentValidationService = investmentValidationService;
@@ -52,10 +54,24 @@ public class InvestmentController {
         return investmentService.getDtoInvestmentById(id);
     }
 
-    @PostMapping("/api/investment/")
+    @PostMapping("/api/investment")
     @ResponseBody
-    public ResponseEntity<DtoInvestment> createInvestment(@RequestBody DtoInvestment investment) {
+    public ResponseEntity<DtoInvestment> createInvestment(@Valid @RequestBody DtoInvestment investment) {
         //todo create investment
+        System.out.println(investment);
+        Investment currentInvestment = investmentMapper.investmentFromDto(investment);
+        System.out.println(currentInvestment);
+        currentInvestment.setDateOfInvestment(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+        currentInvestment.setVerified(false);
+        currentInvestment.setVerified(false);
+        System.out.println(currentInvestment);
+        Long id = investment.getProject().getId();
+        Project currentProject = projectService.getProjectById(id);
+        currentInvestment.setProject(currentProject);
+        System.out.println(currentInvestment);
+        currentInvestment.setInvestor(userService.getUser(investment.getInvestor().getId()));
+        System.out.println(currentInvestment);
+        investmentService.saveInvestment(currentInvestment);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

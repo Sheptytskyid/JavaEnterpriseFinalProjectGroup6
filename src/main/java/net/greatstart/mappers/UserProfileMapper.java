@@ -4,10 +4,7 @@ import net.greatstart.dto.DtoInvestment;
 import net.greatstart.dto.DtoUserProfile;
 import net.greatstart.model.Investment;
 import net.greatstart.model.User;
-import org.mapstruct.Context;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
+import org.mapstruct.*;
 
 import java.util.List;
 
@@ -25,6 +22,7 @@ public interface UserProfileMapper {
             @Mapping(source = "address", target = "contact.address"),
             @Mapping(source = "phoneNumber", target = "contact.phoneNumber")
     })
+
     User fromDtoProfileToUser(DtoUserProfile dtoUserProfile);
 
     List<DtoInvestment> investmentsToDtoInvestments(List<Investment> investments);

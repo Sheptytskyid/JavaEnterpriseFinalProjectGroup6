@@ -100,7 +100,7 @@ public class UserServiceTest {
     public void invokeUserDaoWhenGetUserById() throws Exception {
         when(userMapper.fromUserToDtoProfile(user, CONTEXT)).thenReturn(dtoUser);
         when(userDao.findOne(ID)).thenReturn(user);
-        assertEquals(userService.getUserById(ID), dtoUser);
+        assertEquals(userService.getDtoUserProfileById(ID), dtoUser);
         verify(userDao, times(1)).findOne(ID);
     }
 

@@ -77,19 +77,19 @@ public class UserControllerTest {
 
     @Test
     public void findById_UserNotFound_ShouldReturnHttpStatusCode404() throws Exception {
-        when(userService.getUserById(ID)).thenReturn(null);
+        when(userService.getDtoUserProfileById(ID)).thenReturn(null);
         mvc.perform(get(TEST_USER_PROFILE)).andExpect(status().isNotFound());
-        verify(userService, times(1)).getUserById(ID);
+        verify(userService, times(1)).getDtoUserProfileById(ID);
         verifyNoMoreInteractions(userService);
 
     }
 
     @Test
     public void findById_UserFound_ShouldReturnFoundUserEntity() throws Exception {
-        when(userService.getUserById(ID)).thenReturn(dtoUserProfile);
+        when(userService.getDtoUserProfileById(ID)).thenReturn(dtoUserProfile);
         mvc.perform(get(TEST_USER_PROFILE))
                 .andExpect(status().isOk());
-        verify(userService, times(1)).getUserById(ID);
+        verify(userService, times(1)).getDtoUserProfileById(ID);
         verifyNoMoreInteractions(userService);
     }
 
@@ -119,7 +119,7 @@ public class UserControllerTest {
     @Test
     public void updateUser_FailValidation_ShouldReturnCode400() throws Exception {
         dtoUserProfile.setName("F");
-        when(userService.getUserById(ID)).thenReturn(dtoUserProfile);
+        when(userService.getDtoUserProfileById(ID)).thenReturn(dtoUserProfile);
         mvc.perform(put(TEST_USER_PROFILE).contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(dtoUserProfile)))
                 .andExpect(status().isBadRequest());
         verifyNoMoreInteractions(userService);

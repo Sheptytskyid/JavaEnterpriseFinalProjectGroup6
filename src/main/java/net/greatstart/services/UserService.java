@@ -67,8 +67,12 @@ public class UserService {
         userDao.delete(id);
     }
 
-    public DtoUserProfile getUserById(long id) {
+    public DtoUserProfile getDtoUserProfileById(long id) {
         return userMapper.fromUserToDtoProfile(userDao.findOne(id), mappingContext);
+    }
+
+    public User getUser(long id) {
+        return userDao.findOne(id);
     }
 
     public List<User> getAllUsers() {
