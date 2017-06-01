@@ -8,8 +8,8 @@
 	</div>
 	<div class="modal-body">
 		<p>Here you can add you investment in "{{project.desc.name}}"</p>
-		<p>Total investment needed: ${{project.desc.cost - investedAmount}}</p>
-		<p>Minimal investment: ${{project.desc.minInvestment}}</p>
+		<p>Total investment needed: {{(project.desc.cost - investedAmount) | currency}}</p>
+		<p>Minimal investment: {{project.desc.minInvestment | currency}}</p>
 		<form class="form-horizontal" role="form" ng-submit="createInvestment()">
 			<div class="form-group">
 				<input id="sum"

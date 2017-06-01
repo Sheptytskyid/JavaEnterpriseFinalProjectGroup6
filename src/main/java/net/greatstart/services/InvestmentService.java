@@ -18,15 +18,24 @@ public class InvestmentService {
 
     private InvestmentDao investmentDao;
     private InvestmentMapper investmentMapper;
+    private ProjectService projectService;
+    private UserService userService;
+    private CycleAvoidingMappingContext mappingContext = new CycleAvoidingMappingContext();
 
     @Autowired
-    public InvestmentService(InvestmentDao investmentDao, InvestmentMapper investmentMapper) {
+    public InvestmentService(InvestmentDao investmentDao,
+                             InvestmentMapper investmentMapper,
+                             ProjectService projectService,
+                             UserService userService) {
         this.investmentDao = investmentDao;
         this.investmentMapper = investmentMapper;
+        this.projectService = projectService;
+        this.userService = userService;
     }
 
-    public Investment saveInvestment(Investment investment) {
-        return investmentDao.save(investment);
+    public DtoInvestment saveInvestment(DtoInvestment dtoInvestment) {
+        Investment investment = getInvestmentFromDtoWithAttachedProjectAndUser(dtoInvestment);
+        return investmentMapper.fromInvestmentToDto(investmentDao.save(investment), mappingContext);
     }
 
     public void deleteInvestment(long id) {
@@ -49,8 +58,19 @@ public class InvestmentService {
 
     public List<DtoInvestment> getAllDtoInvestments() {
         List<DtoInvestment> investments = new ArrayList<>();
-        investmentDao.findAll().forEach(investment -> investments.add(investmentMapper
-                .fromInvestmentToDto(investment, new CycleAvoidingMappingContext())));
+        investmentDao.findAll().forEach(investment -> {
+            investments.add(investmentMapper
+                    .fromInvestmentToDto(investment, mappingContext));
+        });
         return investments;
+    }
+
+    private Investment getInvestmentFromDtoWithAttachedProjectAndUser(DtoInvestment dtoInvestment) {
+        Investment investment = investmentMapper.investmentFromDto(dtoInvestment);
+        investment.setProject(projectService
+                .getProjectById(dtoInvestment.getProject().getId()));
+        investment.setInvestor(userService
+                .getUser(dtoInvestment.getInvestor().getId()));
+        return investment;
     }
 }

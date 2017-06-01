@@ -64,15 +64,15 @@
 					<!-- PRICE ITEM -->
 					<div class="panel price panel-danger">
 						<div class="panel-heading  text-center">
-							<h4><strong>Min investment</strong> ${{project.desc.minInvestment}}</h4>
+							<h4><strong>Min investment</strong> {{project.desc.minInvestment | currency}}</h4>
 						</div>
 						<div class="panel-body text-center">
-							<h4>Total project investment ${{project.desc.cost}}</h4>
+							<h4>Total project investment {{project.desc.cost | currency}}</h4>
 							<div class="progress" ng-init="investedAmount(project)">
 								<div class="progress-bar progress-bar-info"
 								     style="{{invProgressWithWidth}}"></div>
 							</div>
-							<h4 class="text-right">Project need ${{project.desc.cost-investedAmount}}</h4>
+							<h4 class="text-right">Project need {{(project.desc.cost-investedAmount) | currency}}</h4>
 						</div>
 						<div class="panel-footer">
 							<!--todo modal window popup-->
@@ -90,16 +90,16 @@
 				<div class="panel price panel-danger">
 					<div class="panel-heading">
 						<h4><strong>Min investment</strong></h4>
-						<h3 class="text-right">${{project.desc.minInvestment}}</h3>
+						<h3 class="text-right">{{project.desc.minInvestment | currency}}</h3>
 					</div>
 					<div class="panel-body text-right">
 
-						<h5>Total project investment ${{project.desc.cost}}</h5>
+						<h5>Total project investment {{project.desc.cost | currency}}</h5>
 						<div class="progress">
 							<div class="progress-bar progress-bar-info"
 							     style="{{invProgressWithWidth}}"></div>
 						</div>
-						<h5>Project need ${{project.desc.cost-investedAmount}}</h5>
+						<h5>Project need {{(project.desc.cost-investedAmount) | currency}}</h5>
 					</div>
 					<div class="panel-footer">
 						<button type="button" class="btn btn-success btn-block" ng-click="openApproveModal()">
