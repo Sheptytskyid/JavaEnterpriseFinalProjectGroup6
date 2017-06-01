@@ -9,7 +9,7 @@ var PasswordResetController = angular.module('greatStartApp').controller('Passwo
             $scope.submitted = true;
             $scope.message = null;
             $scope.error = null;
-            var data = passwordResetService.get({email:$scope.email}, function(){
+            passwordResetService.get({email:$scope.email}, function(){
                 $scope.message = "Message with password recovery link has been sent to your email!";
             }, function(error) {
                 $scope.submitted = false;
