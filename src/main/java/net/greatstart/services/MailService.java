@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
 @Service
@@ -27,8 +28,9 @@ public class MailService {
         this.env = env;
     }
 
-    public boolean sendResetTokenEmail(String contextPath, Locale locale, String token, User user) {
-        StringBuilder passResetLink = buildPassResetLink(contextPath, token);
+    public boolean sendResetTokenEmail(HttpServletRequest request, Locale locale, String token, User user) {
+        String url = request.getHeader("referer");
+        StringBuilder passResetLink = buildPassResetLink(url, token);
         StringBuilder messageBody = new StringBuilder();
         messageBody.append(messages.getMessage("message.resetPassword.body", null, locale))
             .append(passResetLink);

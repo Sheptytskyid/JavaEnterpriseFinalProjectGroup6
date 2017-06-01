@@ -4,14 +4,10 @@ import net.greatstart.model.User;
 import net.greatstart.services.MailService;
 import net.greatstart.services.SecurityService;
 import net.greatstart.services.UserService;
-import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,16 +22,13 @@ import java.util.Locale;
 public class PasswordResetController {
 
     private PasswordEncoder passwordEncoder;
-    private MessageSource messages;
     private UserService userService;
     private SecurityService securityService;
     private MailService mailService;
 
     @Autowired
-    public PasswordResetController(@Qualifier("messageSource") MessageSource messages, UserService userService,
-                                   SecurityService securityService, PasswordEncoder passwordEncoder,
+    public PasswordResetController(UserService userService, SecurityService securityService, PasswordEncoder passwordEncoder,
                                    MailService mailService) {
-        this.messages = messages;
         this.userService = userService;
         this.securityService = securityService;
         this.passwordEncoder = passwordEncoder;
@@ -43,19 +36,17 @@ public class PasswordResetController {
     }
 
     @GetMapping(value = "/user/resetPassword")
-    public ResponseEntity<String[]> processEmail(HttpServletRequest request, @RequestParam("email") String email) {
+    public ResponseEntity<String> processEmail(HttpServletRequest request, @RequestParam String email) {
         User user = userService.getUserByEmail(email);
         if (user == null) {
-            throw new ServiceException(messages.getMessage("user.notFound", null, request.getLocale()));
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         String passwordResetToken = securityService.createPasswordResetToken(user).getToken();
-        String url = request.getHeader("referer");
-        boolean emailSent = mailService.sendResetTokenEmail(url, request.getLocale(), passwordResetToken, user);
+        boolean emailSent = mailService.sendResetTokenEmail(request, request.getLocale(), passwordResetToken, user);
         if (emailSent) {
-            return new ResponseEntity<>(new String[]{messages.getMessage("email.sent", null, request.getLocale())},
-                HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } else {
-            throw new ServiceException(messages.getMessage("email.error", null, request.getLocale()));
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -70,10 +61,5 @@ public class PasswordResetController {
             securityService.expireToken(user);
         }
         return HttpStatus.OK;
-    }
-
-    @ExceptionHandler(ServiceException.class)
-    public ResponseEntity<Exception> rulesForException(HttpServletRequest request, ServiceException exception) {
-        return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
     }
 }

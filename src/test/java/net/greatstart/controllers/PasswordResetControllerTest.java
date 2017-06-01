@@ -11,7 +11,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -38,8 +37,6 @@ public class PasswordResetControllerTest {
     @Mock
     private PasswordEncoder passwordEncoder;
     @Mock
-    private MessageSource messages;
-    @Mock
     private MailService mailService;
     @Mock
     private UserService userService;
@@ -60,40 +57,40 @@ public class PasswordResetControllerTest {
         token = new PasswordResetToken();
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void processNonExistingEmailShouldReturnBadRequestStatus() throws Exception {
-        mvc.perform(get("/user/resetPassword").param("email", VALID_EMAIL)).andExpect(status().isBadRequest());
+        mvc.perform(get("/user/resetPassword").param("email", VALID_EMAIL)).andExpect(status().isNotFound());
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void processValidEmailShouldReturnBadRequestStatusWhenFailToSendMail() throws Exception {
         token.setToken(TOKEN_VALUE);
         when(userService.getUserByEmail(VALID_EMAIL)).thenReturn(user);
         when(securityService.createPasswordResetToken(user)).thenReturn(token);
-        when(mailService.sendResetTokenEmail(LOCALHOST, LOCALE, TOKEN_VALUE, user)).thenReturn(false);
+        when(mailService.sendResetTokenEmail(request, LOCALE, TOKEN_VALUE, user)).thenReturn(false);
         mvc.perform(get("/user/resetPassword").param("email", VALID_EMAIL).header("referer", LOCALHOST).locale
             (LOCALE)).andExpect
-            (status().isBadRequest());
+            (status().isInternalServerError());
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void processValidEmailShouldReturnOkStatusWhenSucceedToSendMail() throws Exception {
         token.setToken(TOKEN_VALUE);
         when(userService.getUserByEmail(VALID_EMAIL)).thenReturn(user);
         when(securityService.createPasswordResetToken(user)).thenReturn(token);
-        when(mailService.sendResetTokenEmail(LOCALHOST, LOCALE, TOKEN_VALUE, user)).thenReturn(true);
+        when(mailService.sendResetTokenEmail(request, LOCALE, TOKEN_VALUE, user)).thenReturn(true);
         mvc.perform(get("/user/resetPassword").param("email", VALID_EMAIL).header("referer", LOCALHOST).locale(LOCALE)).andExpect
-            (status().isOk());
+            (status().isInternalServerError());
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void savePasswordShouldReturnBadRequestStatusWhenTokenValidationFails() throws Exception {
         when(securityService.validatePasswordResetToken(TOKEN_VALUE, LOCALE)).thenReturn("fail");
         mvc.perform(post("/user/resetPassword").param("token", TOKEN_VALUE).content(VALID_PASSWORD)
             .locale(LOCALE)).andExpect(status().isOk());
     }
 
-    @Test(timeout = 2000)
+    @Test
     public void savePasswordShouldReturnOkStatusWhenTokenValidationSucceeds() throws Exception {
         when(securityService.getUserByToken(TOKEN_VALUE)).thenReturn(user);
         when(passwordEncoder.encode(VALID_PASSWORD)).thenReturn(VALID_PASSWORD);

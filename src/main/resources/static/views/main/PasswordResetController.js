@@ -9,11 +9,15 @@ var PasswordResetController = angular.module('greatStartApp').controller('Passwo
             $scope.submitted = true;
             $scope.message = null;
             $scope.error = null;
-            var data = passwordResetService.query({email:$scope.email}, function(){
-                $scope.message = data[0];
+            var data = passwordResetService.get({email:$scope.email}, function(){
+                $scope.message = "Message with password recovery link has been sent to your email!";
             }, function(error) {
                 $scope.submitted = false;
-                $scope.error = error.data.message;
+                if (error.status === 404) {
+                    $scope.error = "User with such email was not found!";
+                } else {
+                    $scope.error = "Error sending email";
+                }
             });
         };
 
