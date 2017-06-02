@@ -23,9 +23,7 @@ import static net.greatstart.JsonConverter.convertObjectToJsonBytes;
 import static net.greatstart.MapperHelper.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
@@ -140,4 +138,12 @@ public class InvestmentControllerTest {
         verify(investmentService, times(1)).getDtoInvestmentById(12);
         verifyNoMoreInteractions(investmentService);
     }
+
+    @Test(timeout = 2000)
+    public void updateInvestment() throws Exception {
+        mvc.perform(put("/api/investment/1"))
+                .andExpect(status().isBadRequest());
+        verifyNoMoreInteractions(investmentService);
+    }
+
 }
