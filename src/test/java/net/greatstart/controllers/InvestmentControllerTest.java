@@ -124,16 +124,17 @@ public class InvestmentControllerTest {
 
     @Test(timeout = 2000)
     public void deleteInvestmentByValidIdShouldReturnHttpStatusOk() throws Exception {
-        when(investmentService.getDtoInvestmentById(1L)).thenReturn(null);
+        when(investmentService.getDtoInvestmentById(1L)).thenReturn(dtoInvestment);
         mvc.perform(delete("/api/investment/1"))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isOk());
         verify(investmentService, times(1)).getDtoInvestmentById(1);
+        verify(investmentService, times(1)).deleteInvestment(1);
         verifyNoMoreInteractions(investmentService);
     }
 
     @Test(timeout = 2000)
     public void deleteInvestmentByInvalidIdShouldReturnHttpStatusBadRequest() throws Exception {
-        when(investmentService.getDtoInvestmentById(12L)).thenReturn(null);
+        when(investmentService.getDtoInvestmentById(12L)).thenReturn(dtoInvestment);
         mvc.perform(delete("/api/investment/12"))
                 .andExpect(status().isNotFound());
         verify(investmentService, times(1)).getDtoInvestmentById(12);
