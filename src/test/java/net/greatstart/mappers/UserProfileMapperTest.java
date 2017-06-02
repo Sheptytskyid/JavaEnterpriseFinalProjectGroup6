@@ -26,7 +26,6 @@ public class UserProfileMapperTest {
         assertEquals(contact.getAddress(), dtoUser.getAddress());
         assertEquals(contact.getPhoneNumber(), dtoUser.getPhoneNumber());
         assertArrayEquals(user.getPhoto(), dtoUser.getPhoto());
-//        assertArrayEquals(user.getOwnedProjects(), dtoUser.getOwnedProjects());
         assertEquals(user.getInvestments().get(0).getId(), dtoUser.getDtoInvestments().get(0).getId());
         assertEquals(user.getInvestments().get(1).getId(), dtoUser.getDtoInvestments().get(1).getId());
         assertEquals(user.getInvestments().get(0).getDateOfInvestment(),
@@ -35,8 +34,6 @@ public class UserProfileMapperTest {
                 dtoUser.getDtoInvestments().get(1).getDateOfInvestment());
         assertEquals(user.getInvestments().get(0).getSum(), dtoUser.getDtoInvestments().get(0).getSum());
         assertEquals(user.getInvestments().get(1).getSum(), dtoUser.getDtoInvestments().get(1).getSum());
-//        assertEquals(user.getInvestments().get(0).getProject().getId(),
-//                dtoUser.getDtoInvestments().get(0).getProject().getId());
     }
 
     @Test
@@ -73,7 +70,7 @@ public class UserProfileMapperTest {
             dtoInvestment.getInvestor().setPhoneNumber(null);
             dtoInvestment.getInvestor().setPhoto(null);
         }
-        //user
+        //use
         DtoUserProfile result = userMapper.fromUserToDtoProfile(user);
         //check
         assertEquals(expected, result);

@@ -24,6 +24,10 @@ public class InvestmentServiceTest {
     private InvestmentDao investmentDao;
     @Mock
     private InvestmentMapper investmentMapper;
+    @Mock
+    private ProjectService projectService;
+    @Mock
+    private UserService userService;
     @InjectMocks
     private InvestmentService investmentService;
 
@@ -42,8 +46,16 @@ public class InvestmentServiceTest {
 
     @Test
     public void saveInvestment() throws Exception {
+        //init
+        when(investmentMapper.investmentFromDto(dtoInvestment)).thenReturn(investment);
+        when(projectService.getProjectById(TEST_VALUE_1))
+                .thenReturn(getTestProject(TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1));
+        when(userService.getUser(TEST_VALUE_1)).thenReturn(getTestUser());
         when(investmentDao.save(investment)).thenReturn(investment);
-//        assertEquals(investment, investmentService.saveInvestment(investment));
+        when(investmentMapper.fromInvestmentToDto(investment)).thenReturn(dtoInvestment);
+        //use & verify
+        assertEquals(dtoInvestment, investmentService.saveInvestment(dtoInvestment));
+
         verify(investmentDao, times(1)).save(investment);
     }
 
@@ -62,8 +74,9 @@ public class InvestmentServiceTest {
     }
 
     @Test
-    public void getAllInvestments() throws Exception {
+    public void getAllDtoInvestments() throws Exception {
         when(investmentDao.findAll()).thenReturn(investments);
+        when(investmentMapper.fromInvestmentToDto(investment)).thenReturn(dtoInvestment);
         assertEquals(dtoInvestments, investmentService.getAllDtoInvestments());
         verify(investmentDao, times(1)).findAll();
     }
