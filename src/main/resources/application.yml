@@ -14,9 +14,9 @@ spring:
     tls: true
     properties.mail.smtp:
       auth: true
-      starttls.enable: false
+      starttls.enable: true
       ssl.trust: smtp.gmail.com
-    test-connection: false
+    test-connection: true
   messages:
     basename: MessagesBundle
 support:
