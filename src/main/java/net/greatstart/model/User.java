@@ -1,6 +1,8 @@
 package net.greatstart.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -20,6 +22,8 @@ import java.util.List;
 import java.util.Set;
 
 @Data
+@EqualsAndHashCode(exclude = {"investments", "ownedProjects", "investmentInterests"})
+@ToString(exclude = {"investments", "ownedProjects", "investmentInterests"})
 @Entity
 @Table(name = "users")
 public class User extends AbstractModel {
@@ -62,52 +66,4 @@ public class User extends AbstractModel {
     @OneToMany(mappedBy = "investor")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<InvestmentInterest> investmentInterests;
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-
-        User user = (User) obj;
-
-        if (name != null ? !name.equals(user.name) : user.name != null) {
-            return false;
-        }
-        if (!password.equals(user.password)) {
-            return false;
-        }
-        if (!email.equals(user.email)) {
-            return false;
-        }
-        if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) {
-            return false;
-        }
-        if (type != null ? !type.equals(user.type) : user.type != null) {
-            return false;
-        }
-        if (roles != null ? !roles.equals(user.roles) : user.roles != null) {
-            return false;
-        }
-        return contact != null ? contact.equals(user.contact) : user.contact == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + password.hashCode();
-        result = 31 * result + email.hashCode();
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + (roles != null ? roles.hashCode() : 0);
-        result = 31 * result + (contact != null ? contact.hashCode() : 0);
-        return result;
-    }
 }

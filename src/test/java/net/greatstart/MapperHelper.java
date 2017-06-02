@@ -211,6 +211,7 @@ public class MapperHelper {
         dtoProject.setId((long) value);
         dtoProject.setDesc(dtoDesc);
         dtoProject.setCategory(TEST_DTO_CATEGORY);
+        dtoProject.setOwner(getTestDtoUserProfile());
         return dtoProject;
     }
 

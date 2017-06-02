@@ -1,5 +1,6 @@
 package net.greatstart.mappers;
 
+import net.greatstart.dto.DtoInvestment;
 import net.greatstart.dto.DtoUserProfile;
 import net.greatstart.model.Contact;
 import net.greatstart.model.User;
@@ -55,10 +56,27 @@ public class UserProfileMapperTest {
     }
 
     @Test
-    public void fromUserToDtoUserProfileFull() throws Exception{
+    public void fromUserToDtoUserProfileFull() throws Exception {
+        //init
         User user = getFullTestUser();
-        DtoUserProfile dtoUser = userMapper.fromUserToDtoProfile(user, CONTEXT);
-        assertEquals(dtoUser, getFullTestDtoUserProfile());
+        DtoUserProfile expected = getFullTestDtoUserProfile();
+        for (DtoInvestment dtoInvestment : expected.getDtoInvestments()) {
+            dtoInvestment.getProject().getOwner().setId(0L);
+            dtoInvestment.getProject().getOwner().setAddress(null);
+            dtoInvestment.getProject().getOwner().setDtoInvestments(null);
+            dtoInvestment.getProject().getOwner().setEmail(null);
+            dtoInvestment.getProject().getOwner().setLastName(null);
+            dtoInvestment.getProject().getOwner().setName(null);
+            dtoInvestment.getProject().getOwner().setPhoneNumber(null);
+            dtoInvestment.getProject().getOwner().setPhoto(null);
+            dtoInvestment.getInvestor().setAddress(null);
+            dtoInvestment.getInvestor().setPhoneNumber(null);
+            dtoInvestment.getInvestor().setPhoto(null);
+        }
+        //user
+        DtoUserProfile result = userMapper.fromUserToDtoProfile(user, CONTEXT);
+        //check
+        assertEquals(expected, result);
     }
 
 }

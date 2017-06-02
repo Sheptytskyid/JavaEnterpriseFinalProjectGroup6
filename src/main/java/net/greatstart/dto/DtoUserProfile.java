@@ -2,12 +2,14 @@ package net.greatstart.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
 @Data
+@EqualsAndHashCode(exclude = "dtoInvestments")
 public class DtoUserProfile {
     private Long id;
     @NotNull
@@ -32,49 +34,5 @@ public class DtoUserProfile {
             initials.append(name.substring(0, 1).toUpperCase());
         }
         return initials.toString();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-
-        DtoUserProfile that = (DtoUserProfile) obj;
-
-        if (!id.equals(that.id)) {
-            return false;
-        }
-        if (name != null ? !name.equals(that.name) : that.name != null) {
-            return false;
-        }
-        if (address != null ? !address.equals(that.address) : that.address != null) {
-            return false;
-        }
-        if (phoneNumber != null ? !phoneNumber.equals(that.phoneNumber) : that.phoneNumber != null) {
-            return false;
-        }
-        if (!email.equals(that.email)) {
-            return false;
-        }
-        return lastName != null ? lastName.equals(that.lastName) : that.lastName == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + id.hashCode();
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (address != null ? address.hashCode() : 0);
-        result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
-        result = 31 * result + email.hashCode();
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        return result;
     }
 }

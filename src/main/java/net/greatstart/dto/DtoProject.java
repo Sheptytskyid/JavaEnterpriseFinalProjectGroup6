@@ -1,12 +1,15 @@
 package net.greatstart.dto;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
+@EqualsAndHashCode(exclude = "dtoInvestments")
+
 public class DtoProject {
     private Long id;
     @Valid

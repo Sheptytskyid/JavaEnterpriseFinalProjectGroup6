@@ -23,7 +23,9 @@ import org.springframework.validation.Errors;
 
 import java.security.Principal;
 
-import static net.greatstart.MapperHelper.*;
+import static net.greatstart.MapperHelper.getTestDtoUser;
+import static net.greatstart.MapperHelper.getTestDtoUserProfile;
+import static net.greatstart.MapperHelper.getTestUser;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -60,14 +62,17 @@ public class UserControllerTest {
     @InjectMocks
     private UserController controller;
     private MockMvc mvc;
-    private User user = getTestUser();
-    private DtoUserProfile dtoUserProfile = getTestDtoUserProfile();
-    private DtoUser dtoUser = getTestDtoUser();
+    private User user;
+    private DtoUserProfile dtoUserProfile;
+    private DtoUser dtoUser;
 
 
     @Before
     public void init() {
         mvc = standaloneSetup(controller).build();
+        user = getTestUser();
+        dtoUser = getTestDtoUser();
+        dtoUserProfile = getTestDtoUserProfile();
     }
 
     @Test
@@ -100,8 +105,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void updateUser_withWrongId_ShouldReturnCode404()
-            throws Exception {
+    public void updateUser_withWrongId_ShouldReturnCode404() throws Exception {
         dtoUserProfile.setName("TestName");
         dtoUserProfile.setId(2L);
         when(userService.updateUser(dtoUserProfile, ID)).thenReturn(null);
