@@ -3,6 +3,7 @@ package net.greatstart.controllers;
 import net.greatstart.dto.DtoInvestment;
 import net.greatstart.model.Investment;
 import net.greatstart.services.InvestmentService;
+import net.greatstart.validators.InvestmentValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ import java.util.List;
 public class InvestmentController {
 
     private InvestmentService investmentService;
+    private InvestmentValidationService investmentValidationService;
 
     @Autowired
     public InvestmentController(InvestmentService investmentService) {
@@ -32,24 +34,31 @@ public class InvestmentController {
     }
 
     @GetMapping
-    public List<DtoInvestment> getInvestments() {
-        return investmentService.getAllDtoInvestments();
+    public ResponseEntity<List<DtoInvestment>> getInvestments() {
+        if (!investmentService.getAllDtoInvestments().isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("{id}")
-    public DtoInvestment getInvestmentById(@PathVariable long id) {
-
-        return investmentService.getDtoInvestmentById(id);
+    public ResponseEntity<DtoInvestment> getInvestmentById(@PathVariable long id) {
+        if (investmentService.getDtoInvestmentById(id) != null) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping
+    @PostMapping("")
     public ResponseEntity<DtoInvestment> createInvestment(@Valid @RequestBody DtoInvestment investment) {
         investment.setDateOfInvestment(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
         investment.setVerified(false);
         investment.setVerified(false);
-        DtoInvestment investmentResult = investmentService.saveInvestment(investment);
-        if (investmentResult != null && investmentResult.getId() != 0) {
-            return new ResponseEntity<>(HttpStatus.OK);
+        if (investmentValidationService.validate(investment)) {
+            DtoInvestment investmentResult = investmentService.saveInvestment(investment);
+            if (investmentResult != null && investmentResult.getId() != 0) {
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
         }
         return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
     }

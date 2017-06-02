@@ -1,7 +1,5 @@
 package net.greatstart.controllers;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import net.greatstart.dto.DtoUser;
 import net.greatstart.dto.DtoUserProfile;
 import net.greatstart.model.User;
@@ -23,17 +21,11 @@ import org.springframework.validation.Errors;
 
 import java.security.Principal;
 
-import static net.greatstart.MapperHelper.getTestDtoUser;
-import static net.greatstart.MapperHelper.getTestDtoUserProfile;
-import static net.greatstart.MapperHelper.getTestUser;
+import static net.greatstart.JsonConverter.convertObjectToJsonBytes;
+import static net.greatstart.MapperHelper.*;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
@@ -45,7 +37,6 @@ public class UserControllerTest {
     private static final String EMAIL = "a@example.com";
     private static final String PASS = "password";
     private static final String CREATE_USER = "/api/user/";
-
 
     @Mock
     private Principal principal;
@@ -166,9 +157,4 @@ public class UserControllerTest {
         verifyNoMoreInteractions(securityService);
     }
 
-    private byte[] convertObjectToJsonBytes(Object object) throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        return mapper.writeValueAsBytes(object);
-    }
 }

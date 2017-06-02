@@ -56,10 +56,10 @@ public class MapperHelper {
     public static final byte TEST_VALUE_2 = 2;
     public static final BigDecimal TEST_COST_1 = new BigDecimal(10000);
     public static final BigDecimal TEST_COST_2 = new BigDecimal(20000);
-    public static final BigDecimal TEST_MIN_INVEST_1 = new BigDecimal(100);
-    public static final BigDecimal TEST_MIN_INVEST_2 = new BigDecimal(200);
-    public static final BigDecimal TEST_INVEST_1 = new BigDecimal(200);
-    public static final BigDecimal TEST_INVEST_2 = new BigDecimal(400);
+    public static final BigDecimal TEST_MIN_INVEST_1 = new BigDecimal(1000);
+    public static final BigDecimal TEST_MIN_INVEST_2 = new BigDecimal(2000);
+    public static final BigDecimal TEST_INVEST_1 = new BigDecimal(2000);
+    public static final BigDecimal TEST_INVEST_2 = new BigDecimal(4000);
     public static final User TEST_USER = new User();
     public static final Category TEST_CATEGORY = new Category();
     public static final DtoCategory TEST_DTO_CATEGORY = new DtoCategory();
