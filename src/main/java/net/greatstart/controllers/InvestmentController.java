@@ -57,7 +57,7 @@ public class InvestmentController {
     @PutMapping("{id}")
     public ResponseEntity<DtoInvestment> updateInvestment(@PathVariable long id,
                                                           @RequestBody DtoInvestment investment) {
-        //todo update investment
+        //todo: implement update investment
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 

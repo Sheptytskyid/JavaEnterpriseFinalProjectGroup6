@@ -72,19 +72,6 @@ public class ProjectController {
         return model;
     }
 
-    /*@GetMapping(value = "/{id}")
-    public ModelAndView showProject(@PathVariable Long id) {
-        Project project = projectService.getProjectById(id);
-        ModelAndView model = new ModelAndView("project/project_page");
-        model.addObject("project", project);
-        model.addObject("investedAmount",
-                projectService.getProjectById(id)
-                        .getInvestments().stream()
-                        .map(Investment::getSum)
-                        .reduce(BigDecimal.ZERO, BigDecimal::add));
-        return model;
-    }*/
-
     @GetMapping(value = "/{id}")
     @ResponseBody
     public ResponseEntity<DtoProject> showProject(@PathVariable Long id) {

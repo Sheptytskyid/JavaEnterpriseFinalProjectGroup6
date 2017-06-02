@@ -121,11 +121,10 @@ public class MapperHelper {
                                                             byte value,
                                                             BigDecimal projectCost,
                                                             BigDecimal projectMinInvestment) {
-        Investment investment200 = getTestInvestment(investmentSum, value, projectCost, projectMinInvestment);
-        Investment investment400 = getTestInvestment(investmentSum, value, projectCost, projectMinInvestment);
+        Investment investment1 = getTestInvestment(investmentSum, value, projectCost, projectMinInvestment);
         List<Investment> investments = new ArrayList<>();
-        investments.add(investment200);
-        investments.add(investment400);
+        investments.add(investment1);
+        investments.add(investment1);
         return investments;
     }
 
@@ -133,11 +132,10 @@ public class MapperHelper {
                                                                   byte value,
                                                                   BigDecimal projectCost,
                                                                   BigDecimal projectMinInvestment) {
-        DtoInvestment dtoInvestment200 = getTestDtoInvestment(investmentSum, value, projectCost, projectMinInvestment);
-        DtoInvestment dtoInvestment400 = getTestDtoInvestment(investmentSum, value, projectCost, projectMinInvestment);
+        DtoInvestment dtoInvestment1 = getTestDtoInvestment(investmentSum, value, projectCost, projectMinInvestment);
         List<DtoInvestment> dtoInvestments = new ArrayList<>();
-        dtoInvestments.add(dtoInvestment200);
-        dtoInvestments.add(dtoInvestment400);
+        dtoInvestments.add(dtoInvestment1);
+        dtoInvestments.add(dtoInvestment1);
         return dtoInvestments;
     }
 
@@ -170,7 +168,7 @@ public class MapperHelper {
     }
 
     public static Project getTestProject(byte value,
-                                         BigDecimal sum,
+                                         BigDecimal cost,
                                          BigDecimal minInv) {
         Project project = new Project();
         ProjectDescription desc = new ProjectDescription();
@@ -183,7 +181,7 @@ public class MapperHelper {
         desc.setDateAdded(DATE_ADDED);
         byte[] testImage = {value, 0, value, value, value, 0};
         desc.setImage(testImage);
-        desc.setCost(sum);
+        desc.setCost(cost);
         desc.setMinInvestment(minInv);
         project.setId(value);
         project.setDesc(desc);

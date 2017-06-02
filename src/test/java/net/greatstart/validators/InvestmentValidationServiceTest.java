@@ -1,8 +1,6 @@
 package net.greatstart.validators;
 
-import net.greatstart.model.Investment;
 import net.greatstart.model.Project;
-import net.greatstart.model.ProjectDescription;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,8 +8,8 @@ import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.List;
+
+import static net.greatstart.MapperHelper.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class InvestmentValidationServiceTest {
@@ -31,41 +29,31 @@ public class InvestmentValidationServiceTest {
     @Before
     public void setUp() throws Exception {
         investmentValidationService = new InvestmentValidationService();
-        project = new Project();
-        ProjectDescription desc = new ProjectDescription();
-        desc.setMinInvestment(new BigDecimal(1000));
-        desc.setCost(new BigDecimal(10000));
-        project.setDesc(desc);
-        Investment investment1 = new Investment();
-        investment1.setSum(new BigDecimal(2000));
-        Investment investment2 = new Investment();
-        investment2.setSum(new BigDecimal(3000));
-        List<Investment> investments = Arrays.asList(investment1, investment2);
-        project.setInvestments(investments);
+        project = getFullTestProject(TEST_INVEST_1, TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
     }
 
     @Test(timeout = 2000)
     public void validateNormalInvestment() throws Exception {
-        sum = new BigDecimal(1000);
+        sum = new BigDecimal(200);
         Assert.assertEquals(null, investmentValidationService.validate(sum, project));
     }
 
     @Test(timeout = 2000)
     public void validateLessThenMinInvestment() throws Exception {
-        sum = new BigDecimal(999);
-        Assert.assertEquals(WRONG_MIN_VALUE + "1000", investmentValidationService.validate(sum, project));
+        sum = new BigDecimal(99);
+        Assert.assertEquals(WRONG_MIN_VALUE + TEST_MIN_INVEST_1, investmentValidationService.validate(sum, project));
     }
 
     @Test(timeout = 2000)
     public void validateMoreThenMaxInvestment() throws Exception {
-        sum = new BigDecimal(6000);
-        Assert.assertEquals(WRONG_MAX_VALUE + "5000", investmentValidationService.validate(sum, project));
+        sum = new BigDecimal(9900);
+        Assert.assertEquals(WRONG_MAX_VALUE + "9600", investmentValidationService.validate(sum, project));
     }
 
     @Test(timeout = 2000)
     public void validateWrongStepInvestment() throws Exception {
-        sum = new BigDecimal(2200);
-        Assert.assertEquals(WRONG_STEP_VALUE + "1000", investmentValidationService.validate(sum, project));
+        sum = new BigDecimal(2350);
+        Assert.assertEquals(WRONG_STEP_VALUE + TEST_MIN_INVEST_1, investmentValidationService.validate(sum, project));
     }
 
 }

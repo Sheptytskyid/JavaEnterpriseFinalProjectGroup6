@@ -78,6 +78,7 @@ public class InvestmentServiceTest {
         when(investmentDao.findAll()).thenReturn(investments);
         when(investmentMapper.fromInvestmentToDto(investment)).thenReturn(dtoInvestment);
         assertEquals(dtoInvestments, investmentService.getAllDtoInvestments());
+//        assertTrue(dtoInvestments.containsAll(investmentService.getAllDtoInvestments()));
         verify(investmentDao, times(1)).findAll();
     }
 }

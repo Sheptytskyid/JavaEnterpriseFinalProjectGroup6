@@ -29,12 +29,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.userService = userService;
     }
 
+    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .userDetailsService(new GreatStartUserDetailsService(userService))
                 .passwordEncoder(passwordEncoder());
     }
 
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .httpBasic().and()
