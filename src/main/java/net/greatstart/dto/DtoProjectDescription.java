@@ -40,9 +40,6 @@ public class DtoProjectDescription {
         if (goal != null ? !goal.equals(that.goal) : that.goal != null) {
             return false;
         }
-        if (description != null ? !description.equals(that.description) : that.description != null) {
-            return false;
-        }
         if (cost != null ? !cost.equals(that.cost) : that.cost != null) {
             return false;
         }
@@ -63,7 +60,6 @@ public class DtoProjectDescription {
         int result = super.hashCode();
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (goal != null ? goal.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (cost != null ? cost.hashCode() : 0);
         result = 31 * result + (minInvestment != null ? minInvestment.hashCode() : 0);
         result = 31 * result + (dateStart != null ? dateStart.hashCode() : 0);
