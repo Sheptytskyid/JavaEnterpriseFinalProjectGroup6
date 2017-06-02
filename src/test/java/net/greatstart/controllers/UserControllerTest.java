@@ -2,6 +2,7 @@ package net.greatstart.controllers;
 
 import net.greatstart.dto.DtoUser;
 import net.greatstart.dto.DtoUserProfile;
+import net.greatstart.mappers.UserProfileMapper;
 import net.greatstart.model.User;
 import net.greatstart.services.SecurityService;
 import net.greatstart.services.UserService;
@@ -44,6 +45,8 @@ public class UserControllerTest {
     private UserService userService;
     @Mock
     private PasswordEncoder passwordEncoder;
+    @Mock
+    private UserProfileMapper userMapper;
     @Mock
     private SecurityService securityService;
     @Mock
@@ -119,9 +122,34 @@ public class UserControllerTest {
     @Test
     public void user() throws Exception {
         assertEquals(principal, controller.user(principal));
-
     }
 
+    @Test
+    public void getUserReturnDtoUserProfileIfLoggedIn() throws Exception {
+        //init
+        when(principal.getName()).thenReturn(EMAIL);
+        when(userService.getUserByEmail(EMAIL)).thenReturn(user);
+        when(userMapper.fromUserToDtoProfile(user)).thenReturn(dtoUserProfile);
+        //use & check
+        mvc.perform(get("/api/current").principal(principal)).andExpect(status().isOk());
+        verify(userService, times(1)).getUserByEmail(EMAIL);
+        verify(userMapper, times(1)).fromUserToDtoProfile(user);
+        verifyNoMoreInteractions(userService);
+        verifyNoMoreInteractions(userMapper);
+    }
+
+    @Test
+    public void getUserReturnDtoUserProfileIfNotLoggedIn() throws Exception {
+        //init
+
+        when(principal.getName()).thenReturn(EMAIL);
+        when(userService.getUserByEmail(EMAIL)).thenReturn(null);
+        //use & check
+        mvc.perform(get("/api/current").principal(principal)).andExpect(status().isNotFound());
+        verify(userService, times(1)).getUserByEmail(EMAIL);
+        verifyNoMoreInteractions(userService);
+        verifyNoMoreInteractions(userMapper);
+    }
 
     @Test
     public void UnsuccessfulProcessRegistrationWrongUser() throws Exception {
