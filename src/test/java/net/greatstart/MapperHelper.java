@@ -41,7 +41,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MapperHelper {
@@ -126,7 +126,10 @@ public class MapperHelper {
                                                             BigDecimal projectMinInvestment) {
         Investment investment200 = getTestInvestment(investmentSum, value, projectCost, projectMinInvestment);
         Investment investment400 = getTestInvestment(investmentSum, value, projectCost, projectMinInvestment);
-        return Arrays.asList(investment200, investment400);
+        List<Investment> investments = new ArrayList<>();
+        investments.add(investment200);
+        investments.add(investment400);
+        return investments;
     }
 
     public static List<DtoInvestment> getTestListOfDtoInvestments(BigDecimal investmentSum,
@@ -135,7 +138,10 @@ public class MapperHelper {
                                                                   BigDecimal projectMinInvestment) {
         DtoInvestment dtoInvestment200 = getTestDtoInvestment(investmentSum, value, projectCost, projectMinInvestment);
         DtoInvestment dtoInvestment400 = getTestDtoInvestment(investmentSum, value, projectCost, projectMinInvestment);
-        return Arrays.asList(dtoInvestment200, dtoInvestment400);
+        List<DtoInvestment> dtoInvestments = new ArrayList<>();
+        dtoInvestments.add(dtoInvestment200);
+        dtoInvestments.add(dtoInvestment400);
+        return dtoInvestments;
     }
 
     public static DtoInvestment getTestDtoInvestment(BigDecimal investmentSum,

@@ -19,4 +19,5 @@ public class DtoInvestment {
     BigDecimal sum;
     boolean verified;
     boolean paid;
+
 }

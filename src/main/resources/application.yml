@@ -14,9 +14,9 @@ spring:
     tls: true
     properties.mail.smtp:
       auth: true
-      starttls.enable: true
+      starttls.enable: false
       ssl.trust: smtp.gmail.com
-    test-connection: true
+    test-connection: false
   messages:
     basename: MessagesBundle
 support:
@@ -26,7 +26,7 @@ support:
 spring:
   profiles: prod
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/startup_platform
     username: postgres
     password: root
   jpa:
@@ -39,7 +39,7 @@ security:
   basic:
     enabled: false
 server:
-  port: 8080
+  port: 8081
 ---
 spring:
   profiles: default

@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import static net.greatstart.MapperHelper.getTestDtoUserProfile;
-import static net.greatstart.MapperHelper.getTestUser;
+import static net.greatstart.MapperHelper.getFullTestDtoUserProfile;
+import static net.greatstart.MapperHelper.getFullTestUser;
 import static net.greatstart.MapperHelper.CONTEXT;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
@@ -47,8 +47,8 @@ public class UserServiceTest {
 
     @Before
     public void setUp() {
-        user = getTestUser();
-        dtoUser = getTestDtoUserProfile();
+        user = getFullTestUser();
+        dtoUser = getFullTestDtoUserProfile();
     }
 
 
@@ -100,7 +100,7 @@ public class UserServiceTest {
     public void invokeUserDaoWhenGetUserById() throws Exception {
         when(userMapper.fromUserToDtoProfile(user, CONTEXT)).thenReturn(dtoUser);
         when(userDao.findOne(ID)).thenReturn(user);
-        assertEquals(userService.getDtoUserProfileById(ID), dtoUser);
+        assertEquals(dtoUser, userService.getDtoUserProfileById(ID));
         verify(userDao, times(1)).findOne(ID);
     }
 
