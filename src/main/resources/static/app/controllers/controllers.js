@@ -69,6 +69,10 @@ mainApp.config(function ($routeProvider, $httpProvider) {
                 checkIfUserLogon: checkIfUserHasSession
             }
         })
+        .when('/admin', {
+            controller: 'AdminPanelController',
+            templateUrl: 'views/admin/AdminPanelPage.html'
+        })
         .otherwise({redirectTo: '/'});
 
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
