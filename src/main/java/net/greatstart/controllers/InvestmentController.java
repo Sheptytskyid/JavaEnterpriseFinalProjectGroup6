@@ -29,8 +29,10 @@ public class InvestmentController {
     private InvestmentValidationService investmentValidationService;
 
     @Autowired
-    public InvestmentController(InvestmentService investmentService) {
+    public InvestmentController(InvestmentService investmentService,
+                                InvestmentValidationService investmentValidationService) {
         this.investmentService = investmentService;
+        this.investmentValidationService = investmentValidationService;
     }
 
     @GetMapping

@@ -1,11 +1,8 @@
 package net.greatstart.controllers;
 
 import net.greatstart.dto.DtoInvestment;
-import net.greatstart.mappers.InvestmentMapper;
 import net.greatstart.model.Investment;
 import net.greatstart.services.InvestmentService;
-import net.greatstart.services.ProjectService;
-import net.greatstart.services.UserService;
 import net.greatstart.validators.InvestmentValidationService;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +22,6 @@ import java.util.List;
 
 import static net.greatstart.JsonConverter.convertObjectToJsonBytes;
 import static net.greatstart.MapperHelper.*;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -39,19 +35,12 @@ public class InvestmentControllerTest {
     @Mock
     private InvestmentValidationService investmentValidationService;
     @Mock
-    private InvestmentMapper investmentMapper;
-    @Mock
     private InvestmentService investmentService;
-    @Mock
-    private ProjectService projectService;
-    @Mock
-    private UserService userService;
     @InjectMocks
     private InvestmentController investmentController;
 
     private Investment investment;
     private DtoInvestment dtoInvestment;
-    private List<Investment> investments;
     private List<DtoInvestment> dtoInvestments;
     private MockMvc mvc;
 
@@ -61,7 +50,6 @@ public class InvestmentControllerTest {
     @Before
     public void setUp() throws Exception {
         mvc = standaloneSetup(investmentController).build();
-        investments = getTestListOfInvestments(TEST_INVEST_1, TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
         dtoInvestments = getTestListOfDtoInvestments(TEST_INVEST_1, TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
         investment = getTestInvestment(TEST_INVEST_1, TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
         dtoInvestment = getTestDtoInvestment(TEST_INVEST_1, TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
@@ -71,40 +59,31 @@ public class InvestmentControllerTest {
     public void saveValidInvestmentShouldPassValidationAndInvokeSaveServiceMethodAndReturnHttpStatusOk()
             throws Exception {
         //init
+        dtoInvestment.setId(1L);
         dtoInvestment.setDateOfInvestment(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
-        when(investmentMapper.investmentFromDto(dtoInvestment)).thenReturn(investment);
         when(investmentValidationService.validate(dtoInvestment)).thenReturn(true);
-        //use
+        when(investmentService.saveInvestment(dtoInvestment)).thenReturn(dtoInvestment);
+        //use & check
         mvc.perform(post("/api/investment/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(convertObjectToJsonBytes(dtoInvestment)))
                 .andExpect(status().isOk());
-        //check
-        verify(investmentService, times(1)).saveInvestment(captor.capture());
-        assertTrue(!captor.getValue().isPaid());
-        assertTrue(!captor.getValue().isVerified());
-        assertTrue((dtoInvestment.getDateOfInvestment()
-                .compareTo(captor.getValue().getDateOfInvestment()) <= 1)
-                && (dtoInvestment.getDateOfInvestment()
-                .compareTo(captor.getValue().getDateOfInvestment()) >= -1));
+        verify(investmentService, times(1)).saveInvestment(dtoInvestment);
         verifyNoMoreInteractions(investmentService);
     }
 
     @Test(timeout = 2000)
     public void saveInvalidInvestmentShouldReturnToAddInvestmentPage() throws Exception {
-        /*when(principal.getName()).thenReturn(TEST_EMAIL);
-        when(userService.getUserByEmail(TEST_EMAIL)).thenReturn(user);
-        when(projectService.getProjectById(1)).thenReturn(project);
-        when(investmentValidationService.validate(new BigDecimal(2500), project))
-                .thenReturn("Some error.");
-        mvc.perform(post("/project/1/investment/add")
-                .principal(principal)
-                .param("sum", "2500"))
-                .andExpect(view().name("investment/add_investment"))
-                .andExpect(model().attribute("message", "Some error."))
-                .andExpect(model().attribute("project", project))
-                .andExpect(model().attribute("investedSum", new BigDecimal(5000)));
-        verifyNoMoreInteractions(investmentService);*/
+        //init
+        dtoInvestment.setDateOfInvestment(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+        when(investmentValidationService.validate(dtoInvestment)).thenReturn(false);
+        when(investmentService.saveInvestment(dtoInvestment)).thenReturn(dtoInvestment);
+        //use & check
+        mvc.perform(post("/api/investment/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(convertObjectToJsonBytes(dtoInvestment)))
+                .andExpect(status().isExpectationFailed());
+        verifyNoMoreInteractions(investmentService);
     }
 
     @Test(timeout = 2000)

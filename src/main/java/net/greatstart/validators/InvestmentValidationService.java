@@ -10,13 +10,7 @@ import java.math.BigDecimal;
 
 @Component
 public class InvestmentValidationService {
-    private static final String MESSAGE = "You entered wrong investment value. ";
-    private static final String WRONG_MIN_VALUE = MESSAGE
-            + "Min possible investment is: $";
-    private static final String WRONG_MAX_VALUE = MESSAGE
-            + "Max possible investment is: $";
-    private static final String WRONG_STEP_VALUE = MESSAGE
-            + "Note, your investment must be multiple $";
+
     private ProjectService projectService;
 
     @Autowired
