@@ -23,6 +23,7 @@ import static net.greatstart.JsonConverter.convertObjectToJsonBytes;
 import static net.greatstart.MapperHelper.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -116,6 +117,24 @@ public class InvestmentControllerTest {
     public void getInvestmentByInvalidIdShouldReturnHttpStatusBadRequest() throws Exception {
         when(investmentService.getDtoInvestmentById(12L)).thenReturn(null);
         mvc.perform(get("/api/investment/12"))
+                .andExpect(status().isNotFound());
+        verify(investmentService, times(1)).getDtoInvestmentById(12);
+        verifyNoMoreInteractions(investmentService);
+    }
+
+    @Test(timeout = 2000)
+    public void deleteInvestmentByValidIdShouldReturnHttpStatusOk() throws Exception {
+        when(investmentService.getDtoInvestmentById(1L)).thenReturn(null);
+        mvc.perform(delete("/api/investment/1"))
+                .andExpect(status().isNotFound());
+        verify(investmentService, times(1)).getDtoInvestmentById(1);
+        verifyNoMoreInteractions(investmentService);
+    }
+
+    @Test(timeout = 2000)
+    public void deleteInvestmentByInvalidIdShouldReturnHttpStatusBadRequest() throws Exception {
+        when(investmentService.getDtoInvestmentById(12L)).thenReturn(null);
+        mvc.perform(delete("/api/investment/12"))
                 .andExpect(status().isNotFound());
         verify(investmentService, times(1)).getDtoInvestmentById(12);
         verifyNoMoreInteractions(investmentService);
