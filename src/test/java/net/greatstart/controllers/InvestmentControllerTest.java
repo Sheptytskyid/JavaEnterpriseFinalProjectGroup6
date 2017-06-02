@@ -1,7 +1,6 @@
 package net.greatstart.controllers;
 
 import net.greatstart.dto.DtoInvestment;
-import net.greatstart.model.Investment;
 import net.greatstart.services.InvestmentService;
 import net.greatstart.validators.InvestmentValidationService;
 import org.junit.Before;
@@ -39,7 +38,6 @@ public class InvestmentControllerTest {
     @InjectMocks
     private InvestmentController investmentController;
 
-    private Investment investment;
     private DtoInvestment dtoInvestment;
     private List<DtoInvestment> dtoInvestments;
     private MockMvc mvc;
@@ -51,7 +49,6 @@ public class InvestmentControllerTest {
     public void setUp() throws Exception {
         mvc = standaloneSetup(investmentController).build();
         dtoInvestments = getTestListOfDtoInvestments(TEST_INVEST_1, TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
-        investment = getTestInvestment(TEST_INVEST_1, TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
         dtoInvestment = getTestDtoInvestment(TEST_INVEST_1, TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
     }
 
@@ -72,8 +69,8 @@ public class InvestmentControllerTest {
         verifyNoMoreInteractions(investmentService);
     }
 
-    @Test(timeout = 2000)
-    public void saveInvalidInvestmentShouldReturnToAddInvestmentPage() throws Exception {
+    @Test(timeout = 4000)
+    public void saveInvalidInvestmentShouldReturnExpectationFailedHttpStatus() throws Exception {
         //init
         dtoInvestment.setDateOfInvestment(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
         when(investmentValidationService.validate(dtoInvestment)).thenReturn(false);

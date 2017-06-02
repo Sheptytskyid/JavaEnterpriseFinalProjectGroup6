@@ -48,7 +48,7 @@ var ProjectController = angular.module('greatStartApp')
             $scope.investmentModal = $uibModal.open({
                 templateUrl: 'views/investment/add_investment.html',
                 controller: 'InvestmentController',
-                size: 'md',
+                size: 'sm',
                 backdrop: 'true',
                 scope: $scope
             });
