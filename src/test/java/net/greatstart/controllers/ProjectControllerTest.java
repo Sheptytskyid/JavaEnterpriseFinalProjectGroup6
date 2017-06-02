@@ -21,6 +21,7 @@ import java.security.Principal;
 
 import static net.greatstart.MapperHelper.*;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -52,20 +53,41 @@ public class ProjectControllerTest {
     private final String REDIRECT_TO_PROJECTS = "redirect:/project/";
     private final String USERNAME = "";
     private Principal principal = () -> USERNAME;
+    private Project project;
+    DtoProject dtoProject;
 
     @Before
     public void setup() {
         mockMvc = standaloneSetup(controller).build();
+        project = getTestProject(TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
+        dtoProject = getTestDtoProject(TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
+
     }
 
     @Test(timeout = 2000)
-    public void showProject() throws Exception {
-        Project project = getTestProject(TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
-        DtoProject dtoProject = getTestDtoProject(TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
+    public void getProjectByValidIdShouldReturnHttpStatusOkAndInvokeuerServiceTwice() throws Exception {
+        //init
         when(projectService.getProjectById(1L)).thenReturn(project);
         when(projectService.getDtoProjectById(1L)).thenReturn(dtoProject);
+        //use
         mockMvc.perform(get("/project/1"))
                 .andExpect(status().isOk());
+        //check
+        verify(projectService, times(1)).getProjectById(1L);
+        verify(projectService, times(1)).getDtoProjectById(1L);
+        verifyNoMoreInteractions(projectService);
+    }
+
+    @Test(timeout = 2000)
+    public void getProjectByInvalidIdShouldReturnHttpStatusNoFoundAndInvokeUserServiceOnce() throws Exception {
+        //init
+        when(projectService.getProjectById(12L)).thenReturn(null);
+        //use
+        mockMvc.perform(get("/project/12"))
+                .andExpect(status().isNotFound());
+        //check
+        verify(projectService, times(1)).getProjectById(12L);
+        verifyNoMoreInteractions(projectService);
     }
 
     @Test(timeout = 2000)
