@@ -4,7 +4,9 @@ import net.greatstart.dto.DtoInvestment;
 import net.greatstart.dto.DtoUserProfile;
 import net.greatstart.model.Investment;
 import net.greatstart.model.User;
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 
 import java.util.List;
 
