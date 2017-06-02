@@ -16,7 +16,7 @@ public interface UserProfileMapper {
             @Mapping(target = "phoneNumber", source = "contact.phoneNumber"),
             @Mapping(target = "dtoInvestments", source = "investments")
     })
-    DtoUserProfile fromUserToDtoProfile(User user, @Context CycleAvoidingMappingContext context);
+    DtoUserProfile fromUserToDtoProfile(User user);
 
     @Mappings({
             @Mapping(source = "address", target = "contact.address"),

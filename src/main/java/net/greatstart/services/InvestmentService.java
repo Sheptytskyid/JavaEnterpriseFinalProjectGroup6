@@ -2,7 +2,6 @@ package net.greatstart.services;
 
 import net.greatstart.dao.InvestmentDao;
 import net.greatstart.dto.DtoInvestment;
-import net.greatstart.mappers.CycleAvoidingMappingContext;
 import net.greatstart.mappers.InvestmentMapper;
 import net.greatstart.model.Investment;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ public class InvestmentService {
     private InvestmentMapper investmentMapper;
     private ProjectService projectService;
     private UserService userService;
-    private CycleAvoidingMappingContext mappingContext = new CycleAvoidingMappingContext();
 
     @Autowired
     public InvestmentService(InvestmentDao investmentDao,
@@ -35,33 +33,22 @@ public class InvestmentService {
 
     public DtoInvestment saveInvestment(DtoInvestment dtoInvestment) {
         Investment investment = getInvestmentFromDtoWithAttachedProjectAndUser(dtoInvestment);
-        return investmentMapper.fromInvestmentToDto(investmentDao.save(investment), mappingContext);
+        return investmentMapper.fromInvestmentToDto(investmentDao.save(investment));
     }
 
     public void deleteInvestment(long id) {
         investmentDao.delete(id);
     }
 
-    public Investment getInvestmentById(long id) {
-        return investmentDao.findOne(id);
-    }
-
     public DtoInvestment getDtoInvestmentById(long id) {
-        return investmentMapper.fromInvestmentToDto(investmentDao.findOne(id), new CycleAvoidingMappingContext());
-    }
-
-    public List<Investment> getAllInvestments() {
-        List<Investment> investments = new ArrayList<>();
-        investmentDao.findAll().forEach(investments::add);
-        return investments;
+        return investmentMapper.fromInvestmentToDto(investmentDao.findOne(id));
     }
 
     public List<DtoInvestment> getAllDtoInvestments() {
         List<DtoInvestment> investments = new ArrayList<>();
-        investmentDao.findAll().forEach(investment -> {
-            investments.add(investmentMapper
-                    .fromInvestmentToDto(investment, mappingContext));
-        });
+        investmentDao.findAll().forEach(investment -> investments
+                .add(investmentMapper.fromInvestmentToDto(investment))
+        );
         return investments;
     }
 

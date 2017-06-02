@@ -2,7 +2,6 @@ package net.greatstart.services;
 
 import net.greatstart.dao.ProjectDao;
 import net.greatstart.dto.DtoProject;
-import net.greatstart.mappers.CycleAvoidingMappingContext;
 import net.greatstart.mappers.ProjectMapper;
 import net.greatstart.model.Project;
 import net.greatstart.model.User;
@@ -22,7 +21,6 @@ public class ProjectService {
     private ProjectDao projectDao;
     private UserService userService;
     private ProjectMapper projectMapper;
-    private CycleAvoidingMappingContext mappingContext = new CycleAvoidingMappingContext();
 
     @Autowired
     public ProjectService(ProjectDao projectDao, UserService userService, ProjectMapper projectMapper) {
@@ -60,6 +58,6 @@ public class ProjectService {
     }
 
     public DtoProject getDtoProjectById(Long id) {
-        return projectMapper.fromProjectToDto(projectDao.findOne(id), mappingContext);
+        return projectMapper.fromProjectToDto(projectDao.findOne(id));
     }
 }

@@ -18,12 +18,8 @@ import java.util.Set;
 
 import static net.greatstart.MapperHelper.getFullTestDtoUserProfile;
 import static net.greatstart.MapperHelper.getFullTestUser;
-import static net.greatstart.MapperHelper.CONTEXT;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
@@ -80,12 +76,12 @@ public class UserServiceTest {
         when(userDao.findOne(user.getId())).thenReturn(user);
         when(userMapper.fromDtoProfileToUser(dtoUser)).thenReturn(user);
         when(userDao.save(user)).thenReturn(user);
-        when(userMapper.fromUserToDtoProfile(user, CONTEXT)).thenReturn(dtoUser);
+        when(userMapper.fromUserToDtoProfile(user)).thenReturn(dtoUser);
         assertEquals(dtoUser, userService.updateUser(dtoUser, dtoUser.getId()));
         verify(userDao, times(1)).findOne(dtoUser.getId());
         verify(userMapper, times(1)).fromDtoProfileToUser(dtoUser);
         verify(userDao, times(1)).save(user);
-        verify(userMapper, times(1)).fromUserToDtoProfile(user, CONTEXT);
+        verify(userMapper, times(1)).fromUserToDtoProfile(user);
         verifyNoMoreInteractions(userDao);
         verifyNoMoreInteractions(userMapper);
     }
@@ -98,7 +94,7 @@ public class UserServiceTest {
 
     @Test
     public void invokeUserDaoWhenGetUserById() throws Exception {
-        when(userMapper.fromUserToDtoProfile(user, CONTEXT)).thenReturn(dtoUser);
+        when(userMapper.fromUserToDtoProfile(user)).thenReturn(dtoUser);
         when(userDao.findOne(ID)).thenReturn(user);
         assertEquals(userService.getDtoUserProfileById(ID), dtoUser);
         verify(userDao, times(1)).findOne(ID);

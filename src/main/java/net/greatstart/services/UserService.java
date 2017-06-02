@@ -2,7 +2,6 @@ package net.greatstart.services;
 
 import net.greatstart.dao.UserDao;
 import net.greatstart.dto.DtoUserProfile;
-import net.greatstart.mappers.CycleAvoidingMappingContext;
 import net.greatstart.mappers.UserProfileMapper;
 import net.greatstart.model.Role;
 import net.greatstart.model.User;
@@ -22,7 +21,6 @@ public class UserService {
     private UserProfileMapper userMapper;
     private UserDao userDao;
     private RoleService roleService;
-    private CycleAvoidingMappingContext mappingContext = new CycleAvoidingMappingContext();
 
     @Autowired
     public UserService(UserProfileMapper userMapper, UserDao userDao, RoleService roleService) {
@@ -57,7 +55,7 @@ public class UserService {
             User entity = userMapper.fromDtoProfileToUser(dtoUser);
             entity.setPassword(currentUser.getPassword());
             userDao.save(entity);
-            return userMapper.fromUserToDtoProfile(entity, mappingContext);
+            return userMapper.fromUserToDtoProfile(entity);
         }
         return null;
 
@@ -68,7 +66,7 @@ public class UserService {
     }
 
     public DtoUserProfile getDtoUserProfileById(long id) {
-        return userMapper.fromUserToDtoProfile(userDao.findOne(id), mappingContext);
+        return userMapper.fromUserToDtoProfile(userDao.findOne(id));
     }
 
     public User getUser(long id) {

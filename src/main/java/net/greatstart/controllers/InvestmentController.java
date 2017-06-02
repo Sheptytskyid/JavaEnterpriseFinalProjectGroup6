@@ -48,19 +48,18 @@ public class InvestmentController {
     }
 
     @PutMapping("{id}")
-    @ResponseBody
     public ResponseEntity<DtoInvestment> updateInvestment(@PathVariable long id,
                                                           @RequestBody DtoInvestment investment) {
-        if (investmentService.getInvestmentById(id) != null) {
-            //todo update investment
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
+//        if (investmentService.getInvestmentById(id) != null) {
+//            //todo update investment
+//            return new ResponseEntity<>(HttpStatus.OK);
+//        }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<Investment> deleteInvestmentById(@PathVariable long id) {
-        if (investmentService.getInvestmentById(id) != null) {
+        if (investmentService.getDtoInvestmentById(id) != null) {
             investmentService.deleteInvestment(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }

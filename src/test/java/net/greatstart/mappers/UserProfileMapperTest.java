@@ -16,7 +16,7 @@ public class UserProfileMapperTest {
     @Test
     public void fromUserToDtoProfile() throws Exception {
         User user = getFullTestUser();
-        DtoUserProfile dtoUser = userMapper.fromUserToDtoProfile(user, CONTEXT);
+        DtoUserProfile dtoUser = userMapper.fromUserToDtoProfile(user);
         assertNotNull(dtoUser);
         Contact contact = user.getContact();
         assertEquals(user.getId(), dtoUser.getId().longValue());
@@ -74,7 +74,7 @@ public class UserProfileMapperTest {
             dtoInvestment.getInvestor().setPhoto(null);
         }
         //user
-        DtoUserProfile result = userMapper.fromUserToDtoProfile(user, CONTEXT);
+        DtoUserProfile result = userMapper.fromUserToDtoProfile(user);
         //check
         assertEquals(expected, result);
     }

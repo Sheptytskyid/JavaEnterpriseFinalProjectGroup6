@@ -34,7 +34,6 @@ package net.greatstart;
  */
 
 import net.greatstart.dto.*;
-import net.greatstart.mappers.CycleAvoidingMappingContext;
 import net.greatstart.model.*;
 
 import java.math.BigDecimal;
@@ -73,8 +72,6 @@ public class MapperHelper {
     public static final String TEST_USER_LAST_NAME = "User";
     public static final String TEST_EMAIL = "email@example.com";
     public static String TEST_PASSWORD = "password";
-
-    public static final CycleAvoidingMappingContext CONTEXT = new CycleAvoidingMappingContext();
 
     public static User getFullTestUser() {
         User user = getTestUser();

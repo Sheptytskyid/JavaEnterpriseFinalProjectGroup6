@@ -1,9 +1,7 @@
 package net.greatstart.controllers;
 
 import net.greatstart.dto.DtoProject;
-import net.greatstart.mappers.CycleAvoidingMappingContext;
 import net.greatstart.mappers.ProjectMapper;
-import net.greatstart.model.Investment;
 import net.greatstart.model.Project;
 import net.greatstart.model.User;
 import net.greatstart.services.CategoryService;
@@ -27,7 +25,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 
@@ -45,7 +42,6 @@ public class ProjectController {
     private CategoryService categoryService;
 
     private ProjectMapper projectMapper;
-    private CycleAvoidingMappingContext mappingContext = new CycleAvoidingMappingContext();
 
     @Autowired
     public ProjectController(ProjectService projectService,
@@ -127,7 +123,7 @@ public class ProjectController {
         if (id > 0) {
             ModelAndView model = new ModelAndView("project/update_project");
             Project project = projectService.getProjectById(id);
-            model.addObject(PROJECT, projectMapper.fromProjectToDto(project, mappingContext));
+            model.addObject(PROJECT, projectMapper.fromProjectToDto(project));
             return model;
         }
         return new ModelAndView(PROJECTS);
@@ -170,7 +166,7 @@ public class ProjectController {
     @ResponseBody
     public byte[] downloadImage(@PathVariable("id") Long id) {
         DtoProject project = projectMapper
-                .fromProjectToDto(projectService.getProjectById(id), mappingContext);
+                .fromProjectToDto(projectService.getProjectById(id));
         return project.getDesc().getImage();
     }
 

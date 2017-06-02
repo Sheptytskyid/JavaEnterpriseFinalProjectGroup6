@@ -3,7 +3,6 @@ package net.greatstart.controllers;
 
 import net.greatstart.dto.DtoUser;
 import net.greatstart.dto.DtoUserProfile;
-import net.greatstart.mappers.CycleAvoidingMappingContext;
 import net.greatstart.mappers.UserProfileMapper;
 import net.greatstart.model.User;
 import net.greatstart.services.SecurityService;
@@ -28,7 +27,6 @@ import java.security.Principal;
 public class UserController {
     private UserService userService;
     private UserProfileMapper userMapper;
-    private CycleAvoidingMappingContext mappingContext = new CycleAvoidingMappingContext();
     private SecurityService securityService;
     private PasswordEncoder passwordEncoder;
 
@@ -51,7 +49,7 @@ public class UserController {
     public ResponseEntity<DtoUserProfile> getUser(Principal principal) {
         User user = userService.getUserByEmail(principal.getName());
         if (user != null) {
-            DtoUserProfile dtoUser = userMapper.fromUserToDtoProfile(user, mappingContext);
+            DtoUserProfile dtoUser = userMapper.fromUserToDtoProfile(user);
             return new ResponseEntity<>(dtoUser, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
