@@ -132,7 +132,7 @@ public class InvestmentControllerTest {
 
     @Test(timeout = 2000)
     public void deleteInvestmentByInvalidIdShouldReturnHttpStatusBadRequest() throws Exception {
-        when(investmentService.getDtoInvestmentById(12L)).thenReturn(dtoInvestment);
+        when(investmentService.getDtoInvestmentById(12L)).thenReturn(null);
         mvc.perform(delete("/api/investment/12"))
                 .andExpect(status().isNotFound());
         verify(investmentService, times(1)).getDtoInvestmentById(12);
