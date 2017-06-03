@@ -25,7 +25,7 @@ public class CategoryController {
     @GetMapping({"", "/"})
     public ResponseEntity<Collection<Category>> getCategories() {
         List<Category> projectList = categoryService.getAllCategories();
-        return  new ResponseEntity<>(projectList, HttpStatus.OK);
+        return new ResponseEntity<>(projectList, HttpStatus.OK);
     }
 
 }

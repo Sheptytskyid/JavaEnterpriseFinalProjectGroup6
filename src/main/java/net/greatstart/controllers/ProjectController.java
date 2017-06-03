@@ -1,3 +1,8 @@
+/**
+ * This controller was used with JSP pages. After we switched to AngularJS, this controller is
+ * no longer in use. It is preserved for its historical value.
+ */
+
 package net.greatstart.controllers;
 
 import net.greatstart.dto.DtoProject;
