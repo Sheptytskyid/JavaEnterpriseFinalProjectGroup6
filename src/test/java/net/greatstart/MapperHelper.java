@@ -33,8 +33,17 @@ package net.greatstart;
  * }
  */
 
-import net.greatstart.dto.*;
-import net.greatstart.model.*;
+import net.greatstart.dto.DtoInvestment;
+import net.greatstart.dto.DtoProject;
+import net.greatstart.dto.DtoProjectDescription;
+import net.greatstart.dto.DtoUser;
+import net.greatstart.dto.DtoUserProfile;
+import net.greatstart.model.Category;
+import net.greatstart.model.Contact;
+import net.greatstart.model.Investment;
+import net.greatstart.model.Project;
+import net.greatstart.model.ProjectDescription;
+import net.greatstart.model.User;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -62,7 +71,7 @@ public class MapperHelper {
     public static final BigDecimal TEST_INVEST_2 = new BigDecimal(4000);
     public static final User TEST_USER = new User();
     public static final Category TEST_CATEGORY = new Category();
-    public static final DtoCategory TEST_DTO_CATEGORY = new DtoCategory();
+    public static final Category TEST_DTO_CATEGORY = new Category();
     public static final LocalDate DATE_START = LocalDate.now();
     public static final LocalDate DATE_ADDED = LocalDate.now();
     public static final LocalDateTime DATE_INVESTMENT = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);

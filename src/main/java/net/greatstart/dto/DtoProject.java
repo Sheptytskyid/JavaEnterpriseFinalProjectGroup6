@@ -1,6 +1,7 @@
 package net.greatstart.dto;
 
 import lombok.Data;
+import net.greatstart.model.Category;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -13,7 +14,7 @@ public class DtoProject {
     @NotNull
     private DtoProjectDescription desc;
     @Valid
-    private DtoCategory category;
+    private Category category;
     private DtoUserProfile owner;
 
     private List<DtoInvestment> dtoInvestments;

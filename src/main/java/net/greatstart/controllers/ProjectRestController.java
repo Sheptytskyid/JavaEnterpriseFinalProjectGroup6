@@ -65,8 +65,13 @@ public class ProjectRestController {
     @PutMapping("/{id}")
     public ResponseEntity<DtoProject> updateProject(
             @PathVariable("id") long id,
-            @Valid @RequestBody DtoProject dtoProject) {
-        Project currentProject = projectService.saveProject(projectMapper.projectFromDto(dtoProject));
+            @Valid @RequestBody DtoProject dtoProject, Principal principal) {
+        User currentUser = userService.getUserByEmail(principal.getName());
+        Project currentProject = projectMapper.projectFromDto(dtoProject);
+        if (currentUser.getId() != currentProject.getOwner().getId()) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        currentProject = projectService.saveProject(currentProject);
         if (currentProject != null) {
             return new ResponseEntity<>(projectMapper.fromProjectToDto(currentProject), HttpStatus.OK);
         }

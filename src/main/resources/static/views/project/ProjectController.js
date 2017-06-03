@@ -47,7 +47,7 @@ var ProjectController = angular.module('greatStartApp')
                 $scope.update($scope.project).$promise.then(function (success) {
                     $location.path('/project/' + $scope.currentProjectId);
                 }, function (error) {
-                    $scope.error = true;
+                    $scope.error = error.status + " " + error.statusText;
                 });
             }
         };
@@ -114,7 +114,7 @@ var ProjectController = angular.module('greatStartApp')
             Project.save($scope.project, function (success) {
                 $location.path('/projects');
             }, function (error) {
-                $scope.error = true;
+                $scope.error = error.status + " " + error.statusText;
             });
         };
 
@@ -122,7 +122,7 @@ var ProjectController = angular.module('greatStartApp')
             Project.delete({id: $scope.project.id}, $scope.project, function (success) {
                 $location.path('/projects');
             }, function (error) {
-                $scope.error = true;
+                $scope.error = error.status + " " + error.statusText;
             });
         };
 
