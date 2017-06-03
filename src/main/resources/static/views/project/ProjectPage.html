@@ -4,6 +4,8 @@
 		<div class="col-xs-10 col-md-7 col-xs-offset-1 col-lg-8">
 			<!--Project name and goal-->
 			<div class="item">
+				<a ng-if="authenticated" class="btn btn-edit pull-right" href="#!project/{{project.id}}/edit">
+					<span class="glyphicon glyphicon-pencil"></span></a>
 				<div class="thumbnail">
 					<div ng-if="project.desc.image!=null">
 						<img ng-src="data:image/png;base64,{{project.desc.image}}" alt="{{project.desc.name}}" class="centered img-responsive">
