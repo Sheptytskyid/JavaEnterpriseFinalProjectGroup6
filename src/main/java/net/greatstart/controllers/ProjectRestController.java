@@ -2,8 +2,10 @@ package net.greatstart.controllers;
 
 import net.greatstart.dto.DtoProject;
 import net.greatstart.mappers.ProjectMapper;
+import net.greatstart.model.Category;
 import net.greatstart.model.Project;
 import net.greatstart.model.User;
+import net.greatstart.services.CategoryService;
 import net.greatstart.services.ProjectService;
 import net.greatstart.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,22 +34,25 @@ public class ProjectRestController {
 
     private ProjectService projectService;
     private UserService userService;
+    private CategoryService categoryService;
 
     private ProjectMapper projectMapper;
 
     @Autowired
     public ProjectRestController(ProjectService projectService,
-                             UserService userService,
-                             ProjectMapper projectMapper) {
+                                 UserService userService,
+                                 ProjectMapper projectMapper,
+                                 CategoryService categoryService) {
         this.projectService = projectService;
         this.userService = userService;
         this.projectMapper = projectMapper;
+        this.categoryService = categoryService;
     }
 
     @GetMapping({"", "/"})
     public ResponseEntity<Collection<Project>> getProjects() {
         List<Project> projectList = projectService.getAllProjects();
-        return  new ResponseEntity<>(projectList, HttpStatus.OK);
+        return new ResponseEntity<>(projectList, HttpStatus.OK);
     }
 
     @Transactional
@@ -85,7 +90,9 @@ public class ProjectRestController {
     public ResponseEntity<DtoProject> newProject(
             @Valid @RequestBody DtoProject dtoProject, Principal principal) {
         User owner = userService.getUserByEmail(principal.getName());
+        Category category = categoryService.findCategoryByName(dtoProject.getCategory().getName());
         Project currentProject = projectMapper.projectFromDto(dtoProject);
+        currentProject.setCategory(category);
         currentProject.setOwner(owner);
         currentProject.getDesc().setDateAdded(LocalDate.now());
         currentProject = projectService.saveProject(currentProject);
