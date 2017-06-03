@@ -98,10 +98,12 @@ public class ProjectRestControllerTest {
     @Test
     public void updateProjectWrongUserExpectForbidden() throws Exception {
         DtoProject dtoProject = MapperHelper.getTestDtoProject();
+        Project project = MapperHelper.getTestProject();
+        project.getOwner().setId(-1);
         when(userService.getUserByEmail(null))
                 .thenReturn(MapperHelper.getTestUser());
         when(projectMapper.projectFromDto(dtoProject))
-                .thenReturn(MapperHelper.getTestProject());
+                .thenReturn(project);
         mockMvc.perform(put("/api/project/" + ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(convertObjectToJsonBytes(dtoProject))

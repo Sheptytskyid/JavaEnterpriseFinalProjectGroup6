@@ -6,30 +6,30 @@ package net.greatstart;
  * var - byte variable for creating projects with different id, name and image.
  * cost - project cost.
  * minInv - project minimal investment.
- *
+ * <p>
  * getFullTestUser() {
- *     user = getTestUser()                    --> creates user without fields, that contain nested objects
- *     user.investments = getTestListOfInvestments(sum, val, cost, minInv) {
- *         investment1 = getTestInvestment (sum, val, cost, minInv) {
- *             investment.sum = sum;
- *             investment.investor = getTestUser();
- *             investment.project = getTestProject(val, cost, minInv)       --> creates project without fields,
- *                                                                                that contain nested objects
- *         }
- *         investment2 = {...} --> duplicate of investment1;
- *     }
+ * user = getTestUser()                    --> creates user without fields, that contain nested objects
+ * user.investments = getTestListOfInvestments(sum, val, cost, minInv) {
+ * investment1 = getTestInvestment (sum, val, cost, minInv) {
+ * investment.sum = sum;
+ * investment.investor = getTestUser();
+ * investment.project = getTestProject(val, cost, minInv)       --> creates project without fields,
+ * that contain nested objects
+ * }
+ * investment2 = {...} --> duplicate of investment1;
+ * }
  * }
  * getFullTestDtoUserProfile() {
- *     user = getTestDtoUserProfile()          --> creates dtoUserProfile without fields, that contain nested objects
- *     user.dtoInvestments = getTestListOfDtoInvestments(sum, val, cost, minInv) {
- *         dtoInvestment1 = getTestDtoInvestment (sum, val, cost, minInv) {
- *             dtoInvestment.sum = sum;
- *             dtoInvestment.investor = getTestDtoUserProfile();
- *             dtoInvestment.project = getTestDtoProject(val, cost, minInv)      --> creates dtoProject without fields,
- *                                                                                    that contain nested objects
- *         }
- *         dtoInvestment2 = {...} --> duplicate of dtoInvestment1;
- *     }
+ * user = getTestDtoUserProfile()          --> creates dtoUserProfile without fields, that contain nested objects
+ * user.dtoInvestments = getTestListOfDtoInvestments(sum, val, cost, minInv) {
+ * dtoInvestment1 = getTestDtoInvestment (sum, val, cost, minInv) {
+ * dtoInvestment.sum = sum;
+ * dtoInvestment.investor = getTestDtoUserProfile();
+ * dtoInvestment.project = getTestDtoProject(val, cost, minInv)      --> creates dtoProject without fields,
+ * that contain nested objects
+ * }
+ * dtoInvestment2 = {...} --> duplicate of dtoInvestment1;
+ * }
  * }
  */
 
@@ -200,23 +200,8 @@ public class MapperHelper {
     }
 
     public static Project getTestProject() {
-        Project project = new Project();
-        ProjectDescription desc = new ProjectDescription();
-        desc.setName(String.format(TEST_PROJECT_NAME, TEST_VALUE_1));
-        desc.setLogotype(TEST_LOGOTYPE);
-        desc.setOther(TEST_OTHER);
-        desc.setIsVerified(TEST_IS_VERIFIED);
-        desc.setGoal(TEST_GOAL);
-        desc.setDateStart(DATE_START);
-        desc.setDateAdded(DATE_ADDED);
-        byte[] testImage = TEST_IMAGE;
-        desc.setImage(testImage);
-        desc.setCost(TEST_COST_1);
-        desc.setMinInvestment(TEST_MIN_INVEST_1);
-        project.setId(TEST_VALUE_1);
-        project.setDesc(desc);
-        project.setOwner(TEST_USER);
-        project.setCategory(TEST_CATEGORY);
+        Project project = getTestProject(TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
+        project.setOwner(getTestUser());
         return project;
     }
 
@@ -241,19 +226,7 @@ public class MapperHelper {
     }
 
     public static DtoProject getTestDtoProject() {
-        DtoProject dtoProject = new DtoProject();
-        DtoProjectDescription dtoDesc = new DtoProjectDescription();
-        dtoDesc.setName(String.format(TEST_PROJECT_NAME, TEST_VALUE_1));
-        dtoDesc.setGoal(TEST_GOAL);
-        dtoDesc.setDateStart(DATE_START);
-        dtoDesc.setDateAdded(DATE_ADDED);
-        byte[] testImage = TEST_IMAGE;
-        dtoDesc.setImage(testImage);
-        dtoDesc.setCost(TEST_COST_1);
-        dtoDesc.setMinInvestment(TEST_MIN_INVEST_1);
-        dtoProject.setId((long) TEST_VALUE_1);
-        dtoProject.setDesc(dtoDesc);
-        dtoProject.setCategory(TEST_DTO_CATEGORY);
+        DtoProject dtoProject = getTestDtoProject(TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
         dtoProject.setOwner(getTestDtoUserProfile());
         return dtoProject;
     }
