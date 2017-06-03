@@ -199,6 +199,27 @@ public class MapperHelper {
         return project;
     }
 
+    public static Project getTestProject() {
+        Project project = new Project();
+        ProjectDescription desc = new ProjectDescription();
+        desc.setName(String.format(TEST_PROJECT_NAME, TEST_VALUE_1));
+        desc.setLogotype(TEST_LOGOTYPE);
+        desc.setOther(TEST_OTHER);
+        desc.setIsVerified(TEST_IS_VERIFIED);
+        desc.setGoal(TEST_GOAL);
+        desc.setDateStart(DATE_START);
+        desc.setDateAdded(DATE_ADDED);
+        byte[] testImage = TEST_IMAGE;
+        desc.setImage(testImage);
+        desc.setCost(TEST_COST_1);
+        desc.setMinInvestment(TEST_MIN_INVEST_1);
+        project.setId(TEST_VALUE_1);
+        project.setDesc(desc);
+        project.setOwner(TEST_USER);
+        project.setCategory(TEST_CATEGORY);
+        return project;
+    }
+
     public static DtoProject getTestDtoProject(byte value,
                                                BigDecimal cost,
                                                BigDecimal minInv) {
@@ -213,6 +234,24 @@ public class MapperHelper {
         dtoDesc.setCost(cost);
         dtoDesc.setMinInvestment(minInv);
         dtoProject.setId((long) value);
+        dtoProject.setDesc(dtoDesc);
+        dtoProject.setCategory(TEST_DTO_CATEGORY);
+        dtoProject.setOwner(getTestDtoUserProfile());
+        return dtoProject;
+    }
+
+    public static DtoProject getTestDtoProject() {
+        DtoProject dtoProject = new DtoProject();
+        DtoProjectDescription dtoDesc = new DtoProjectDescription();
+        dtoDesc.setName(String.format(TEST_PROJECT_NAME, TEST_VALUE_1));
+        dtoDesc.setGoal(TEST_GOAL);
+        dtoDesc.setDateStart(DATE_START);
+        dtoDesc.setDateAdded(DATE_ADDED);
+        byte[] testImage = TEST_IMAGE;
+        dtoDesc.setImage(testImage);
+        dtoDesc.setCost(TEST_COST_1);
+        dtoDesc.setMinInvestment(TEST_MIN_INVEST_1);
+        dtoProject.setId((long) TEST_VALUE_1);
         dtoProject.setDesc(dtoDesc);
         dtoProject.setCategory(TEST_DTO_CATEGORY);
         dtoProject.setOwner(getTestDtoUserProfile());
