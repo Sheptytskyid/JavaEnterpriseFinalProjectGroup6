@@ -1,6 +1,5 @@
 var ProjectController = angular.module('greatStartApp')
-    .controller('ProjectController', function ($scope, $rootScope, Project, $routeParams, $location) {
-    .controller('ProjectController', function ($rootScope, $scope, $uibModal, $routeParams, Project) {
+    .controller('ProjectController', function ($rootScope, $scope, $uibModal, $routeParams, Project, $location) {
         var investedAmount = function (project) {
             var result = 0;
             for (var i = 0; i < project.dtoInvestments.length; i++) {
@@ -58,7 +57,6 @@ var ProjectController = angular.module('greatStartApp')
 
         $scope.projects = allProjects();
 
-    });
 
         var ivnProgressWithWidth = function (investedAmount, project) {
             return 'width: ' + investedAmount * 100 / project.desc.cost + '%';

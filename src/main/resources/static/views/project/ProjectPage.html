@@ -6,10 +6,10 @@
 			<div class="item">
 				<div class="thumbnail">
 					<div ng-if="project.desc.image!=null">
-						<img src="http://placehold.it/800x450" alt="" class="centered img-responsive">
+						<img ng-src="data:image/png;base64,{{project.desc.image}}" alt="{{project.desc.name}}" class="centered img-responsive">
 					</div>
 					<div ng-if="project.desc.image==null">
-						<img src="http://placehold.it/800x450" alt="" class="centered img-responsive">
+						<img src="http://placehold.it/800x450" alt="No image available" class="centered img-responsive">
 					</div>
 					<div class="caption">
 						<h3>{{project.desc.name}}</h3>

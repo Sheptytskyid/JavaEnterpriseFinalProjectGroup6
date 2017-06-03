@@ -27,7 +27,7 @@ public class Investment extends AbstractModel {
     @Column(name = "date")
     LocalDateTime dateOfInvestment;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "project_id")
     Project project;
 
