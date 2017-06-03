@@ -56,8 +56,17 @@ var ProjectController = angular.module('greatStartApp')
             return Project.query();
         };
 
-        if ($routeParams.id) {
+        var myProjects = function() {
+            return Project.my();
+        };
+
+        // load my projects
+        if ($location.path().indexOf("/my") > -1) {
+            $scope.projects = myProjects();
+            // load a single project
+        } else if ($routeParams.id) {
             $scope.project = Project.get({id: $routeParams.id});
+            // load all projects
         } else {
             $scope.project = {};
             $scope.projects = allProjects();

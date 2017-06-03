@@ -31,6 +31,13 @@ mainApp.config(function ($routeProvider, $httpProvider) {
                 checkIfUserLogon: checkIfUserHasSession
             }
         })
+        .when('/projects/my', {
+            controller: 'ProjectController',
+            templateUrl: 'views/project/Projects.html',
+            resolve: {
+                checkIfUserLogon: checkIfUserHasSession
+            }
+        })
         .when('/project/:id', {
             controller: 'ProjectController',
             templateUrl: 'views/project/ProjectPage.html'

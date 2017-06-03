@@ -6,6 +6,11 @@ angular.module('greatStartApp')
             },
             delete: {
                 method: 'DELETE'
+            },
+            my: {
+                method: 'GET',
+                url: '/api/projects/my',
+                isArray: true
             }
         });
     }]);

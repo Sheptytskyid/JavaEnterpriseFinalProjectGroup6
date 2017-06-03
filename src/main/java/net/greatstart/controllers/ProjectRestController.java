@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.transaction.Transactional;
@@ -29,7 +28,6 @@ import java.util.Collection;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/project")
 public class ProjectRestController {
 
     private ProjectService projectService;
@@ -49,14 +47,21 @@ public class ProjectRestController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping({"", "/"})
+    @GetMapping({"/api/project", "/api/project/"})
     public ResponseEntity<Collection<Project>> getProjects() {
         List<Project> projectList = projectService.getAllProjects();
         return new ResponseEntity<>(projectList, HttpStatus.OK);
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/api/projects/my")
+    public ResponseEntity<Collection<Project>> getMyProjects(Principal principal) {
+        List<Project> projectList = projectService.getAllProjectsOfUser(principal.getName());
+        return new ResponseEntity<>(projectList, HttpStatus.OK);
+    }
+
     @Transactional
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/api/project/{id}")
     public ResponseEntity<DtoProject> getProjectById(@PathVariable("id") long id) {
         DtoProject project = projectMapper.fromProjectToDto(projectService.getProjectById(id));
         if (project != null) {
@@ -67,7 +72,7 @@ public class ProjectRestController {
 
     @Transactional
     @PreAuthorize("isAuthenticated()")
-    @PutMapping("/{id}")
+    @PutMapping("/api/project/{id}")
     public ResponseEntity<DtoProject> updateProject(
             @PathVariable("id") long id,
             @Valid @RequestBody DtoProject dtoProject, Principal principal) {
@@ -86,7 +91,7 @@ public class ProjectRestController {
 
     @Transactional
     @PreAuthorize("isAuthenticated()")
-    @PostMapping({"", "/"})
+    @PostMapping({"/api/project", "/api/project/"})
     public ResponseEntity<DtoProject> newProject(
             @Valid @RequestBody DtoProject dtoProject, Principal principal) {
         User owner = userService.getUserByEmail(principal.getName());
@@ -105,7 +110,7 @@ public class ProjectRestController {
 
     @Transactional
     @PreAuthorize("isAuthenticated()")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/api/project/{id}")
     public ResponseEntity<DtoProject> deleteProject(@PathVariable("id") long id, Principal principal) {
         Project project = projectService.getProjectById(id);
         if (!principal.getName().equals(project.getOwner().getEmail())) {
