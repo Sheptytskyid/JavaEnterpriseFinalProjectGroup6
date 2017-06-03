@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: default
+    active: prod
   http:
     multipart:
       max-file-size: 10MB
@@ -39,7 +39,7 @@ security:
   basic:
     enabled: false
 server:
-  port: 8080
+  port: 8081
 ---
 spring:
   profiles: default
@@ -50,6 +50,14 @@ spring:
     properties:
       hibernate:
         default_schema: startup_platform
+#  h2:
+#    console:
+#      enabled: true
+#  datasource:
+#    name: startup
+security:
+  enable-csrf: false
 server:
   port: 9001
+
 

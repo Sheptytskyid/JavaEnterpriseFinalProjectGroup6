@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Service
@@ -65,14 +63,12 @@ public class UserService {
         userDao.delete(id);
     }
 
-    public DtoUserProfile getUserById(long id) {
+    public DtoUserProfile getDtoUserProfileById(long id) {
         return userMapper.fromUserToDtoProfile(userDao.findOne(id));
     }
 
-    public List<User> getAllUsers() {
-        List<User> users = new ArrayList<>();
-        userDao.findAll().forEach(users::add);
-        return users;
+    public User getUser(long id) {
+        return userDao.findOne(id);
     }
 
     public User changeUserPassword(User user, String password) {

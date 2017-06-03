@@ -1,0 +1,18 @@
+<div ng-controller="InvestmentController" ng-init="">
+	<div class="modal-header">
+		<button class="close" type="button" ng-click="closeApproveModal()">
+			<span class="fa fa-close"></span>
+		</button>
+		<h4 class="modal-title">Invest in project: "{{project.desc.name}}".</h4>
+	</div>
+	<div class="modal-body text-center">
+		<p>Thank you for your interest in our project!</p>
+		<p>To be able to invest you have to be logged in and have money <span class="fa fa-smile-o"></span>.
+		</p>
+		<p>Pressing Next you agree with our terms and policy.</p>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-danger pull-right" type="button" ng-click="closeApproveModal()">Cancel</button>
+		<button class="btn btn-success pull-right" type="button" ng-click="openCreateInvestmentModal()">Next</button>
+	</div>
+</div>
