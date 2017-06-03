@@ -21,6 +21,7 @@ public class DtoProjectDescription {
     private BigDecimal minInvestment;
     private LocalDate dateStart;
     private LocalDate dateAdded;
+    private String other;
     private byte[] image;
 
     @Override

@@ -6,7 +6,7 @@
                 <div class="panel-heading" style="background: #f5f5f5;border: 0">
                     <a class="btn btn-edit pull-right" href="#!/project/{{project.id}}">
                         <span class="glyphicon glyphicon-pencil"></span></a>
-                    <h4>Edit project</h4>
+                    <h4>{{!project.id ? 'Create' :'Edit'}} project</h4>
                 </div>
                 <div ng-show="error">
                     <div class="alert alert-danger">ERROR</div>

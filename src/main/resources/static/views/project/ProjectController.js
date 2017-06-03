@@ -40,11 +40,16 @@ var ProjectController = angular.module('greatStartApp')
             if ($scope.imageChanged) {
                 $scope.project.desc.image = $scope.projectCroppedImage.replace(/^data:image\/[a-z]+;base64,/, "");
             }
-            $scope.update($scope.project).$promise.then(function (success) {
-                $location.path('/project/:id', $scope.project.id);
-            }, function (error) {
-                $scope.error = true;
-            });
+            if (!$scope.project.id) {
+                $scope.createProject($scope.project);
+            } else {
+                $scope.currentProjectId = $scope.project.id;
+                $scope.update($scope.project).$promise.then(function (success) {
+                    $location.path('/project/' + $scope.currentProjectId);
+                }, function (error) {
+                    $scope.error = true;
+                });
+            }
         };
 
         var allProjects = function() {
@@ -53,6 +58,8 @@ var ProjectController = angular.module('greatStartApp')
 
         if ($routeParams.id) {
             $scope.project = Project.get({id: $routeParams.id});
+        } else {
+            $scope.project = {};
         }
 
         $scope.projects = allProjects();
@@ -101,5 +108,13 @@ var ProjectController = angular.module('greatStartApp')
                 scope: $scope
             });
 
+        };
+
+        $scope.createProject = function () {
+            Project.save($scope.project, function (success) {
+                $location.path('/projects');
+            }, function (error) {
+                $scope.error = true;
+            });
         };
     });

@@ -44,8 +44,15 @@
         </div>
 
         <div class="form-group">
+            <label for="other" class="col-xs-3 control-label">Other:</label>
+            <div class="col-xs-9">
+                <textarea rows="7" ng-model="project.desc.other"
+                          class="form-control input-md" id="other"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
             <div class="btn-group">
-                <button class="btn btn-success" type="submit">Save</button>
+                <button class="btn btn-success" type="submit">{{!project.id ? 'Create' :'Save'}}</button>
                 <a class="btn btn-danger" ng-href="#!/project/{{project.id}}">Cancel</a>
             </div>
         </div>

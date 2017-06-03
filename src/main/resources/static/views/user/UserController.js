@@ -39,8 +39,9 @@ angular.module('greatStartApp')
             if ($scope.isImageChange) {
                 $scope.user.photo = $scope.myCroppedImage.replace(/^data:image\/[a-z]+;base64,/, "");
             }
+            $scope.currentUserId = $scope.user.id;
             $scope.update($scope.user).$promise.then(function (success) {
-                $location.path('/user/:id', $scope.user.id);
+                $location.path('/user/' + $scope.currentUserId);
             }, function (error) {
                 $scope.error = true;
             });
@@ -49,6 +50,10 @@ angular.module('greatStartApp')
 
         $scope.getUser = function () {
             User.get({id: $scope.user.id});
+        }
+
+        $scope.openPage = function(hash) {
+            $location.path(hash);
         }
 
     });
