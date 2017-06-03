@@ -202,55 +202,15 @@
 					</div>
 				</div>
 				<div class="col-md-3 form-field">
-					<form class="form-horizontal" action="" method="" id="addProject">
-						<fieldset>
-							<div class="form-group col-xs-12">
-								<div>
-									<input id="ProjectName" name="ProjectName" type="text"
-									       placeholder="Enter project name"
-									       class="form-control input-md input-text">
-								</div>
+
 								<div class="cta-button">
 									<button type="button" class="btn btn-lg btn-block btn-edit" ng-click="openPage('/project/new')">Add Project</button>
 								</div>
-							</div>
-						</fieldset>
-					</form>
+
 				</div>
 			</div>
 		</div>
-		<div class="bs-calltoaction bs-calltoaction-success">
-			<div class="row">
-				<div class="col-md-9 cta-contents">
-					<a href="#!/interests"><h1 class="cta-title">Interests</h1></a>
-					<div class="cta-desc">
-						<p><a href="#!/interests">My Interests</a></p>
-						<p>Describe the action here.</p>
-						<p>Describe the action here.</p>
-					</div>
-				</div>
-				<div class="col-md-3 form-field">
-					<form class="form-horizontal" action="" method="" id="addInterest">
-						<fieldset>
-							<div class="form-group col-xs-12">
-								<div>
-									<select id="addInterestOption" class="select-input"
-									        title="What do you want to invest in?">
-										<option disabled selected>I want to invest in:</option>
-										<option value="1">Startups and Investment Projects</option>
-										<option value="2">Venture capital</option>
-										<option value="3">Mergers and acquisitions</option>
-									</select>
-								</div>
-								<div class="cta-button">
-									<button type="submit" class="btn btn-lg btn-block btn-edit">Add Interest</button>
-								</div>
-							</div>
-						</fieldset>
-					</form>
-				</div>
-			</div>
-		</div>
+
 
 		<div class="bs-calltoaction bs-calltoaction-success">
 			<div ng-include="'views/investment/UserInvestments.html'"></div>

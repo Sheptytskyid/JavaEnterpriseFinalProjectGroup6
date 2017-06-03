@@ -117,4 +117,13 @@ var ProjectController = angular.module('greatStartApp')
                 $scope.error = true;
             });
         };
+
+        $scope.deleteProject = function () {
+            Project.remove($scope.project, function (success) {
+                $location.path('/projects');
+            }, function (error) {
+                $scope.error = true;
+            });
+        };
+
     });
