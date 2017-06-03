@@ -93,6 +93,7 @@ public class ProjectRestController {
 
     }
 
+    @Transactional
     @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/{id}")
     public ResponseEntity<DtoProject> deleteProject(@PathVariable("id") long id, Principal principal) {

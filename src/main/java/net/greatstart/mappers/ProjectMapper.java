@@ -14,20 +14,19 @@ import java.util.List;
 public interface ProjectMapper {
 
     @Mappings({
-            @Mapping(source = "investments", target = "dtoInvestments", ignore = true),
-            @Mapping(target = "owner.photo", ignore = true)
-    })
+            @Mapping(source = "investments", target = "dtoInvestments"),
+            @Mapping(target = "owner.dtoInvestments", ignore = true),
+            @Mapping(target = "owner.photo", ignore = true)})
     DtoProject fromProjectToDto(Project project);
-
 
     Project projectFromDto(DtoProject dtoProject);
 
     List<DtoInvestment> investmentsToDtoInvestments(List<Investment> investments);
 
     @Mappings({
-            @Mapping(target = "project", ignore = true),
+            @Mapping(target = "project.desc.image", ignore = true),
             @Mapping(target = "project.owner.photo", ignore = true),
-            @Mapping(target = "investor", ignore = true),})
+            @Mapping(target = "investor.photo", ignore = true),})
     DtoInvestment fromInvestmentToDto(Investment investment);
 
 }

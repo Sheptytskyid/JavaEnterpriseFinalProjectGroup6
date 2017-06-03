@@ -4,9 +4,9 @@
 		<div class="col-xs-10 col-md-7 col-xs-offset-1 col-lg-8">
 			<!--Project name and goal-->
 			<div class="item">
-				<a ng-if="authenticated && currentUser.id === project.owner.id" class="btn btn-edit pull-right" ng-click="deleteProject()">
+				<a ng-if="currentUser.id === project.owner.id && project.dtoInvestments.length === 0" class="btn btn-edit pull-right" ng-click="deleteProject()">
 					<span class="glyphicon glyphicon-trash"></span></a>
-				<a ng-if="authenticated && currentUser.id === project.owner.id" class="btn btn-edit pull-right" href="#!project/{{project.id}}/edit">
+				<a ng-if="currentUser.id === project.owner.id" class="btn btn-edit pull-right" href="#!project/{{project.id}}/edit">
 					<span class="glyphicon glyphicon-pencil"></span></a>
 				<div class="thumbnail">
 					<div ng-if="project.desc.image!=null">

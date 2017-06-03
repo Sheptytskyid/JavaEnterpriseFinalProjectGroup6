@@ -119,11 +119,12 @@ var ProjectController = angular.module('greatStartApp')
         };
 
         $scope.deleteProject = function () {
-            Project.remove($scope.project, function (success) {
+            Project.delete({id: $scope.project.id}, $scope.project, function (success) {
                 $location.path('/projects');
             }, function (error) {
                 $scope.error = true;
             });
         };
+
 
     });
