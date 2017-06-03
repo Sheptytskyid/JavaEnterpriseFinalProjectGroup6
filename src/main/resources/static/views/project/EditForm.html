@@ -50,6 +50,16 @@
                           class="form-control input-md" id="other"></textarea>
             </div>
         </div>
+
+        <div class="form-group">
+            <label for="category" class="col-xs-3 control-label">Category:</label>
+            <div class="col-xs-9" ng-controller="CategoryController">
+                <select name="category" id="category" ng-model="project.category.name">
+                    <option ng-repeat="cat in categories" value="{{cat.name}}" {{project.category.name === cat.name ? 'selected' : ''>{{cat.name}}</option>
+                </select>
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="btn-group">
                 <button class="btn btn-success" type="submit">{{!project.id ? 'Create' :'Save'}}</button>

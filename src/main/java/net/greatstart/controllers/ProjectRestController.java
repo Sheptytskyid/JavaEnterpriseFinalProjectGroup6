@@ -4,7 +4,6 @@ import net.greatstart.dto.DtoProject;
 import net.greatstart.mappers.ProjectMapper;
 import net.greatstart.model.Project;
 import net.greatstart.model.User;
-import net.greatstart.services.CategoryService;
 import net.greatstart.services.ProjectService;
 import net.greatstart.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,19 +32,16 @@ public class ProjectRestController {
 
     private ProjectService projectService;
     private UserService userService;
-    private CategoryService categoryService;
 
     private ProjectMapper projectMapper;
 
     @Autowired
     public ProjectRestController(ProjectService projectService,
                              UserService userService,
-                             ProjectMapper projectMapper,
-                             CategoryService categoryService) {
+                             ProjectMapper projectMapper) {
         this.projectService = projectService;
         this.userService = userService;
         this.projectMapper = projectMapper;
-        this.categoryService = categoryService;
     }
 
     @GetMapping({"", "/"})
@@ -64,6 +60,7 @@ public class ProjectRestController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @Transactional
     @PreAuthorize("isAuthenticated()")
     @PutMapping("/{id}")
     public ResponseEntity<DtoProject> updateProject(
@@ -77,6 +74,7 @@ public class ProjectRestController {
 
     }
 
+    @Transactional
     @PreAuthorize("isAuthenticated()")
     @PostMapping({"", "/"})
     public ResponseEntity<DtoProject> newProject(
