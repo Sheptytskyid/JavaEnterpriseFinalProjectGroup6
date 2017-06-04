@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: default
+    active: prod
   http:
     multipart:
       max-file-size: 10MB
@@ -50,6 +50,7 @@ spring:
     properties:
       hibernate:
         default_schema: startup_platform
+
 security:
   enable-csrf: false
 server:

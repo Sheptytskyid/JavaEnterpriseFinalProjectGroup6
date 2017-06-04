@@ -24,12 +24,33 @@ mainApp.config(function ($routeProvider, $httpProvider) {
             controller: 'ProjectController',
             templateUrl: 'views/project/Projects.html'
         })
+        .when('/project/new', {
+            controller: 'ProjectController',
+            templateUrl: 'views/project/EditProject.html',
+            resolve: {
+                checkIfUserLogon: checkIfUserHasSession
+            }
+        })
+        .when('/projects/my', {
+            controller: 'ProjectController',
+            templateUrl: 'views/project/Projects.html',
+            resolve: {
+                checkIfUserLogon: checkIfUserHasSession
+            }
+        })
         .when('/project/:id', {
             controller: 'ProjectController',
             templateUrl: 'views/project/ProjectPage.html'
             /*resolve: {
                 checkIfUserLogon: checkIfUserHasSession
             }*/
+        })
+        .when('/project/:id/edit', {
+            controller: 'ProjectController',
+            templateUrl: 'views/project/EditProject.html',
+            resolve: {
+                checkIfUserLogon: checkIfUserHasSession
+            }
         })
         .when('/events', {
             controller: 'EventController',

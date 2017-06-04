@@ -6,35 +6,44 @@ package net.greatstart;
  * var - byte variable for creating projects with different id, name and image.
  * cost - project cost.
  * minInv - project minimal investment.
- *
+ * <p>
  * getFullTestUser() {
- *     user = getTestUser()                    --> creates user without fields, that contain nested objects
- *     user.investments = getTestListOfInvestments(sum, val, cost, minInv) {
- *         investment1 = getTestInvestment (sum, val, cost, minInv) {
- *             investment.sum = sum;
- *             investment.investor = getTestUser();
- *             investment.project = getTestProject(val, cost, minInv)       --> creates project without fields,
- *                                                                                that contain nested objects
- *         }
- *         investment2 = {...} --> duplicate of investment1;
- *     }
+ * user = getTestUser()                    --> creates user without fields, that contain nested objects
+ * user.investments = getTestListOfInvestments(sum, val, cost, minInv) {
+ * investment1 = getTestInvestment (sum, val, cost, minInv) {
+ * investment.sum = sum;
+ * investment.investor = getTestUser();
+ * investment.project = getTestProject(val, cost, minInv)       --> creates project without fields,
+ * that contain nested objects
+ * }
+ * investment2 = {...} --> duplicate of investment1;
+ * }
  * }
  * getFullTestDtoUserProfile() {
- *     user = getTestDtoUserProfile()          --> creates dtoUserProfile without fields, that contain nested objects
- *     user.dtoInvestments = getTestListOfDtoInvestments(sum, val, cost, minInv) {
- *         dtoInvestment1 = getTestDtoInvestment (sum, val, cost, minInv) {
- *             dtoInvestment.sum = sum;
- *             dtoInvestment.investor = getTestDtoUserProfile();
- *             dtoInvestment.project = getTestDtoProject(val, cost, minInv)      --> creates dtoProject without fields,
- *                                                                                    that contain nested objects
- *         }
- *         dtoInvestment2 = {...} --> duplicate of dtoInvestment1;
- *     }
+ * user = getTestDtoUserProfile()          --> creates dtoUserProfile without fields, that contain nested objects
+ * user.dtoInvestments = getTestListOfDtoInvestments(sum, val, cost, minInv) {
+ * dtoInvestment1 = getTestDtoInvestment (sum, val, cost, minInv) {
+ * dtoInvestment.sum = sum;
+ * dtoInvestment.investor = getTestDtoUserProfile();
+ * dtoInvestment.project = getTestDtoProject(val, cost, minInv)      --> creates dtoProject without fields,
+ * that contain nested objects
+ * }
+ * dtoInvestment2 = {...} --> duplicate of dtoInvestment1;
+ * }
  * }
  */
 
-import net.greatstart.dto.*;
-import net.greatstart.model.*;
+import net.greatstart.dto.DtoInvestment;
+import net.greatstart.dto.DtoProject;
+import net.greatstart.dto.DtoProjectDescription;
+import net.greatstart.dto.DtoUser;
+import net.greatstart.dto.DtoUserProfile;
+import net.greatstart.model.Category;
+import net.greatstart.model.Contact;
+import net.greatstart.model.Investment;
+import net.greatstart.model.Project;
+import net.greatstart.model.ProjectDescription;
+import net.greatstart.model.User;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -62,7 +71,7 @@ public class MapperHelper {
     public static final BigDecimal TEST_INVEST_2 = new BigDecimal(4000);
     public static final User TEST_USER = new User();
     public static final Category TEST_CATEGORY = new Category();
-    public static final DtoCategory TEST_DTO_CATEGORY = new DtoCategory();
+    public static final Category TEST_DTO_CATEGORY = new Category();
     public static final LocalDate DATE_START = LocalDate.now();
     public static final LocalDate DATE_ADDED = LocalDate.now();
     public static final LocalDateTime DATE_INVESTMENT = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
@@ -190,6 +199,12 @@ public class MapperHelper {
         return project;
     }
 
+    public static Project getTestProject() {
+        Project project = getTestProject(TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
+        project.setOwner(getTestUser());
+        return project;
+    }
+
     public static DtoProject getTestDtoProject(byte value,
                                                BigDecimal cost,
                                                BigDecimal minInv) {
@@ -206,6 +221,12 @@ public class MapperHelper {
         dtoProject.setId((long) value);
         dtoProject.setDesc(dtoDesc);
         dtoProject.setCategory(TEST_DTO_CATEGORY);
+        dtoProject.setOwner(getTestDtoUserProfile());
+        return dtoProject;
+    }
+
+    public static DtoProject getTestDtoProject() {
+        DtoProject dtoProject = getTestDtoProject(TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
         dtoProject.setOwner(getTestDtoUserProfile());
         return dtoProject;
     }

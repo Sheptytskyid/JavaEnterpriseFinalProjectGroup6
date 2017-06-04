@@ -5,7 +5,6 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Arrays;
 import java.util.List;
 
 @Data
@@ -35,49 +34,5 @@ public class DtoUserProfile {
         return initials.toString();
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-
-        DtoUserProfile that = (DtoUserProfile) obj;
-
-        if (!id.equals(that.id)) {
-            return false;
-        }
-        if (name != null ? !name.equals(that.name) : that.name != null) {
-            return false;
-        }
-        if (address != null ? !address.equals(that.address) : that.address != null) {
-            return false;
-        }
-        if (phoneNumber != null ? !phoneNumber.equals(that.phoneNumber) : that.phoneNumber != null) {
-            return false;
-        }
-        if (email != null ? !email.equals(that.email) : that.email != null) {
-            return false;
-        }
-        if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) {
-            return false;
-        }
-        return Arrays.equals(photo, that.photo);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + id.hashCode();
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (address != null ? address.hashCode() : 0);
-        result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
-        result = 31 * result + email.hashCode();
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + Arrays.hashCode(photo);
-        return result;
-    }
 
 }

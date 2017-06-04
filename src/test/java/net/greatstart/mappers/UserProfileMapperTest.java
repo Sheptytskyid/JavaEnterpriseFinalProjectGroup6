@@ -7,7 +7,8 @@ import net.greatstart.model.User;
 import org.junit.Test;
 import org.mapstruct.factory.Mappers;
 
-import static net.greatstart.MapperHelper.*;
+import static net.greatstart.MapperHelper.getFullTestDtoUserProfile;
+import static net.greatstart.MapperHelper.getFullTestUser;
 import static org.junit.Assert.*;
 
 public class UserProfileMapperTest {
@@ -66,6 +67,7 @@ public class UserProfileMapperTest {
             dtoInvestment.getProject().getOwner().setName(null);
             dtoInvestment.getProject().getOwner().setPhoneNumber(null);
             dtoInvestment.getProject().getOwner().setPhoto(null);
+            dtoInvestment.getProject().getDesc().setOther("");
             dtoInvestment.getInvestor().setAddress(null);
             dtoInvestment.getInvestor().setPhoneNumber(null);
             dtoInvestment.getInvestor().setPhoto(null);

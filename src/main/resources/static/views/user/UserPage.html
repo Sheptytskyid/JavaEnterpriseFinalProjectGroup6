@@ -54,7 +54,7 @@
 		</div>
 	</div>
 </div>
-<div class="container">
+<div class="container" ng-controller="ProjectController">
 	<div class="row">
 		<div class="col-xs-12">
 			<a href ng-click="flag=!flag;" class="btn btn-success btn-block">Favourites
@@ -65,121 +65,33 @@
 					<div class="panel-info">
 						<div class="panel-body">
 							<div class="row">
+								<div ng-repeat="project in projects | limitTo: 3">
 								<div class="container col-md-4 col-xs-12">
 									<div class="card">
-										<a href="#"><img ng-src="https://goo.gl/bLja0p"
+										<a href="#!/project/{{project.id}}" ng-if="project.desc.image"><img ng-src="data:image/png;base64,{{project.desc.image}}"
 										                 class="card-img-top img-responsive"
 										                 alt=""></a>
 										<div class="card-block">
-											<a href="#"><h4 class="card-title">The NOMATIC Backpack and Travel Pack</h4>
+											<a href="#!/project/{{project.id}}"><h4 class="card-title">{{project.desc.name}}</h4>
 											</a>
 											<div class="card-text">
-												<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-													eiusmod
-													tempor
-													incididunt ut labore et
-													dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-													exercitation
-													ullamco
-													laboris nisi ut aliquip
-													ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-													voluptate
-													velit
-													esse cillum dolore eu
-													fugiat nulla pariatur.
-												</div>
+												<div>{{project.desc.description}}</div>
 											</div>
 										</div>
 										<div class="card-footer">
 											<div class="row">
 												<div class="col-xs-6">
 													<div>min</div>
-													<div><span class="fa fa-dollar"></span>100000</div>
+													<div><span class="fa fa-dollar"></span>{{project.desc.minInvestment}}</div>
 												</div>
 												<div class="col-xs-6">
-													<div class="right-box">Still needed</div>
-													<div class="right-box"><span class="fa fa-dollar"></span>9999</div>
+													<div class="right-box">Total needed</div>
+													<div class="right-box"><span class="fa fa-dollar"></span>{{project.desc.cost}}</div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="container col-md-4 col-xs-12">
-									<div class="card">
-										<a href="#"><img ng-src="https://goo.gl/e7PZpL"
-										                 class="card-img-top img-responsive" alt="ProjectPhoto"></a>
-										<div class="card-block">
-											<a href="#"><h4 class="card-title">Artificial Intelligence A-Z™: Learn How
-												To
-												Build An AI</h4></a>
-											<div class="card-text">
-												<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-													eiusmod
-													tempor
-													incididunt ut labore et
-													dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-													exercitation
-													ullamco
-													laboris nisi ut aliquip
-													ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-													voluptate
-													velit
-													esse cillum dolore eu
-													fugiat nulla pariatur.
-												</div>
-											</div>
-										</div>
-										<div class="card-footer">
-											<div class="row">
-												<div class="col-xs-6">
-													<div>min</div>
-													<div><span class="fa fa-dollar"></span>100000</div>
-												</div>
-												<div class="col-xs-6">
-													<div class="right-box">Still needed</div>
-													<div class="right-box"><span class="fa fa-dollar"></span>9999</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="container col-md-4 col-xs-12">
-									<div class="card">
-										<a href="#"><img ng-src="https://goo.gl/bLja0p"
-										                 class="card-img-top img-responsive" alt=""></a>
-										<div class="card-block">
-											<a href="#"><h4 class="card-title">The NOMATIC Backpack and Travel Pack</h4>
-											</a>
-											<div class="card-text">
-												<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-													eiusmod
-													tempor
-													incididunt ut labore et
-													dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-													exercitation
-													ullamco
-													laboris nisi ut aliquip
-													ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-													voluptate
-													velit
-													esse cillum dolore eu
-													fugiat nulla pariatur.
-												</div>
-											</div>
-										</div>
-										<div class="card-footer">
-											<div class="row">
-												<div class="col-xs-6">
-													<div>min</div>
-													<div><span class="fa fa-dollar"></span>100000</div>
-												</div>
-												<div class="col-xs-6">
-													<div class="right-box">Still needed</div>
-													<div class="right-box"><span class="fa fa-dollar"></span>9999</div>
-												</div>
-											</div>
-										</div>
-									</div>
 								</div>
 							</div>
 						</div>
@@ -194,91 +106,23 @@
 		<div class="bs-calltoaction bs-calltoaction-success">
 			<div class="row">
 				<div class="col-md-9 cta-contents">
-					<a href="#!/projects"><h1 class="cta-title">Projects</h1></a>
+					<a href="#!/projects/my"><h1 class="cta-title">Projects</h1></a>
 					<div class="cta-desc">
-						<p><a href="#!/projects">My Projects</a></p>
-						<p>Describe the action here.</p>
-						<p>Describe the action here.</p>
+						<p><a href="#!/projects/my">My Projects</a></p>
+						<p>Use the "Add project" button to add a new project.</p>
 					</div>
 				</div>
 				<div class="col-md-3 form-field">
-					<form class="form-horizontal" action="" method="" id="addProject">
-						<fieldset>
-							<div class="form-group col-xs-12">
-								<div>
-									<input id="ProjectName" name="ProjectName" type="text"
-									       placeholder="Enter project name"
-									       class="form-control input-md input-text">
-								</div>
+
 								<div class="cta-button">
-									<button type="submit" class="btn btn-lg btn-block btn-edit">Add Project</button>
+									<button type="button" class="btn btn-lg btn-block btn-edit" ng-click="openPage('/project/new')">Add Project</button>
 								</div>
-							</div>
-						</fieldset>
-					</form>
+
 				</div>
 			</div>
 		</div>
-		<div class="bs-calltoaction bs-calltoaction-success">
-			<div class="row">
-				<div class="col-md-9 cta-contents">
-					<a href="#!/interests"><h1 class="cta-title">Interests</h1></a>
-					<div class="cta-desc">
-						<p><a href="#!/interests">My Interests</a></p>
-						<p>Describe the action here.</p>
-						<p>Describe the action here.</p>
-					</div>
-				</div>
-				<div class="col-md-3 form-field">
-					<form class="form-horizontal" action="" method="" id="addInterest">
-						<fieldset>
-							<div class="form-group col-xs-12">
-								<div>
-									<select id="addInterestOption" class="select-input"
-									        title="What do you want to invest in?">
-										<option disabled selected>I want to invest in:</option>
-										<option value="1">Startups and Investment Projects</option>
-										<option value="2">Venture capital</option>
-										<option value="3">Mergers and acquisitions</option>
-									</select>
-								</div>
-								<div class="cta-button">
-									<button type="submit" class="btn btn-lg btn-block btn-edit">Add Interest</button>
-								</div>
-							</div>
-						</fieldset>
-					</form>
-				</div>
-			</div>
-		</div>
-		<div class="bs-calltoaction bs-calltoaction-success">
-			<div class="row">
-				<div class="col-md-9 cta-contents">
-					<a href="#!/events"><h1 class="cta-title">Events</h1></a>
-					<div class="cta-desc">
-						<p><a href="#!/events">My Events</a></p>
-						<p>Describe the action here.</p>
-						<p>Describe the action here.</p>
-					</div>
-				</div>
-				<div class="col-md-3 form-field">
-					<form class="form-horizontal" action="" method="" id="addEvent">
-						<fieldset>
-							<div class="form-group col-md-12">
-								<div>
-									<input id="EventName" name="EventName" type="text"
-									       placeholder="Enter event name"
-									       class="form-control input-md input-text">
-								</div>
-								<div class="cta-button">
-									<button type="submit" class="btn btn-lg btn-block btn-edit">Add Event</button>
-								</div>
-							</div>
-						</fieldset>
-					</form>
-				</div>
-			</div>
-		</div>
+
+
 		<div class="bs-calltoaction bs-calltoaction-success">
 			<div ng-include="'views/investment/UserInvestments.html'"></div>
 		</div>

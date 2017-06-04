@@ -1,5 +1,6 @@
 package net.greatstart.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -23,9 +24,11 @@ public class Project extends AbstractModel {
     @Embedded
     private ProjectDescription desc;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private User owner;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "project")
     private List<Investment> investments;
 
