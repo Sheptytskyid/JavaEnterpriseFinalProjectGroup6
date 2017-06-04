@@ -55,7 +55,6 @@ public class InvestmentController {
     public ResponseEntity<DtoInvestment> createInvestment(@Valid @RequestBody DtoInvestment investment) {
         investment.setDateOfInvestment(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
         investment.setVerified(false);
-        investment.setVerified(false);
         if (investmentValidationService.validate(investment)) {
             DtoInvestment investmentResult = investmentService.saveInvestment(investment);
             if (investmentResult != null && investmentResult.getId() != 0) {
