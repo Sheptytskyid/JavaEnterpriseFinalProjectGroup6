@@ -70,7 +70,7 @@ public class ProjectController {
 
     @GetMapping(value = "/my")
     public ModelAndView showMyProjects(Principal principal) {
-        List<Project> projectList = projectService.getAllProjectsOfUser(principal.getName());
+        List<Project> projectList = projectService.getAllProjectsOfCurrentUser();
         ModelAndView model = new ModelAndView(PROJECTS);
         model.addObject(projectList);
         model.addObject("listTitle", "My projects");

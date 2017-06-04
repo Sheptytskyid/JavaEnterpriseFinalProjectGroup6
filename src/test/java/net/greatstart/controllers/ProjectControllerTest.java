@@ -20,9 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.security.Principal;
 
 import static net.greatstart.MapperHelper.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -101,7 +99,7 @@ public class ProjectControllerTest {
     public void showMyProjectsShouldReturnViewAndInvokeServiceMethod() throws Exception {
         mockMvc.perform(get("/project/my").principal(principal))
                 .andExpect(view().name("project/projects"));
-        verify(projectService).getAllProjectsOfUser(USERNAME);
+        verify(projectService).getAllProjectsOfCurrentUser();
     }
 
     @Test(timeout = 2000)

@@ -6,6 +6,7 @@ import net.greatstart.mappers.UserProfileMapper;
 import net.greatstart.model.Role;
 import net.greatstart.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,14 @@ public class UserService {
         this.userMapper = userMapper;
         this.userDao = userDao;
         this.roleService = roleService;
+    }
+
+    public String getCurrentUsername() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
+    public User getLoggedInUser() {
+        return getUserByEmail(getCurrentUsername());
     }
 
     //ToDo: Rewrite method for create/delete User

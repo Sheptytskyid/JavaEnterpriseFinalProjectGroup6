@@ -58,7 +58,7 @@ public class ProjectRestControllerTest {
     public void getMyProjects() throws Exception {
         mockMvc.perform(get("/api/projects/my").principal(principal))
                 .andExpect(status().isOk());
-        verify(projectService).getAllProjectsOfUser(null);
+        verify(projectService).getAllProjectsOfCurrentUser();
     }
 
     @Test
@@ -69,16 +69,12 @@ public class ProjectRestControllerTest {
 
     @Test
     public void getProjectById() throws Exception {
-        Project project = new Project();
-        project.setId(ID);
         DtoProject dtoProject = new DtoProject();
         dtoProject.setId(ID);
-        when(projectService.getProjectById(ID)).thenReturn(project);
-        when(projectMapper.fromProjectToDto(project)).thenReturn(dtoProject);
+        when(projectService.getDtoProjectById(ID)).thenReturn(dtoProject);
         mockMvc.perform(get("/api/project/" + ID))
                 .andExpect(status().isOk());
-        verify(projectService).getProjectById(ID);
-        verify(projectMapper).fromProjectToDto(project);
+        verify(projectService).getDtoProjectById(ID);
     }
 
     @Test
@@ -96,102 +92,73 @@ public class ProjectRestControllerTest {
     @Test
     public void updateProjectWrongUserExpectForbidden() throws Exception {
         DtoProject dtoProject = MapperHelper.getTestDtoProject();
-        Project project = MapperHelper.getTestProject();
-        project.getOwner().setId(-1);
-        when(userService.getUserByEmail(null))
+        dtoProject.getOwner().setId(-1L);
+        when(userService.getLoggedInUser())
                 .thenReturn(MapperHelper.getTestUser());
-        when(projectMapper.projectFromDto(dtoProject))
-                .thenReturn(project);
         mockMvc.perform(put("/api/project/" + ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(convertObjectToJsonBytes(dtoProject))
-                .principal(principal))
+                .content(convertObjectToJsonBytes(dtoProject)))
                 .andExpect(status().isForbidden());
-        verify(userService).getUserByEmail(null);
-        verify(projectMapper).projectFromDto(dtoProject);
+        verify(userService).getLoggedInUser();
     }
 
     @Test
     public void updateProjectCorrectUserCouldNotSaveExpectNotFound() throws Exception {
         DtoProject dtoProject = MapperHelper.getTestDtoProject();
-        Project project = MapperHelper.getTestProject();
-        project.getOwner().setId(MapperHelper.getTestUser().getId());
-        when(userService.getUserByEmail(null))
+        when(userService.getLoggedInUser())
                 .thenReturn(MapperHelper.getTestUser());
-        when(projectMapper.projectFromDto(dtoProject))
-                .thenReturn(project);
         mockMvc.perform(put("/api/project/" + ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(convertObjectToJsonBytes(dtoProject))
-                .principal(principal))
+                .content(convertObjectToJsonBytes(dtoProject)))
                 .andExpect(status().isNotFound());
 
-        verify(userService).getUserByEmail(null);
-        verify(projectMapper).projectFromDto(dtoProject);
-        verify(projectService).saveProject(project);
+        verify(userService).getLoggedInUser();
+        verify(projectService).saveDtoProject(dtoProject);
     }
 
     @Test
     public void updateProjectCorrectUserExpectSuccess() throws Exception {
         DtoProject dtoProject = MapperHelper.getTestDtoProject();
-        Project project = MapperHelper.getTestProject();
-        project.getOwner().setId(MapperHelper.getTestUser().getId());
-        when(userService.getUserByEmail(null))
+        when(userService.getLoggedInUser())
                 .thenReturn(MapperHelper.getTestUser());
-        when(projectMapper.projectFromDto(dtoProject))
-                .thenReturn(project);
-        when(projectService.saveProject(project)).thenReturn(project);
+        when(projectService.saveDtoProject(dtoProject)).thenReturn(dtoProject);
         mockMvc.perform(put("/api/project/" + ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(convertObjectToJsonBytes(dtoProject))
-                .principal(principal))
+                .content(convertObjectToJsonBytes(dtoProject)))
                 .andExpect(status().isOk());
-        verify(userService).getUserByEmail(null);
-        verify(projectMapper).projectFromDto(dtoProject);
-        verify(projectService).saveProject(project);
+        verify(userService).getLoggedInUser();
+        verify(projectService).saveDtoProject(dtoProject);
     }
 
     @Test
     public void newValidProjectExpectSuccess() throws Exception {
         DtoProject dtoProject = MapperHelper.getTestDtoProject();
-        Project project = MapperHelper.getTestProject();
-        when(projectMapper.projectFromDto(dtoProject)).thenReturn(project);
-        when(projectService.saveProject(project)).thenReturn(project);
+        when(projectService.createNewProjectFromDto(dtoProject)).thenReturn(dtoProject);
         mockMvc.perform(post("/api/project/")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(convertObjectToJsonBytes(dtoProject))
-                .principal(principal))
+                .content(convertObjectToJsonBytes(dtoProject)))
                 .andExpect(status().isOk());
-        verify(userService).getUserByEmail(null);
-        verify(categoryService).findCategoryByName(null);
-        verify(projectMapper).projectFromDto(dtoProject);
-        verify(projectService).saveProject(project);
+        verify(projectService).createNewProjectFromDto(dtoProject);
     }
 
     @Test
     public void newProjectCannotSaveExpectNotFound() throws Exception {
         DtoProject dtoProject = MapperHelper.getTestDtoProject();
-        Project project = MapperHelper.getTestProject();
-        when(projectMapper.projectFromDto(dtoProject)).thenReturn(project);
         mockMvc.perform(post("/api/project/")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(convertObjectToJsonBytes(dtoProject))
-                .principal(principal))
+                .content(convertObjectToJsonBytes(dtoProject)))
                 .andExpect(status().isNotFound());
-        verify(userService).getUserByEmail(null);
-        verify(categoryService).findCategoryByName(null);
-        verify(projectMapper).projectFromDto(dtoProject);
-        verify(projectService).saveProject(project);
+        verify(projectService).createNewProjectFromDto(dtoProject);
     }
 
     @Test
     public void deleteExistingProjectExpectSuccess() throws Exception {
         Project project = MapperHelper.getTestProject();
         when(projectService.getProjectById(ID)).thenReturn(project);
-        when(principal.getName()).thenReturn(project.getOwner().getEmail());
-        mockMvc.perform(delete("/api/project/" + ID)
-                .principal(principal))
+        when(userService.getLoggedInUser()).thenReturn(project.getOwner());
+        mockMvc.perform(delete("/api/project/" + ID))
                 .andExpect(status().isOk());
+        verify(userService).getLoggedInUser();
         verify(projectService).getProjectById(ID);
         verify(projectService).deleteProject(ID);
     }
@@ -200,9 +167,8 @@ public class ProjectRestControllerTest {
     public void deleteExistingProjectWrongUserExpectForbidden() throws Exception {
         Project project = MapperHelper.getTestProject();
         when(projectService.getProjectById(ID)).thenReturn(project);
-        when(principal.getName()).thenReturn(MapperHelper.TEST_USER_NAME);
-        mockMvc.perform(delete("/api/project/" + ID)
-                .principal(principal))
+        when(userService.getLoggedInUser()).thenReturn(MapperHelper.TEST_USER);
+        mockMvc.perform(delete("/api/project/" + ID))
                 .andExpect(status().isForbidden());
         verify(projectService).getProjectById(ID);
         verify(projectService, times(0)).deleteProject(ID);

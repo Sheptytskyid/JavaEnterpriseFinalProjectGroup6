@@ -1,11 +1,7 @@
 package net.greatstart.controllers;
 
 import net.greatstart.dto.DtoProject;
-import net.greatstart.mappers.ProjectMapper;
-import net.greatstart.model.Category;
 import net.greatstart.model.Project;
-import net.greatstart.model.User;
-import net.greatstart.services.CategoryService;
 import net.greatstart.services.ProjectService;
 import net.greatstart.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.security.Principal;
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
@@ -32,19 +26,12 @@ public class ProjectRestController {
 
     private ProjectService projectService;
     private UserService userService;
-    private CategoryService categoryService;
-
-    private ProjectMapper projectMapper;
 
     @Autowired
     public ProjectRestController(ProjectService projectService,
-                                 UserService userService,
-                                 ProjectMapper projectMapper,
-                                 CategoryService categoryService) {
+                                 UserService userService) {
         this.projectService = projectService;
         this.userService = userService;
-        this.projectMapper = projectMapper;
-        this.categoryService = categoryService;
     }
 
     @GetMapping({"/api/project", "/api/project/"})
@@ -55,15 +42,15 @@ public class ProjectRestController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/api/projects/my")
-    public ResponseEntity<Collection<Project>> getMyProjects(Principal principal) {
-        List<Project> projectList = projectService.getAllProjectsOfUser(principal.getName());
+    public ResponseEntity<Collection<Project>> getMyProjects() {
+        List<Project> projectList = projectService.getAllProjectsOfCurrentUser();
         return new ResponseEntity<>(projectList, HttpStatus.OK);
     }
 
     @Transactional
     @GetMapping(value = "/api/project/{id}")
     public ResponseEntity<DtoProject> getProjectById(@PathVariable("id") long id) {
-        DtoProject project = projectMapper.fromProjectToDto(projectService.getProjectById(id));
+        DtoProject project = projectService.getDtoProjectById(id);
         if (project != null) {
             return new ResponseEntity<>(project, HttpStatus.OK);
         }
@@ -75,15 +62,13 @@ public class ProjectRestController {
     @PutMapping("/api/project/{id}")
     public ResponseEntity<DtoProject> updateProject(
             @PathVariable("id") long id,
-            @Valid @RequestBody DtoProject dtoProject, Principal principal) {
-        User currentUser = userService.getUserByEmail(principal.getName());
-        Project currentProject = projectMapper.projectFromDto(dtoProject);
-        if (currentUser.getId() != currentProject.getOwner().getId()) {
+            @Valid @RequestBody DtoProject dtoProject) {
+        if (userService.getLoggedInUser().getId() != dtoProject.getOwner().getId()) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-        currentProject = projectService.saveProject(currentProject);
+        DtoProject currentProject = projectService.saveDtoProject(dtoProject);
         if (currentProject != null) {
-            return new ResponseEntity<>(projectMapper.fromProjectToDto(currentProject), HttpStatus.OK);
+            return new ResponseEntity<>(dtoProject, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
@@ -93,16 +78,10 @@ public class ProjectRestController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping({"/api/project", "/api/project/"})
     public ResponseEntity<DtoProject> newProject(
-            @Valid @RequestBody DtoProject dtoProject, Principal principal) {
-        User owner = userService.getUserByEmail(principal.getName());
-        Category category = categoryService.findCategoryByName(dtoProject.getCategory().getName());
-        Project currentProject = projectMapper.projectFromDto(dtoProject);
-        currentProject.setCategory(category);
-        currentProject.setOwner(owner);
-        currentProject.getDesc().setDateAdded(LocalDate.now());
-        currentProject = projectService.saveProject(currentProject);
-        if (currentProject != null) {
-            return new ResponseEntity<>(projectMapper.fromProjectToDto(currentProject), HttpStatus.OK);
+            @Valid @RequestBody DtoProject dtoProject) {
+        dtoProject = projectService.createNewProjectFromDto(dtoProject);
+        if (dtoProject != null) {
+            return new ResponseEntity<>(dtoProject, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
@@ -111,10 +90,10 @@ public class ProjectRestController {
     @Transactional
     @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/api/project/{id}")
-    public ResponseEntity<DtoProject> deleteProject(@PathVariable("id") long id, Principal principal) {
+    public ResponseEntity<DtoProject> deleteProject(@PathVariable("id") long id) {
         Project project = projectService.getProjectById(id);
         if (project != null) {
-            if (!principal.getName().equals(project.getOwner().getEmail())) {
+            if (userService.getLoggedInUser().getId() != project.getOwner().getId()) {
                 return new ResponseEntity<>(HttpStatus.FORBIDDEN);
             }
             projectService.deleteProject(id);

@@ -83,9 +83,9 @@ public class ProjectServiceTest {
         //init
         String email = "test@test.ua";
         User user = new User();
-        when(userService.getUserByEmail(email)).thenReturn(user);
+        when(userService.getLoggedInUser()).thenReturn(user);
         //use
-        projectService.getAllProjectsOfUser(email);
+        projectService.getAllProjectsOfCurrentUser();
         //check
         verify(projectDao, times(1)).findByOwner(user);
     }
