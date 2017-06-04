@@ -59,6 +59,7 @@ public class InvestmentControllerTest {
         dtoInvestment.setDateOfInvestment(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
         when(investmentValidationService.validate(dtoInvestment)).thenReturn(true);
         when(investmentService.saveInvestment(dtoInvestment)).thenReturn(dtoInvestment);
+
         //use & check
         mvc.perform(post("/api/investment/")
                 .contentType(MediaType.APPLICATION_JSON)
