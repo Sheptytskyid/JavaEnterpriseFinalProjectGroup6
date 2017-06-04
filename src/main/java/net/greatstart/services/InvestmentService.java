@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +35,9 @@ public class InvestmentService {
 
     public DtoInvestment saveInvestment(DtoInvestment dtoInvestment) {
         Investment investment = getInvestmentFromDtoWithAttachedProjectAndUser(dtoInvestment);
+        investment.setDateOfInvestment(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+        investment.setVerified(false);
+        investment.setPaid(false);
         return investmentMapper.fromInvestmentToDto(investmentDao.save(investment));
     }
 

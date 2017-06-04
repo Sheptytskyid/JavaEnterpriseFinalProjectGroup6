@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @RestController
@@ -53,10 +51,6 @@ public class InvestmentController {
 
     @PostMapping({"", "/"})
     public ResponseEntity<DtoInvestment> createInvestment(@Valid @RequestBody DtoInvestment investment) {
-        investment.setDateOfInvestment(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
-        investment.setVerified(false);
-        investment.setPaid(false);
-
         if (investmentValidationService.validate(investment)) {
             DtoInvestment investmentResult = investmentService.saveInvestment(investment);
             if (investmentResult != null && investmentResult.getId() != 0) {
