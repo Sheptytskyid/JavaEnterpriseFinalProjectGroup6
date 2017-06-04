@@ -10,7 +10,7 @@
 					{{investment.investor.name}}
 				</div>
 				<div class="col-xs-5 col-sm-4 col-md-3">
-					{{investment.dateOfInvestment | asDate | date : "fullDate"}}
+					{{investment.dateOfInvestment | asDate | date : "short"}}
 				</div>
 				<div class="col-xs-3 col-sm-2">
 					{{investment.sum | currency}}

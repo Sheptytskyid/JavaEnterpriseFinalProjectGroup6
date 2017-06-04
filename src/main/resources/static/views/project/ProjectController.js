@@ -82,7 +82,11 @@ var ProjectController = angular.module('greatStartApp')
             $scope.projects = myProjects();
             // load a single project
         } else if ($location.path().indexOf("/project/") > -1 && $routeParams.id) {
-            $scope.project = Project.get({id: $routeParams.id});
+            var project = Project.get({id: $routeParams.id}, function () {
+                $scope.project = project;
+                $scope.investedAmount = investedAmount(project);
+                $scope.invProgressWithWidth = ivnProgressWithWidth($scope.investedAmount, project);
+            });
             // load all projects
         } else {
             $scope.project = {};
@@ -92,14 +96,6 @@ var ProjectController = angular.module('greatStartApp')
 
         var ivnProgressWithWidth = function (investedAmount, project) {
             return 'width: ' + investedAmount * 100 / project.desc.cost + '%';
-        };
-
-        $scope.getProject = function () {
-            var project = Project.get({id: $routeParams.id}, function () {
-                $scope.project = project;
-                $scope.investedAmount = investedAmount(project);
-                $scope.invProgressWithWidth = ivnProgressWithWidth($scope.investedAmount, project);
-            });
         };
 
 
