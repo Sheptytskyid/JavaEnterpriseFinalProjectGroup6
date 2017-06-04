@@ -1,5 +1,6 @@
 package net.greatstart.services;
 
+import net.greatstart.MapperHelper;
 import net.greatstart.dao.UserDao;
 import net.greatstart.dto.DtoUserProfile;
 import net.greatstart.mappers.UserProfileMapper;
@@ -11,6 +12,8 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -129,6 +132,15 @@ public class UserServiceTest {
         when(userDao.findByEmail(user.getEmail())).thenReturn(user);
         assertEquals(userService.getUserByEmail(user.getEmail()), user);
         verify(userDao, times(1)).findByEmail(user.getEmail());
+    }
+
+    @Test
+    public void getLoggedInUser() throws Exception {
+        User testUser = MapperHelper.getFullTestUser();
+        SecurityContextHolder.getContext().setAuthentication(
+                new UsernamePasswordAuthenticationToken(testUser.getEmail(), testUser.getPassword()));
+        userService.getLoggedInUser();
+        verify(userDao).findByEmail(testUser.getEmail());
     }
 
 }
