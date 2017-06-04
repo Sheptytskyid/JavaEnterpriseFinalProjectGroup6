@@ -1,0 +1,30 @@
+<div ng-controller="InvestmentController">
+	<form class="form" role="form" ng-submit="createInvestment()">
+		<div class="modal-header">
+			<!--todo close button-->
+			<button class="close" type="button" ng-click="closeInvestmentModal()">
+				<span class="fa fa-close"></span>
+			</button>
+			<h3 class="modaltitle">Add an investment</h3>
+		</div>
+		<div class="modal-body">
+			<p>Here you can add you investment in "{{project.desc.name}}"</p>
+			<p>Total investment needed: {{(project.desc.cost - investedAmount) | currency}}</p>
+			<p>Minimal investment: {{project.desc.minInvestment | currency}}</p>
+			<div class="form-group">
+				<input id="sum"
+				       type="number"
+				       ng-model="investment.sum"
+				       placeholder="Amount of investment"
+				       min="{{project.desc.minInvestment}}"
+				       max="{{project.desc.cost - investedAmount}}"
+				       step="{{project.desc.minInvestment}}"/>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class="form-group centered">
+				<button type="submit" class="btn btn-success btn-block">Submit</button>
+			</div>
+		</div>
+	</form>
+</div>

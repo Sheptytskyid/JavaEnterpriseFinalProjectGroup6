@@ -50,6 +50,9 @@ spring:
     properties:
       hibernate:
         default_schema: startup_platform
+security:
+  enable-csrf: false
 server:
   port: 9001
+
 

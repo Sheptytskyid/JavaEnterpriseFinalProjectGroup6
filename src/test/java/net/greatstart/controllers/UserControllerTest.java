@@ -1,7 +1,5 @@
 package net.greatstart.controllers;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import net.greatstart.dto.DtoUser;
 import net.greatstart.dto.DtoUserProfile;
 import net.greatstart.mappers.UserProfileMapper;
@@ -24,17 +22,11 @@ import org.springframework.validation.Errors;
 
 import java.security.Principal;
 
-import static net.greatstart.MapperHelper.getTestDtoUser;
-import static net.greatstart.MapperHelper.getTestDtoUserProfile;
-import static net.greatstart.MapperHelper.getTestUser;
+import static net.greatstart.JsonConverter.convertObjectToJsonBytes;
+import static net.greatstart.MapperHelper.*;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
@@ -47,15 +39,14 @@ public class UserControllerTest {
     private static final String PASS = "password";
     private static final String CREATE_USER = "/api/user/";
 
-
     @Mock
     private Principal principal;
     @Mock
     private UserService userService;
     @Mock
-    private UserProfileMapper userMapper;
-    @Mock
     private PasswordEncoder passwordEncoder;
+    @Mock
+    private UserProfileMapper userMapper;
     @Mock
     private SecurityService securityService;
     @Mock
@@ -65,31 +56,34 @@ public class UserControllerTest {
     @InjectMocks
     private UserController controller;
     private MockMvc mvc;
-    private User user = getTestUser();
-    private DtoUserProfile dtoUserProfile = getTestDtoUserProfile();
-    private DtoUser dtoUser = getTestDtoUser();
+    private User user;
+    private DtoUserProfile dtoUserProfile;
+    private DtoUser dtoUser;
 
 
     @Before
     public void init() {
         mvc = standaloneSetup(controller).build();
+        user = getTestUser();
+        dtoUser = getTestDtoUser();
+        dtoUserProfile = getTestDtoUserProfile();
     }
 
     @Test
     public void findById_UserNotFound_ShouldReturnHttpStatusCode404() throws Exception {
-        when(userService.getUserById(ID)).thenReturn(null);
+        when(userService.getDtoUserProfileById(ID)).thenReturn(null);
         mvc.perform(get(TEST_USER_PROFILE)).andExpect(status().isNotFound());
-        verify(userService, times(1)).getUserById(ID);
+        verify(userService, times(1)).getDtoUserProfileById(ID);
         verifyNoMoreInteractions(userService);
 
     }
 
     @Test
     public void findById_UserFound_ShouldReturnFoundUserEntity() throws Exception {
-        when(userService.getUserById(ID)).thenReturn(dtoUserProfile);
+        when(userService.getDtoUserProfileById(ID)).thenReturn(dtoUserProfile);
         mvc.perform(get(TEST_USER_PROFILE))
                 .andExpect(status().isOk());
-        verify(userService, times(1)).getUserById(ID);
+        verify(userService, times(1)).getDtoUserProfileById(ID);
         verifyNoMoreInteractions(userService);
     }
 
@@ -105,8 +99,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void updateUser_withWrongId_ShouldReturnCode404()
-            throws Exception {
+    public void updateUser_withWrongId_ShouldReturnCode404() throws Exception {
         dtoUserProfile.setName("TestName");
         dtoUserProfile.setId(2L);
         when(userService.updateUser(dtoUserProfile, ID)).thenReturn(null);
@@ -119,7 +112,7 @@ public class UserControllerTest {
     @Test
     public void updateUser_FailValidation_ShouldReturnCode400() throws Exception {
         dtoUserProfile.setName("F");
-        when(userService.getUserById(ID)).thenReturn(dtoUserProfile);
+        when(userService.getDtoUserProfileById(ID)).thenReturn(dtoUserProfile);
         mvc.perform(put(TEST_USER_PROFILE).contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(dtoUserProfile)))
                 .andExpect(status().isBadRequest());
         verifyNoMoreInteractions(userService);
@@ -129,9 +122,34 @@ public class UserControllerTest {
     @Test
     public void user() throws Exception {
         assertEquals(principal, controller.user(principal));
-
     }
 
+    @Test
+    public void getUserReturnDtoUserProfileIfLoggedIn() throws Exception {
+        //init
+        when(principal.getName()).thenReturn(EMAIL);
+        when(userService.getUserByEmail(EMAIL)).thenReturn(user);
+        when(userMapper.fromUserToDtoProfile(user)).thenReturn(dtoUserProfile);
+        //use & check
+        mvc.perform(get("/api/current").principal(principal)).andExpect(status().isOk());
+        verify(userService, times(1)).getUserByEmail(EMAIL);
+        verify(userMapper, times(1)).fromUserToDtoProfile(user);
+        verifyNoMoreInteractions(userService);
+        verifyNoMoreInteractions(userMapper);
+    }
+
+    @Test
+    public void getUserReturnDtoUserProfileIfNotLoggedIn() throws Exception {
+        //init
+
+        when(principal.getName()).thenReturn(EMAIL);
+        when(userService.getUserByEmail(EMAIL)).thenReturn(null);
+        //use & check
+        mvc.perform(get("/api/current").principal(principal)).andExpect(status().isNotFound());
+        verify(userService, times(1)).getUserByEmail(EMAIL);
+        verifyNoMoreInteractions(userService);
+        verifyNoMoreInteractions(userMapper);
+    }
 
     @Test
     public void UnsuccessfulProcessRegistrationWrongUser() throws Exception {
@@ -167,9 +185,4 @@ public class UserControllerTest {
         verifyNoMoreInteractions(securityService);
     }
 
-    private byte[] convertObjectToJsonBytes(Object object) throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        return mapper.writeValueAsBytes(object);
-    }
 }

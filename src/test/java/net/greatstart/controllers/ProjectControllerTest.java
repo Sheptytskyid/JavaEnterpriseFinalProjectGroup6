@@ -3,10 +3,7 @@ package net.greatstart.controllers;
 import net.greatstart.dto.DtoProject;
 import net.greatstart.dto.DtoProjectDescription;
 import net.greatstart.mappers.ProjectMapper;
-import net.greatstart.model.Category;
-import net.greatstart.model.Investment;
 import net.greatstart.model.Project;
-import net.greatstart.model.User;
 import net.greatstart.services.ProjectService;
 import net.greatstart.services.UserService;
 import org.junit.Before;
@@ -20,14 +17,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.math.BigDecimal;
 import java.security.Principal;
-import java.util.Arrays;
-import java.util.List;
 
-import static net.greatstart.MapperHelper.TEST_PROJECT_NAME;
-import static net.greatstart.MapperHelper.getTestProject;
-import static org.mockito.Mockito.*;
+import static net.greatstart.MapperHelper.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -42,43 +38,56 @@ public class ProjectControllerTest {
     private UserService userService;
 
     @Mock
-    ProjectMapper projectMapper;
+    private ProjectMapper projectMapper;
 
     @Mock
-    BindingResult bindingResult;
+    private BindingResult bindingResult;
 
     @Mock
-    MockMultipartFile multipartFile;
+    private MockMultipartFile multipartFile;
 
     @InjectMocks
     private ProjectController controller;
 
     private MockMvc mockMvc;
     private final String REDIRECT_TO_PROJECTS = "redirect:/project/";
-
     private final String USERNAME = "";
     private Principal principal = () -> USERNAME;
+    private Project project;
+    DtoProject dtoProject;
 
     @Before
     public void setup() {
         mockMvc = standaloneSetup(controller).build();
+        project = getTestProject(TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
+        dtoProject = getTestDtoProject(TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
+
     }
 
     @Test(timeout = 2000)
-    public void showProject() throws Exception {
-        Investment investment1 = new Investment();
-        investment1.setSum(new BigDecimal(123));
-        Investment investment2 = new Investment();
-        investment2.setSum(new BigDecimal(456));
-        List<Investment> investments = Arrays.asList(investment1, investment2);
-        Project project = new Project();
-        project.setInvestments(investments);
-        project.setOwner(new User());
-        project.setCategory(new Category());
+    public void getProjectByValidIdShouldReturnHttpStatusOkAndInvokeuerServiceTwice() throws Exception {
+        //init
         when(projectService.getProjectById(1L)).thenReturn(project);
+        when(projectService.getDtoProjectById(1L)).thenReturn(dtoProject);
+        //use
         mockMvc.perform(get("/project/1"))
-                .andExpect(view().name("project/project_page"))
-                .andExpect(model().attribute("investedAmount", new BigDecimal(579)));
+                .andExpect(status().isOk());
+        //check
+        verify(projectService, times(1)).getProjectById(1L);
+        verify(projectService, times(1)).getDtoProjectById(1L);
+        verifyNoMoreInteractions(projectService);
+    }
+
+    @Test(timeout = 2000)
+    public void getProjectByInvalidIdShouldReturnHttpStatusNoFoundAndInvokeUserServiceOnce() throws Exception {
+        //init
+        when(projectService.getProjectById(12L)).thenReturn(null);
+        //use
+        mockMvc.perform(get("/project/12"))
+                .andExpect(status().isNotFound());
+        //check
+        verify(projectService, times(1)).getProjectById(12L);
+        verifyNoMoreInteractions(projectService);
     }
 
     @Test(timeout = 2000)
@@ -103,7 +112,7 @@ public class ProjectControllerTest {
 
     @Test(timeout = 2000)
     public void addProjectWithName() throws Exception {
-        Project project = getTestProject();
+        Project project = getTestProject(TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
         DtoProject dtoProject = new DtoProject();
         DtoProjectDescription dtoDesc = new DtoProjectDescription();
         dtoDesc.setName(TEST_PROJECT_NAME);
@@ -148,7 +157,7 @@ public class ProjectControllerTest {
         DtoProjectDescription dtoDesc = new DtoProjectDescription();
         dtoDesc.setDescription(TEST_PROJECT_NAME);
         dtoProject.setDesc(dtoDesc);
-        Project project = getTestProject();
+        Project project = getTestProject(TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
         when(projectMapper.projectFromDto(dtoProject)).thenReturn(project);
         ModelAndView view = controller.updateProject(1L, dtoProject, bindingResult, multipartFile);
         verify(projectService, times(1)).saveProject(project);
@@ -174,7 +183,7 @@ public class ProjectControllerTest {
         byte[] photo = {90, 81, 81, 81, 90};
         dtoDesc.setImage(photo);
         project.setDesc(dtoDesc);
-        Project testProject = getTestProject();
+        Project testProject = getTestProject(TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
         when(projectService.getProjectById(1L)).thenReturn(testProject);
         when(projectMapper.fromProjectToDto(testProject)).thenReturn(project);
         mockMvc.perform(get("/project/1/image"))

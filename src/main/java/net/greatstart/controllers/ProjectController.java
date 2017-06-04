@@ -2,7 +2,6 @@ package net.greatstart.controllers;
 
 import net.greatstart.dto.DtoProject;
 import net.greatstart.mappers.ProjectMapper;
-import net.greatstart.model.Investment;
 import net.greatstart.model.Project;
 import net.greatstart.model.User;
 import net.greatstart.services.CategoryService;
@@ -11,6 +10,8 @@ import net.greatstart.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +25,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 
@@ -73,16 +73,13 @@ public class ProjectController {
     }
 
     @GetMapping(value = "/{id}")
-    public ModelAndView showProject(@PathVariable Long id) {
-        Project project = projectService.getProjectById(id);
-        ModelAndView model = new ModelAndView("project/project_page");
-        model.addObject("project", project);
-        model.addObject("investedAmount",
-                projectService.getProjectById(id)
-                        .getInvestments().stream()
-                        .map(Investment::getSum)
-                        .reduce(BigDecimal.ZERO, BigDecimal::add));
-        return model;
+    @ResponseBody
+    public ResponseEntity<DtoProject> showProject(@PathVariable Long id) {
+        if (projectService.getProjectById(id) != null) {
+            DtoProject dtoProject = projectService.getDtoProjectById(id);
+            return new ResponseEntity<>(dtoProject, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(value = "/new")
@@ -155,7 +152,8 @@ public class ProjectController {
     @GetMapping(value = "/{id}/image")
     @ResponseBody
     public byte[] downloadImage(@PathVariable("id") Long id) {
-        DtoProject project = projectMapper.fromProjectToDto(projectService.getProjectById(id));
+        DtoProject project = projectMapper
+                .fromProjectToDto(projectService.getProjectById(id));
         return project.getDesc().getImage();
     }
 
