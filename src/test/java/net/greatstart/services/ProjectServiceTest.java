@@ -1,8 +1,10 @@
 package net.greatstart.services;
 
+import net.greatstart.MapperHelper;
 import net.greatstart.dao.ProjectDao;
 import net.greatstart.dto.DtoProject;
 import net.greatstart.mappers.ProjectMapper;
+import net.greatstart.model.Category;
 import net.greatstart.model.Project;
 import net.greatstart.model.User;
 import org.junit.Before;
@@ -25,18 +27,19 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProjectServiceTest {
-
     @Mock
     private ProjectDao projectDao;
+
     @Mock
     private ProjectMapper projectMapper;
     @Mock
     private UserService userService;
+    @Mock
+    private CategoryService categoryService;
     @InjectMocks
     private ProjectService projectService;
     private Project project;
     private DtoProject dtoProject;
-
     @Before
     public void setUp() {
         project = getTestProject(TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
@@ -102,5 +105,32 @@ public class ProjectServiceTest {
         verify(projectMapper, times(1)).fromProjectToDto(project);
         verifyNoMoreInteractions(projectDao);
         verifyNoMoreInteractions(projectMapper);
+    }
+
+    @Test
+    public void saveDtoProject() throws Exception {
+        Project project = MapperHelper.getTestProject();
+        DtoProject dtoProject = MapperHelper.getTestDtoProject();
+        when(projectMapper.projectFromDto(dtoProject)).thenReturn(project);
+        projectService.saveDtoProject(dtoProject);
+        verify(projectMapper).projectFromDto(dtoProject);
+        verify(projectDao).save(project);
+    }
+
+    @Test
+    public void createNewProjectFromDto() throws Exception {
+        User owner = MapperHelper.TEST_USER;
+        DtoProject dtoProject = MapperHelper.getTestDtoProject();
+        Project project = MapperHelper.getTestProject();
+        Category category = MapperHelper.TEST_CATEGORY;
+        when(projectMapper.projectFromDto(dtoProject)).thenReturn(project);
+        when(userService.getLoggedInUser()).thenReturn(owner);
+        when(categoryService.findCategoryByName(dtoProject.getCategory().getName()))
+                .thenReturn(category);
+        projectService.createNewProjectFromDto(dtoProject);
+        verify(userService).getLoggedInUser();
+        verify(projectMapper).projectFromDto(dtoProject);
+        verify(projectDao).save(project);
+
     }
 }
