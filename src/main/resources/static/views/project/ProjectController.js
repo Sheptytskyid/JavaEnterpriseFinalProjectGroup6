@@ -94,6 +94,15 @@ var ProjectController = angular.module('greatStartApp')
             return 'width: ' + investedAmount * 100 / project.desc.cost + '%';
         };
 
+        $scope.getProject = function () {
+            var project = Project.get({id: $routeParams.id}, function () {
+                $scope.project = project;
+                $scope.investedAmount = investedAmount(project);
+                $scope.invProgressWithWidth = ivnProgressWithWidth($scope.investedAmount, project);
+            });
+        };
+
+
         $scope.closeApproveModal = function () {
             $scope.projectModal.dismiss();
         };
