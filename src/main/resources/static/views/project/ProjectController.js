@@ -36,19 +36,36 @@ var ProjectController = angular.module('greatStartApp')
             })
         };
 
+        var fieldsAreValid = function () {
+            $scope.validationMessage = '';
+            if ($scope.project.desc.minInvestment > $scope.project.desc.cost) {
+                $scope.validationMessage = "Min. investment must be smaller or equal to the total cost";
+                return false;
+            }
+            if ($scope.project.desc.minInvestment != null && $scope.project.desc.cost % $scope.project.desc.minInvestment !== 0) {
+                $scope.validationMessage = "Cost must be exactly divisible by min. investment";
+                return false;
+            }
+            return true;
+        };
+
         $scope.submit = function() {
             if ($scope.imageChanged) {
                 $scope.project.desc.image = $scope.projectCroppedImage.replace(/^data:image\/[a-z]+;base64,/, "");
             }
-            if (!$scope.project.id) {
-                $scope.createProject($scope.project);
+            if (fieldsAreValid()) {
+                if (!$scope.project.id) {
+                    $scope.createProject($scope.project);
+                } else {
+                    $scope.currentProjectId = $scope.project.id;
+                    $scope.update($scope.project).$promise.then(function (success) {
+                        $location.path('/project/' + $scope.currentProjectId);
+                    }, function (error) {
+                        $scope.error = error.status + " " + error.statusText;
+                    });
+                }
             } else {
-                $scope.currentProjectId = $scope.project.id;
-                $scope.update($scope.project).$promise.then(function (success) {
-                    $location.path('/project/' + $scope.currentProjectId);
-                }, function (error) {
-                    $scope.error = error.status + " " + error.statusText;
-                });
+                $scope.error = $scope.validationMessage;
             }
         };
 
