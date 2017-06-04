@@ -12,7 +12,7 @@ import java.util.Arrays;
 @Data
 public class DtoProjectDescription {
     @NotNull
-    @Size(min = 3, max = 100, message = "{name.size}")
+    @Size(min = 3, max = 105, message = "{name.size}")
     private String name;
     private String goal;
     private String description;
