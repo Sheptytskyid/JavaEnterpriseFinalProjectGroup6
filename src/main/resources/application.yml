@@ -50,11 +50,7 @@ spring:
     properties:
       hibernate:
         default_schema: startup_platform
-#  h2:
-#    console:
-#      enabled: true
-#  datasource:
-#    name: startup
+
 security:
   enable-csrf: false
 server:
