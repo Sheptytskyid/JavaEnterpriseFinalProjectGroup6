@@ -113,11 +113,14 @@ public class ProjectRestController {
     @DeleteMapping("/api/project/{id}")
     public ResponseEntity<DtoProject> deleteProject(@PathVariable("id") long id, Principal principal) {
         Project project = projectService.getProjectById(id);
-        if (!principal.getName().equals(project.getOwner().getEmail())) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        if (project != null) {
+            if (!principal.getName().equals(project.getOwner().getEmail())) {
+                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            }
+            projectService.deleteProject(id);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-        projectService.deleteProject(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }

@@ -19,10 +19,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.security.Principal;
 
 import static net.greatstart.JsonConverter.convertObjectToJsonBytes;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
@@ -154,11 +152,71 @@ public class ProjectRestControllerTest {
     }
 
     @Test
-    public void newProject() throws Exception {
+    public void newValidProjectExpectSuccess() throws Exception {
+        DtoProject dtoProject = MapperHelper.getTestDtoProject();
+        Project project = MapperHelper.getTestProject();
+        when(projectMapper.projectFromDto(dtoProject)).thenReturn(project);
+        when(projectService.saveProject(project)).thenReturn(project);
+        mockMvc.perform(post("/api/project/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(convertObjectToJsonBytes(dtoProject))
+                .principal(principal))
+                .andExpect(status().isOk());
+        verify(userService).getUserByEmail(null);
+        verify(categoryService).findCategoryByName(null);
+        verify(projectMapper).projectFromDto(dtoProject);
+        verify(projectService).saveProject(project);
     }
 
     @Test
-    public void deleteProject() throws Exception {
+    public void newProjectCannotSaveExpectNotFound() throws Exception {
+        DtoProject dtoProject = MapperHelper.getTestDtoProject();
+        Project project = MapperHelper.getTestProject();
+        when(projectMapper.projectFromDto(dtoProject)).thenReturn(project);
+        mockMvc.perform(post("/api/project/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(convertObjectToJsonBytes(dtoProject))
+                .principal(principal))
+                .andExpect(status().isNotFound());
+        verify(userService).getUserByEmail(null);
+        verify(categoryService).findCategoryByName(null);
+        verify(projectMapper).projectFromDto(dtoProject);
+        verify(projectService).saveProject(project);
+    }
+
+    @Test
+    public void deleteExistingProjectExpectSuccess() throws Exception {
+        Project project = MapperHelper.getTestProject();
+        when(projectService.getProjectById(ID)).thenReturn(project);
+        when(principal.getName()).thenReturn(project.getOwner().getEmail());
+        mockMvc.perform(delete("/api/project/" + ID)
+                .principal(principal))
+                .andExpect(status().isOk());
+        verify(projectService).getProjectById(ID);
+        verify(projectService).deleteProject(ID);
+    }
+
+    @Test
+    public void deleteExistingProjectWrongUserExpectForbidden() throws Exception {
+        Project project = MapperHelper.getTestProject();
+        when(projectService.getProjectById(ID)).thenReturn(project);
+        when(principal.getName()).thenReturn(MapperHelper.TEST_USER_NAME);
+        mockMvc.perform(delete("/api/project/" + ID)
+                .principal(principal))
+                .andExpect(status().isForbidden());
+        verify(projectService).getProjectById(ID);
+        verify(projectService, times(0)).deleteProject(ID);
+    }
+
+    @Test
+    public void deleteNonExistingProjectExpectNotFound() throws Exception {
+        when(projectService.getProjectById(ID)).thenReturn(null);
+        when(principal.getName()).thenReturn(MapperHelper.TEST_USER_NAME);
+        mockMvc.perform(delete("/api/project/" + ID)
+                .principal(principal))
+                .andExpect(status().isNotFound());
+        verify(projectService).getProjectById(ID);
+        verify(projectService, times(0)).deleteProject(ID);
     }
 
 }
