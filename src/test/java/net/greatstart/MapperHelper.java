@@ -63,8 +63,8 @@ public class MapperHelper {
     public static final byte[] TEST_IMAGE = {0, 1, 1, 5, 1};
     public static final byte TEST_VALUE_1 = 1;
     public static final byte TEST_VALUE_2 = 2;
-    public static final BigDecimal TEST_COST_1 = new BigDecimal(100000);
-    public static final BigDecimal TEST_COST_2 = new BigDecimal(200000);
+    public static final BigDecimal TEST_COST_1 = new BigDecimal(10000);
+    public static final BigDecimal TEST_COST_2 = new BigDecimal(20000);
     public static final BigDecimal TEST_MIN_INVEST_1 = new BigDecimal(1000);
     public static final BigDecimal TEST_MIN_INVEST_2 = new BigDecimal(2000);
     public static final BigDecimal TEST_INVEST_1 = new BigDecimal(2000);
