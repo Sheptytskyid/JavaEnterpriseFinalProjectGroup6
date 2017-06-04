@@ -51,7 +51,7 @@ public class InvestmentControllerTest {
         dtoInvestment = getTestDtoInvestment(TEST_INVEST_1, TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
     }
 
-    @Test(timeout = 4000)
+    @Test
     public void saveValidInvestmentShouldPassValidationAndInvokeSaveServiceMethodAndReturnHttpStatusOk()
             throws Exception {
         //init
