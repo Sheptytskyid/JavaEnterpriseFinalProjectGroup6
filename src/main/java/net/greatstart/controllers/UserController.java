@@ -58,7 +58,7 @@ public class UserController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping(value = "/api/user/{id}")
     public ResponseEntity<DtoUserProfile> getUserById(@PathVariable("id") long id) {
-        DtoUserProfile user = userService.getUserById(id);
+        DtoUserProfile user = userService.getDtoUserProfileById(id);
         if (user != null) {
             return new ResponseEntity<>(user, HttpStatus.OK);
         }

@@ -13,6 +13,5 @@ public class EventController {
     public EventController(EventService eventService) {
         this.eventService = eventService;
     }
-
     //TODO: to be implemented
 }

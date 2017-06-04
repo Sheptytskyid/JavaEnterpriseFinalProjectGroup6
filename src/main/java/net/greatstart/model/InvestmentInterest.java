@@ -31,7 +31,7 @@ public class InvestmentInterest extends AbstractModel {
     @Column(name = "sum")
     private BigDecimal amountInvestment;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id")
     private User investor;
 }

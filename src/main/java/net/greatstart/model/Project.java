@@ -1,6 +1,8 @@
 package net.greatstart.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
@@ -12,6 +14,8 @@ import javax.persistence.Table;
 import java.util.List;
 
 @Data
+@EqualsAndHashCode(exclude = "investments")
+@ToString(exclude = "investments")
 @Entity
 @Table(name = "projects")
 public class Project extends AbstractModel {
@@ -19,7 +23,7 @@ public class Project extends AbstractModel {
     @Embedded
     private ProjectDescription desc;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private User owner;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "project")

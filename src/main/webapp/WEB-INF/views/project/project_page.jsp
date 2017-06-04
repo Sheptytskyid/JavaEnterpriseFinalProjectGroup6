@@ -236,7 +236,7 @@
 								<div class="progress-bar progress-bar-info"
 									 style="width: ${ivnProgress}%"></div>
 							</div>
-							<h4 class="text-right">Project need $${investedAmount}</h4>
+							<h4 class="text-right">Project need $${project.desc.cost - investedAmount}</h4>
 						</div>
 						<div class="panel-footer">
 							<button type="button" class="btn btn-success btn-block" data-toggle="modal"

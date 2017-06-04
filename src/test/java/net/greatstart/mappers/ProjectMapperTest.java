@@ -7,8 +7,7 @@ import net.greatstart.model.ProjectDescription;
 import org.junit.Test;
 import org.mapstruct.factory.Mappers;
 
-import static net.greatstart.MapperHelper.getTestDtoProject;
-import static net.greatstart.MapperHelper.getTestProject;
+import static net.greatstart.MapperHelper.*;
 import static org.junit.Assert.*;
 
 public class ProjectMapperTest {
@@ -17,7 +16,7 @@ public class ProjectMapperTest {
 
     @Test
     public void fromProjectToDto() throws Exception {
-        Project project = getTestProject();
+        Project project = getTestProject(TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
         DtoProject dtoProject = projectMapper.fromProjectToDto(project);
         assertNotNull(dtoProject);
         assertEquals(project.getId(), dtoProject.getId().longValue());
@@ -38,7 +37,7 @@ public class ProjectMapperTest {
 
     @Test
     public void projectFromDto() throws Exception {
-        DtoProject dtoProject = getTestDtoProject();
+        DtoProject dtoProject = getTestDtoProject(TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
         Project project = projectMapper.projectFromDto(dtoProject);
         assertNotNull(project);
         assertEquals(dtoProject.getId().longValue(), project.getId());

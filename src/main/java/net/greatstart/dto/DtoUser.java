@@ -18,4 +18,5 @@ public class DtoUser {
     private String password;
     @NotNull
     private String confirmPassword;
+
 }

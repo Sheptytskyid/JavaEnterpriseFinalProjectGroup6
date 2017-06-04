@@ -12,17 +12,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import static net.greatstart.MapperHelper.getTestDtoUserProfile;
-import static net.greatstart.MapperHelper.getTestUser;
+import static net.greatstart.MapperHelper.getFullTestDtoUserProfile;
+import static net.greatstart.MapperHelper.getFullTestUser;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
@@ -46,17 +42,15 @@ public class UserServiceTest {
 
     @Before
     public void setUp() {
-        user = getTestUser();
-        dtoUser = getTestDtoUserProfile();
+        user = getFullTestUser();
+        dtoUser = getFullTestDtoUserProfile();
     }
-
 
     @Test
     public void shouldInvokeUserDaoWhenCreateUser() throws Exception {
         when(userDao.save(user)).thenReturn(user);
         assertEquals(userService.createUser(user), user);
     }
-
 
     @Test
     public void createUserByEmailAndPassword() throws Exception {
@@ -90,6 +84,15 @@ public class UserServiceTest {
     }
 
     @Test
+    public void returnNullWhenUpdateUserWithInvalidId() throws Exception {
+        when(userDao.findOne(user.getId())).thenReturn(null);
+        assertEquals(null, userService.updateUser(dtoUser, dtoUser.getId()));
+        verify(userDao, times(1)).findOne(dtoUser.getId());
+        verifyNoMoreInteractions(userDao);
+        verifyNoMoreInteractions(userMapper);
+    }
+
+    @Test
     public void invokeUserDaoWhenDeleteUser() throws Exception {
         userService.deleteUser(ID);
         verify(userDao, times(1)).delete(ID);
@@ -99,7 +102,7 @@ public class UserServiceTest {
     public void invokeUserDaoWhenGetUserById() throws Exception {
         when(userMapper.fromUserToDtoProfile(user)).thenReturn(dtoUser);
         when(userDao.findOne(ID)).thenReturn(user);
-        assertEquals(userService.getUserById(ID), dtoUser);
+        assertEquals(userService.getDtoUserProfileById(ID), dtoUser);
         verify(userDao, times(1)).findOne(ID);
     }
 
@@ -112,10 +115,13 @@ public class UserServiceTest {
     }
 
     @Test
-    public void invokeUserDaoWhenGetAllUsers() throws Exception {
-        when(userDao.findAll()).thenReturn(new ArrayList<>());
-        userService.getAllUsers();
-        verify(userDao, times(1)).findAll();
+    public void invokeUserDaoWhenGetUser() throws Exception {
+        //init
+        when(userDao.findOne(1L)).thenReturn(user);
+        //use & check
+        assertEquals(user, userService.getUser(1L));
+        verify(userDao, times(1)).findOne(1L);
+        verifyNoMoreInteractions(userDao);
     }
 
     @Test

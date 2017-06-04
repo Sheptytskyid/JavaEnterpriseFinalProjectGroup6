@@ -1,6 +1,8 @@
 package net.greatstart.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -20,6 +22,8 @@ import java.util.List;
 import java.util.Set;
 
 @Data
+@EqualsAndHashCode(exclude = {"investments", "ownedProjects", "investmentInterests"})
+@ToString(exclude = {"investments", "ownedProjects", "investmentInterests"})
 @Entity
 @Table(name = "users")
 public class User extends AbstractModel {
@@ -62,5 +66,4 @@ public class User extends AbstractModel {
     @OneToMany(mappedBy = "investor")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<InvestmentInterest> investmentInterests;
-
 }
