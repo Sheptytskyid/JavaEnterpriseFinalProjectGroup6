@@ -61,10 +61,10 @@ var ProjectController = angular.module('greatStartApp')
         };
 
         // load my projects
-        if ($location.path().indexOf("/my") > -1) {
+        if ($location.path().indexOf("/my") > -1 || $location.path().indexOf("/user/") > -1) {
             $scope.projects = myProjects();
             // load a single project
-        } else if ($routeParams.id) {
+        } else if ($location.path().indexOf("/project/") > -1 && $routeParams.id) {
             $scope.project = Project.get({id: $routeParams.id});
             // load all projects
         } else {
