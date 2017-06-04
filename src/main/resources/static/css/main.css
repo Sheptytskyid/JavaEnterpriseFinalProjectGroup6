@@ -10,7 +10,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -webkit-overflow-scrolling: touch;
 
-    margin-top: 70px;
+    margin-top: 0px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -337,6 +337,6 @@ hr {
 }
 
 .pagination>li>a, .pagination>li>span {
-border-radius: 50% !important;
-margin: 0 5px;
+    border-radius: 50% !important;
+    margin: 0 5px;
 }
