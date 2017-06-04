@@ -1,9 +1,10 @@
 package net.greatstart.controllers;
 
+import net.greatstart.MapperHelper;
 import net.greatstart.dto.DtoProject;
-import net.greatstart.dto.DtoProjectDescription;
 import net.greatstart.mappers.ProjectMapper;
 import net.greatstart.model.Project;
+import net.greatstart.services.CategoryService;
 import net.greatstart.services.ProjectService;
 import net.greatstart.services.UserService;
 import org.junit.Before;
@@ -12,180 +13,176 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 
-import static net.greatstart.MapperHelper.*;
+import static net.greatstart.JsonConverter.convertObjectToJsonBytes;
 import static org.mockito.Mockito.*;
-import static org.mockito.internal.verification.VerificationModeFactory.times;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProjectControllerTest {
     @Mock
     private ProjectService projectService;
-
     @Mock
     private UserService userService;
-
+    @Mock
+    private CategoryService categoryService;
     @Mock
     private ProjectMapper projectMapper;
-
     @Mock
-    private BindingResult bindingResult;
-
-    @Mock
-    private MockMultipartFile multipartFile;
-
+    private Principal principal;
     @InjectMocks
     private ProjectController controller;
-
     private MockMvc mockMvc;
-    private final String REDIRECT_TO_PROJECTS = "redirect:/project/";
-    private final String USERNAME = "";
-    private Principal principal = () -> USERNAME;
-    private Project project;
-    DtoProject dtoProject;
+
+    private static final long ID = 1L;
 
     @Before
     public void setup() {
         mockMvc = standaloneSetup(controller).build();
-        project = getTestProject(TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
-        dtoProject = getTestDtoProject(TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
-
     }
 
-    @Test(timeout = 2000)
-    public void getProjectByValidIdShouldReturnHttpStatusOkAndInvokeuerServiceTwice() throws Exception {
-        //init
-        when(projectService.getProjectById(1L)).thenReturn(project);
-        when(projectService.getDtoProjectById(1L)).thenReturn(dtoProject);
-        //use
-        mockMvc.perform(get("/project/1"))
+    @Test
+    public void getProjects() throws Exception {
+        mockMvc.perform(get("/api/project"))
                 .andExpect(status().isOk());
-        //check
-        verify(projectService, times(1)).getProjectById(1L);
-        verify(projectService, times(1)).getDtoProjectById(1L);
-        verifyNoMoreInteractions(projectService);
-    }
-
-    @Test(timeout = 2000)
-    public void getProjectByInvalidIdShouldReturnHttpStatusNoFoundAndInvokeUserServiceOnce() throws Exception {
-        //init
-        when(projectService.getProjectById(12L)).thenReturn(null);
-        //use
-        mockMvc.perform(get("/project/12"))
-                .andExpect(status().isNotFound());
-        //check
-        verify(projectService, times(1)).getProjectById(12L);
-        verifyNoMoreInteractions(projectService);
-    }
-
-    @Test(timeout = 2000)
-    public void showProjectsShouldReturnViewAndInvokeServiceMethod() throws Exception {
-        mockMvc.perform(get("/project/"))
-                .andExpect(view().name("project/projects"));
         verify(projectService).getAllProjects();
     }
 
-    @Test(timeout = 2000)
-    public void showMyProjectsShouldReturnViewAndInvokeServiceMethod() throws Exception {
-        mockMvc.perform(get("/project/my").principal(principal))
-                .andExpect(view().name("project/projects"));
+    @Test
+    public void getMyProjects() throws Exception {
+        mockMvc.perform(get("/api/projects/my").principal(principal))
+                .andExpect(status().isOk());
         verify(projectService).getAllProjectsOfCurrentUser();
     }
 
-    @Test(timeout = 2000)
-    public void getAddProjectFormShouldReturnView() throws Exception {
-        mockMvc.perform(get("/project/new"))
-                .andExpect(view().name("project/add_project"));
+    @Test
+    public void getMyProjectsNotLoggedInExpectBadRequest() throws Exception {
+        mockMvc.perform(get("/api/project/my"))
+                .andExpect(status().isBadRequest());
     }
 
-    @Test(timeout = 2000)
-    public void addProjectWithName() throws Exception {
-        Project project = getTestProject(TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
+    @Test
+    public void getProjectById() throws Exception {
         DtoProject dtoProject = new DtoProject();
-        DtoProjectDescription dtoDesc = new DtoProjectDescription();
-        dtoDesc.setName(TEST_PROJECT_NAME);
-        dtoProject.setDesc(dtoDesc);
-        when(projectMapper.projectFromDto(dtoProject)).thenReturn(project);
-        ModelAndView view = controller.addProject(dtoProject, bindingResult, principal, multipartFile);
-        verify(projectService, times(1)).saveProject(project);
+        dtoProject.setId(ID);
+        when(projectService.getDtoProjectById(ID)).thenReturn(dtoProject);
+        mockMvc.perform(get("/api/project/" + ID))
+                .andExpect(status().isOk());
+        verify(projectService).getDtoProjectById(ID);
     }
 
-    @Test(timeout = 2000)
-    public void addEmptyProject() throws Exception {
-        mockMvc.perform(post("/project/new")
+    @Test
+    public void getNonExistingProjectByIdExpectNotFound() throws Exception {
+        mockMvc.perform(get("/api/project/" + ID))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void updateProjectNoRequestBody() throws Exception {
+        mockMvc.perform(put("/api/project/" + ID))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void updateProjectWrongUserExpectForbidden() throws Exception {
+        DtoProject dtoProject = MapperHelper.getTestDtoProject();
+        dtoProject.getOwner().setId(-1L);
+        when(userService.getLoggedInUser())
+                .thenReturn(MapperHelper.getTestUser());
+        mockMvc.perform(put("/api/project/" + ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(convertObjectToJsonBytes(dtoProject)))
+                .andExpect(status().isForbidden());
+        verify(userService).getLoggedInUser();
+    }
+
+    @Test
+    public void updateProjectCorrectUserCouldNotSaveExpectNotFound() throws Exception {
+        DtoProject dtoProject = MapperHelper.getTestDtoProject();
+        when(userService.getLoggedInUser())
+                .thenReturn(MapperHelper.getTestUser());
+        mockMvc.perform(put("/api/project/" + ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(convertObjectToJsonBytes(dtoProject)))
+                .andExpect(status().isNotFound());
+
+        verify(userService).getLoggedInUser();
+        verify(projectService).saveDtoProject(dtoProject);
+    }
+
+    @Test
+    public void updateProjectCorrectUserExpectSuccess() throws Exception {
+        DtoProject dtoProject = MapperHelper.getTestDtoProject();
+        when(userService.getLoggedInUser())
+                .thenReturn(MapperHelper.getTestUser());
+        when(projectService.saveDtoProject(dtoProject)).thenReturn(dtoProject);
+        mockMvc.perform(put("/api/project/" + ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(convertObjectToJsonBytes(dtoProject)))
+                .andExpect(status().isOk());
+        verify(userService).getLoggedInUser();
+        verify(projectService).saveDtoProject(dtoProject);
+    }
+
+    @Test
+    public void newValidProjectExpectSuccess() throws Exception {
+        DtoProject dtoProject = MapperHelper.getTestDtoProject();
+        when(projectService.createNewProjectFromDto(dtoProject)).thenReturn(dtoProject);
+        mockMvc.perform(post("/api/project/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(convertObjectToJsonBytes(dtoProject)))
+                .andExpect(status().isOk());
+        verify(projectService).createNewProjectFromDto(dtoProject);
+    }
+
+    @Test
+    public void newProjectCannotSaveExpectNotFound() throws Exception {
+        DtoProject dtoProject = MapperHelper.getTestDtoProject();
+        mockMvc.perform(post("/api/project/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(convertObjectToJsonBytes(dtoProject)))
+                .andExpect(status().isNotFound());
+        verify(projectService).createNewProjectFromDto(dtoProject);
+    }
+
+    @Test
+    public void deleteExistingProjectExpectSuccess() throws Exception {
+        Project project = MapperHelper.getTestProject();
+        when(projectService.getProjectById(ID)).thenReturn(project);
+        when(userService.getLoggedInUser()).thenReturn(project.getOwner());
+        mockMvc.perform(delete("/api/project/" + ID))
+                .andExpect(status().isOk());
+        verify(userService).getLoggedInUser();
+        verify(projectService).getProjectById(ID);
+        verify(projectService).deleteProject(ID);
+    }
+
+    @Test
+    public void deleteExistingProjectWrongUserExpectForbidden() throws Exception {
+        Project project = MapperHelper.getTestProject();
+        when(projectService.getProjectById(ID)).thenReturn(project);
+        when(userService.getLoggedInUser()).thenReturn(MapperHelper.TEST_USER);
+        mockMvc.perform(delete("/api/project/" + ID))
+                .andExpect(status().isForbidden());
+        verify(projectService).getProjectById(ID);
+        verify(projectService, times(0)).deleteProject(ID);
+    }
+
+    @Test
+    public void deleteNonExistingProjectExpectNotFound() throws Exception {
+        when(projectService.getProjectById(ID)).thenReturn(null);
+        when(principal.getName()).thenReturn(MapperHelper.TEST_USER_NAME);
+        mockMvc.perform(delete("/api/project/" + ID)
                 .principal(principal))
-                .andExpect(view().name("project/add_project"));
-        verify(projectService, times(0)).saveProject(null);
+                .andExpect(status().isNotFound());
+        verify(projectService).getProjectById(ID);
+        verify(projectService, times(0)).deleteProject(ID);
     }
 
-    @Test(timeout = 2000)
-    public void addProjectWithWrongPrice() throws Exception {
-        mockMvc.perform(post("/project/new")
-                .param("desc.cost", "wrong"))
-                .andExpect(view().name("project/add_project"));
-        verify(projectService, times(0)).saveProject(null);
-    }
-
-    @Test(timeout = 2000)
-    public void getUpdateProjectFormWithCorrectId() throws Exception {
-        mockMvc.perform(get("/project/1/update"))
-                .andExpect(view().name("project/update_project"));
-    }
-
-    @Test(timeout = 2000)
-    public void getUpdateProjectFormWithWrongId() throws Exception {
-        mockMvc.perform(get("/project/-1/update"))
-                .andExpect(view().name("project/projects"));
-    }
-
-    @Test(timeout = 2000)
-    public void updateProjectShouldReturnViewAndInvokeServiceMethod() throws Exception {
-        DtoProject dtoProject = new DtoProject();
-        dtoProject.setId(1L);
-        DtoProjectDescription dtoDesc = new DtoProjectDescription();
-        dtoDesc.setDescription(TEST_PROJECT_NAME);
-        dtoProject.setDesc(dtoDesc);
-        Project project = getTestProject(TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
-        when(projectMapper.projectFromDto(dtoProject)).thenReturn(project);
-        ModelAndView view = controller.updateProject(1L, dtoProject, bindingResult, multipartFile);
-        verify(projectService, times(1)).saveProject(project);
-    }
-
-    @Test(timeout = 2000)
-    public void updateProjectInvalidProject() throws Exception {
-        mockMvc.perform(post("/project/1/update"))
-                .andExpect(view().name("project/update_project"));
-    }
-
-    @Test(timeout = 2000)
-    public void deleteProjectShouldReturnViewAndInvokeServiceMethod() throws Exception {
-        mockMvc.perform(get("/project/1/delete"))
-                .andExpect(view().name(REDIRECT_TO_PROJECTS));
-        verify(projectService, times(1)).deleteProject(1);
-    }
-
-    @Test(timeout = 2000)
-    public void downloadImage() throws Exception {
-        DtoProject project = new DtoProject();
-        DtoProjectDescription dtoDesc = new DtoProjectDescription();
-        byte[] photo = {90, 81, 81, 81, 90};
-        dtoDesc.setImage(photo);
-        project.setDesc(dtoDesc);
-        Project testProject = getTestProject(TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
-        when(projectService.getProjectById(1L)).thenReturn(testProject);
-        when(projectMapper.fromProjectToDto(testProject)).thenReturn(project);
-        mockMvc.perform(get("/project/1/image"))
-                .andExpect(content().bytes(photo));
-
-    }
 }
