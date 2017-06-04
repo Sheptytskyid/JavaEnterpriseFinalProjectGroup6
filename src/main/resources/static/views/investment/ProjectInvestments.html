@@ -7,12 +7,10 @@
         (investment.verified ? 'list-group-item-warning' : 'list-group-item-danger')}}"
 			    style="height: 44px;">
 				<div class="col-xs-4 col-sm-4 col-md-5">
-					<a href="#">
-						{{investment.investor.name}}
-					</a>
+					{{investment.investor.name}}
 				</div>
 				<div class="col-xs-5 col-sm-4 col-md-3">
-					{{investment.dateOfInvestment}}
+					{{investment.dateOfInvestment | asDate | date : "fullDate"}}
 				</div>
 				<div class="col-xs-3 col-sm-2">
 					{{investment.sum | currency}}

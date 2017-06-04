@@ -50,7 +50,7 @@ angular.module('greatStartApp')
 
         $scope.getUser = function () {
             User.get({id: $scope.user.id});
-        }
+        };
 
         $scope.openPage = function(hash) {
             $location.path(hash);

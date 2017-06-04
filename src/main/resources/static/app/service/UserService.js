@@ -9,3 +9,10 @@ angular.module('greatStartApp')
             }
         });
     }]);
+
+angular.module('greatStartApp')
+    .filter("asDate", function () {
+        return function (input) {
+            return new Date(Date.UTC(input[0], input[1] - 1, input[2]));
+        }
+    });
