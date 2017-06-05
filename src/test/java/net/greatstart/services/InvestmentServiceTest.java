@@ -76,9 +76,10 @@ public class InvestmentServiceTest {
 
     @Test
     public void getAllDtoInvestments() throws Exception {
+        //init
         when(investmentDao.findAll()).thenReturn(investments);
         when(investmentMapper.fromInvestmentToDto(investment)).thenReturn(dtoInvestment);
-        assertEquals(dtoInvestments, investmentService.getAllDtoInvestments());
+        //use & check
         assertTrue(dtoInvestments.containsAll(investmentService.getAllDtoInvestments()));
         verify(investmentDao, times(1)).findAll();
     }

@@ -156,8 +156,8 @@ public class MapperHelper {
         dtoInvestment.setDateOfInvestment(DATE_INVESTMENT);
         dtoInvestment.setInvestor(getTestDtoUserProfile());
         dtoInvestment.setProject(getTestDtoProject(value, projectCost, projectMinInvestment));
-        dtoInvestment.setPaid(false);
-        dtoInvestment.setVerified(false);
+        dtoInvestment.setPaid(true);
+        dtoInvestment.setVerified(true);
         dtoInvestment.setSum(investmentSum);
         return dtoInvestment;
     }
@@ -168,8 +168,8 @@ public class MapperHelper {
                                                BigDecimal projectMinInvestment) {
         Investment investment = new Investment();
         investment.setDateOfInvestment(DATE_INVESTMENT);
-        investment.setPaid(false);
-        investment.setVerified(false);
+        investment.setPaid(true);
+        investment.setVerified(true);
         investment.setSum(investmentSum);
         investment.setInvestor(getTestUser());
         investment.setProject(getTestProject(value, projectCost, projectMinInvestment));
@@ -202,6 +202,7 @@ public class MapperHelper {
     public static Project getTestProject() {
         Project project = getTestProject(TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
         project.setOwner(getTestUser());
+        project.setInvestments(getTestListOfInvestments(TEST_INVEST_1, TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1));
         return project;
     }
 
