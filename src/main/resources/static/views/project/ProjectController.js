@@ -1,4 +1,4 @@
-var ProjectController = angular.module('greatStartApp')
+var app = angular.module('greatStartApp')
     .controller('ProjectController', function ($rootScope, $scope, $uibModal, $routeParams, Project, Investment, $location) {
             var investedAmount = function () {
                 var result = 0;
@@ -109,18 +109,17 @@ var ProjectController = angular.module('greatStartApp')
             $scope.openApproveModal = function () {
                 $scope.projectModal = $uibModal.open({
                     templateUrl: 'views/investment/ApproveCreateInvestmentModal.html',
-                    controller: 'ProjectController',
+                    controller: 'first.modal.controller',
                     size: 'md',
                     backdrop: 'true',
                     resolve: {
                         project: $scope.project
                     }
-                });
-            }.result
-                .then(function () {
-                })
-                .then(null, function () {
-                });
+                }).result.then(function (data) {
+                  console.log("It works!");
+                  console.log(data);
+                  });
+            }
 
             $scope.openCreateInvestmentModal = function () {
                 $scope.closeApproveModal();
@@ -130,12 +129,9 @@ var ProjectController = angular.module('greatStartApp')
                     size: 'sm',
                     backdrop: 'true',
                     resolve: {}
-                });
-            }.result
-                .then(function (investment) {
-                })
-                .then(null, function () {
-                });
+                }).result.then(function (investment) {
+                  });
+            };
 
             $scope.closeInvestmentModal = function () {
                 $scope.investmentModal.close();
@@ -159,5 +155,11 @@ var ProjectController = angular.module('greatStartApp')
 
 
         }
-    )
-;
+    );
+
+app.controller('first.modal.controller', function($scope, $uibModal, $uibModalInstance, project) {
+  console.log($scope);
+  console.log($uibModal);
+  console.log($uibModalInstance);
+  $scope.project = project;
+})
