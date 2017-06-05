@@ -55,14 +55,6 @@ public class InvestmentController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    /*@GetMapping("/my")
-    public ResponseEntity<DtoInvestment> getInvestmentById(Principal principal) {
-        if (investmentService.getDtoInvestmentById(id) != null) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }*/
-
     @Transactional
     @PostMapping({"", "/"})
     public ResponseEntity<DtoInvestment> createInvestment(@Valid @RequestBody DtoInvestment investment) {
