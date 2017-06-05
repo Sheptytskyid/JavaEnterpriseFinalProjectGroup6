@@ -17,11 +17,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import static junit.framework.TestCase.assertNull;
-import static net.greatstart.MapperHelper.getFullTestDtoUserProfile;
 import static net.greatstart.MapperHelper.getFullTestUser;
 import static net.greatstart.MapperHelper.getTestDtoUserProfile;
 import static org.junit.Assert.assertEquals;
