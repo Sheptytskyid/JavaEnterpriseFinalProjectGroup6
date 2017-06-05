@@ -21,6 +21,10 @@ import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * A REST controller to handle all {@link net.greatstart.model.Project} requests.
+ */
+
 @RestController
 public class ProjectController {
 
@@ -47,7 +51,6 @@ public class ProjectController {
         return new ResponseEntity<>(projectList, HttpStatus.OK);
     }
 
-    @Transactional
     @GetMapping(value = "/api/project/{id}")
     public ResponseEntity<DtoProject> getProjectById(@PathVariable("id") long id) {
         DtoProject project = projectService.getDtoProjectById(id);
@@ -74,7 +77,6 @@ public class ProjectController {
 
     }
 
-    @Transactional
     @PreAuthorize("isAuthenticated()")
     @PostMapping({"/api/project", "/api/project/"})
     public ResponseEntity<DtoProject> newProject(

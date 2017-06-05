@@ -14,6 +14,10 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
+/**
+ * A utility class to handle e-mail related operations for the reset password functionality.
+ */
+
 @Service
 public class MailService {
 

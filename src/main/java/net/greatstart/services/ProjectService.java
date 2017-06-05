@@ -16,6 +16,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Business logic layer for {@link net.greatstart.model.Project}.
+ */
+
 @Service
 @Transactional
 public class ProjectService {

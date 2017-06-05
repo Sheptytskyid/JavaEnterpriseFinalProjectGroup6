@@ -7,9 +7,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+/**
+ * Business logic layer for {@link net.greatstart.model.Category}.
+ */
+
 @Service
+@Transactional
 public class CategoryService {
     private CategoryDao categoryDao;
 

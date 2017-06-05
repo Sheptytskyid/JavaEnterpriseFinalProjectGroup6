@@ -10,6 +10,11 @@ import org.mapstruct.Mappings;
 
 import java.util.List;
 
+/**
+ * Mapstruct provided mapper to convert between {@link net.greatstart.model.User} and
+ * {@link net.greatstart.dto.DtoUserProfile}.
+ */
+
 @Mapper(componentModel = "spring")
 public interface UserProfileMapper {
 

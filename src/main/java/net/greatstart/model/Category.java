@@ -6,6 +6,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+/**
+ * An entity class for categories.
+ */
+
 @Data
 @Entity
 @Table(name = "categories")

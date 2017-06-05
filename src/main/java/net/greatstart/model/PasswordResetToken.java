@@ -12,6 +12,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
+/**
+ * A utility entity to provide password reset functionality.
+ */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

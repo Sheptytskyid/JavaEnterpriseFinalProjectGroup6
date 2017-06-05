@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
+/**
+ * A REST controller to provide the "retrieve lost password" functionality.
+ */
 
 @RestController
 public class PasswordResetController {

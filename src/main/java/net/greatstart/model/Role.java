@@ -9,6 +9,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.Set;
 
+/**
+ * An entity class to handle user roles (like Admin, User etc.).
+ */
+
 @Getter
 @NoArgsConstructor
 @Entity

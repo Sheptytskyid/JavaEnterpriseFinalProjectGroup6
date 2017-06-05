@@ -14,6 +14,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
 
+/**
+ * An entity class to provide information about projects.
+ */
+
 @Data
 @EqualsAndHashCode(exclude = "investments")
 @ToString(exclude = "investments")

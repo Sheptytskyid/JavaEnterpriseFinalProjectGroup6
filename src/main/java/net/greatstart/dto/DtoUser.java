@@ -6,6 +6,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+/**
+ * Data transfer object to handle {@link net.greatstart.model.User} registration.
+ */
+
 @Data
 public class DtoUser {
 

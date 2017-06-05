@@ -3,9 +3,7 @@ var ProjectController = angular.module('greatStartApp')
         var investedAmount = function (project) {
             var result = 0;
             for (var i = 0; i < project.dtoInvestments.length; i++) {
-                if (project.dtoInvestments[i].paid) {
-                    result += project.dtoInvestments[i].sum;
-                }
+                result += project.dtoInvestments[i].sum;
             }
             return result;
         };

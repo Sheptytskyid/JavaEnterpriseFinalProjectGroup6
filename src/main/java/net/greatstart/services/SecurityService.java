@@ -18,6 +18,10 @@ import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.UUID;
 
+/**
+ * Security-related logic to manage user authentication.
+ */
+
 @Service
 @Transactional
 public class SecurityService {

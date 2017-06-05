@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+/**
+ * An entity class to provide contact information (like address and phone number).
+ */
+
 @Embeddable
 @Data
 @AllArgsConstructor

@@ -17,6 +17,10 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
+/**
+ * A controller to work with {@link net.greatstart.model.InvestmentInterest}.
+ */
+
 @RequestMapping("/invinterest")
 @Controller
 public class InvestmentInterestController {

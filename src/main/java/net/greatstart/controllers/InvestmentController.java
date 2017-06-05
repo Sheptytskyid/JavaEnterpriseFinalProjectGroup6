@@ -19,6 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * A REST controller to manage {@link net.greatstart.model.Investment} requests.
+ */
+
 @RestController
 @RequestMapping("/api/investment")
 public class InvestmentController {
@@ -49,7 +53,7 @@ public class InvestmentController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping({"", "/"})
+    @PostMapping
     public ResponseEntity<DtoInvestment> createInvestment(@Valid @RequestBody DtoInvestment investment) {
         if (investmentValidationService.validate(investment)) {
             DtoInvestment investmentResult = investmentService.saveInvestment(investment);

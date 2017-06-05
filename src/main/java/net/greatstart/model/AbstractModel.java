@@ -7,6 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+/**
+ * A parent class for all models.
+ */
+
 @MappedSuperclass
 @Data
 public abstract class AbstractModel {

@@ -21,6 +21,10 @@ import javax.persistence.Table;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * An entity class that represents a registered user.
+ */
+
 @Data
 @EqualsAndHashCode(exclude = {"investments", "ownedProjects", "investmentInterests"})
 @ToString(exclude = {"investments", "ownedProjects", "investmentInterests"})

@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 
 
 /**
- * Does not exist in DB
+ * An entity class for events.
  */
 
 @Data
