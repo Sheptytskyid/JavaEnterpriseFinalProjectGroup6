@@ -19,13 +19,12 @@ angular.module('greatStartApp')
             $scope.investment.dateOfInvestment = null;
             Investment.save($scope.investment, function () {
                 LoginService.authenticate();
+                // $scope.investment.dateOfInvestment = Date.now();
+                console.log($scope.projectInvestments);
                 $scope.projectInvestments.push($scope.investment);
                 $location.path('/project/' + $scope.project.id);
             }, function (error) {
                 $scope.error = true;
-            });
-            var projectInvestments = Investment.project({id: $routeParams.id}, function () {
-                $scope.projectInvestments = projectInvestments;
             });
             $scope.closeInvestmentModal();
         };
@@ -48,13 +47,5 @@ angular.module('greatStartApp')
                     });
                 }
             });
-        };
-
-        $scope.closeInvestmentModal = function () {
-            $scope.investmentModal.dismiss();
-        };
-
-        $scope.closeApproveModal = function () {
-            $scope.projectModal.dismiss();
         };
     });
