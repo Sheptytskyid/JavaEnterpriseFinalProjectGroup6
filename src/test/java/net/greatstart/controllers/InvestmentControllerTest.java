@@ -38,7 +38,7 @@ public class InvestmentControllerTest {
     private InvestmentController investmentController;
 
     private DtoInvestment dtoInvestment;
-//    private List<DtoInvestment> dtoInvestments;
+    private List<DtoInvestment> dtoInvestments;
     private MockMvc mvc;
 
     @Captor
@@ -47,7 +47,7 @@ public class InvestmentControllerTest {
     @Before
     public void setUp() throws Exception {
         mvc = standaloneSetup(investmentController).build();
-//        dtoInvestments = getTestListOfDtoInvestments(TEST_INVEST_1, TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
+        dtoInvestments = getTestListOfDtoInvestments(TEST_INVEST_1, TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
         dtoInvestment = getTestDtoInvestment(TEST_INVEST_1, TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
     }
 
@@ -85,7 +85,7 @@ public class InvestmentControllerTest {
 
     @Test(timeout = 2000)
     public void getAllInvestmentsShouldReturnOkRequestIfAtLeastOneInvestmentExists() throws Exception {
-//        when(investmentService.getAllDtoInvestments()).thenReturn(dtoInvestments);
+        when(investmentService.getAllDtoInvestments()).thenReturn(dtoInvestments);
         mvc.perform(get("/api/investment"))
                 .andExpect(status().isOk());
         verify(investmentService, times(1)).getAllDtoInvestments();

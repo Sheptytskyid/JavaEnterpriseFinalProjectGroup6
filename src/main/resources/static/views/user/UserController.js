@@ -58,6 +58,16 @@ angular.module('greatStartApp')
 
         $scope.openPage = function(hash) {
             $location.path(hash);
-        }
+        };
+
+        $scope.deleteUserInvestment = function (id) {
+            Investment.delete({id: id}, function () {
+                if ($scope.userInvestments !== null) {
+                    $scope.userInvestments = $scope.userInvestments.filter(function (el) {
+                        return el.id !== id;
+                    });
+                }
+            });
+        };
 
     });

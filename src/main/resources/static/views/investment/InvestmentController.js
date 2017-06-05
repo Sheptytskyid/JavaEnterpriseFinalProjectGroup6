@@ -1,5 +1,5 @@
 angular.module('greatStartApp')
-    .controller('InvestmentController', function ($scope, $rootScope, $location, Investment, LoginService) {
+    .controller('InvestmentController', function ($scope, $rootScope, $routeParams, $location, Investment, LoginService) {
 
         $scope.getAllInvestments = function () {
             var investments = Investment.query({}, function () {
@@ -19,12 +19,15 @@ angular.module('greatStartApp')
             $scope.investment.dateOfInvestment = null;
             Investment.save($scope.investment, function () {
                 LoginService.authenticate();
+                $scope.projectInvestments.push($scope.investment);
                 $location.path('/project/' + $scope.project.id);
             }, function (error) {
                 $scope.error = true;
             });
+            var projectInvestments = Investment.project({id: $routeParams.id}, function () {
+                $scope.projectInvestments = projectInvestments;
+            });
             $scope.closeInvestmentModal();
-            location.reload();
         };
 
         $scope.verifyInvestment = function (investment) {
@@ -38,8 +41,13 @@ angular.module('greatStartApp')
         };
 
         $scope.deleteInvestment = function (id) {
-            Investment.delete({id: id});
-            location.reload();
+            Investment.delete({id: id}, function () {
+                if ($scope.investments !== null) {
+                    $scope.investments = $scope.investments.filter(function (el) {
+                        return el.id !== id;
+                    });
+                }
+            });
         };
 
         $scope.closeInvestmentModal = function () {

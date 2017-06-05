@@ -137,7 +137,7 @@ public class MapperHelper {
         return investments;
     }
 
-    /*public static List<DtoInvestment> getTestListOfDtoInvestments(BigDecimal investmentSum,
+    public static List<DtoInvestment> getTestListOfDtoInvestments(BigDecimal investmentSum,
                                                                   byte value,
                                                                   BigDecimal projectCost,
                                                                   BigDecimal projectMinInvestment) {
@@ -146,7 +146,7 @@ public class MapperHelper {
         dtoInvestments.add(dtoInvestment1);
         dtoInvestments.add(dtoInvestment1);
         return dtoInvestments;
-    }*/
+    }
 
     public static DtoInvestment getTestDtoInvestment(BigDecimal investmentSum,
                                                      byte value,
