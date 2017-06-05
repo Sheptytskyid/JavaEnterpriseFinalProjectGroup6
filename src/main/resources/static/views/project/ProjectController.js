@@ -23,9 +23,7 @@ var app = angular.module('greatStartApp')
                         $scope.imageChanged = true;
                     });
                 };
-
                 reader.readAsDataURL(file);
-
             };
 
             angular.element(document.querySelector('#fileInput')).on('change', handleProjectImageSelect);
@@ -101,40 +99,50 @@ var app = angular.module('greatStartApp')
                 return 'width: ' + investedAmount * 100 / project.desc.cost + '%';
             };
 
-
-            $scope.closeApproveModal = function () {
-                $scope.projectModal.dismiss();
-            };
-
             $scope.openApproveModal = function () {
                 $scope.projectModal = $uibModal.open({
                     templateUrl: 'views/investment/ApproveCreateInvestmentModal.html',
-                    controller: 'first.modal.controller',
+                    controller: 'approveModelController',
                     size: 'md',
-                    backdrop: 'true',
                     resolve: {
                         project: $scope.project
                     }
-                }).result.then(function (data) {
-                  console.log("It works!");
-                  console.log(data);
-                  });
-            }
-
-            $scope.openCreateInvestmentModal = function () {
-                $scope.closeApproveModal();
-                $scope.investmentModal = $uibModal.open({
-                    templateUrl: 'views/investment/add_investment.html',
-                    controller: 'ProjectController',
-                    size: 'sm',
-                    backdrop: 'true',
-                    resolve: {}
-                }).result.then(function (investment) {
-                  });
+                }).result.then(function () {
+                    $scope.openCreateInvestmentModal();
+                }, function () {
+                });
             };
 
-            $scope.closeInvestmentModal = function () {
-                $scope.investmentModal.close();
+            $scope.openCreateInvestmentModal = function () {
+                $scope.investmentModal = $uibModal.open({
+                    templateUrl: 'views/investment/add_investment.html',
+                    controller: 'createInvestmentController',
+                    size: 'sm',
+                    resolve: {
+                        project: $scope.project,
+                        investedAmount: $scope.investedAmount
+                    }
+                }).result.then(function (investment) {
+                    console.log(investment);
+                    var user = angular.copy($rootScope.currentUser);
+                    var currentProject = angular.copy($scope.project);
+                    investment.investor = user;
+                    investment.investor.photo = null;
+                    investment.project = currentProject;
+                    investment.project.image = null;
+                    investment.verified = false;
+                    investment.paid = false;
+                    investment.dateOfInvestment = null;
+                    Investment.save(investment, function () {
+                        // LoginService.authenticate();
+                        // investment.dateOfInvestment = Date.now();
+                        console.log($scope.projectInvestments);
+                        $scope.projectInvestments.push(investment);
+                        $location.path('/project/' + $scope.project.id);
+                    });
+                    console.log(investment);
+                }, function () {
+                });
             };
 
             $scope.createProject = function () {
@@ -152,18 +160,33 @@ var app = angular.module('greatStartApp')
                     $scope.error = error.status + " " + error.statusText;
                 });
             };
-
-
         }
     );
 
-app.controller('first.modal.controller', function($scope, $uibModalInstance, $timeout, project) {
-  console.log($scope);
-  console.log($uibModalInstance);
-  $scope.project = project;
+app.controller('approveModelController', function ($scope, $uibModalInstance, project) {
+    $scope.project = project;
+    $scope.closeApproveModal = function () {
+        $uibModalInstance.dismiss();
+    };
 
-  $timeout(function () {
-    $uibModalInstance.close(project);
-  });
+    $scope.openCreateInvestmentModal = function () {
+        $uibModalInstance.close();
+    }
+});
 
-})
+app.controller('createInvestmentController', function ($scope, $uibModalInstance, project, investedAmount) {
+    console.log($scope);
+    console.log($uibModalInstance);
+    $scope.project = project;
+    $scope.investedAmount = investedAmount;
+    $scope.investment = {};
+
+    $scope.closeInvestmentModal = function () {
+        $uibModalInstance.dismiss();
+    };
+
+    $scope.createInvestment = function () {
+        $uibModalInstance.close($scope.investment);
+    }
+
+});
