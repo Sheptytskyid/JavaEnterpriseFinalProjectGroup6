@@ -56,7 +56,7 @@ public class UserService {
     public User createUser(DtoUser newUser) {
         String email = newUser.getEmail();
         String password = newUser.getPassword();
-        if (getUserByEmail(email) == null && password.equals(newUser.getConfirmPassword())) {
+        if (getUserByEmail(email) == null && password != null && password.equals(newUser.getConfirmPassword())) {
             User user = new User();
             int i = email.indexOf('@');
             String name = email.substring(0, i);

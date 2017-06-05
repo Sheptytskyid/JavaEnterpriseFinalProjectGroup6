@@ -2,11 +2,8 @@ package net.greatstart.controllers;
 
 import net.greatstart.dto.DtoUser;
 import net.greatstart.dto.DtoUserProfile;
-import net.greatstart.mappers.UserProfileMapper;
 import net.greatstart.model.User;
-import net.greatstart.services.SecurityService;
 import net.greatstart.services.UserService;
-import net.greatstart.validators.UserValidationService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +13,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.validation.Errors;
 
@@ -43,14 +39,6 @@ public class UserControllerTest {
     private Principal principal;
     @Mock
     private UserService userService;
-    @Mock
-    private PasswordEncoder passwordEncoder;
-    @Mock
-    private UserProfileMapper userMapper;
-    @Mock
-    private SecurityService securityService;
-    @Mock
-    private UserValidationService userValidationService;
     @Mock
     private Errors errors;
     @InjectMocks
@@ -127,28 +115,20 @@ public class UserControllerTest {
     @Test
     public void getUserReturnDtoUserProfileIfLoggedIn() throws Exception {
         //init
-        when(principal.getName()).thenReturn(EMAIL);
-        when(userService.getUserByEmail(EMAIL)).thenReturn(user);
-        when(userMapper.fromUserToDtoProfile(user)).thenReturn(dtoUserProfile);
+        when(userService.getCurrentDtoUserProfile()).thenReturn(dtoUserProfile);
         //use & check
-        mvc.perform(get("/api/current").principal(principal)).andExpect(status().isOk());
-        verify(userService, times(1)).getUserByEmail(EMAIL);
-        verify(userMapper, times(1)).fromUserToDtoProfile(user);
+        mvc.perform(get("/api/current")).andExpect(status().isOk());
+        verify(userService, times(1)).getCurrentDtoUserProfile();
         verifyNoMoreInteractions(userService);
-        verifyNoMoreInteractions(userMapper);
     }
 
     @Test
     public void getUserReturnDtoUserProfileIfNotLoggedIn() throws Exception {
         //init
-
-        when(principal.getName()).thenReturn(EMAIL);
-        when(userService.getUserByEmail(EMAIL)).thenReturn(null);
         //use & check
-        mvc.perform(get("/api/current").principal(principal)).andExpect(status().isNotFound());
-        verify(userService, times(1)).getUserByEmail(EMAIL);
+        mvc.perform(get("/api/current")).andExpect(status().isNotFound());
+        verify(userService, times(1)).getCurrentDtoUserProfile();
         verifyNoMoreInteractions(userService);
-        verifyNoMoreInteractions(userMapper);
     }
 
     @Test
@@ -158,17 +138,16 @@ public class UserControllerTest {
         mvc.perform(post(CREATE_USER).contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(dtoUser)))
                 .andExpect(status().isBadRequest());
         verifyNoMoreInteractions(userService);
-        verifyNoMoreInteractions(securityService);
     }
 
     @Test
     public void UnsuccessfulProcessRegistration_UserAlreadyExist() throws Exception {
-        when(userService.getUserByEmail(dtoUser.getEmail())).thenReturn(user);
-        mvc.perform(post(CREATE_USER).contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(dtoUser)))
+        mvc.perform(post(CREATE_USER)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(convertObjectToJsonBytes(dtoUser)))
                 .andExpect(status().isConflict());
-        verify(userService, times(1)).getUserByEmail(dtoUser.getEmail());
+        verify(userService, times(1)).createUser(dtoUser);
         verifyNoMoreInteractions(userService);
-        verifyNoMoreInteractions(securityService);
     }
 
     @Test
@@ -176,14 +155,11 @@ public class UserControllerTest {
         dtoUser.setEmail(EMAIL);
         dtoUser.setPassword(PASS);
         dtoUser.setConfirmPassword(PASS);
+        when(userService.createUser(dtoUser)).thenReturn(user);
         ResponseEntity<?> responseEntity = controller.processRegistration(dtoUser);
-        verify(userService, times(1)).getUserByEmail(dtoUser.getEmail());
         verify(userService, times(1)).createUser(dtoUser);
-        verify(securityService, times(
-                1)).autoLogin(dtoUser.getEmail(), dtoUser.getPassword());
         assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
         verifyNoMoreInteractions(userService);
-        verifyNoMoreInteractions(securityService);
     }
 
 }

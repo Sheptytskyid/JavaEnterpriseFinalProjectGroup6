@@ -1,8 +1,6 @@
 package net.greatstart.services;
 
-import net.greatstart.dao.UserDao;
 import net.greatstart.model.Role;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -22,12 +20,6 @@ import java.util.Set;
 public class GreatStartUserDetailsService implements UserDetailsService {
 
     private UserService userService;
-    private UserDao userDao;
-
-    @Autowired
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
-    }
 
     public GreatStartUserDetailsService(UserService userService) {
         this.userService = userService;
@@ -35,7 +27,7 @@ public class GreatStartUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        net.greatstart.model.User user = userDao.findByEmail(email);
+        net.greatstart.model.User user = userService.getUserByEmail(email);
         if (user != null) {
             Set<GrantedAuthority> authorities = new HashSet<>();
             for (Role role: user.getRoles()) {

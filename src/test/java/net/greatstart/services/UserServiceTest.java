@@ -17,6 +17,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import static junit.framework.TestCase.assertNull;
 import static net.greatstart.MapperHelper.getFullTestDtoUserProfile;
 import static net.greatstart.MapperHelper.getFullTestUser;
 import static org.junit.Assert.assertEquals;
@@ -59,6 +60,7 @@ public class UserServiceTest {
         dtoUser.setEmail(EMAIL);
         dtoUser.setPassword(PASSWORD);
         dtoUser.setConfirmPassword(PASSWORD);
+        userService.setSecurityService(securityService);
         when(userDao.save(any(User.class))).thenReturn(user);
         assertNotNull(userService.createUser(dtoUser));
     }
@@ -71,6 +73,7 @@ public class UserServiceTest {
         dtoUser.setConfirmPassword(PASSWORD);
         User user = new User();
 
+        userService.setSecurityService(securityService);
         when(passwordEncoder.encode(PASSWORD)).thenReturn(PASSWORD);
         when(roleService.findOrCreateRole("ROLE_USER")).thenReturn(new Role());
         when(userDao.save(any(User.class))).thenReturn(user);
@@ -78,6 +81,12 @@ public class UserServiceTest {
         verify(passwordEncoder).encode(PASSWORD);
         verify(roleService).findOrCreateRole("ROLE_USER");
         verify(userDao).save(any(User.class));
+    }
+
+    @Test
+    public void createUserNullFieldsExpectNull() throws Exception {
+        DtoUser dtoUser = new DtoUser();
+        assertNull(userService.createUser(dtoUser));
     }
 
     @Test
