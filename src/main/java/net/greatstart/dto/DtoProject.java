@@ -11,6 +11,11 @@ import javax.validation.constraints.NotNull;
  * Data transfer object for {@link net.greatstart.model.Project}
  */
 
+
+/**
+ * Data transfer object for {@link net.greatstart.model.Project}
+ */
+
 @Data
 public class DtoProject {
     private Long id;

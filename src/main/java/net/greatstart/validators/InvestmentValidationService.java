@@ -14,6 +14,10 @@ import java.util.List;
  * A utility class to validate {@link net.greatstart.dto.DtoInvestment}.
  */
 
+/**
+ * A utility class to validate {@link net.greatstart.dto.DtoInvestment}.
+ */
+
 @Component
 public class InvestmentValidationService {
 

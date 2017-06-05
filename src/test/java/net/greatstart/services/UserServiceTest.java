@@ -2,6 +2,7 @@ package net.greatstart.services;
 
 import net.greatstart.MapperHelper;
 import net.greatstart.dao.UserDao;
+import net.greatstart.dto.DtoUser;
 import net.greatstart.dto.DtoUserProfile;
 import net.greatstart.mappers.UserProfileMapper;
 import net.greatstart.model.Role;
@@ -14,13 +15,17 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import static junit.framework.TestCase.assertNull;
+import static net.greatstart.MapperHelper.getFullTestDtoUserProfile;
 import static net.greatstart.MapperHelper.getFullTestUser;
 import static net.greatstart.MapperHelper.getTestDtoUserProfile;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -38,6 +43,10 @@ public class UserServiceTest {
     private RoleService roleService;
     @Mock
     private UserProfileMapper userMapper;
+    @Mock
+    private PasswordEncoder passwordEncoder;
+    @Mock
+    private SecurityService securityService;
     @InjectMocks
     private UserService userService;
     private User user;
@@ -51,24 +60,37 @@ public class UserServiceTest {
 
     @Test
     public void shouldInvokeUserDaoWhenCreateUser() throws Exception {
-        when(userDao.save(user)).thenReturn(user);
-        assertEquals(userService.createUser(user), user);
+        DtoUser dtoUser = new DtoUser();
+        dtoUser.setEmail(EMAIL);
+        dtoUser.setPassword(PASSWORD);
+        dtoUser.setConfirmPassword(PASSWORD);
+        userService.setSecurityService(securityService);
+        when(userDao.save(any(User.class))).thenReturn(user);
+        assertNotNull(userService.createUser(dtoUser));
     }
 
     @Test
     public void createUserByEmailAndPassword() throws Exception {
-        user = new User();
-        user.setName(NAME);
-        user.setEmail(EMAIL);
-        user.setPassword(PASSWORD);
-        Role role = new Role(ROLE_NAME);
-        Set<Role> roles = new HashSet<>();
-        roles.add(role);
-        user.setRoles(roles);
+        DtoUser dtoUser = new DtoUser();
+        dtoUser.setEmail(EMAIL);
+        dtoUser.setPassword(PASSWORD);
+        dtoUser.setConfirmPassword(PASSWORD);
+        User user = new User();
 
-        when(roleService.findOrCreateRole(ROLE_NAME)).thenReturn(role);
-        when(userDao.save(user)).thenReturn(user);
-        assertEquals(user, userService.createUser(user.getEmail(), user.getPassword()));
+        userService.setSecurityService(securityService);
+        when(passwordEncoder.encode(PASSWORD)).thenReturn(PASSWORD);
+        when(roleService.findOrCreateRole("ROLE_USER")).thenReturn(new Role());
+        when(userDao.save(any(User.class))).thenReturn(user);
+        assertNotNull(userService.createUser(dtoUser));
+        verify(passwordEncoder).encode(PASSWORD);
+        verify(roleService).findOrCreateRole("ROLE_USER");
+        verify(userDao).save(any(User.class));
+    }
+
+    @Test
+    public void createUserNullFieldsExpectNull() throws Exception {
+        DtoUser dtoUser = new DtoUser();
+        assertNull(userService.createUser(dtoUser));
     }
 
     @Test

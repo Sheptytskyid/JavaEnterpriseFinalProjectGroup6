@@ -2,15 +2,12 @@ package net.greatstart.controllers;
 
 import net.greatstart.dto.DtoUser;
 import net.greatstart.dto.DtoUserProfile;
-import net.greatstart.mappers.UserProfileMapper;
 import net.greatstart.model.User;
-import net.greatstart.services.SecurityService;
 import net.greatstart.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,18 +28,10 @@ import java.security.Principal;
 @RestController
 public class UserController {
     private UserService userService;
-    private UserProfileMapper userMapper;
-    private SecurityService securityService;
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserService userService, UserProfileMapper userMapper,
-                          SecurityService securityService,
-                          PasswordEncoder passwordEncoder) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.userMapper = userMapper;
-        this.securityService = securityService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
@@ -53,10 +42,9 @@ public class UserController {
 
     @Transactional
     @GetMapping("/api/current")
-    public ResponseEntity<DtoUserProfile> getUser(Principal principal) {
-        User user = userService.getUserByEmail(principal.getName());
-        if (user != null) {
-            DtoUserProfile dtoUser = userMapper.fromUserToDtoProfile(user);
+    public ResponseEntity<DtoUserProfile> getUser() {
+        DtoUserProfile dtoUser = userService.getCurrentDtoUserProfile();
+        if (dtoUser != null) {
             return new ResponseEntity<>(dtoUser, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -89,10 +77,9 @@ public class UserController {
 
     @Transactional
     @PostMapping("/api/user")
-    public ResponseEntity<DtoUser> processRegistration(@Valid @RequestBody DtoUser user) {
-        if (userService.getUserByEmail(user.getEmail()) == null) {
-            userService.createUser(user.getEmail(), passwordEncoder.encode(user.getPassword()));
-            securityService.autoLogin(user.getEmail(), user.getPassword());
+    public ResponseEntity<DtoUser> processRegistration(@Valid @RequestBody DtoUser newUser) {
+        User user = userService.createUser(newUser);
+        if (user != null) {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.CONFLICT);

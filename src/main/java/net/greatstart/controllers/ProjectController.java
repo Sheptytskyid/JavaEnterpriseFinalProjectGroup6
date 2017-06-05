@@ -53,7 +53,6 @@ public class ProjectController {
         return new ResponseEntity<>(projectList, HttpStatus.OK);
     }
 
-    @Transactional
     @GetMapping(value = "/api/project/{id}")
     public ResponseEntity<DtoProject> getProjectById(@PathVariable("id") long id) {
         DtoProject project = projectService.getDtoProjectById(id);
@@ -80,7 +79,6 @@ public class ProjectController {
 
     }
 
-    @Transactional
     @PreAuthorize("isAuthenticated()")
     @PostMapping({"/api/project", "/api/project/"})
     public ResponseEntity<DtoProject> newProject(

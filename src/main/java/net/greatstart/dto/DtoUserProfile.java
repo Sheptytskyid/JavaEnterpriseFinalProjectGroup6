@@ -11,6 +11,11 @@ import javax.validation.constraints.Size;
  * {@link net.greatstart.model.User}.
  */
 
+/**
+ * Data transfer object to transfer user profile related data for
+ * {@link net.greatstart.model.User}.
+ */
+
 @Data
 public class DtoUserProfile {
     private Long id;
