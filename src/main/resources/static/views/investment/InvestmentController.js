@@ -24,6 +24,7 @@ angular.module('greatStartApp')
             Investment.save($scope.investment, function () {
                 // console.log('Investment saved', $scope.investment);
                 $location.path('/project/' + $scope.project.id);
+                $scope.project.dtoInvestments.push($scope.investment);
                 LoginService.authenticate();
 
                 // location.reload();

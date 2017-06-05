@@ -175,9 +175,10 @@ public class UserControllerTest {
     public void SuccessfulProcessRegistration() throws Exception {
         dtoUser.setEmail(EMAIL);
         dtoUser.setPassword(PASS);
+        dtoUser.setConfirmPassword(PASS);
         ResponseEntity<?> responseEntity = controller.processRegistration(dtoUser);
         verify(userService, times(1)).getUserByEmail(dtoUser.getEmail());
-        verify(userService, times(1)).createUser(dtoUser.getEmail(), passwordEncoder.encode(dtoUser.getPassword()));
+        verify(userService, times(1)).createUser(dtoUser);
         verify(securityService, times(
                 1)).autoLogin(dtoUser.getEmail(), dtoUser.getPassword());
         assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
