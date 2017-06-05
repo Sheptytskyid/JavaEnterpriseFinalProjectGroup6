@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package net.greatstart.model;
 
 import lombok.Data;

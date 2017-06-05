@@ -1,3 +1,6 @@
+/**
+ * A parent class for all models.
+ */
 package net.greatstart.model;
 
 import lombok.Data;
