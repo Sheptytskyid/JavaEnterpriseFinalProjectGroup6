@@ -31,7 +31,7 @@ public class InvestmentValidationServiceTest {
     @Before
     public void setUp() throws Exception {
         dtoInvestment = getTestDtoInvestment(TEST_INVEST_1, TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
-        dtoProject = getFullTestDtoProject(TEST_INVEST_1, TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
+        dtoProject = getTestDtoProject();
     }
 
     @Test(timeout = 2000)

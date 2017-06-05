@@ -5,7 +5,6 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 /**
  * Data transfer object to transfer user profile related data for
@@ -23,7 +22,6 @@ public class DtoUserProfile {
     private String email;
     private String lastName;
     private byte[] photo;
-    private List<DtoInvestment> dtoInvestments;
 
     @JsonSerialize
     public String initial() {
@@ -38,6 +36,5 @@ public class DtoUserProfile {
         }
         return initials.toString();
     }
-
 
 }

@@ -1,7 +1,7 @@
 <div ng-controller="ProjectController">
 	<h3>Investments</h3>
 	<div style="max-height: 200px; overflow: auto;">
-		<ul ng-repeat="investment in project.dtoInvestments"
+		<ul ng-repeat="investment in projectInvestments"
 		    class="list-group checked-list-box">
 			<li class="list-group-item {{investment.paid ? 'list-group-item-success' :
         (investment.verified ? 'list-group-item-warning' : 'list-group-item-danger')}}"

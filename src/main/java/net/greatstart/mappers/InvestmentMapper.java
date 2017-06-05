@@ -28,13 +28,9 @@ public interface InvestmentMapper {
 
     @Mappings({
             @Mapping(target = "address", source = "contact.address"),
-            @Mapping(target = "phoneNumber", source = "contact.phoneNumber"),
-            @Mapping(target = "dtoInvestments", source = "investments")})
+            @Mapping(target = "phoneNumber", source = "contact.phoneNumber")})
     DtoUserProfile fromUserToDtoProfile(User user);
 
-    @Mappings({
-            @Mapping(source = "investments", target = "dtoInvestments"),
-            @Mapping(target = "owner.dtoInvestments", ignore = true),
-            @Mapping(target = "owner.photo", ignore = true)})
+    @Mapping(target = "owner.photo", ignore = true)
     DtoProject fromProjectToDto(Project project);
 }

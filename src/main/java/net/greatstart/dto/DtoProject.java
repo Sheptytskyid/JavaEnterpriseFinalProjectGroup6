@@ -5,7 +5,6 @@ import net.greatstart.model.Category;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 
 /**
@@ -21,7 +20,5 @@ public class DtoProject {
     @Valid
     private Category category;
     private DtoUserProfile owner;
-
-    private List<DtoInvestment> dtoInvestments;
 
 }

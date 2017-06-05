@@ -1,5 +1,5 @@
 angular.module('greatStartApp')
-    .controller('UserController', function ($scope, $rootScope, User, $location) {
+    .controller('UserController', function ($scope, $rootScope, User, Investment, $location) {
 
         $scope.flag = false;
         $scope.myImage = '';
@@ -50,6 +50,10 @@ angular.module('greatStartApp')
 
         $scope.getUser = function () {
             User.get({id: $scope.user.id});
+        };
+
+        $scope.getUserInvestments = function () {
+            $scope.userInvestments = Investment.my();
         };
 
         $scope.openPage = function(hash) {

@@ -1,14 +1,13 @@
 package net.greatstart.mappers;
 
-import net.greatstart.dto.DtoInvestment;
 import net.greatstart.dto.DtoUserProfile;
 import net.greatstart.model.Contact;
 import net.greatstart.model.User;
 import org.junit.Test;
 import org.mapstruct.factory.Mappers;
 
-import static net.greatstart.MapperHelper.getFullTestDtoUserProfile;
 import static net.greatstart.MapperHelper.getFullTestUser;
+import static net.greatstart.MapperHelper.getTestDtoUserProfile;
 import static org.junit.Assert.*;
 
 public class UserProfileMapperTest {
@@ -27,19 +26,11 @@ public class UserProfileMapperTest {
         assertEquals(contact.getAddress(), dtoUser.getAddress());
         assertEquals(contact.getPhoneNumber(), dtoUser.getPhoneNumber());
         assertArrayEquals(user.getPhoto(), dtoUser.getPhoto());
-        assertEquals(user.getInvestments().get(0).getId(), dtoUser.getDtoInvestments().get(0).getId());
-        assertEquals(user.getInvestments().get(1).getId(), dtoUser.getDtoInvestments().get(1).getId());
-        assertEquals(user.getInvestments().get(0).getDateOfInvestment(),
-                dtoUser.getDtoInvestments().get(0).getDateOfInvestment());
-        assertEquals(user.getInvestments().get(1).getDateOfInvestment(),
-                dtoUser.getDtoInvestments().get(1).getDateOfInvestment());
-        assertEquals(user.getInvestments().get(0).getSum(), dtoUser.getDtoInvestments().get(0).getSum());
-        assertEquals(user.getInvestments().get(1).getSum(), dtoUser.getDtoInvestments().get(1).getSum());
     }
 
     @Test
     public void fromDtoProfileToUser() throws Exception {
-        DtoUserProfile dtoUser = getFullTestDtoUserProfile();
+        DtoUserProfile dtoUser = getTestDtoUserProfile();
         User user = userMapper.fromDtoProfileToUser(dtoUser);
         assertNotNull(user);
         Contact contact = user.getContact();
@@ -57,8 +48,8 @@ public class UserProfileMapperTest {
     public void fromUserToDtoUserProfileFull() throws Exception {
         //init
         User user = getFullTestUser();
-        DtoUserProfile expected = getFullTestDtoUserProfile();
-        for (DtoInvestment dtoInvestment : expected.getDtoInvestments()) {
+        DtoUserProfile expected = getTestDtoUserProfile();
+        /*for (DtoInvestment dtoInvestment : expected.getDtoInvestments()) {
             dtoInvestment.getProject().getOwner().setId(0L);
             dtoInvestment.getProject().getOwner().setAddress(null);
             dtoInvestment.getProject().getOwner().setDtoInvestments(null);
@@ -71,7 +62,7 @@ public class UserProfileMapperTest {
             dtoInvestment.getInvestor().setAddress(null);
             dtoInvestment.getInvestor().setPhoneNumber(null);
             dtoInvestment.getInvestor().setPhoto(null);
-        }
+        }*/
         //use
         DtoUserProfile result = userMapper.fromUserToDtoProfile(user);
         //check

@@ -93,7 +93,7 @@ public class MapperHelper {
         return user;
     }
 
-    public static DtoUserProfile getFullTestDtoUserProfile() {
+    /*public static DtoUserProfile getFullTestDtoUserProfile() {
         DtoUserProfile dtoUser = getTestDtoUserProfile();
         DtoProject dtoProject1 = getFullTestDtoProject(TEST_INVEST_1, TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
         DtoProject dtoProject2 = getFullTestDtoProject(TEST_INVEST_2, TEST_VALUE_2, TEST_COST_2, TEST_MIN_INVEST_2);
@@ -102,7 +102,7 @@ public class MapperHelper {
         dtoUser.setDtoInvestments(dtoInvestments);
 //        todo dtoUser.setOwnedProjects(getTestListOfProjects());
         return dtoUser;
-    }
+    }*/
 
 
     public static Project getFullTestProject(BigDecimal investmentSum,
@@ -115,7 +115,7 @@ public class MapperHelper {
         return project;
     }
 
-    public static DtoProject getFullTestDtoProject(BigDecimal investmentSum,
+    /*public static DtoProject getFullTestDtoProject(BigDecimal investmentSum,
                                                    byte value,
                                                    BigDecimal projectCost,
                                                    BigDecimal projectMinInvestment) {
@@ -124,7 +124,7 @@ public class MapperHelper {
                 , value, projectCost, projectMinInvestment));
         dtoProject.setOwner(getTestDtoUserProfile());
         return dtoProject;
-    }
+    }*/
 
     public static List<Investment> getTestListOfInvestments(BigDecimal investmentSum,
                                                             byte value,
@@ -137,7 +137,7 @@ public class MapperHelper {
         return investments;
     }
 
-    public static List<DtoInvestment> getTestListOfDtoInvestments(BigDecimal investmentSum,
+    /*public static List<DtoInvestment> getTestListOfDtoInvestments(BigDecimal investmentSum,
                                                                   byte value,
                                                                   BigDecimal projectCost,
                                                                   BigDecimal projectMinInvestment) {
@@ -146,7 +146,7 @@ public class MapperHelper {
         dtoInvestments.add(dtoInvestment1);
         dtoInvestments.add(dtoInvestment1);
         return dtoInvestments;
-    }
+    }*/
 
     public static DtoInvestment getTestDtoInvestment(BigDecimal investmentSum,
                                                      byte value,

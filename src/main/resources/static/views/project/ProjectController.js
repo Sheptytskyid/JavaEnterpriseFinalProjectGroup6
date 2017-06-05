@@ -1,10 +1,10 @@
 var ProjectController = angular.module('greatStartApp')
-    .controller('ProjectController', function ($rootScope, $scope, $uibModal, $routeParams, Project, $location) {
-        var investedAmount = function (project) {
+    .controller('ProjectController', function ($rootScope, $scope, $uibModal, $routeParams, Project, Investment, $location) {
+        var investedAmount = function () {
             var result = 0;
-            for (var i = 0; i < project.dtoInvestments.length; i++) {
-                if (project.dtoInvestments[i].paid) {
-                    result += project.dtoInvestments[i].sum;
+            for (var i = 0; i < $scope.projectInvestments.length; i++) {
+                if ($scope.projectInvestments[i].paid) {
+                    result += $scope.projectInvestments[i].sum;
                 }
             }
             return result;
@@ -49,7 +49,7 @@ var ProjectController = angular.module('greatStartApp')
             return true;
         };
 
-        $scope.submit = function() {
+        $scope.submit = function () {
             if ($scope.imageChanged) {
                 $scope.project.desc.image = $scope.projectCroppedImage.replace(/^data:image\/[a-z]+;base64,/, "");
             }
@@ -69,11 +69,11 @@ var ProjectController = angular.module('greatStartApp')
             }
         };
 
-        var allProjects = function() {
+        var allProjects = function () {
             return Project.query();
         };
 
-        var myProjects = function() {
+        var myProjects = function () {
             return Project.my();
         };
 
@@ -82,9 +82,12 @@ var ProjectController = angular.module('greatStartApp')
             $scope.projects = myProjects();
             // load a single project
         } else if ($location.path().indexOf("/project/") > -1 && $routeParams.id) {
+            var projectInvestments = Investment.project({id: $routeParams.id}, function () {
+                $scope.projectInvestments = projectInvestments;
+            });
             var project = Project.get({id: $routeParams.id}, function () {
                 $scope.project = project;
-                $scope.investedAmount = investedAmount(project);
+                $scope.investedAmount = investedAmount();
                 $scope.invProgressWithWidth = ivnProgressWithWidth($scope.investedAmount, project);
             });
             // load all projects
