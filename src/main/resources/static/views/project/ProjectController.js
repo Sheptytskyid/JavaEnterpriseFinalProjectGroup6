@@ -157,9 +157,13 @@ var app = angular.module('greatStartApp')
         }
     );
 
-app.controller('first.modal.controller', function($scope, $uibModal, $uibModalInstance, project) {
+app.controller('first.modal.controller', function($scope, $uibModalInstance, $timeout, project) {
   console.log($scope);
-  console.log($uibModal);
   console.log($uibModalInstance);
   $scope.project = project;
+
+  $timeout(function () {
+    $uibModalInstance.close(project);
+  });
+
 })
