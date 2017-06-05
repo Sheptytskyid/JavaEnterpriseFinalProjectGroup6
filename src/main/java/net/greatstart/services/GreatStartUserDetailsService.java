@@ -1,3 +1,6 @@
+/**
+ * Implementation of {@link org.springframework.security.core.userdetails.UserDetailsService}.
+ */
 package net.greatstart.services;
 
 import net.greatstart.model.Role;

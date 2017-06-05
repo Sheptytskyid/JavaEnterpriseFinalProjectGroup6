@@ -1,3 +1,6 @@
+/**
+ * Business logic layer for {@link net.greatstart.model.Role}.
+ */
 package net.greatstart.services;
 
 import net.greatstart.dao.RoleDao;

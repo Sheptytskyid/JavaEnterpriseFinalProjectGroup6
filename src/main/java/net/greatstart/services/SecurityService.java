@@ -1,3 +1,6 @@
+/**
+ * Security-related logic to manage user authentication.
+ */
 package net.greatstart.services;
 
 import net.greatstart.dao.PasswordTokenDao;

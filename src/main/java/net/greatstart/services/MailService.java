@@ -1,3 +1,7 @@
+/**
+ * A utility class to handle e-mail related operations for the reset password functionality.
+ */
+
 package net.greatstart.services;
 
 import net.greatstart.model.User;
