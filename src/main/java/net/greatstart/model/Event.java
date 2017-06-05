@@ -1,3 +1,6 @@
+/**
+ * An entity class for events.
+ */
 package net.greatstart.model;
 
 import lombok.Data;

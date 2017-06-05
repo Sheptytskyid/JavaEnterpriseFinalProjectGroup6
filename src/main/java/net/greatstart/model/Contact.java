@@ -1,3 +1,6 @@
+/**
+ * An entity class to provide contact information (like address and phone number).
+ */
 package net.greatstart.model;
 
 import lombok.AllArgsConstructor;

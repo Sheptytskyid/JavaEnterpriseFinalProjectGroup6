@@ -1,3 +1,7 @@
+/**
+ * A utility class to validate {@link net.greatstart.dto.DtoInvestment}.
+ */
+
 package net.greatstart.validators;
 
 import net.greatstart.dto.DtoInvestment;

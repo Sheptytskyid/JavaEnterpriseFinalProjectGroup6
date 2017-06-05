@@ -1,5 +1,5 @@
 /**
- *
+ * An entity class for categories.
  */
 package net.greatstart.model;
 

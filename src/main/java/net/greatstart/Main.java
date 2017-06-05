@@ -1,3 +1,6 @@
+/**
+ * The main class used to start the project.
+ */
 package net.greatstart;
 
 import org.springframework.boot.SpringApplication;

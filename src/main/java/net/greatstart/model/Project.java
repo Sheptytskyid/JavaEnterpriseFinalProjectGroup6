@@ -1,3 +1,7 @@
+/**
+ * An entity class to provide information about projects.
+ */
+
 package net.greatstart.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

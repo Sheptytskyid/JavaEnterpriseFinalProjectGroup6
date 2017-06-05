@@ -1,3 +1,6 @@
+/**
+ * A utility entity to provide password reset functionality.
+ */
 package net.greatstart.model;
 
 import lombok.AllArgsConstructor;

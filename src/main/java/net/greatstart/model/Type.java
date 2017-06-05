@@ -1,3 +1,6 @@
+/**
+ * An entity class to manage {@link net.greatstart.model.User} types.
+ */
 package net.greatstart.model;
 
 import lombok.Data;

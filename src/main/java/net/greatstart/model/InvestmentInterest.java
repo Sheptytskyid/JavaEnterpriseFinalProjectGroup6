@@ -1,3 +1,7 @@
+/**
+ * An entity class to represent investment interests. A user can identify
+ * that their have interest to invest into a particular field.
+ */
 package net.greatstart.model;
 
 import lombok.Data;

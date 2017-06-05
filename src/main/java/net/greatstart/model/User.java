@@ -1,3 +1,6 @@
+/**
+ * An entity class that represents a registered user.
+ */
 package net.greatstart.model;
 
 import lombok.Data;

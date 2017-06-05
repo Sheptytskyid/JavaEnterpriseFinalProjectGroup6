@@ -1,3 +1,6 @@
+/**
+ * An entity class to handle user roles (like Admin, User etc.).
+ */
 package net.greatstart.model;
 
 import lombok.Getter;

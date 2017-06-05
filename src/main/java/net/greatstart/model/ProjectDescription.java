@@ -1,3 +1,6 @@
+/**
+ * An entity class to provide description and other details of {@link net.greatstart.model.Project}.
+ */
 package net.greatstart.model;
 
 import lombok.Data;

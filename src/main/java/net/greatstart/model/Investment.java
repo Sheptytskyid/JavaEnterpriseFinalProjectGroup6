@@ -1,3 +1,6 @@
+/**
+ * An entity class to represent investments.
+ */
 package net.greatstart.model;
 
 import lombok.AccessLevel;

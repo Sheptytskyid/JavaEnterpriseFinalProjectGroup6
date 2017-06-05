@@ -1,3 +1,7 @@
+/**
+ * A utility class to validate {@link net.greatstart.dto.DtoUser} when registering
+ * a new {@link net.greatstart.model.User}.
+ */
 package net.greatstart.validators;
 
 import net.greatstart.dto.DtoUser;
