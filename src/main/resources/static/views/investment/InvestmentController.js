@@ -1,5 +1,5 @@
 angular.module('greatStartApp')
-    .controller('InvestmentController', function ($scope, $rootScope, $location, Investment) {
+    .controller('InvestmentController', function ($scope, $rootScope, $location, Investment, LoginService) {
 
         $scope.getAllInvestments = function () {
             var investments = Investment.query({}, function () {
@@ -24,6 +24,8 @@ angular.module('greatStartApp')
             Investment.save($scope.investment, function () {
                 // console.log('Investment saved', $scope.investment);
                 $location.path('/project/' + $scope.project.id);
+                LoginService.authenticate();
+
                 // location.reload();
             }, function (error) {
                 $scope.error = true;
