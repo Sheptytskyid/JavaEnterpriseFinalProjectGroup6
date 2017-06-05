@@ -46,14 +46,21 @@ public class InvestmentController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @Transactional
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<DtoInvestment> getInvestmentById(@PathVariable long id) {
         if (investmentService.getDtoInvestmentById(id) != null) {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    /*@GetMapping("/my")
+    public ResponseEntity<DtoInvestment> getInvestmentById(Principal principal) {
+        if (investmentService.getDtoInvestmentById(id) != null) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }*/
 
     @Transactional
     @PostMapping({"", "/"})
