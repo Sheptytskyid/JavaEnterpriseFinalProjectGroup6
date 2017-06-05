@@ -1,3 +1,6 @@
+/**
+ * Spring security configuration class.
+ */
 package net.greatstart.configs;
 
 import net.greatstart.services.GreatStartUserDetailsService;

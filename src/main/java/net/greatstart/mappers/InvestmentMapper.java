@@ -1,3 +1,7 @@
+/**
+ * Mapstruct mapper to convert between {@link net.greatstart.model.Investment} and
+ * {@link net.greatstart.dto.DtoInvestment}.
+ */
 package net.greatstart.mappers;
 
 import net.greatstart.dto.DtoInvestment;

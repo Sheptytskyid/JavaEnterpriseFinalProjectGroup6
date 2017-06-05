@@ -1,3 +1,7 @@
+/**
+ * Mapstruct provided mapper to convert between {@link net.greatstart.model.User} and
+ * {@link net.greatstart.dto.DtoUserProfile}.
+ */
 package net.greatstart.mappers;
 
 import net.greatstart.dto.DtoInvestment;

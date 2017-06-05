@@ -1,3 +1,6 @@
+/**
+ * A REST controller to provide the "retrieve lost password" functionality.
+ */
 package net.greatstart.controllers;
 
 import net.greatstart.model.User;

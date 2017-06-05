@@ -1,3 +1,6 @@
+/**
+ * A controller for events (to be implemented). See {@link net.greatstart.model.Event}
+ */
 package net.greatstart.controllers;
 
 import net.greatstart.services.EventService;

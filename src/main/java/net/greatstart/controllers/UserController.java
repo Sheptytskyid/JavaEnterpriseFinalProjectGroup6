@@ -1,3 +1,7 @@
+/**
+ * A REST controller to handle all {@link net.greatstart.model.User} related
+ * requests: create new user, edit user profile, etc.
+ */
 package net.greatstart.controllers;
 
 
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.security.Principal;
 
@@ -40,11 +45,13 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Transactional
     @RequestMapping("/user")
     public Principal user(Principal principal) {
         return principal;
     }
 
+    @Transactional
     @GetMapping("/api/current")
     public ResponseEntity<DtoUserProfile> getUser(Principal principal) {
         User user = userService.getUserByEmail(principal.getName());
@@ -55,6 +62,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @Transactional
     @PreAuthorize("isAuthenticated()")
     @GetMapping(value = "/api/user/{id}")
     public ResponseEntity<DtoUserProfile> getUserById(@PathVariable("id") long id) {
@@ -65,6 +73,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @Transactional
     @PreAuthorize("isAuthenticated()")
     @PutMapping("/api/user/{id}")
     public ResponseEntity<DtoUserProfile> updateUser(
@@ -78,6 +87,7 @@ public class UserController {
 
     }
 
+    @Transactional
     @PostMapping("/api/user")
     public ResponseEntity<DtoUser> processRegistration(@Valid @RequestBody DtoUser user) {
         if (userService.getUserByEmail(user.getEmail()) == null) {

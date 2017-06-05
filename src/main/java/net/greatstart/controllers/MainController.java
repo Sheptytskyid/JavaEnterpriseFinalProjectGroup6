@@ -1,3 +1,6 @@
+/**
+ * A simple controller to return a home page. Isn't used with REST.
+ */
 package net.greatstart.controllers;
 
 import org.springframework.stereotype.Controller;

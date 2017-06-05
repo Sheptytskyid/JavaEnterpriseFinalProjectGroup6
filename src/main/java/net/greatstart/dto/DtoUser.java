@@ -1,3 +1,6 @@
+/**
+ * Data transfer object to handle {@link net.greatstart.model.User} registration.
+ */
 package net.greatstart.dto;
 
 import lombok.Data;

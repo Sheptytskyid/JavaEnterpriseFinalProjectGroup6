@@ -1,3 +1,6 @@
+/**
+ * Data transfer object for {@link net.greatstart.model.Investment}.
+ */
 package net.greatstart.dto;
 
 import lombok.AccessLevel;

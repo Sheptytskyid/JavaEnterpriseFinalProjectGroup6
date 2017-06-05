@@ -1,3 +1,6 @@
+/**
+ * Data transfer object for {@link net.greatstart.model.Project}
+ */
 package net.greatstart.dto;
 
 import lombok.Data;

@@ -1,3 +1,6 @@
+/**
+ * A controller to handle user login. Isn't used with REST.
+ */
 package net.greatstart.controllers;
 
 import net.greatstart.dto.DtoUser;

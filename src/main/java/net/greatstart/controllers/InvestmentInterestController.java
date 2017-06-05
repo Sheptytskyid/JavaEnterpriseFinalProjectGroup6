@@ -1,3 +1,6 @@
+/**
+ * A controller to work with {@link net.greatstart.model.InvestmentInterest}.
+ */
 package net.greatstart.controllers;
 
 import net.greatstart.model.InvestmentInterest;

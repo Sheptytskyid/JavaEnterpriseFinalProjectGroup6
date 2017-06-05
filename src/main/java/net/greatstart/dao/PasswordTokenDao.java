@@ -1,3 +1,6 @@
+/**
+ * A Spring Data supported interface to handle security token related operations with database.
+ */
 package net.greatstart.dao;
 
 import net.greatstart.model.PasswordResetToken;

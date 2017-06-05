@@ -1,3 +1,6 @@
+/**
+ * A REST controller to manage {@link net.greatstart.model.Investment} requests.
+ */
 package net.greatstart.controllers;
 
 import net.greatstart.dto.DtoInvestment;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -33,6 +37,7 @@ public class InvestmentController {
         this.investmentValidationService = investmentValidationService;
     }
 
+    @Transactional
     @GetMapping
     public ResponseEntity<List<DtoInvestment>> getInvestments() {
         if (!investmentService.getAllDtoInvestments().isEmpty()) {
@@ -41,6 +46,7 @@ public class InvestmentController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @Transactional
     @GetMapping("{id}")
     public ResponseEntity<DtoInvestment> getInvestmentById(@PathVariable long id) {
         if (investmentService.getDtoInvestmentById(id) != null) {
@@ -49,6 +55,7 @@ public class InvestmentController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @Transactional
     @PostMapping({"", "/"})
     public ResponseEntity<DtoInvestment> createInvestment(@Valid @RequestBody DtoInvestment investment) {
         if (investmentValidationService.validate(investment)) {
@@ -60,6 +67,7 @@ public class InvestmentController {
         return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
     }
 
+    @Transactional
     @PutMapping("{id}")
     public ResponseEntity<DtoInvestment> updateInvestment(@PathVariable long id,
                                                           @RequestBody DtoInvestment investment) {
@@ -67,6 +75,7 @@ public class InvestmentController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @Transactional
     @DeleteMapping("{id}")
     public ResponseEntity<Investment> deleteInvestmentById(@PathVariable long id) {
         if (investmentService.getDtoInvestmentById(id) != null) {

@@ -1,3 +1,7 @@
+/**
+ * Data transfer object to transfer user profile related data for
+ * {@link net.greatstart.model.User}.
+ */
 package net.greatstart.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

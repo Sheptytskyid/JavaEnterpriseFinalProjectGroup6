@@ -1,3 +1,6 @@
+/**
+ * A REST controller to handle all {@link net.greatstart.model.Project} requests.
+ */
 package net.greatstart.controllers;
 
 import net.greatstart.dto.DtoProject;
@@ -34,12 +37,14 @@ public class ProjectController {
         this.userService = userService;
     }
 
+    @Transactional
     @GetMapping({"/api/project", "/api/project/"})
     public ResponseEntity<Collection<Project>> getProjects() {
         List<Project> projectList = projectService.getAllProjects();
         return new ResponseEntity<>(projectList, HttpStatus.OK);
     }
 
+    @Transactional
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/api/projects/my")
     public ResponseEntity<Collection<Project>> getMyProjects() {

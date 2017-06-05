@@ -1,3 +1,6 @@
+/**
+ * Rest controller to serve requests regarding the {@link net.greatstart.model.Category) entity.
+ */
 package net.greatstart.controllers;
 
 import net.greatstart.model.Category;
