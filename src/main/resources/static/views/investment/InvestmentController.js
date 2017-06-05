@@ -32,6 +32,7 @@ angular.module('greatStartApp')
                 $scope.error = true;
             });
             $scope.closeInvestmentModal();
+            location.reload();
         };
 
         $scope.verifyInvestment = function (investment) {
