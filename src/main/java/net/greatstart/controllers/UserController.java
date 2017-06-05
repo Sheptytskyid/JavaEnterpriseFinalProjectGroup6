@@ -1,9 +1,4 @@
-/**
- * A REST controller to handle all {@link net.greatstart.model.User} related
- * requests: create new user, edit user profile, etc.
- */
 package net.greatstart.controllers;
-
 
 import net.greatstart.dto.DtoUser;
 import net.greatstart.dto.DtoUserProfile;
@@ -27,6 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.security.Principal;
+
+/**
+ * A REST controller to handle all {@link net.greatstart.model.User} related
+ * requests: create new user, edit user profile, etc.
+ */
 
 @RestController
 public class UserController {

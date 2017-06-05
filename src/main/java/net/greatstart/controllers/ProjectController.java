@@ -1,6 +1,3 @@
-/**
- * A REST controller to handle all {@link net.greatstart.model.Project} requests.
- */
 package net.greatstart.controllers;
 
 import net.greatstart.dto.DtoProject;
@@ -23,6 +20,10 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
+
+/**
+ * A REST controller to handle all {@link net.greatstart.model.Project} requests.
+ */
 
 @RestController
 public class ProjectController {

@@ -1,7 +1,3 @@
-/**
- * Mapstruct provided mapper to convert between {@link net.greatstart.model.Project} and
- * {@link net.greatstart.dto.DtoProject}.
- */
 package net.greatstart.mappers;
 
 import net.greatstart.dto.DtoInvestment;
@@ -13,6 +9,11 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 import java.util.List;
+
+/**
+ * Mapstruct provided mapper to convert between {@link net.greatstart.model.Project} and
+ * {@link net.greatstart.dto.DtoProject}.
+ */
 
 @Mapper(componentModel = "spring")
 public interface ProjectMapper {

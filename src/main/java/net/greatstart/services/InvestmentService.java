@@ -1,6 +1,3 @@
-/**
- * Business logic layer for {@link net.greatstart.model.Investment}.
- */
 package net.greatstart.services;
 
 import net.greatstart.dao.InvestmentDao;
@@ -15,6 +12,10 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * Business logic layer for {@link net.greatstart.model.Investment}.
+ */
 
 @Service
 @Transactional

@@ -1,6 +1,3 @@
-/**
- * An entity class that represents a registered user.
- */
 package net.greatstart.model;
 
 import lombok.Data;
@@ -23,6 +20,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
 import java.util.Set;
+
+/**
+ * An entity class that represents a registered user.
+ */
 
 @Data
 @EqualsAndHashCode(exclude = {"investments", "ownedProjects", "investmentInterests"})

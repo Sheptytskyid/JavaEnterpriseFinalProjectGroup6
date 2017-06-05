@@ -1,7 +1,3 @@
-/**
- * A utility class to handle e-mail related operations for the reset password functionality.
- */
-
 package net.greatstart.services;
 
 import net.greatstart.model.User;
@@ -17,6 +13,10 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
+
+/**
+ * A utility class to handle e-mail related operations for the reset password functionality.
+ */
 
 @Service
 public class MailService {

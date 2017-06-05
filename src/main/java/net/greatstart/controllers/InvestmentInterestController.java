@@ -1,6 +1,3 @@
-/**
- * A controller to work with {@link net.greatstart.model.InvestmentInterest}.
- */
 package net.greatstart.controllers;
 
 import net.greatstart.model.InvestmentInterest;
@@ -19,6 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
+
+/**
+ * A controller to work with {@link net.greatstart.model.InvestmentInterest}.
+ */
 
 @RequestMapping("/invinterest")
 @Controller

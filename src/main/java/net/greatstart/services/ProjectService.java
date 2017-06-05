@@ -1,6 +1,3 @@
-/**
- * Business logic layer for {@link net.greatstart.model.Project}.
- */
 package net.greatstart.services;
 
 import net.greatstart.dao.ProjectDao;
@@ -18,6 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * Business logic layer for {@link net.greatstart.model.Project}.
+ */
 
 @Service
 @Transactional

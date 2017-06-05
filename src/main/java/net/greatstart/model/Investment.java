@@ -1,6 +1,3 @@
-/**
- * An entity class to represent investments.
- */
 package net.greatstart.model;
 
 import lombok.AccessLevel;
@@ -18,6 +15,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
+/**
+ * An entity class to represent investments.
+ */
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)

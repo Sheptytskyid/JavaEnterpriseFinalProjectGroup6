@@ -1,6 +1,3 @@
-/**
- * Business logic layer for {@link net.greatstart.model.User}.
- */
 package net.greatstart.services;
 
 import net.greatstart.dao.UserDao;
@@ -15,6 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
+
+/**
+ * Business logic layer for {@link net.greatstart.model.User}.
+ */
 
 @Service
 @Transactional

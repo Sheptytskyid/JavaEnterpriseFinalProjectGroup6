@@ -1,6 +1,3 @@
-/**
- * Data transfer object for {@link net.greatstart.model.Project}
- */
 package net.greatstart.dto;
 
 import lombok.Data;
@@ -9,6 +6,11 @@ import net.greatstart.model.Category;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+
+
+/**
+ * Data transfer object for {@link net.greatstart.model.Project}
+ */
 
 @Data
 public class DtoProject {

@@ -1,6 +1,3 @@
-/**
- * Data transfer object for {@link net.greatstart.model.ProjectDescription}.
- */
 package net.greatstart.dto;
 
 import lombok.Data;
@@ -10,6 +7,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+/**
+ * Data transfer object for {@link net.greatstart.model.ProjectDescription}.
+ */
 
 @Data
 public class DtoProjectDescription {

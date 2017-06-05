@@ -1,13 +1,14 @@
-/**
- * A utility class to validate {@link net.greatstart.dto.DtoUser} when registering
- * a new {@link net.greatstart.model.User}.
- */
 package net.greatstart.validators;
 
 import net.greatstart.dto.DtoUser;
 import net.greatstart.services.UserService;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
+
+/**
+ * A utility class to validate {@link net.greatstart.dto.DtoUser} when registering
+ * a new {@link net.greatstart.model.User}.
+ */
 
 @Component
 public class UserValidationService {

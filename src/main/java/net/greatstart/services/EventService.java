@@ -1,6 +1,3 @@
-/**
- * Business logic layer for {@link net.greatstart.model.Event}.
- */
 package net.greatstart.services;
 
 import net.greatstart.dao.EventDao;
@@ -11,6 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * Business logic layer for {@link net.greatstart.model.Event}.
+ */
 
 @Service
 @Transactional

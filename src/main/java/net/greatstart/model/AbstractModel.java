@@ -1,6 +1,3 @@
-/**
- * A parent class for all models.
- */
 package net.greatstart.model;
 
 import lombok.Data;
@@ -9,6 +6,10 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+
+/**
+ * A parent class for all models.
+ */
 
 @MappedSuperclass
 @Data

@@ -1,6 +1,3 @@
-/**
- * An entity class for categories.
- */
 package net.greatstart.model;
 
 import lombok.Data;
@@ -8,6 +5,10 @@ import lombok.Data;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+/**
+ * An entity class for categories.
+ */
 
 @Data
 @Entity

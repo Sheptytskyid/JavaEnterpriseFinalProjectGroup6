@@ -1,7 +1,3 @@
-/**
- * An entity class to represent investment interests. A user can identify
- * that their have interest to invest into a particular field.
- */
 package net.greatstart.model;
 
 import lombok.Data;
@@ -15,6 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+
+/**
+ * An entity class to represent investment interests. A user can identify
+ * that their have interest to invest into a particular field.
+ */
 
 @Data
 @Entity

@@ -1,6 +1,3 @@
-/**
- * A REST controller to manage {@link net.greatstart.model.Investment} requests.
- */
 package net.greatstart.controllers;
 
 import net.greatstart.dto.DtoInvestment;
@@ -22,6 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
+
+/**
+ * A REST controller to manage {@link net.greatstart.model.Investment} requests.
+ */
 
 @RestController
 @RequestMapping("/api/investment")

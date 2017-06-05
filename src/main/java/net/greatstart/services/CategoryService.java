@@ -1,6 +1,3 @@
-/**
- * Business logic layer for {@link net.greatstart.model.Category}.
- */
 package net.greatstart.services;
 
 import net.greatstart.dao.CategoryDao;
@@ -11,6 +8,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+/**
+ * Business logic layer for {@link net.greatstart.model.Category}.
+ */
 
 @Service
 public class CategoryService {

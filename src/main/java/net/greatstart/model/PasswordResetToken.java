@@ -1,6 +1,3 @@
-/**
- * A utility entity to provide password reset functionality.
- */
 package net.greatstart.model;
 
 import lombok.AllArgsConstructor;
@@ -14,6 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+
+/**
+ * A utility entity to provide password reset functionality.
+ */
 
 @Data
 @NoArgsConstructor

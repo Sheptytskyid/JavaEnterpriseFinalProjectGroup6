@@ -1,6 +1,3 @@
-/**
- * Rest controller to serve requests regarding the {@link net.greatstart.model.Category) entity.
- */
 package net.greatstart.controllers;
 
 import net.greatstart.model.Category;
@@ -15,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * A controller to serve requests regarding the {@link net.greatstart.model.Category} entity.
+ */
 @RestController
 @RequestMapping("/api/category")
 public class CategoryController {

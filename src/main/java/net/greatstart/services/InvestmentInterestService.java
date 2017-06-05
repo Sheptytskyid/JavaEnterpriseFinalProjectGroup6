@@ -1,7 +1,3 @@
-/**
- * Business logic layer for {@link net.greatstart.model.InvestmentInterest}.
- */
-
 package net.greatstart.services;
 
 import net.greatstart.dao.InvestmentInterestDao;
@@ -12,6 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * Business logic layer for {@link net.greatstart.model.InvestmentInterest}.
+ */
 
 @Service
 @Transactional

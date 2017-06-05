@@ -1,6 +1,3 @@
-/**
- * Security-related logic to manage user authentication.
- */
 package net.greatstart.services;
 
 import net.greatstart.dao.PasswordTokenDao;
@@ -20,6 +17,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.UUID;
+
+/**
+ * Security-related logic to manage user authentication.
+ */
 
 @Service
 @Transactional

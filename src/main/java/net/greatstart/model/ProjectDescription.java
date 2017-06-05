@@ -1,6 +1,3 @@
-/**
- * An entity class to provide description and other details of {@link net.greatstart.model.Project}.
- */
 package net.greatstart.model;
 
 import lombok.Data;
@@ -12,6 +9,10 @@ import javax.persistence.FetchType;
 import javax.persistence.Lob;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+/**
+ * An entity class to provide description and other details of {@link net.greatstart.model.Project}.
+ */
 
 @Data
 @Embeddable

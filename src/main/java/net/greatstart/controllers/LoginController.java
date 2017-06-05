@@ -1,6 +1,3 @@
-/**
- * A controller to handle user login. Isn't used with REST.
- */
 package net.greatstart.controllers;
 
 import net.greatstart.dto.DtoUser;
@@ -8,6 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+/**
+ * A controller to handle user login. Isn't used with REST.
+ */
 
 @Controller
 @RequestMapping("/user")

@@ -1,7 +1,3 @@
-/**
- * A utility class to validate {@link net.greatstart.dto.DtoInvestment}.
- */
-
 package net.greatstart.validators;
 
 import net.greatstart.dto.DtoInvestment;
@@ -11,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+
+/**
+ * A utility class to validate {@link net.greatstart.dto.DtoInvestment}.
+ */
 
 @Component
 public class InvestmentValidationService {
