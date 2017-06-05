@@ -1,5 +1,5 @@
 var app = angular.module('greatStartApp')
-    .controller('ProjectController', function ($rootScope, $scope, $uibModal, $routeParams, Project, Investment, $location) {
+    .controller('ProjectController', function ($rootScope, $scope, $uibModal, $routeParams, Project, Investment, LoginService, $location) {
             var investedAmount = function () {
                 var result = 0;
                 for (var i = 0; i < $scope.projectInvestments.length; i++) {
@@ -40,7 +40,7 @@ var app = angular.module('greatStartApp')
                     $scope.validationMessage = "Min. investment must be smaller or equal to the total cost";
                     return false;
                 }
-                if ($scope.project.desc.minInvestment != null && $scope.project.desc.cost % $scope.project.desc.minInvestment !== 0) {
+                if ($scope.project.desc.minInvestment !== null && $scope.project.desc.cost % $scope.project.desc.minInvestment !== 0) {
                     $scope.validationMessage = "Cost must be exactly divisible by min. investment";
                     return false;
                 }
@@ -123,7 +123,6 @@ var app = angular.module('greatStartApp')
                         investedAmount: $scope.investedAmount
                     }
                 }).result.then(function (investment) {
-                    console.log(investment);
                     var user = angular.copy($rootScope.currentUser);
                     var currentProject = angular.copy($scope.project);
                     investment.investor = user;
@@ -134,13 +133,12 @@ var app = angular.module('greatStartApp')
                     investment.paid = false;
                     investment.dateOfInvestment = null;
                     Investment.save(investment, function () {
-                        // LoginService.authenticate();
+                        LoginService.authenticate();
                         // investment.dateOfInvestment = Date.now();
-                        console.log($scope.projectInvestments);
-                        $scope.projectInvestments.push(investment);
-                        $location.path('/project/' + $scope.project.id);
+                        Investment.project({id: $routeParams.id}, function (investments) {
+                            $scope.projectInvestments = investments;
+                        });
                     });
-                    console.log(investment);
                 }, function () {
                 });
             };
@@ -175,8 +173,6 @@ app.controller('approveModelController', function ($scope, $uibModalInstance, pr
 });
 
 app.controller('createInvestmentController', function ($scope, $uibModalInstance, project, investedAmount) {
-    console.log($scope);
-    console.log($uibModalInstance);
     $scope.project = project;
     $scope.investedAmount = investedAmount;
     $scope.investment = {};
