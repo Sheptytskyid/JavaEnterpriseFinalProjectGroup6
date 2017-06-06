@@ -28,7 +28,7 @@ var greatStart = angular.module('greatStartApp')
             $rootScope.forgotPass = function () {
                 $rootScope.forgotPassModal = $uibModal.open({
                     templateUrl: 'views/main/ForgotPassword.html',
-                    controller: 'PasswordResetController',
+                    controller: 'ChangePassword',
                     size: 'sm',
                     backdrop: 'static',
                     scope: $rootScope
@@ -50,7 +50,7 @@ greatStart.controller('LoginController', function ($rootScope, $scope, $uibModal
     $scope.login = function () {
         LoginService.authenticate($scope.credentials, function () {
             if ($rootScope.authenticated) {
-                $scope.dismiss();
+                $uibModalInstance.dismiss();
             } else {
                 $scope.error = true;
             }
