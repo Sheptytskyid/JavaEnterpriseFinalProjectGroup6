@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 /**
@@ -38,17 +39,37 @@ public class InvestmentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<DtoInvestment>> getInvestments() {
-        if (!investmentService.getAllDtoInvestments().isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<List<DtoInvestment>> getAllInvestments() {
+        List<DtoInvestment> investments = investmentService.getAllDtoInvestments();
+        if (!investments.isEmpty()) {
+            return new ResponseEntity<>(investments, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<DtoInvestment> getInvestmentById(@PathVariable long id) {
-        if (investmentService.getDtoInvestmentById(id) != null) {
-            return new ResponseEntity<>(HttpStatus.OK);
+        DtoInvestment dtoInvestment = investmentService.getDtoInvestmentById(id);
+        if (dtoInvestment != null) {
+            return new ResponseEntity<>(dtoInvestment, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("my")
+    public ResponseEntity<List<DtoInvestment>> getUserInvestments(Principal principal) {
+        List<DtoInvestment> dtoInvestments = investmentService.getUserDtoInvestmentsByUserEmail(principal.getName());
+        if (!dtoInvestments.isEmpty()) {
+            return new ResponseEntity<>(dtoInvestments, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/project/{id}")
+    public ResponseEntity<List<DtoInvestment>> getProjectInvestments(@PathVariable long id) {
+        List<DtoInvestment> investments = investmentService.getDtoProjectInvestments(id);
+        if (!investments.isEmpty()) {
+            return new ResponseEntity<>(investments, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

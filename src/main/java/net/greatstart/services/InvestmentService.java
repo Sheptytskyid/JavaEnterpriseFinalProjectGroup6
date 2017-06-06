@@ -54,11 +54,7 @@ public class InvestmentService {
     }
 
     public List<DtoInvestment> getAllDtoInvestments() {
-        List<DtoInvestment> investments = new ArrayList<>();
-        investmentDao.findAll().forEach(investment -> investments
-                .add(investmentMapper.fromInvestmentToDto(investment))
-        );
-        return investments;
+        return getDtoInvestments((List<Investment>) investmentDao.findAll());
     }
 
     private Investment getInvestmentFromDtoWithAttachedProjectAndUser(DtoInvestment dtoInvestment) {
@@ -68,5 +64,21 @@ public class InvestmentService {
         investment.setInvestor(userService
                 .getUser(dtoInvestment.getInvestor().getId()));
         return investment;
+    }
+
+    public List<DtoInvestment> getDtoProjectInvestments(long id) {
+        return getDtoInvestments(projectService.getProjectById(id).getInvestments());
+    }
+
+    public List<DtoInvestment> getUserDtoInvestmentsByUserEmail(String userEmail) {
+        return getDtoInvestments(userService.getUserByEmail(userEmail).getInvestments());
+    }
+
+    private List<DtoInvestment> getDtoInvestments(List<Investment> investments) {
+        List<DtoInvestment> dtoInvestments = new ArrayList<>();
+        investments.forEach(investment -> dtoInvestments
+                .add(investmentMapper.fromInvestmentToDto(investment))
+        );
+        return dtoInvestments;
     }
 }

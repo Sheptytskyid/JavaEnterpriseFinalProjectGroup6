@@ -10,50 +10,55 @@
 		</div>
 		<br/>
 		<br/>
-		<ul class="list-group checked-list-box">
-			<li ng-repeat="investment in investments | filter:searchText |
+		<div ng-if="investments !== null">
+			<ul class="list-group checked-list-box">
+				<li ng-repeat="investment in investments | filter:searchText |
 						filter:{'paid' : checkBoxPaid} |
 						filter:{'verified' : checkBoxVerified}"
-			    class="list-group-item {{investment.paid ? 'list-group-item-success' :
+				    class="list-group-item {{investment.paid ? 'list-group-item-success' :
                 (investment.verified ? 'list-group-item-warning' : 'list-group-item-danger')}}"
-			    data-color="">
-				<div class="row">
-					<div class="col-lg-1 hidden-xs hidden-sm hidden-md">
-						{{investment.id}}
-					</div>
-					<div class="col-xs-3 col-sm-3 col-md-2">
-						<a href="#">
-							{{investment.investor.name}}
-						</a>
-					</div>
-					<div class="col-xs-4 col-sm-4 col-md-3">
-						<a href="#!/project/{{investment.project.id}}">
-							{{ investment.project.desc.name}}
-						</a>
-					</div>
-					<div class="col-md-3 col-lg-2 hidden-sm hidden-xs">
-						{{investment.dateOfInvestment | date}}
-					</div>
-					<div class="col-xs-3 col-sm-2">
-						{{investment.sum | currency}}
-					</div>
-					<div class="col-xs-1 left">
-						<button ng-click="deleteInvestment(investment.id)" class="btn btn-xs btn-danger">
-							<span class="glyphicon glyphicon-trash"></span>
-						</button>
-					</div>
-					<div class="col-xs-2 col-sm-1">
-						<button ng-click="investment.verified ? verifyInvestment(investment) : payInvestment(investment)"
-						        class=" btn {{investment.paid ? 'hidden' :
+				    data-color="">
+					<div class="row">
+						<div class="col-lg-1 hidden-xs hidden-sm hidden-md">
+							{{investment.id}}
+						</div>
+						<div class="col-xs-3 col-sm-3 col-md-2">
+							<a href="#">
+								{{investment.investor.name}}
+							</a>
+						</div>
+						<div class="col-xs-4 col-sm-4 col-md-3">
+							<a href="#!/project/{{investment.project.id}}">
+								{{ investment.project.desc.name}}
+							</a>
+						</div>
+						<div class="col-md-3 col-lg-2 hidden-sm hidden-xs">
+							{{investment.dateOfInvestment | asDate | date : "short"}}
+						</div>
+						<div class="col-xs-3 col-sm-2">
+							{{investment.sum | currency}}
+						</div>
+						<div class="col-xs-1 left">
+							<button ng-click="deleteInvestment(investment.id)" class="btn btn-xs btn-danger">
+								<span class="glyphicon glyphicon-trash"></span>
+							</button>
+						</div>
+						<div class="col-xs-2 col-sm-1">
+							<button ng-click="investment.verified ? verifyInvestment(investment) : payInvestment(investment)"
+							        class=" btn {{investment.paid ? 'hidden' :
                                             (investment.verified ? 'btn-success'
                                                             :'btn-warning')}}"
-						        style="height: 22px;padding-top: 0px;
+							        style="height: 22px;padding-top: 0px;
 						        padding-bottom: 0px;border-top-width: 0px;border-bottom-width: 0px;">
-							{{investment.verified ? "Pay" : "Ver"}}
-						</button>
+								{{investment.verified ? "Pay" : "Ver"}}
+							</button>
+						</div>
 					</div>
-				</div>
-			</li>
-		</ul>
+				</li>
+			</ul>
+		</div>
+		<div ng-if="investments === null">
+			<p>No investments to manage</p>
+		</div>
 	</div>
 </div>

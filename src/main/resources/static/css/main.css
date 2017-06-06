@@ -340,3 +340,8 @@ hr {
 border-radius: 50% !important;
 margin: 0 5px;
 }
+
+.big-photo {
+    max-height: 320px;
+    width: 320px
+}

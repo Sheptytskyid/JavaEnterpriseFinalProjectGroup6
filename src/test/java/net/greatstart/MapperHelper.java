@@ -93,7 +93,7 @@ public class MapperHelper {
         return user;
     }
 
-    public static DtoUserProfile getFullTestDtoUserProfile() {
+    /*public static DtoUserProfile getFullTestDtoUserProfile() {
         DtoUserProfile dtoUser = getTestDtoUserProfile();
         DtoProject dtoProject1 = getFullTestDtoProject(TEST_INVEST_1, TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
         DtoProject dtoProject2 = getFullTestDtoProject(TEST_INVEST_2, TEST_VALUE_2, TEST_COST_2, TEST_MIN_INVEST_2);
@@ -102,7 +102,7 @@ public class MapperHelper {
         dtoUser.setDtoInvestments(dtoInvestments);
 //        todo dtoUser.setOwnedProjects(getTestListOfProjects());
         return dtoUser;
-    }
+    }*/
 
 
     public static Project getFullTestProject(BigDecimal investmentSum,
@@ -115,7 +115,7 @@ public class MapperHelper {
         return project;
     }
 
-    public static DtoProject getFullTestDtoProject(BigDecimal investmentSum,
+    /*public static DtoProject getFullTestDtoProject(BigDecimal investmentSum,
                                                    byte value,
                                                    BigDecimal projectCost,
                                                    BigDecimal projectMinInvestment) {
@@ -124,7 +124,7 @@ public class MapperHelper {
                 , value, projectCost, projectMinInvestment));
         dtoProject.setOwner(getTestDtoUserProfile());
         return dtoProject;
-    }
+    }*/
 
     public static List<Investment> getTestListOfInvestments(BigDecimal investmentSum,
                                                             byte value,
@@ -156,8 +156,8 @@ public class MapperHelper {
         dtoInvestment.setDateOfInvestment(DATE_INVESTMENT);
         dtoInvestment.setInvestor(getTestDtoUserProfile());
         dtoInvestment.setProject(getTestDtoProject(value, projectCost, projectMinInvestment));
-        dtoInvestment.setPaid(false);
-        dtoInvestment.setVerified(false);
+        dtoInvestment.setPaid(true);
+        dtoInvestment.setVerified(true);
         dtoInvestment.setSum(investmentSum);
         return dtoInvestment;
     }
@@ -168,8 +168,8 @@ public class MapperHelper {
                                                BigDecimal projectMinInvestment) {
         Investment investment = new Investment();
         investment.setDateOfInvestment(DATE_INVESTMENT);
-        investment.setPaid(false);
-        investment.setVerified(false);
+        investment.setPaid(true);
+        investment.setVerified(true);
         investment.setSum(investmentSum);
         investment.setInvestor(getTestUser());
         investment.setProject(getTestProject(value, projectCost, projectMinInvestment));
@@ -202,6 +202,7 @@ public class MapperHelper {
     public static Project getTestProject() {
         Project project = getTestProject(TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
         project.setOwner(getTestUser());
+        project.setInvestments(getTestListOfInvestments(TEST_INVEST_1, TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1));
         return project;
     }
 
