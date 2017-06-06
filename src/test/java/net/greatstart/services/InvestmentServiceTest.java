@@ -56,7 +56,7 @@ public class InvestmentServiceTest {
         //init
         when(investmentMapper.investmentFromDto(dtoInvestment)).thenReturn(investment);
         when(projectService.getProjectById(TEST_VALUE_1))
-                .thenReturn(getTestProject(TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1));
+                .thenReturn(project);
         when(userService.getUser(TEST_VALUE_1)).thenReturn(getTestUser());
         when(investmentDao.save(investment)).thenReturn(investment);
         when(investmentMapper.fromInvestmentToDto(investment)).thenReturn(dtoInvestment);
@@ -64,6 +64,34 @@ public class InvestmentServiceTest {
         assertEquals(dtoInvestment, investmentService.saveInvestment(dtoInvestment));
 
         verify(investmentDao, times(1)).save(investment);
+        verify(projectService, times(1)).getProjectById(TEST_VALUE_1);
+        verify(userService, times(1)).getUser(TEST_VALUE_1);
+    }
+
+    @Test
+    public void updateValidInvestmentShouldReturnDtoInvestment() throws Exception {
+        //init
+        when(investmentService.getDtoInvestmentById(TEST_VALUE_1)).thenReturn(dtoInvestment);
+        when(investmentMapper.investmentFromDto(dtoInvestment)).thenReturn(investment);
+        when(projectService.getProjectById(TEST_VALUE_1))
+                .thenReturn(project);
+        when(userService.getUser(TEST_VALUE_1)).thenReturn(getTestUser());
+        when(investmentDao.save(investment)).thenReturn(investment);
+        when(investmentMapper.fromInvestmentToDto(investment)).thenReturn(dtoInvestment);
+        //use & verify
+        assertEquals(dtoInvestment, investmentService.updateInvestment(dtoInvestment));
+        verify(investmentDao, times(1)).save(investment);
+        verify(projectService, times(1)).getProjectById(TEST_VALUE_1);
+        verify(userService, times(1)).getUser(TEST_VALUE_1);
+    }
+
+    @Test
+    public void updateInvalidInvestmentShouldNull() throws Exception {
+        //init
+        when(investmentService.getDtoInvestmentById(TEST_VALUE_1)).thenReturn(null);
+        //use & verify
+        assertEquals(null, investmentService.updateInvestment(dtoInvestment));
+        verify(investmentDao, times(0)).save(investment);
     }
 
     @Test

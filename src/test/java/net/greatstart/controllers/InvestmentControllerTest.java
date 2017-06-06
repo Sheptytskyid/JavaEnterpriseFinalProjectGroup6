@@ -80,15 +80,13 @@ public class InvestmentControllerTest {
         dtoInvestment.setId(1L);
         dtoInvestment.setVerified(true);
         dtoInvestment.setPaid(false);
-        when(investmentService.getDtoInvestmentById(TEST_VALUE_1)).thenReturn(dtoInvestment);
-        when(investmentService.saveInvestment(dtoInvestment)).thenReturn(dtoInvestment);
+        when(investmentService.updateInvestment(dtoInvestment)).thenReturn(dtoInvestment);
         //use & check
         mvc.perform(put("/api/investment/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(convertObjectToJsonBytes(dtoInvestment)))
                 .andExpect(status().isOk());
-        verify(investmentService, times(1)).saveInvestment(dtoInvestment);
-        verify(investmentService, times(1)).getDtoInvestmentById(TEST_VALUE_1);
+        verify(investmentService, times(1)).updateInvestment(dtoInvestment);
         verifyNoMoreInteractions(investmentService);
     }
 
@@ -99,13 +97,13 @@ public class InvestmentControllerTest {
         dtoInvestment.setId(10L);
         dtoInvestment.setVerified(true);
         dtoInvestment.setPaid(false);
-        when(investmentService.getDtoInvestmentById(10L)).thenReturn(null);
+        when(investmentService.updateInvestment(dtoInvestment)).thenReturn(null);
         //use & check
         mvc.perform(put("/api/investment/10")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(convertObjectToJsonBytes(dtoInvestment)))
                 .andExpect(status().isNotFound());
-        verify(investmentService, times(1)).getDtoInvestmentById(10L);
+        verify(investmentService, times(1)).updateInvestment(dtoInvestment);
         verifyNoMoreInteractions(investmentService);
     }
 

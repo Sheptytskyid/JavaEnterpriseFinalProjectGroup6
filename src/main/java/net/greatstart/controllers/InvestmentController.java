@@ -67,8 +67,6 @@ public class InvestmentController {
 
     @PostMapping
     public ResponseEntity<DtoInvestment> createInvestment(@Valid @RequestBody DtoInvestment investment) {
-        investment.setPaid(false);
-        investment.setVerified(false);
         if (investmentValidationService.validate(investment)) {
             DtoInvestment investmentResult = investmentService.saveInvestment(investment);
             if (investmentResult != null && investmentResult.getId() != 0) {
@@ -81,11 +79,7 @@ public class InvestmentController {
     @PutMapping("{id}")
     public ResponseEntity<DtoInvestment> updateInvestment(@PathVariable long id,
                                                           @RequestBody DtoInvestment investment) {
-        DtoInvestment dtoInvestment = investmentService.getDtoInvestmentById(id);
-        if (dtoInvestment != null) {
-            dtoInvestment.setPaid(investment.isPaid());
-            dtoInvestment.setVerified(investment.isVerified());
-            investmentService.saveInvestment(dtoInvestment);
+        if (investmentService.updateInvestment(investment) != null) {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -40,9 +40,20 @@ public class InvestmentService {
     public DtoInvestment saveInvestment(DtoInvestment dtoInvestment) {
         Investment investment = getInvestmentFromDtoWithAttachedProjectAndUser(dtoInvestment);
         investment.setDateOfInvestment(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
-        investment.setVerified(dtoInvestment.isVerified());
-        investment.setPaid(dtoInvestment.isPaid());
+        investment.setVerified(false);
+        investment.setPaid(false);
         return investmentMapper.fromInvestmentToDto(investmentDao.save(investment));
+    }
+
+    public DtoInvestment updateInvestment(DtoInvestment dtoInvestment) {
+        if (getDtoInvestmentById(dtoInvestment.getId()) != null) {
+            Investment investment = getInvestmentFromDtoWithAttachedProjectAndUser(dtoInvestment);
+            investment.setDateOfInvestment(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+            investment.setVerified(dtoInvestment.isVerified());
+            investment.setPaid(dtoInvestment.isPaid());
+            return investmentMapper.fromInvestmentToDto(investmentDao.save(investment));
+        }
+        return null;
     }
 
     public void deleteInvestment(long id) {
@@ -57,6 +68,14 @@ public class InvestmentService {
         return getDtoInvestments((List<Investment>) investmentDao.findAll());
     }
 
+    public List<DtoInvestment> getDtoProjectInvestments(long id) {
+        return getDtoInvestments(projectService.getProjectById(id).getInvestments());
+    }
+
+    public List<DtoInvestment> getUserDtoInvestmentsByUserEmail(String userEmail) {
+        return getDtoInvestments(userService.getUserByEmail(userEmail).getInvestments());
+    }
+
     private Investment getInvestmentFromDtoWithAttachedProjectAndUser(DtoInvestment dtoInvestment) {
         Investment investment = investmentMapper.investmentFromDto(dtoInvestment);
         investment.setProject(projectService
@@ -64,14 +83,6 @@ public class InvestmentService {
         investment.setInvestor(userService
                 .getUser(dtoInvestment.getInvestor().getId()));
         return investment;
-    }
-
-    public List<DtoInvestment> getDtoProjectInvestments(long id) {
-        return getDtoInvestments(projectService.getProjectById(id).getInvestments());
-    }
-
-    public List<DtoInvestment> getUserDtoInvestmentsByUserEmail(String userEmail) {
-        return getDtoInvestments(userService.getUserByEmail(userEmail).getInvestments());
     }
 
     private List<DtoInvestment> getDtoInvestments(List<Investment> investments) {
