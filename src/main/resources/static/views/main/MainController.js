@@ -33,7 +33,7 @@ var greatStart = angular.module('greatStartApp')
                     backdrop: 'static',
                     scope: $rootScope
                 }).result.then(function () {
-                }).then(function () {
+                }).then(null, function () {
 
                 });
             };
