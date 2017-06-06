@@ -8,15 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
@@ -38,14 +31,12 @@ public class ProjectController {
         this.userService = userService;
     }
 
-    @Transactional
     @GetMapping({"/api/project", "/api/project/"})
     public ResponseEntity<Collection<Project>> getProjects() {
         List<Project> projectList = projectService.getAllProjects();
         return new ResponseEntity<>(projectList, HttpStatus.OK);
     }
 
-    @Transactional
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/api/projects/my")
     public ResponseEntity<Collection<Project>> getMyProjects() {
@@ -62,7 +53,6 @@ public class ProjectController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @Transactional
     @PreAuthorize("isAuthenticated()")
     @PutMapping("/api/project/{id}")
     public ResponseEntity<DtoProject> updateProject(
@@ -91,7 +81,6 @@ public class ProjectController {
 
     }
 
-    @Transactional
     @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/api/project/{id}")
     public ResponseEntity<DtoProject> deleteProject(@PathVariable("id") long id) {
