@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: prod
+    active: default
   http:
     multipart:
       max-file-size: 10MB
@@ -26,7 +26,7 @@ support:
 spring:
   profiles: prod
   datasource:
-    url: jdbc:postgresql://localhost:5432/startup_platform
+    url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: root
   jpa:
@@ -39,7 +39,7 @@ security:
   basic:
     enabled: false
 server:
-  port: 8081
+  port: 8080
 ---
 spring:
   profiles: default
