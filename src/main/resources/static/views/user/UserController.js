@@ -58,7 +58,7 @@ angular.module('greatStartApp')
             });
         };
 
-        $scope.openPage = function(hash) {
+        $scope.openPage = function (hash) {
             $location.path(hash);
         };
 

@@ -33,6 +33,7 @@ var PasswordResetController = angular.module('greatStartApp').controller('Passwo
             }
         };
     });
+
 PasswordResetController.controller('ChangePassword', function ($rootScope, $scope, $uibModalInstance, passwordResetService) {
     $scope.closeFpModal = function () {
         $uibModalInstance.dismiss();

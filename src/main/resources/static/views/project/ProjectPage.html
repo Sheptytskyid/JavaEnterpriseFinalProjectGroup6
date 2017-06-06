@@ -1,128 +1,134 @@
 <div>
-	<div class="row" style="margin-right: 0">
-		<!-- /PRICE ITEM -->
-		<div class="col-xs-10 col-md-7 col-xs-offset-1 col-lg-8">
-			<!--Project name and goal-->
-			<div class="item">
-				<a ng-if="currentUser.id === project.owner.id && projectInvestments.length === 0"
-				   class="btn btn-edit pull-right" ng-click="deleteProject()">
-					<span class="glyphicon glyphicon-trash"></span></a>
-				<a ng-if="currentUser.id === project.owner.id" class="btn btn-edit pull-right"
-				   href="#!project/{{project.id}}/edit">
-					<span class="glyphicon glyphicon-pencil"></span></a>
-				<div class="thumbnail">
-					<div ng-if="project.desc.image!=null">
-						<img ng-src="data:image/png;base64,{{project.desc.image}}" alt="{{project.desc.name}}"
-						     class="centered img-responsive">
-					</div>
-					<div ng-if="project.desc.image==null">
-						<img src="http://placehold.it/800x450" alt="No image available" class="centered img-responsive">
-					</div>
-					<div class="caption">
-						<h3>{{project.desc.name}}</h3>
-						<p>{{project.desc.goal}}</p>
-					</div>
-				</div>
-			</div>
+    <div class="row" style="margin-right: 0">
+        <!-- /PRICE ITEM -->
+        <div class="col-xs-10 col-md-7 col-xs-offset-1 col-lg-8">
+            <!--Project name and goal-->
+            <div class="item">
+                <a ng-if="currentUser.id === project.owner.id && projectInvestments.length === 0"
+                   class="btn btn-edit pull-right" ng-click="deleteProject()">
+                    <span class="glyphicon glyphicon-trash"></span></a>
+                <a ng-if="currentUser.id === project.owner.id" class="btn btn-edit pull-right"
+                   href="#!project/{{project.id}}/edit">
+                    <span class="glyphicon glyphicon-pencil"></span></a>
+                <div class="thumbnail">
+                    <div ng-if="project.desc.image!=null">
+                        <img ng-src="data:image/png;base64,{{project.desc.image}}" alt="{{project.desc.name}}"
+                             class="centered img-responsive">
+                    </div>
+                    <div ng-if="project.desc.image==null">
+                        <img src="http://placehold.it/800x450" alt="No image available" class="centered img-responsive">
+                    </div>
+                    <div class="caption">
+                        <h3>{{project.desc.name}}</h3>
+                        <p>{{project.desc.goal}}</p>
+                    </div>
+                </div>
+            </div>
 
-			<!--Description-->
-			<div class="item">
-				<div class="thumbnail">
-					<div class="caption">
-						<h3>Project description</h3>
-						<hr>
-						<p>{{project.desc.description}}</p>
-					</div>
-				</div>
-			</div>
-			<!--Category-->
-			<div class="item">
-				<div class="thumbnail">
-					<div class="caption">
-						<h3>Category</h3>
-						<hr>
-						<p>{{project.category.name}}</p>
-					</div>
-				</div>
-			</div>
-			<!--Other-->
-			<div class="item">
-				<div class="thumbnail">
-					<div class="caption">
-						<h3>Other</h3>
-						<hr>
-						<p>{{project.desc.other}}</p>
-					</div>
-				</div>
-			</div>
-			<!--Investments-->
-			<div ng-if="currentUser!=null && currentUser.email == project.owner.email">
-				<div class="item">
-					<div class="thumbnail">
-						<div class="caption">
-							<div ng-include="'views/investment/ProjectInvestments.html'"></div>
-						</div>
-					</div>
-				</div>
-			</div>
+            <!--Description-->
+            <div class="item">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h3>Project description</h3>
+                        <hr>
+                        <p>{{project.desc.description}}</p>
+                    </div>
+                </div>
+            </div>
+            <!--Category-->
+            <div class="item">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h3>Category</h3>
+                        <hr>
+                        <p>{{project.category.name}}</p>
+                    </div>
+                </div>
+            </div>
+            <!--Other-->
+            <div class="item">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h3>Other</h3>
+                        <hr>
+                        <p>{{project.desc.other}}</p>
+                    </div>
+                </div>
+            </div>
+            <!--Investments-->
+            <div ng-if="currentUser!=null && currentUser.email == project.owner.email">
+                <div class="item">
+                    <div class="thumbnail">
+                        <div class="caption">
+                            <div ng-include="'views/investment/ProjectInvestments.html'"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-			<!--Window of investments info for small displays-->
-			<div class="item">
-				<div class="hidden-lg hidden-md">
-					<!-- PRICE ITEM -->
-					<div class="panel price panel-danger">
-						<div class="panel-heading  text-center">
-							<h4><strong>Min investment</strong> {{project.desc.minInvestment | currency}}</h4>
-						</div>
-						<div class="panel-body text-center">
-							<h4>Total project investment {{project.desc.cost | currency}}</h4>
-							<div class="progress">
-								<div class="progress-bar progress-bar-info"
-								     style="{{invProgressWithWidth}}"></div>
-							</div>
+            <!--Window of investments info for small displays-->
+            <div class="item">
+                <div class="hidden-lg hidden-md">
+                    <!-- PRICE ITEM -->
+                    <div class="panel price panel-danger">
+                        <div class="panel-heading  text-center">
+                            <h4><strong>Min investment</strong> {{project.desc.minInvestment | currency}}</h4>
+                        </div>
+                        <div class="panel-body text-center">
+                            <h4>Total project investment {{project.desc.cost | currency}}</h4>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-info"
+                                     style="{{invProgressWithWidth}}"></div>
+                            </div>
 
-							<h4 ng-if="project.desc.cost-investedAmount!==0" class="text-right">Project need
-								{{(project.desc.cost-investedAmount) | currency}}</h4>
-						</div>
-						<div class="panel-footer">
-							<button ng-if="project.desc.cost-investedAmount!==0" type="button" class="btn btn-success btn-block" ng-click="openApproveModal()">
-								I want to invest
-							</button>
-							<div ng-if="project.desc.cost-investedAmount===0" class="alert alert-success text-center">Achieved</div>
+                            <h4 ng-if="project.desc.cost-investedAmount!==0" class="text-right">Project need
+                                {{(project.desc.cost-investedAmount) | currency}}</h4>
+                        </div>
+                        <div class="panel-footer">
+                            <button ng-if="project.desc.cost-investedAmount!==0" type="button"
+                                    class="btn btn-success btn-block" ng-click="openApproveModal()">
+                                I want to invest
+                            </button>
+                            <div ng-if="project.desc.cost-investedAmount===0" class="alert alert-success text-center">
+                                Achieved
+                            </div>
 
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-3 col-md-offset-8 col-lg-offset-9 col-lg-2 hidden-sm hidden-xs " style="position: fixed">
-			<div class="item">
-				<!-- PRICE ITEM -->
-				<div class="panel price panel-danger">
-					<div class="panel-heading">
-						<h4><strong>Min investment</strong></h4>
-						<h3 class="text-right">{{project.desc.minInvestment | currency}}</h3>
-					</div>
-					<div class="panel-body text-right">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-md-offset-8 col-lg-offset-9 col-lg-2 hidden-sm hidden-xs " style="position: fixed">
+            <div class="item">
+                <!-- PRICE ITEM -->
+                <div class="panel price panel-danger">
+                    <div class="panel-heading">
+                        <h4><strong>Min investment</strong></h4>
+                        <h3 class="text-right">{{project.desc.minInvestment | currency}}</h3>
+                    </div>
+                    <div class="panel-body text-right">
 
-						<h5>Total project investment {{project.desc.cost | currency}}</h5>
-						<div class="progress">
-							<div class="progress-bar progress-bar-info"
-							     style="{{invProgressWithWidth}}"></div>
-						</div>
+                        <h5>Total project investment {{project.desc.cost | currency}}</h5>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-info"
+                                 style="{{invProgressWithWidth}}"></div>
+                        </div>
 
-						<h4 ng-if="project.desc.cost-investedAmount!==0" class="text-right">Project need
-							{{(project.desc.cost-investedAmount) | currency}}</h4>
-					</div>
-					<div class="panel-footer">
-						<button ng-if="project.desc.cost-investedAmount!==0" type="button" class="btn btn-success btn-block" ng-click="openApproveModal()">
-							I want to invest
-						</button>
-						<div ng-if="project.desc.cost-investedAmount===0" class="alert alert-success text-center">Achieved</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                        <h4 ng-if="project.desc.cost-investedAmount!==0" class="text-right">Project need
+                            {{(project.desc.cost-investedAmount) | currency}}</h4>
+                    </div>
+                    <div class="panel-footer">
+                        <button ng-if="project.desc.cost-investedAmount!==0" type="button"
+                                class="btn btn-success btn-block" ng-click="openApproveModal()">
+                            I want to invest
+                        </button>
+                        <div ng-if="project.desc.cost-investedAmount===0" class="alert alert-success text-center">
+                            Achieved
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div ng-include="'views/main/Footer.html'"></div>

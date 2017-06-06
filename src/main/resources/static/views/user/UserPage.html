@@ -1,131 +1,137 @@
 <div class="container">
-	<div class="row">
-		<div class="col-xs-12">
-			<div class="panel panel-success" style="border:0">
-				<div class="panel-heading" style="background: #f5f5f5 ">
-					<a class="btn btn-edit pull-right" href="#!user/{{currentUser.id}}/edit">
-						<span class="glyphicon glyphicon-pencil"></span></a>
-					<h4>User Profile</h4>
-				</div>
-				<div class="panel-body">
-					<div class="row">
-						<div class="col-lg-4 col-md-4 col-sm-4  hidden-xs" ng-if="currentUser.photo!=null">
-							<img class="img-responsive img-circle big-photo"
-							     ng-src="data:image/png;base64,{{currentUser.photo}}" alt=""/>
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-4  hidden-xs" ng-if="currentUser.photo==null">
-							<p class="initials-logo">{{currentUser.initial}}</p>
-						</div>
-						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-							<div class="panel-info">
-								<div class="panel-body">
-								</div>
-								<table class="table">
-									<tr>
-										<th>First name:</th>
-										<td>{{currentUser.name}}</td>
-									</tr>
-									<tr>
-										<th>Last name:</th>
-										<td>{{currentUser.lastName}}</td>
-									</tr>
-									<tr>
-										<th>Email:</th>
-										<td>{{currentUser.email}}</td>
-									</tr>
-									<tr>
-										<th>Phone:</th>
-										<td>{{currentUser.phoneNumber}}</td>
-									</tr>
-									<tr>
-										<th>Address:</th>
-										<td>{{currentUser.address}}</td>
-									</tr>
-									<tr>
-										<th></th>
-										<td></td>
-									</tr>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-success" style="border:0">
+                <div class="panel-heading" style="background: #f5f5f5 ">
+                    <a class="btn btn-edit pull-right" href="#!user/{{currentUser.id}}/edit">
+                        <span class="glyphicon glyphicon-pencil"></span></a>
+                    <h4>User Profile</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4  hidden-xs" ng-if="currentUser.photo!=null">
+                            <img class="img-responsive img-circle big-photo"
+                                 ng-src="data:image/png;base64,{{currentUser.photo}}" alt=""/>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4  hidden-xs" ng-if="currentUser.photo==null">
+                            <p class="initials-logo">{{currentUser.initial}}</p>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                            <div class="panel-info">
+                                <div class="panel-body">
+                                </div>
+                                <table class="table">
+                                    <tr>
+                                        <th>First name:</th>
+                                        <td>{{currentUser.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Last name:</th>
+                                        <td>{{currentUser.lastName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email:</th>
+                                        <td>{{currentUser.email}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Phone:</th>
+                                        <td>{{currentUser.phoneNumber}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Address:</th>
+                                        <td>{{currentUser.address}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="container" ng-controller="ProjectController">
-	<div class="row">
-		<div class="col-xs-12">
-			<a href ng-click="flag=!flag;" class="btn btn-success btn-block">Favourites
-				<span class="fa" ng-class="{'fa-sort-desc' : !flag,
+    <div class="row">
+        <div class="col-xs-12">
+            <a href ng-click="flag=!flag;" class="btn btn-success btn-block">Favourites
+                <span class="fa" ng-class="{'fa-sort-desc' : !flag,
                                  'fa-sort-asc' : flag}"></span></a>
-			<div uib-collapse="!flag">
-				<div class="well">
-					<div class="panel-info">
-						<div class="panel-body">
-							<div class="row">
-								<div ng-repeat="project in projects | limitTo: 3">
-								<div class="container col-md-4 col-xs-12">
-									<div class="card">
-										<a href="#!/project/{{project.id}}" ng-if="project.desc.image"><img ng-src="data:image/png;base64,{{project.desc.image}}"
-										                 class="card-img-top img-responsive"
-										                 alt=""></a>
-										<div class="card-block">
-											<a href="#!/project/{{project.id}}"><h4 class="card-title">{{project.desc.name}}</h4>
-											</a>
-											<div class="card-text">
-												<div>{{project.desc.description}}</div>
-											</div>
-										</div>
-										<div class="card-footer">
-											<div class="row">
-												<div class="col-xs-6">
-													<div>min</div>
-													<div><span class="fa fa-dollar"></span>{{project.desc.minInvestment}}</div>
-												</div>
-												<div class="col-xs-6">
-													<div class="right-box">Total needed</div>
-													<div class="right-box"><span class="fa fa-dollar"></span>{{project.desc.cost}}</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+            <div uib-collapse="!flag">
+                <div class="well">
+                    <div class="panel-info">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div ng-repeat="project in projects | limitTo: 3">
+                                    <div class="container col-md-4 col-xs-12">
+                                        <div class="card">
+                                            <a href="#!/project/{{project.id}}" ng-if="project.desc.image"><img
+                                                    ng-src="data:image/png;base64,{{project.desc.image}}"
+                                                    class="card-img-top img-responsive"
+                                                    alt=""></a>
+                                            <div class="card-block">
+                                                <a href="#!/project/{{project.id}}"><h4 class="card-title">
+                                                    {{project.desc.name}}</h4>
+                                                </a>
+                                                <div class="card-text">
+                                                    <div>{{project.desc.description}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer">
+                                                <div class="row">
+                                                    <div class="col-xs-6">
+                                                        <div>min</div>
+                                                        <div><span class="fa fa-dollar"></span>{{project.desc.minInvestment}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <div class="right-box">Total needed</div>
+                                                        <div class="right-box"><span class="fa fa-dollar"></span>{{project.desc.cost}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="container">
-	<div class="col-xs-12">
-		<div class="bs-calltoaction bs-calltoaction-success">
-			<div class="row">
-				<div class="col-md-9 cta-contents">
-					<a href="#!/projects/my"><h1 class="cta-title">Projects</h1></a>
-					<div class="cta-desc">
-						<p><a href="#!/projects/my">My Projects</a></p>
-						<p>Use the "Add project" button to add a new project.</p>
-					</div>
-				</div>
-				<div class="col-md-3 form-field">
+    <div class="col-xs-12">
+        <div class="bs-calltoaction bs-calltoaction-success">
+            <div class="row">
+                <div class="col-md-9 cta-contents">
+                    <a href="#!/projects/my"><h1 class="cta-title">Projects</h1></a>
+                    <div class="cta-desc">
+                        <p><a href="#!/projects/my">My Projects</a></p>
+                        <p>Use the "Add project" button to add a new project.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 form-field">
 
-								<div class="cta-button">
-									<button type="button" class="btn btn-lg btn-block btn-edit" ng-click="openPage('/project/new')">Add Project</button>
-								</div>
+                    <div class="cta-button">
+                        <button type="button" class="btn btn-lg btn-block btn-edit" ng-click="openPage('/project/new')">
+                            Add Project
+                        </button>
+                    </div>
 
-				</div>
-			</div>
-		</div>
+                </div>
+            </div>
+        </div>
 
 
-		<div class="bs-calltoaction bs-calltoaction-success">
-			<div ng-include="'views/investment/UserInvestments.html'"></div>
-		</div>
-	</div>
+        <div class="bs-calltoaction bs-calltoaction-success">
+            <div ng-include="'views/investment/UserInvestments.html'"></div>
+        </div>
+    </div>
 </div>
 <div ng-include="'views/main/Footer.html'"></div>

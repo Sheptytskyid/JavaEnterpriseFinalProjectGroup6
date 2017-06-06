@@ -42,10 +42,12 @@
                                 <div class="navbar-content">
                                     <div class="row">
                                         <div class="col-md-5 col-xs-5">
-                                            <img  ng-if="currentUser.photo!=null" ng-src="data:image/JPEG;base64,{{currentUser.photo}}"
+                                            <img ng-if="currentUser.photo!=null"
+                                                 ng-src="data:image/JPEG;base64,{{currentUser.photo}}"
                                                  alt="AltText" class="img-responsive img-circle"
                                                  width="120px" height="120px"/>
-                                            <p ng-if="currentUser.photo==null" class="initials-logo-navbar-middle"> {{currentUser.initial}}</p>
+                                            <p ng-if="currentUser.photo==null" class="initials-logo-navbar-middle">
+                                                {{currentUser.initial}}</p>
                                         </div>
                                         <div class="col-md-7 col-xs-7" style="margin-left: -35px">
                                             <div class="container">
@@ -53,13 +55,14 @@
                                                 <div class="container"
                                                      style="margin-top:5px; font-size: 15px; font-weight: 500">
                                                     <ul class="non-marker">
-                                                        <li><a href="#!/user/{{currentUser.id}}"><span class="fa fa-user-o"
-                                                                                    aria-hidden="true"
-                                                                                    style="margin-right: 5px"></span>My
+                                                        <li><a href="#!/user/{{currentUser.id}}"><span
+                                                                class="fa fa-user-o"
+                                                                aria-hidden="true"
+                                                                style="margin-right: 5px"></span>My
                                                             account</a></li>
                                                         <li><a href="#!/projects/my"><span class="fa fa-star"
-                                                                                        aria-hidden="true"
-                                                                                        style="margin-right: 5px"></span>Favourites</a>
+                                                                                           aria-hidden="true"
+                                                                                           style="margin-right: 5px"></span>Favourites</a>
                                                         </li>
 
                                                         <li><a href="" class="btn btn-success btn-md"
