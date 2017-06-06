@@ -14,6 +14,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -30,6 +31,8 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 @RunWith(MockitoJUnitRunner.class)
 public class InvestmentControllerTest {
 
+    @Mock
+    private Principal principal;
     @Mock
     private InvestmentValidationService investmentValidationService;
     @Mock
@@ -100,7 +103,50 @@ public class InvestmentControllerTest {
                 .andExpect(status().isNotFound());
         verify(investmentService, times(1)).getAllDtoInvestments();
         verifyNoMoreInteractions(investmentService);
+    }
 
+    @Test(timeout = 2000)
+    public void getProjectInvestmentsShouldReturnNotFoundRequestIfThereIsNoInvestment() throws Exception {
+        List<DtoInvestment> emptyList = new ArrayList<>();
+        when(investmentService.getDtoProjectInvestments(TEST_VALUE_1)).thenReturn(emptyList);
+        mvc.perform(get("/api/investment/project/1"))
+                .andExpect(status().isNotFound());
+        verify(investmentService, times(1)).getDtoProjectInvestments(TEST_VALUE_1);
+        verifyNoMoreInteractions(investmentService);
+    }
+
+    @Test(timeout = 2000)
+    public void getProjectInvestmentsShouldReturnOkRequestIfAtLeastOneInvestmentExists() throws Exception {
+        when(investmentService.getDtoProjectInvestments(TEST_VALUE_1)).thenReturn(dtoInvestments);
+        mvc.perform(get("/api/investment/project/1"))
+                .andExpect(status().isOk());
+        verify(investmentService, times(1)).getDtoProjectInvestments(TEST_VALUE_1);
+        verifyNoMoreInteractions(investmentService);
+    }
+
+    @Test(timeout = 2000)
+    public void getUserInvestmentsShouldReturnNotFoundRequestIfThereIsNoInvestment() throws Exception {
+        //init
+        List<DtoInvestment> emptyList = new ArrayList<>();
+        when(principal.getName()).thenReturn(TEST_EMAIL);
+        when(investmentService.getUserDtoInvestmentsByUserEmail(TEST_EMAIL)).thenReturn(emptyList);
+        //use & check
+        mvc.perform(get("/api/investment/my").principal(principal))
+                .andExpect(status().isNotFound());
+        verify(investmentService, times(1)).getUserDtoInvestmentsByUserEmail(TEST_EMAIL);
+        verifyNoMoreInteractions(investmentService);
+    }
+
+    @Test(timeout = 2000)
+    public void getUserInvestmentsShouldReturnOkRequestIfAtLeastOneInvestmentExists() throws Exception {
+        //init
+        when(principal.getName()).thenReturn(TEST_EMAIL);
+        when(investmentService.getUserDtoInvestmentsByUserEmail(TEST_EMAIL)).thenReturn(dtoInvestments);
+        //use & check
+        mvc.perform(get("/api/investment/my").principal(principal))
+                .andExpect(status().isOk());
+        verify(investmentService, times(1)).getUserDtoInvestmentsByUserEmail(TEST_EMAIL);
+        verifyNoMoreInteractions(investmentService);
     }
 
     @Test(timeout = 2000)

@@ -40,7 +40,7 @@ public class InvestmentController {
         this.investmentValidationService = investmentValidationService;
     }
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<List<DtoInvestment>> getAllInvestments() {
         List<DtoInvestment> investments = investmentService.getAllDtoInvestments();
         if (!investments.isEmpty()) {
