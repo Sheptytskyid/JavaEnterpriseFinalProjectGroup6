@@ -108,7 +108,11 @@ var app = angular.module('greatStartApp')
                         project: $scope.project
                     }
                 }).result.then(function () {
-                    $scope.openCreateInvestmentModal();
+                    if (angular.isUndefined($rootScope.currentUser)) {
+                        $rootScope.openPopup();
+                    } else {
+                        $scope.openCreateInvestmentModal();
+                    }
                 }, function () {
                 });
             };

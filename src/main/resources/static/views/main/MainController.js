@@ -11,7 +11,7 @@ var greatStart = angular.module('greatStartApp')
                 });
             };
 
-            $scope.openPopup = function () {
+            $rootScope.openPopup = function () {
                 modalPopup().result
                     .then(function () {
                     })
