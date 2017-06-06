@@ -41,10 +41,7 @@ public class InvestmentController {
     @GetMapping
     public ResponseEntity<List<DtoInvestment>> getAllInvestments() {
         List<DtoInvestment> investments = investmentService.getAllDtoInvestments();
-        if (!investments.isEmpty()) {
-            return new ResponseEntity<>(investments, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(investments, HttpStatus.OK);
     }
 
     @GetMapping("{id}")
@@ -59,23 +56,19 @@ public class InvestmentController {
     @GetMapping("my")
     public ResponseEntity<List<DtoInvestment>> getUserInvestments(Principal principal) {
         List<DtoInvestment> dtoInvestments = investmentService.getUserDtoInvestmentsByUserEmail(principal.getName());
-        if (!dtoInvestments.isEmpty()) {
-            return new ResponseEntity<>(dtoInvestments, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(dtoInvestments, HttpStatus.OK);
     }
 
     @GetMapping("/project/{id}")
     public ResponseEntity<List<DtoInvestment>> getProjectInvestments(@PathVariable long id) {
         List<DtoInvestment> investments = investmentService.getDtoProjectInvestments(id);
-        if (!investments.isEmpty()) {
-            return new ResponseEntity<>(investments, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(investments, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<DtoInvestment> createInvestment(@Valid @RequestBody DtoInvestment investment) {
+        investment.setPaid(false);
+        investment.setVerified(false);
         if (investmentValidationService.validate(investment)) {
             DtoInvestment investmentResult = investmentService.saveInvestment(investment);
             if (investmentResult != null && investmentResult.getId() != 0) {

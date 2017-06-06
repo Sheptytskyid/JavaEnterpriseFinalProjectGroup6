@@ -58,10 +58,12 @@ public class InvestmentValidationServiceTest {
     @Test(timeout = 2000)
     public void validateMoreThenMaxInvestment() throws Exception {
         //init
-        dtoInvestment.setSum(new BigDecimal(9000));
+        DtoInvestment investment = new DtoInvestment();
+        investment.setSum(new BigDecimal(99000));
+        investment.setProject(dtoProject);
         when(projectService.getProjectById((long)TEST_VALUE_1)).thenReturn(project);
         //use & check
-        assertFalse(investmentValidationService.validate(dtoInvestment));
+        assertFalse(investmentValidationService.validate(investment));
     }
 
     @Test(timeout = 2000)

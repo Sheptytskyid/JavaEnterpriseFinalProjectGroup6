@@ -63,8 +63,8 @@ public class MapperHelper {
     public static final byte[] TEST_IMAGE = {0, 1, 1, 5, 1};
     public static final byte TEST_VALUE_1 = 1;
     public static final byte TEST_VALUE_2 = 2;
-    public static final BigDecimal TEST_COST_1 = new BigDecimal(10000);
-    public static final BigDecimal TEST_COST_2 = new BigDecimal(20000);
+    public static final BigDecimal TEST_COST_1 = new BigDecimal(100000);
+    public static final BigDecimal TEST_COST_2 = new BigDecimal(200000);
     public static final BigDecimal TEST_MIN_INVEST_1 = new BigDecimal(1000);
     public static final BigDecimal TEST_MIN_INVEST_2 = new BigDecimal(2000);
     public static final BigDecimal TEST_INVEST_1 = new BigDecimal(2000);
@@ -89,21 +89,8 @@ public class MapperHelper {
         List<Investment> investments = project1.getInvestments();
         investments.addAll(project2.getInvestments());
         user.setInvestments(investments);
-//        todo user.setOwnedProjects(getTestListOfProjects());
         return user;
     }
-
-    /*public static DtoUserProfile getFullTestDtoUserProfile() {
-        DtoUserProfile dtoUser = getTestDtoUserProfile();
-        DtoProject dtoProject1 = getFullTestDtoProject(TEST_INVEST_1, TEST_VALUE_1, TEST_COST_1, TEST_MIN_INVEST_1);
-        DtoProject dtoProject2 = getFullTestDtoProject(TEST_INVEST_2, TEST_VALUE_2, TEST_COST_2, TEST_MIN_INVEST_2);
-        List<DtoInvestment> dtoInvestments = dtoProject1.getDtoInvestments();
-        dtoInvestments.addAll(dtoProject2.getDtoInvestments());
-        dtoUser.setDtoInvestments(dtoInvestments);
-//        todo dtoUser.setOwnedProjects(getTestListOfProjects());
-        return dtoUser;
-    }*/
-
 
     public static Project getFullTestProject(BigDecimal investmentSum,
                                              byte value,
@@ -114,17 +101,6 @@ public class MapperHelper {
         project.setOwner(getTestUser());
         return project;
     }
-
-    /*public static DtoProject getFullTestDtoProject(BigDecimal investmentSum,
-                                                   byte value,
-                                                   BigDecimal projectCost,
-                                                   BigDecimal projectMinInvestment) {
-        DtoProject dtoProject = getTestDtoProject(value, projectCost, projectMinInvestment);
-        dtoProject.setDtoInvestments(getTestListOfDtoInvestments(investmentSum
-                , value, projectCost, projectMinInvestment));
-        dtoProject.setOwner(getTestDtoUserProfile());
-        return dtoProject;
-    }*/
 
     public static List<Investment> getTestListOfInvestments(BigDecimal investmentSum,
                                                             byte value,

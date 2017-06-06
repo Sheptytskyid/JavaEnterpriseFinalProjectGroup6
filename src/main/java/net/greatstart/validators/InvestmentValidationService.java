@@ -32,7 +32,6 @@ public class InvestmentValidationService {
     }
 
     public boolean validate(DtoInvestment dtoInvestment) {
-        BigDecimal sum = dtoInvestment.getSum();
         Project project = projectService.getProjectById(dtoInvestment.getProject().getId());
         List<Investment> investments = project.getInvestments();
         BigDecimal investedSum = new BigDecimal(0);
@@ -42,6 +41,7 @@ public class InvestmentValidationService {
             }
         }
 
+        BigDecimal sum = dtoInvestment.getSum();
         BigDecimal minInvestment = project.getDesc().getMinInvestment();
         BigDecimal maxInvestment = project.getDesc().getCost().add(investedSum.negate());
         if (sum.compareTo(minInvestment) < 0) {
