@@ -1,5 +1,5 @@
 angular.module('greatStartApp')
-    .controller('InvestmentController', function ($scope, $rootScope, $location, Investment, LoginService) {
+    .controller('InvestmentController', function ($scope, $rootScope, $location, Investment) {
 
         $scope.getAllInvestments = function () {
             var investments = Investment.query({}, function () {

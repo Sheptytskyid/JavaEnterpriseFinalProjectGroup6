@@ -174,7 +174,7 @@ app.controller('approveModelController', function ($scope, $uibModalInstance, pr
         $uibModalInstance.dismiss();
     };
 
-    $scope.openCreateInvestmentModal = function () {
+    $scope.closeCurrentAndOpenCreateInvestmentModal = function () {
         $uibModalInstance.close();
     }
 });
