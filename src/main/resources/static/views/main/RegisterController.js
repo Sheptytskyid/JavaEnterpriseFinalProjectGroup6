@@ -9,7 +9,7 @@ angular.module('greatStartApp')
                     $scope.error = 'User with '+email+' already exist';
                 }
                 if(error.status===400) {
-                    $scope.error='Please correct your email such "username@example.com" or amend your password'
+                    $scope.error='Please correct your credentials. Email should look like "username@example.com" or amend your password'
                 }
             });
         };

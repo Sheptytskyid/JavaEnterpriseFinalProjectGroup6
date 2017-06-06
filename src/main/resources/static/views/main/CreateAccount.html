@@ -10,8 +10,8 @@
                         <label for="email" class="col-xs-3 control-label">Email:</label>
                         <div class="col-xs-9">
                             <input type="email" ng-model="user.email" placeholder="username@example.com"
-                                   class="form-control input-md email" id="email" name="email" required="required" />
-                            <span ng-show="createUserForm.$dirty && createUserForm.email.$invalid">Email is invalid</span>
+                                   class="form-control input-md email" id="email" name="email" required="required"/>
+                            <span ng-show="createUserForm.$dirty && createUserForm.email.$error.required">This field required</span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -19,7 +19,8 @@
                         <div class="col-xs-9">
                             <input type="password" ng-model="user.password" class="form-control input-md password"
                                    id="password" name="password" required ng-minlength="5"/>
-                            <span ng-show="createUserForm.$dirty &&createUserForm.password.$error.minlength">Minimum length required is 5</span>
+                            <span ng-show="createUserForm.$dirty && createUserForm.password.$error.minlength">Minimum length required is 5</span>
+                            <span ng-show="createUserForm.$dirty && createUserForm.password.$error.required">This field required</span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -27,13 +28,12 @@
                         <div class="col-xs-9">
                             <input type="password" ng-model="user.confirmPassword"
                                    class="form-control input-md password"
-                                   id="confirmPassword" name="confirmPassword" required="required" />
+                                   id="confirmPassword" name="confirmPassword" required="required"/>
                             <span ng-show="createUserForm.$dirty&& createUserForm.confirmPassword.$error.required">This field required</span>
+                            <div ng-show="user.password !== user.confirmPassword" class="alert alert-danger">
+                                Passwords does not match
+                            </div>
                         </div>
-
-                    </div>
-                    <div ng-show="user.password!==user.confirmPassword" class="alert alert-danger">
-                        Passwords does not match
                     </div>
 
                     <div class="form-group">
