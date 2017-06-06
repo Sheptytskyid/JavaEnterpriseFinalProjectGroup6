@@ -1,26 +1,6 @@
 var PasswordResetController = angular.module('greatStartApp').controller('PasswordResetController',
     function ($rootScope, $scope, $uibModalInstance, $routeParams, passwordResetService) {
 
-        $scope.closeFpModal = function () {
-            $uibModalInstance.dismiss();
-        };
-
-        $scope.submitEmail = function () {
-            $scope.submitted = true;
-            $scope.message = null;
-            $scope.error = null;
-            passwordResetService.get({email:$scope.email}, function(){
-                $scope.message = "Message with password recovery link has been sent to your email!";
-            }, function(error) {
-                $scope.submitted = false;
-                if (error.status === 404) {
-                    $scope.error = "User with such email was not found!";
-                } else {
-                    $scope.error = "Error sending email";
-                }
-            });
-        };
-
         $scope.submitPassword = function() {
             $scope.submitted = true;
             $scope.message = null;
@@ -52,4 +32,27 @@ var PasswordResetController = angular.module('greatStartApp').controller('Passwo
             }
         };
     });
+
+PasswordResetController
+    .controller('createInvestmentController', function ($scope, $uibModalInstance) {
+        $scope.closeFpModal = function () {
+            $uibModalInstance.dismiss();
+        };
+
+        $scope.submitEmail = function () {
+            $scope.submitted = true;
+            $scope.message = null;
+            $scope.error = null;
+            passwordResetService.get({email:$scope.email}, function(){
+                $scope.message = "Message with password recovery link has been sent to your email!";
+            }, function(error) {
+                $scope.submitted = false;
+                if (error.status === 404) {
+                    $scope.error = "User with such email was not found!";
+                } else {
+                    $scope.error = "Error sending email";
+                }
+            });
+        };
+});
 
