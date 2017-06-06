@@ -51,17 +51,18 @@ hr {
     /*width:  200px;*/
     height: 45px;
     padding: 5px 10px 5px 10px;
-    font-size:20px;
+    font-size: 20px;
     margin-top: 10px;
 }
-.select-input{
+
+.select-input {
     color: #999;
     height: 45px;
-    font-size:20px;
+    font-size: 20px;
     border-radius: .5rem;
 }
 
-.btn-file{
+.btn-file {
     margin-top: 5px;
     position: relative;
     overflow: hidden;
@@ -178,7 +179,8 @@ hr {
     background-color: #d6d6d6;
     border-color: #333333;
 }
-.btn-edit span{
+
+.btn-edit span {
     color: #333333;
 }
 
@@ -208,6 +210,32 @@ hr {
 
 .non-marker > li {
     list-style-type: none;
+}
+
+.password.ng-valid {
+    border: 2px solid #adee92;
+    background-color: #adee92;
+}
+
+.password.ng-dirty.ng-invalid-required {
+    border: 2px solid #ff807b;
+}
+
+.password.ng-dirty.ng-invalid-minlength {
+    border: 2px solid yellow;
+}
+
+.email.ng-valid {
+    border: 2px solid #adee92;
+    background-color: #adee92;
+}
+
+.email.ng-dirty.ng-invalid-required {
+    border: 2px solid #ff807b;
+}
+
+.email.ng-dirty.ng-invalid-email {
+    border: 2px solid yellow;
 }
 
 /*****************************************************************/
@@ -336,7 +364,7 @@ hr {
     }
 }
 
-.pagination>li>a, .pagination>li>span {
-border-radius: 50% !important;
-margin: 0 5px;
+.pagination > li > a, .pagination > li > span {
+    border-radius: 50% !important;
+    margin: 0 5px;
 }
