@@ -1,38 +1,40 @@
-<div class="cta-contents" ng-controller="InvestmentController" ng-init="getUserInvestments()">
+<div class="cta-contents" ng-init="getUserInvestments()">
 	<h1 class="cta-title">Investments</h1>
-	<div class="cta-desc" style="max-height: 200px; overflow: auto;">
-		<ul ng-repeat="investment in userInvestments"
-		    class="list-group checked-list-box">
-			<li class="list-group-item {{investment.paid ? 'list-group-item-success' :
+	<div ng-if="investments !== null">
+		<div class="cta-desc" style="max-height: 200px; overflow: auto;">
+			<ul ng-repeat="investment in userInvestments"
+			    class="list-group checked-list-box">
+				<li class="list-group-item {{investment.paid ? 'list-group-item-success' :
                         (investment.verified ? 'list-group-item-warning' : 'list-group-item-danger')}}"
-			    data-color="">
-				<div class="row">
-					<div class="col-xs-8 col-sm-7 col-md-4 col-lg-5">
-						<a href="#!/project/{{investment.project.id}}">
-							{{investment.project.desc.name}}
-						</a>
-					</div>
-					<div class="col-md-3 hidden-sm hidden-xs">
-						{{investment.dateOfInvestment | asDate | date : "short"}}
-					</div>
-					<div class="col-xs-3 col-sm-2">
-						<a href="#">
-							{{investment.sum | currency}}
-						</a>
-					</div>
-					<div class="col-sm-2 col-lg-1 hidden-xs">
+				    data-color="">
+					<div class="row">
+						<div class="col-xs-8 col-sm-7 col-md-4 col-lg-5">
+							<a href="#!/project/{{investment.project.id}}">
+								{{investment.project.desc.name}}
+							</a>
+						</div>
+						<div class="col-md-3 hidden-sm hidden-xs">
+							{{investment.dateOfInvestment | asDate | date : "short"}}
+						</div>
+						<div class="col-xs-3 col-sm-2">
+							<a href="#">
+								{{investment.sum | currency}}
+							</a>
+						</div>
+						<div class="col-sm-2 col-lg-1 hidden-xs">
                         <span class="{{investment.paid ? 'hidden' :
                         (investment.verified ? 'label label-warning' :'label label-danger')}}">
                             {{investment.verified ? "Not paid" : "Not verified"}}
                         </span>
+						</div>
+						<div class="{{investment.paid ? 'hidden' : 'col-xs-1 left'}}">
+							<button ng-click="deleteUserInvestment(investment.id)" class="btn btn-xs btn-danger">
+								<span class="glyphicon glyphicon-trash"></span>
+							</button>
+						</div>
 					</div>
-					<div class="{{investment.paid ? 'hidden' : 'col-xs-1 left'}}">
-						<button ng-click="deleteUserInvestment(investment.id)" class="btn btn-xs btn-danger">
-							<span class="glyphicon glyphicon-trash"></span>
-						</button>
-					</div>
-				</div>
-			</li>
-		</ul>
+				</li>
+			</ul>
+		</div>
 	</div>
 </div>

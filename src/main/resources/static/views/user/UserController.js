@@ -53,7 +53,11 @@ angular.module('greatStartApp')
         };
 
         $scope.getUserInvestments = function () {
-            $scope.userInvestments = Investment.my();
+            var userInvestments = Investment.my({}, function () {
+                $scope.userInvestments = userInvestments;
+            }, function () {
+                $scope.userInvestments = null;
+            });
         };
 
         $scope.openPage = function(hash) {

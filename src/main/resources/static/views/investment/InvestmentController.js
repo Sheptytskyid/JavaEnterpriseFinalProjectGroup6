@@ -4,6 +4,8 @@ angular.module('greatStartApp')
         $scope.getAllInvestments = function () {
             var investments = Investment.query({}, function () {
                 $scope.investments = investments;
+            }, function () {
+                $scope.investments = null;
             });
         };
 
