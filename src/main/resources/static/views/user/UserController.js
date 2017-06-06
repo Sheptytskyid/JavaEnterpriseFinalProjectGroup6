@@ -55,8 +55,9 @@ angular.module('greatStartApp')
         $scope.getUserInvestments = function () {
             var userInvestments = Investment.my({}, function () {
                 $scope.userInvestments = userInvestments;
-            }, function () {
+            }, function (error) {
                 $scope.userInvestments = null;
+                $scope.error = true
             });
         };
 
@@ -65,7 +66,7 @@ angular.module('greatStartApp')
         };
 
         $scope.deleteUserInvestment = function (id) {
-            Investment.delete({id: id}, function () {
+            Investment.delete({id: id}, function (success) {
                 if ($scope.userInvestments !== null) {
                     $scope.userInvestments = $scope.userInvestments.filter(function (el) {
                         return el.id !== id;

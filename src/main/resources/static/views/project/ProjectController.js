@@ -91,7 +91,7 @@ var app = angular.module('greatStartApp')
                     $scope.projectInvestments = null;
                     Project.get({id: $routeParams.id}, function (project) {
                         $scope.project = project;
-                        $scope.investedAmount = investedAmount();
+                        $scope.investedAmount = 0;
                         $scope.invProgressWithWidth = ivnProgressWithWidth($scope.investedAmount, project);
                     });
                 });

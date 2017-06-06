@@ -1,6 +1,6 @@
 <div class="cta-contents" ng-init="getUserInvestments()">
 	<h1 class="cta-title">Investments</h1>
-	<div ng-if="investments !== null">
+	<div ng-if="userInvestments !== null">
 		<div class="cta-desc" style="max-height: 200px; overflow: auto;">
 			<ul ng-repeat="investment in userInvestments"
 			    class="list-group checked-list-box">
@@ -35,6 +35,11 @@
 					</div>
 				</li>
 			</ul>
+		</div>
+	</div>
+	<div ng-if="userInvestments === null">
+		<div class="cta-desc">
+			<p>You haven't invested in any project yet, but we believe in You! You can do it!</p>
 		</div>
 	</div>
 </div>
