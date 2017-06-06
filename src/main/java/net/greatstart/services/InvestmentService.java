@@ -40,8 +40,8 @@ public class InvestmentService {
     public DtoInvestment saveInvestment(DtoInvestment dtoInvestment) {
         Investment investment = getInvestmentFromDtoWithAttachedProjectAndUser(dtoInvestment);
         investment.setDateOfInvestment(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
-        investment.setVerified(false);
-        investment.setPaid(false);
+        investment.setVerified(dtoInvestment.isVerified());
+        investment.setPaid(dtoInvestment.isPaid());
         return investmentMapper.fromInvestmentToDto(investmentDao.save(investment));
     }
 

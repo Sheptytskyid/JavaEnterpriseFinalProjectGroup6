@@ -44,14 +44,18 @@
 							</button>
 						</div>
 						<div class="col-xs-2 col-sm-1">
-							<button ng-click="investment.verified ? verifyInvestment(investment) : payInvestment(investment)"
+							<button ng-click="verifyInvestment(investment)"
 							        class=" btn {{investment.paid ? 'hidden' :
-                                            (investment.verified ? 'btn-success'
+                                            (investment.verified ? 'hidden'
                                                             :'btn-warning')}}"
 							        style="height: 22px;padding-top: 0px;
-						        padding-bottom: 0px;border-top-width: 0px;border-bottom-width: 0px;">
-								{{investment.verified ? "Pay" : "Ver"}}
-							</button>
+						        padding-bottom: 0px;border-top-width: 0px;border-bottom-width: 0px;">Ver</button>
+							<button ng-click="payInvestment(investment)"
+							        class=" btn {{investment.paid ? 'hidden' :
+                                            (investment.verified ? 'btn-success'
+                                                            :'hidden')}}"
+							        style="height: 22px;padding-top: 0px;
+						        padding-bottom: 0px;border-top-width: 0px;border-bottom-width: 0px;">Pay</button>
 						</div>
 					</div>
 				</li>

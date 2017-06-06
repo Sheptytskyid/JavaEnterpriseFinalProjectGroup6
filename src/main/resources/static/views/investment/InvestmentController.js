@@ -10,13 +10,28 @@ angular.module('greatStartApp')
         };
 
         $scope.verifyInvestment = function (investment) {
-            // Investment.save({id: id});
-            //todo update verified investment field
+            investment.verified = true;
+            $scope.updateInvestment(investment);
+        };
+
+        $scope.updateInvestment = function (investment) {
+            investment.investor.photo = null;
+            investment.project.image = null;
+            Investment.update({id: investment.id}, investment,
+                function () {
+                    $scope.investments.forEach(function (item) {
+                        if (item.id === investment.id) {
+                            item.verified = investment.verified;
+                            item.paid = investment.paid;
+                        }
+                    });
+                }
+            );
         };
 
         $scope.payInvestment = function (investment) {
-            // Investment.save({id: id});
-            //todo update paid investment field
+            investment.paid = true;
+            $scope.updateInvestment(investment);
         };
 
         $scope.deleteInvestment = function (id) {
