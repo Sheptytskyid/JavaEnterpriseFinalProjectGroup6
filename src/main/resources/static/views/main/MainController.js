@@ -1,4 +1,4 @@
-angular.module('greatStartApp')
+var greatStart = angular.module('greatStartApp')
     .controller('MainController',
         ['$location', 'LoginService', '$scope', '$uibModal', '$http', '$rootScope', function ($location, LoginService, $scope, $uibModal, $http, $rootScope) {
             var modalPopup = function () {
@@ -39,3 +39,22 @@ angular.module('greatStartApp')
 
             LoginService.authenticate();
         }]);
+
+greatStart.controller('LoginController', function (LoginService, $rootScope, $scope) {
+    $scope.close = function () {
+        $scope.modalInstance.close();
+    };
+
+    $scope.credentials = {};
+    $scope.login = function () {
+        LoginService.authenticate($scope.credentials, function () {
+            if ($rootScope.authenticated) {
+                //if login success
+                // $scope.error = false;
+                $scope.close();
+            } else {
+                $scope.error = true;
+            }
+        })
+    };
+});
