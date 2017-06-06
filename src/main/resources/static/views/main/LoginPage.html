@@ -9,8 +9,8 @@
     <div class="modal-body" id="modal-body">
         <form role="form" ng-submit="login()">
             <div class="form-group">
-                <label for="email">Login:</label>
-                <input type="text" class="form-control" placeholder="login" id="email" name="email"
+                <label for="email">Email:</label>
+                <input type="text" class="form-control" placeholder="email" id="email" name="email"
                        ng-model="credentials.email">
             </div>
             <div class="form-group">
@@ -19,9 +19,9 @@
                        ng-model="credentials.password">
             </div>
             <div class="alert alert-danger" ng-show="error">
-                Username or password is incorrect
+                Email or password is incorrect
             </div>
-            <button type="submit" class="btn btn-success">Login</button>
+            <button type="submit" class="btn btn-success"><span class="fa fa-sign-in"></span> Sign in</button>
             <a href="#!/createAccount" class="btn btn-primary" ng-click="close()">
                 <span class="fa fa-user-circle-o"></span> Create an account
             </a>
