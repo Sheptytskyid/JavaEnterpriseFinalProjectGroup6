@@ -68,7 +68,7 @@ public class UserService {
             roles.add(roleService.findOrCreateRole("ROLE_USER"));
             user.setRoles(roles);
             user = userDao.save(user);
-            securityService.autoLogin(user.getEmail(), user.getPassword());
+            securityService.autoLogin(email, password);
             return user;
         }
         return null;
