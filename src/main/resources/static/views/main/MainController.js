@@ -2,12 +2,12 @@ var greatStart = angular.module('greatStartApp')
     .controller('MainController',
         ['$location', 'LoginService', '$scope', '$uibModal', '$http', '$rootScope', function ($location, LoginService, $scope, $uibModal, $http, $rootScope) {
             var modalPopup = function () {
-                return $scope.modalInstance = $uibModal.open({
+                return $rootScope.modalInstance = $uibModal.open({
                     templateUrl: 'views/main/LoginPage.html',
                     controller: 'LoginController',
                     size: 'md',
                     backdrop: 'static',
-                    scope: $scope
+                    scope: $rootScope
                 });
             };
 
