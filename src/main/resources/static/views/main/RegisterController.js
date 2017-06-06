@@ -4,7 +4,13 @@ angular.module('greatStartApp')
             User.save($scope.user, function (success) {
                 $location.path('/');
             }, function (error) {
-                $scope.error = true;
+                if (error.status === 409) {
+                    var email = $scope.user.email.toUpperCase();
+                    $scope.error = 'User with '+email+' already exist';
+                }
+                if(error.status===400) {
+                    $scope.error='Please correct your credentials. Email should look like "username@example.com" or amend your password'
+                }
             });
         };
 
