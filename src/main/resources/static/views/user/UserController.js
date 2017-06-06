@@ -55,9 +55,6 @@ angular.module('greatStartApp')
         $scope.getUserInvestments = function () {
             var userInvestments = Investment.my({}, function () {
                 $scope.userInvestments = userInvestments;
-            }, function (error) {
-                $scope.userInvestments = null;
-                $scope.error = true
             });
         };
 
