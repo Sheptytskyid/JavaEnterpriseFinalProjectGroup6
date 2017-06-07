@@ -30,7 +30,6 @@ public class InvestmentMapperTest {
         expected.getProject().getOwner().setLastName(null);
         expected.getProject().getOwner().setId(0L);
         expected.getProject().getOwner().setEmail(null);
-        expected.getProject().getOwner().setDtoInvestments(null);
         expected.getProject().getDesc().setOther("");
         expected.getInvestor().setAddress(null);
         expected.getInvestor().setPhoneNumber(null);

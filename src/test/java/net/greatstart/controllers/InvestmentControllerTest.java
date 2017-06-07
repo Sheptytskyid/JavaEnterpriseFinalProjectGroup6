@@ -14,9 +14,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 
 import static net.greatstart.JsonConverter.convertObjectToJsonBytes;
@@ -30,6 +30,8 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 @RunWith(MockitoJUnitRunner.class)
 public class InvestmentControllerTest {
 
+    @Mock
+    private Principal principal;
     @Mock
     private InvestmentValidationService investmentValidationService;
     @Mock
@@ -56,7 +58,9 @@ public class InvestmentControllerTest {
             throws Exception {
         //init
         dtoInvestment.setId(1L);
-        dtoInvestment.setDateOfInvestment(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+        dtoInvestment.setPaid(false);
+        dtoInvestment.setVerified(false);
+//        dtoInvestment.setDateOfInvestment(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
         when(investmentValidationService.validate(dtoInvestment)).thenReturn(true);
         when(investmentService.saveInvestment(dtoInvestment)).thenReturn(dtoInvestment);
 
@@ -66,6 +70,40 @@ public class InvestmentControllerTest {
                 .content(convertObjectToJsonBytes(dtoInvestment)))
                 .andExpect(status().isOk());
         verify(investmentService, times(1)).saveInvestment(dtoInvestment);
+        verifyNoMoreInteractions(investmentService);
+    }
+
+    @Test
+    public void updateValidInvestmentShouldInvokeSaveServiceMethodAndReturnHttpStatusOk()
+            throws Exception {
+        //init
+        dtoInvestment.setId(1L);
+        dtoInvestment.setVerified(true);
+        dtoInvestment.setPaid(false);
+        when(investmentService.updateInvestment(dtoInvestment)).thenReturn(dtoInvestment);
+        //use & check
+        mvc.perform(put("/api/investment/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(convertObjectToJsonBytes(dtoInvestment)))
+                .andExpect(status().isOk());
+        verify(investmentService, times(1)).updateInvestment(dtoInvestment);
+        verifyNoMoreInteractions(investmentService);
+    }
+
+    @Test
+    public void updateInvalidInvestmentShouldInvokeSaveServiceMethodAndReturnHttpStatusOk()
+            throws Exception {
+        //init
+        dtoInvestment.setId(10L);
+        dtoInvestment.setVerified(true);
+        dtoInvestment.setPaid(false);
+        when(investmentService.updateInvestment(dtoInvestment)).thenReturn(null);
+        //use & check
+        mvc.perform(put("/api/investment/10")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(convertObjectToJsonBytes(dtoInvestment)))
+                .andExpect(status().isNotFound());
+        verify(investmentService, times(1)).updateInvestment(dtoInvestment);
         verifyNoMoreInteractions(investmentService);
     }
 
@@ -93,14 +131,24 @@ public class InvestmentControllerTest {
     }
 
     @Test(timeout = 2000)
-    public void getAllInvestmentsShouldReturnNotFoundRequestIfThereIsNoInvestment() throws Exception {
-        List<DtoInvestment> emptyList = new ArrayList<>();
-        when(investmentService.getAllDtoInvestments()).thenReturn(emptyList);
-        mvc.perform(get("/api/investment"))
-                .andExpect(status().isNotFound());
-        verify(investmentService, times(1)).getAllDtoInvestments();
+    public void getProjectInvestmentsShouldReturnOkRequestIfAtLeastOneInvestmentExists() throws Exception {
+        when(investmentService.getDtoProjectInvestments(TEST_VALUE_1)).thenReturn(dtoInvestments);
+        mvc.perform(get("/api/investment/project/1"))
+                .andExpect(status().isOk());
+        verify(investmentService, times(1)).getDtoProjectInvestments(TEST_VALUE_1);
         verifyNoMoreInteractions(investmentService);
+    }
 
+    @Test(timeout = 2000)
+    public void getUserInvestmentsShouldReturnOkRequestIfAtLeastOneInvestmentExists() throws Exception {
+        //init
+        when(principal.getName()).thenReturn(TEST_EMAIL);
+        when(investmentService.getUserDtoInvestmentsByUserEmail(TEST_EMAIL)).thenReturn(dtoInvestments);
+        //use & check
+        mvc.perform(get("/api/investment/my").principal(principal))
+                .andExpect(status().isOk());
+        verify(investmentService, times(1)).getUserDtoInvestmentsByUserEmail(TEST_EMAIL);
+        verifyNoMoreInteractions(investmentService);
     }
 
     @Test(timeout = 2000)

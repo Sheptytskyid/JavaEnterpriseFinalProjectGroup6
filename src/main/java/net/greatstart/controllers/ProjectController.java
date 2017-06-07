@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
@@ -60,7 +59,6 @@ public class ProjectController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @Transactional
     @PreAuthorize("isAuthenticated()")
     @PutMapping("/api/project/{id}")
     public ResponseEntity<DtoProject> updateProject(
@@ -89,7 +87,6 @@ public class ProjectController {
 
     }
 
-    @Transactional
     @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/api/project/{id}")
     public ResponseEntity<DtoProject> deleteProject(@PathVariable("id") long id) {

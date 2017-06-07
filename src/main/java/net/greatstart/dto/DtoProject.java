@@ -5,7 +5,11 @@ import net.greatstart.model.Category;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.List;
+
+
+/**
+ * Data transfer object for {@link net.greatstart.model.Project}
+ */
 
 
 /**
@@ -21,7 +25,5 @@ public class DtoProject {
     @Valid
     private Category category;
     private DtoUserProfile owner;
-
-    private List<DtoInvestment> dtoInvestments;
 
 }

@@ -1,27 +1,32 @@
-<div ng-controller="ProjectController">
+<div>
 	<h3>Investments</h3>
-	<div style="max-height: 200px; overflow: auto;">
-		<ul ng-repeat="investment in project.dtoInvestments"
-		    class="list-group checked-list-box">
-			<li class="list-group-item {{investment.paid ? 'list-group-item-success' :
+	<div ng-if="projectInvestments.length !== 0">
+		<div style="max-height: 200px; overflow: auto;">
+			<ul ng-repeat="investment in projectInvestments"
+			    class="list-group checked-list-box">
+				<li class="list-group-item {{investment.paid ? 'list-group-item-success' :
         (investment.verified ? 'list-group-item-warning' : 'list-group-item-danger')}}"
-			    style="height: 44px;">
-				<div class="col-xs-4 col-sm-4 col-md-5">
-					{{investment.investor.name}}
-				</div>
-				<div class="col-xs-5 col-sm-4 col-md-3">
-					{{investment.dateOfInvestment | asDate | date : "short"}}
-				</div>
-				<div class="col-xs-3 col-sm-2">
-					{{investment.sum | currency}}
-				</div>
-				<div class="col-sm-2 hidden-xs">
+				    style="height: 44px;">
+					<div class="col-xs-4 col-sm-4 col-md-5">
+						{{investment.investor.name}}
+					</div>
+					<div class="col-xs-5 col-sm-4 col-md-3">
+						{{investment.dateOfInvestment | asDate | date : "short"}}
+					</div>
+					<div class="col-xs-3 col-sm-2">
+						{{investment.sum | currency}}
+					</div>
+					<div class="col-sm-2 hidden-xs">
 				<span class="{{investment.paid ? 'hidden' :
                        (investment.verified ? 'label label-warning' :'label label-danger')}}">
 					{{investment.verified ? "Not paid" : "Not verified"}}
 				</span>
-				</div>
-			</li>
-		</ul>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div ng-if="projectInvestments.length === 0">
+		<p>Your project has no investments yet. Don't worry, it's just a matter of time. :)</p>
 	</div>
 </div>

@@ -45,6 +45,17 @@ public class InvestmentService {
         return investmentMapper.fromInvestmentToDto(investmentDao.save(investment));
     }
 
+    public DtoInvestment updateInvestment(DtoInvestment dtoInvestment) {
+        if (getDtoInvestmentById(dtoInvestment.getId()) != null) {
+            Investment investment = getInvestmentFromDtoWithAttachedProjectAndUser(dtoInvestment);
+            investment.setDateOfInvestment(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+            investment.setVerified(dtoInvestment.isVerified());
+            investment.setPaid(dtoInvestment.isPaid());
+            return investmentMapper.fromInvestmentToDto(investmentDao.save(investment));
+        }
+        return null;
+    }
+
     public void deleteInvestment(long id) {
         investmentDao.delete(id);
     }
@@ -54,11 +65,15 @@ public class InvestmentService {
     }
 
     public List<DtoInvestment> getAllDtoInvestments() {
-        List<DtoInvestment> investments = new ArrayList<>();
-        investmentDao.findAll().forEach(investment -> investments
-                .add(investmentMapper.fromInvestmentToDto(investment))
-        );
-        return investments;
+        return getDtoInvestments((List<Investment>) investmentDao.findAll());
+    }
+
+    public List<DtoInvestment> getDtoProjectInvestments(long id) {
+        return getDtoInvestments(projectService.getProjectById(id).getInvestments());
+    }
+
+    public List<DtoInvestment> getUserDtoInvestmentsByUserEmail(String userEmail) {
+        return getDtoInvestments(userService.getUserByEmail(userEmail).getInvestments());
     }
 
     private Investment getInvestmentFromDtoWithAttachedProjectAndUser(DtoInvestment dtoInvestment) {
@@ -68,5 +83,13 @@ public class InvestmentService {
         investment.setInvestor(userService
                 .getUser(dtoInvestment.getInvestor().getId()));
         return investment;
+    }
+
+    private List<DtoInvestment> getDtoInvestments(List<Investment> investments) {
+        List<DtoInvestment> dtoInvestments = new ArrayList<>();
+        investments.forEach(investment -> dtoInvestments
+                .add(investmentMapper.fromInvestmentToDto(investment))
+        );
+        return dtoInvestments;
     }
 }
