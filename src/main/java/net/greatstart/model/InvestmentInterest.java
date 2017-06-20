@@ -32,7 +32,6 @@ public class InvestmentInterest extends AbstractModel {
     @Column(name = "description")
     private String description;
 
-    @NumberFormat(style = NumberFormat.Style.NUMBER)
     @Column(name = "sum")
     private BigDecimal amountInvestment;
 

@@ -60,10 +60,6 @@ mainApp.config(function ($routeProvider, $httpProvider) {
             controller: 'EventController',
             templateUrl: 'views/event/EventPage.html'
         })
-        .when('/interests', {
-            controller: 'InterestController',
-            templateUrl: 'views/interest/Interests.html'
-        })
         .when('/investment', {
             controller: 'InvestmentController',
             templateUrl: 'views/investment/Investments.html'
@@ -100,6 +96,35 @@ mainApp.config(function ($routeProvider, $httpProvider) {
         .when('/admin', {
             controller: 'AdminPanelController',
             templateUrl: 'views/admin/AdminPanelPage.html'
+        })
+        .when('/interest', {
+            controller: 'InterestController',
+            templateUrl: 'views/interest/Interests.html'
+        })
+        .when('/interest/contact', {
+            controller: 'InterestController',
+            templateUrl: 'views/interest/InvestorContact.html'
+        })
+        .when('/interest/new', {
+            controller: 'InterestController',
+            templateUrl: 'views/interest/Add_Interest.html',
+            resolve: {
+                checkIfUserLogon: checkIfUserHasSession
+            }
+        })
+        .when('/interest/my', {
+            controller: 'InterestController',
+            templateUrl: 'views/interest/MyInterests.html',
+            resolve: {
+                checkIfUserLogon: checkIfUserHasSession
+            }
+        })
+        .when('/interest/edit', {
+            controller: 'InterestController',
+            templateUrl: 'views/interest/InterestEditForm.html',
+            resolve: {
+                checkIfUserLogon: checkIfUserHasSession
+            }
         })
         .otherwise({redirectTo: '/'});
 

@@ -1,0 +1,28 @@
+<div class="container" ng-init="getMyInterests()">
+    <div class="tab-pane active" id="comments-logout">
+        <div ng-if="myInterests.length !== 0">
+            <ul class="media-list">
+                <li class="media" ng-repeat="myInterest in myInterests">
+                    <div class="media-body">
+                        <div class="well well-lg" style="background-color: whitesmoke">
+                            <h4 class="media-heading text-uppercase reviews">{{myInterest.investmentGoal}} </h4>
+                            <ul class="media-date reviews list-inline">
+                                <li class="aaaa"><em>{{myInterest.category.name}}</em></li>
+                            </ul>
+                            <br>
+                            <p class="media-comment">
+                                {{myInterest.description | limitTo: "350"}}.
+                            </p>
+                            <p>Amount of investment: {{myInterest.amountInvestment | currency: "$"}}</p>
+                            <a class="btn btn-success btn-circle" ng-click="getEditPage(myInterest)">Update</a>
+                            <a class="btn btn-danger btn-circle" ng-click="deleteInterest(myInterest.id)">Delete</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div ng-if="myInterests.length === 0">
+            <p>You are haven't investments interests</p>
+        </div>
+    </div>
+</div>
