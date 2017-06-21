@@ -10,7 +10,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="col-xs-12">
-                    <form id="interestForm" role="form" ng-submit="submit()">
+                        <form id="interestForm" role="form" ng-submit="submit()">
                             <input type="hidden" ng-model="interest.id">
                             <div class="form-group">
                                 <label for="goal" class="col-md-4 control-label">Goal</label>
@@ -28,22 +28,22 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="amount" class="col-md-4 control-label">Investment:</label>
-                                <!--<div class="col-xs-9">-->
-                                <div class="col-xs-12 col-md-8 col-lg-8" style="margin-bottom: 20px">
-                                    <input type="number" min="0" ng-model="interest.amountInvestment"
+                                <label for="amount" class="col-md-4 control-label">Investment</label>
+                                <div class="col-xs-12 col-md-8 col-lg-8" style="margin-bottom: 25px">
+                                    <input type="text" ng-model="interest.amountInvestment"
                                            class="form-control input-md"
-                                           id="amount"/>
+                                           id="amount" required>
                                 </div>
                                 <div class="form-validation"
-                                     ng-show="interest.amountInvestment.length > 8">
-                                    Not more than 8 numbers!
+                                     ng-show="interest.amountInvestment.length > 10">
+                                     Not more than 10 numbers!
                                 </div>
                             </div>
                             <div class="form-group">
                                 <!--<label for="category" class="col-xs-3 control-label">Category:</label>-->
                                 <label for="category" class="col-md-4 control-label">Category</label>
-                                <div class="col-xs-12 col-md-8 col-lg-8" style="margin-bottom: 5px" ng-controller="CategoryController">
+                                <div class="col-xs-12 col-md-8 col-lg-8" style="margin-bottom: 5px"
+                                     ng-controller="CategoryController">
                                     <select name="category" id="category" ng-model="interest.category"
                                             ng-options="cat.name for cat in categories track by cat.id">
                                     </select>
@@ -53,16 +53,18 @@
                             <div class="form-group text-right">
                                 <label class="col-md-4 control-label" for="singlebutton"></label>
                                 <div class="col-xs-12 col-md-12 col-lg-12" style="margin-bottom: 10px">
-                                    <button id="singlebutton" class="btn btn-success" name="singlebutton" type="submit" style="width: 85px; margin-top: 20px">
+                                    <button id="singlebutton" class="btn btn-success" name="singlebutton" type="submit"
+                                            style="width: 85px; margin-top: 20px">
                                         {{!interest.id ? 'Create' :'Save'}}
                                     </button>
-                                    <a class="btn btn-danger" ng-href="#!/project/my" style="width: 85px; margin-top: 20px">Cancel</a>
+                                    <a class="btn btn-danger" ng-href="#!/interest/my"
+                                       style="width: 85px; margin-top: 20px">Cancel</a>
                                 </div>
                             </div>
-                    </form>
-                </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-</div>
+    </div>
 </div>

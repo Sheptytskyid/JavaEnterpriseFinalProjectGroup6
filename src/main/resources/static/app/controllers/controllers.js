@@ -121,7 +121,7 @@ mainApp.config(function ($routeProvider, $httpProvider) {
         })
         .when('/interest/edit', {
             controller: 'InterestController',
-            templateUrl: 'views/interest/InterestEditForm.html',
+            templateUrl: 'views/interest/Add_Interest.html',
             resolve: {
                 checkIfUserLogon: checkIfUserHasSession
             }

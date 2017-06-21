@@ -20,8 +20,8 @@ angular.module('greatStartApp')
 
         var fieldsAreValid = function () {
             $scope.validationMessage = '';
-            if ($scope.interest.amountInvestment.length > 8) {
-                $scope.validationMessage = "Not more than 8 numbers!";
+            if ($scope.interest.amountInvestment.length > 10) {
+                $scope.validationMessage = "Not more than 10 numbers!";
                 return false;
             }
             return true;
