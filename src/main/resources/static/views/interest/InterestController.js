@@ -5,6 +5,8 @@ angular.module('greatStartApp')
             $location.path('/interest/contact');
         };
 
+        $scope.maxAmount = 9999999;
+
         $scope.getContact = function () {
             $scope.investorContact = $rootScope.investorContact;
         };
@@ -19,11 +21,12 @@ angular.module('greatStartApp')
         };
 
         var fieldsAreValid = function () {
-            $scope.validationMessage = '';
-            if ($scope.interest.amountInvestment.length > 10) {
-                $scope.validationMessage = "Not more than 10 numbers!";
-                return false;
-            }
+            //How to do correct validation?
+            // $scope.validationMessage = '';
+            // if ($scope.interest.amountInvestment.$invalid) {
+            //     $scope.validationMessage = "Not more than 8 numbers!";
+            //     return false;
+            // }
             return true;
         };
 
@@ -32,7 +35,7 @@ angular.module('greatStartApp')
                 if (!$scope.interest.id) {
                     $scope.createInterest($scope.interest);
                 } else {
-                    $scope.currentInterestId = $scope.interest.id;
+                    // $scope.currentInterestId = $scope.interest.id;
                     $scope.update($scope.interest).$promise.then(function (success) {
                         $location.path('/interest/my');
                     }, function (error) {
