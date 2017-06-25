@@ -5,14 +5,13 @@
             <div class="container col-md-4 col-xs-12">
                 <div class="serviceBox">
                     <div class="service-icon">
-                        <span><i class="fa fa-user-o" aria-hidden="true"></i></span>
+                        <span><em class="fa fa-user-o" aria-hidden="true"></em></span>
                     </div>
                     <div class="service-content">
                         <h3 class="title">{{interest.investor.name}}</h3>
                         <h2>{{interest.category.name}}</h2>
                         <p class="description">{{interest.description | limitTo: "250"}}</p>
                         <p> Investment: {{interest.amountInvestment | currency: "$"}}</p>
-                        <!--<a ng-click="relocateContact(interest)" class="read-more fa fa-plus" data-toggle="tooltip" title="Read More"></a>-->
                         <button type="button" class="btn btn-info text-uppercase"
                                 ng-click="relocateContact(interest)" title="Read More">Read More
                         </button>

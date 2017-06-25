@@ -6,8 +6,6 @@ import net.greatstart.model.Category;
 import org.springframework.format.annotation.NumberFormat;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
 @Data
