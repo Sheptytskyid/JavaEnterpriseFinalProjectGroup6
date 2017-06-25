@@ -18,7 +18,7 @@
         <div class="form-group">
             <label for="description" class="col-xs-3 control-label">Description:</label>
             <div class="col-xs-9">
-                <textarea rows="7" ng-model="project.desc.description"
+                <textarea style="resize: none" rows="7" ng-model="project.desc.description"
                           class="form-control input-md" id="description"></textarea>
             </div>
         </div>
@@ -47,7 +47,7 @@
         <div class="form-group">
             <label for="other" class="col-xs-3 control-label">Other:</label>
             <div class="col-xs-9">
-                <textarea rows="7" ng-model="project.desc.other"
+                <textarea rows="7" style="resize: none" ng-model="project.desc.other"
                           class="form-control input-md" id="other"></textarea>
             </div>
         </div>
@@ -55,8 +55,9 @@
         <div class="form-group">
             <label for="category" class="col-xs-3 control-label">Category:</label>
             <div class="col-xs-9" ng-controller="CategoryController">
-                <select name="category" id="category" ng-model="project.category"
+                <select name="category" id="category" ng-model="project.category" required
                         ng-options="cat.name for cat in categories track by cat.id">
+                    <option style="display: none" value=""></option>
                 </select>
             </div>
         </div>

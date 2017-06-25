@@ -36,6 +36,6 @@ public class Project extends AbstractModel {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "project")
     private List<Investment> investments;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
     private Category category;
 }

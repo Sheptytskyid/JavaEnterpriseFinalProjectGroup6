@@ -1,5 +1,5 @@
 angular.module('greatStartApp')
-    .controller('InterestController', function ($scope, InvInterest, $location, User, $rootScope) {
+    .controller('InterestController', function ($scope, InvInterest, $location, User, $rootScope, $route) {
         $scope.relocateContact = function (interest) {
             $rootScope.investorContact = interest;
             $location.path('/interest/contact');
@@ -8,7 +8,7 @@ angular.module('greatStartApp')
         $scope.maxAmount = 9999999;
 
         $scope.getContact = function () {
-            $scope.investorContact = $rootScope.investorContact;
+            $scope.investorContact = angular.copy($rootScope.investorContact);
         };
 
         $scope.getEditPage = function (interest) {
@@ -17,7 +17,7 @@ angular.module('greatStartApp')
         };
 
         $scope.interestForEdit = function () {
-            $scope.interest = $rootScope.interestToEditPage;
+            $scope.interest = angular.copy($rootScope.interestToEditPage);
         };
 
         var fieldsAreValid = function () {
@@ -35,7 +35,6 @@ angular.module('greatStartApp')
                 if (!$scope.interest.id) {
                     $scope.createInterest($scope.interest);
                 } else {
-                    // $scope.currentInterestId = $scope.interest.id;
                     $scope.update($scope.interest).$promise.then(function (success) {
                         $location.path('/interest/my');
                     }, function (error) {
@@ -64,6 +63,7 @@ angular.module('greatStartApp')
         $scope.deleteInterest = function (id) {
             InvInterest.delete({id: id}, function (success) {
                 $location.path('/interest/my');
+                $route.reload();
             }, function (error) {
                 $scope.error = error.status + " " + error.statusText;
             });

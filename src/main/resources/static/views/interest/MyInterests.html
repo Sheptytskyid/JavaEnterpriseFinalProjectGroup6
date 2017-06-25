@@ -1,8 +1,24 @@
 <div class="container" ng-init="getMyInterests()">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-7 col-sm-offset-2">
+                <div class="input-group stylish-input-group">
+                    <input class="form-control" type="text" placeholder="Investment goal "
+                           ng-model="searchText.investmentGoal">
+                    <span class=" input-group-addon">
+                    <button type="submit">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
     <div class="tab-pane active" id="comments-logout">
         <div ng-if="myInterests.length !== 0">
             <ul class="media-list">
-                <li class="media" ng-repeat="myInterest in myInterests">
+                <li class="media" ng-repeat="myInterest in myInterests | filter: searchText">
                     <div class="media-body">
                         <div class="well well-lg" style="background-color: whitesmoke">
                             <h4 class="media-heading text-uppercase reviews">{{myInterest.investmentGoal}} </h4>
@@ -11,7 +27,7 @@
                             </ul>
                             <br>
                             <p class="media-comment">
-                                {{myInterest.description | limitTo: "350"}}.
+                                {{myInterest.description | limitTo: "500"}}.
                             </p>
                             <p>Amount of investment: {{myInterest.amountInvestment | currency: "$"}}</p>
                             <a class="btn btn-success btn-circle" ng-click="getEditPage(myInterest)">Update</a>
@@ -22,7 +38,7 @@
             </ul>
         </div>
         <div ng-if="myInterests.length === 0">
-            <p>You are haven't investments interests</p>
+            <p class="centered" style=" margin-top:8%"><b>You are haven't investments interests yet</b></p>
         </div>
     </div>
 </div>

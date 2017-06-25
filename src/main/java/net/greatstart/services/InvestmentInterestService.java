@@ -42,7 +42,7 @@ public class InvestmentInterestService {
     }
 
     public List<DtoInterest> getUserDtoInterestsByUserEmail(String userEmail) {
-        return getDtoInterests(userService.getUserByEmail(userEmail).getInvestmentInterests());
+        return getDtoInterestsFromInterests(userService.getUserByEmail(userEmail).getInvestmentInterests());
     }
 
     public DtoInterest updateDtoInterest(DtoInterest dtoInterest) {
@@ -52,10 +52,10 @@ public class InvestmentInterestService {
     }
 
     public DtoInterest createNewInterestFromDto(DtoInterest dtoInterest) {
-        User owner = userService.getLoggedInUser();
+        User investor = userService.getLoggedInUser();
         Category category = categoryService.findCategoryByName(dtoInterest.getCategory().getName());
         InvestmentInterest interest = interestMapper.interestFromDto(dtoInterest);
-        interest.setInvestor(owner);
+        interest.setInvestor(investor);
         interest.setCategory(category);
         interest = saveInterest(interest);
         return interestMapper.fromInterestToDto(interest);
@@ -65,19 +65,14 @@ public class InvestmentInterestService {
         return interestMapper.fromInterestToDto(investmentInterestDao.findOne(id));
     }
 
-    public List<InvestmentInterest> getInterestsOfCurrentUser() {
-        User investor = userService.getLoggedInUser();
-        return investmentInterestDao.findByInvestor(investor);
-    }
-
-    public List<DtoInterest> getDtoInterests(List<InvestmentInterest> interests) {
+    public List<DtoInterest> getDtoInterestsFromInterests(List<InvestmentInterest> interests) {
         List<DtoInterest> dtoInterests = new ArrayList<>();
         interests.forEach(interest -> dtoInterests.add(interestMapper.fromInterestToDto(interest)));
-        return  dtoInterests;
+        return dtoInterests;
     }
 
     public List<DtoInterest> getAllDtoInterest() {
-        return getDtoInterests((List<InvestmentInterest>) investmentInterestDao.findAll());
+        return getDtoInterestsFromInterests((List<InvestmentInterest>) investmentInterestDao.findAll());
     }
 
     public void deleteInvestmentInterest(long id) {

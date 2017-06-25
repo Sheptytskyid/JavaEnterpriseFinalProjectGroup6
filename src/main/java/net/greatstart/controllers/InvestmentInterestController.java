@@ -1,17 +1,21 @@
 package net.greatstart.controllers;
 
 import net.greatstart.dto.DtoInterest;
-import net.greatstart.model.InvestmentInterest;
-import net.greatstart.model.User;
 import net.greatstart.services.InvestmentInterestService;
 import net.greatstart.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -25,7 +29,6 @@ import java.util.List;
 @RequestMapping("/api/interest")
 @RestController
 public class InvestmentInterestController {
-    private static final String REDIRECT_TO_INVESTMENT_INTEREST = "redirect:/invinterest/";
 
     private InvestmentInterestService investmentInterestService;
     private UserService userService;
@@ -53,7 +56,7 @@ public class InvestmentInterestController {
 
     @PreAuthorize("isAuthenticated()")
     @PutMapping("{id}")
-    public ResponseEntity<DtoInterest> updateProject(
+    public ResponseEntity<DtoInterest> updateInterest(
             @PathVariable("id") long id,
             @Valid @RequestBody DtoInterest dtoInterest) {
         if (userService.getLoggedInUser().getId() != dtoInterest.getInvestor().getId()) {
