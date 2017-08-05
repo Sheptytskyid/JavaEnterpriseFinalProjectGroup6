@@ -36,7 +36,7 @@ The our product is open-sourced software licensed under the MIT license.
 * **Denys Sheptytskyi - team lead**
 * **Denys Azhymov**
 * **Eugene Salty**
-* **Garik Privalov**
+* **Igor Potyomkin**
 * **Maxim Semyonov**
 * **Oleksii Rudenko**
 * **Vladimir Kryshtalov**
