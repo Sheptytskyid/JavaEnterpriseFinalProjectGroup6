@@ -1,4 +1,84 @@
-var InterestController = angular.module('greatStartApp')
-    .controller('InterestController', ['$scope', function ($scope) {
+angular.module('greatStartApp')
+    .controller('InterestController', function ($scope, InvInterest, $location, User, $rootScope, $route) {
+        $scope.relocateContact = function (interest) {
+            $rootScope.investorContact = interest;
+            $location.path('/interest/contact');
+        };
 
-    }]);
+        $scope.maxAmount = 9999999;
+
+        $scope.getContact = function () {
+            $scope.investorContact = angular.copy($rootScope.investorContact);
+        };
+
+        $scope.getEditPage = function (interest) {
+            $rootScope.interestToEditPage = interest;
+            $location.path('/interest/edit');
+        };
+
+        $scope.interestForEdit = function () {
+            $scope.interest = angular.copy($rootScope.interestToEditPage);
+        };
+
+        var fieldsAreValid = function () {
+            //How to do correct validation?
+            // $scope.validationMessage = '';
+            // if ($scope.interest.amountInvestment.$invalid) {
+            //     $scope.validationMessage = "Not more than 8 numbers!";
+            //     return false;
+            // }
+            return true;
+        };
+
+        $scope.submit = function () {
+            if (fieldsAreValid()) {
+                if (!$scope.interest.id) {
+                    $scope.createInterest($scope.interest);
+                } else {
+                    $scope.update($scope.interest).$promise.then(function (success) {
+                        $location.path('/interest/my');
+                    }, function (error) {
+                        $scope.error = error.status + " " + error.statusText;
+                    });
+                }
+            } else {
+                $scope.error = $scope.validationMessage;
+            }
+        };
+
+        $scope.createInterest = function () {
+            InvInterest.save($scope.interest, function (success) {
+                $location.path('/interest/my');
+            }, function (error) {
+                $scope.error = error.status + " " + error.statusText;
+            });
+        };
+
+        $scope.update = function (interest) {
+            return $scope.interest = InvInterest.update({id: interest.id}, interest, function () {
+                $scope.interest = InvInterest.get({id: interest.id})
+            })
+        };
+
+        $scope.deleteInterest = function (id) {
+            InvInterest.delete({id: id}, function (success) {
+                $location.path('/interest/my');
+                $route.reload();
+            }, function (error) {
+                $scope.error = error.status + " " + error.statusText;
+            });
+        };
+
+        $scope.getAllInvInterest = function () {
+            var interests = InvInterest.query({}, function () {
+                $scope.interests = interests;
+                console.log($scope.interests);
+            })
+        };
+
+        $scope.getMyInterests = function () {
+            var myInterests = InvInterest.my({}, function () {
+                $scope.myInterests = myInterests;
+            });
+        }
+    });

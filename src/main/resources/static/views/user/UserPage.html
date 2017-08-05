@@ -127,8 +127,29 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="container">
+    <div class="col-xs-12">
+        <div class="bs-calltoaction bs-calltoaction-success">
+            <div class="row">
+                <div class="col-md-9 cta-contents">
+                    <a href="#!/interest"><h1 class="cta-title">Interests</h1></a>
+                    <div class="cta-desc">
+                        <p><a href="#!/interest/my">My Interests</a></p>
+                        <p>Use the "Add interest" button to add a new project.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 form-field">
 
-
+                    <div class="cta-button">
+                        <button type="button" class="btn btn-lg btn-block btn-edit" ng-click="openPage('/interest/new')">
+                            Add Interest
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="bs-calltoaction bs-calltoaction-success">
             <div ng-include="'views/investment/UserInvestments.html'"></div>
         </div>

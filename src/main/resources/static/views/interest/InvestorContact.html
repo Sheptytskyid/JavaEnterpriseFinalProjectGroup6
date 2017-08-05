@@ -1,0 +1,32 @@
+<div class="container" ng-init="getContact()">
+    <div class="row">
+        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-8 col-lg-offset-2" style="margin-top: 50px;">
+            <div class="panel-card panel-success-card">
+                <div class="text-center"><h3>INVESTMENT INTEREST</h3></div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <h4><strong>Our goal:</strong></h4>
+                            <p>{{investorContact.investmentGoal}}</p>
+                            <p>{{investorContact.description}}</p>
+                            <h4 class="text-left"><strong> Contacts:</strong></h4>
+                            <h5 style="font-size: 15px" class="text-left"><em class="fa fa-user fa-lg" aria-hidden="true"></em> Name: {{investorContact.investor.name}}  </h5>
+                            <h5 style="font-size: 15px" class="text-left"><em class="fa fa-envelope fa-lg" aria-hidden="true"></em> Email: {{investorContact.investor.email}}  </h5>
+                            <h5 style="font-size: 15px" class="text-left"><em class="fa fa-phone-square fa-lg" aria-hidden="true"></em> Phone: {{investorContact.investor.contact.phoneNumbe}}  </h5>
+                            <div class="form-group centered">
+                                <label class="col-md-4" for="singlebutton"></label>
+                                <div class="col-xs-12" style="margin-bottom: 5px">
+                                    <a ng-href="#!/interest">
+                                        <button id="singlebutton" name="singlebutton" style="width: 125px"
+                                                class="btn btn-success">Back to Interest
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

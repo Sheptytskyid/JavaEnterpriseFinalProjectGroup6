@@ -1,7 +1,6 @@
 package net.greatstart.model;
 
 import lombok.Data;
-import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,14 +24,13 @@ public class InvestmentInterest extends AbstractModel {
     @Column(name = "goal")
     private String investmentGoal;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
 
     @Column(name = "description")
     private String description;
 
-    @NumberFormat(style = NumberFormat.Style.NUMBER)
     @Column(name = "sum")
     private BigDecimal amountInvestment;
 

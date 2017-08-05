@@ -33,17 +33,8 @@ package net.greatstart;
  * }
  */
 
-import net.greatstart.dto.DtoInvestment;
-import net.greatstart.dto.DtoProject;
-import net.greatstart.dto.DtoProjectDescription;
-import net.greatstart.dto.DtoUser;
-import net.greatstart.dto.DtoUserProfile;
-import net.greatstart.model.Category;
-import net.greatstart.model.Contact;
-import net.greatstart.model.Investment;
-import net.greatstart.model.Project;
-import net.greatstart.model.ProjectDescription;
-import net.greatstart.model.User;
+import net.greatstart.dto.*;
+import net.greatstart.model.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -81,6 +72,7 @@ public class MapperHelper {
     public static final String TEST_USER_LAST_NAME = "User";
     public static final String TEST_EMAIL = "email@example.com";
     public static String TEST_PASSWORD = "password";
+    public static final String INTEREST_DESCRIPTION = "There must be some description";
 
     public static User getFullTestUser() {
         User user = getTestUser();
@@ -240,4 +232,39 @@ public class MapperHelper {
         return dtoUser;
     }
 
+    public static DtoInterest getTestDtoInterest(BigDecimal investmentSum) {
+        DtoInterest dtoInterest = new DtoInterest();
+        dtoInterest.setInvestmentGoal(TEST_GOAL);
+        dtoInterest.setInvestor(getTestDtoUserProfile());
+        dtoInterest.setAmountInvestment(investmentSum);
+        dtoInterest.setCategory(TEST_DTO_CATEGORY);
+        dtoInterest.setDescription(INTEREST_DESCRIPTION);
+        return dtoInterest;
+    }
+
+    public static InvestmentInterest getTestInvInterest(BigDecimal investmentSum) {
+        InvestmentInterest interest = new InvestmentInterest();
+        interest.setAmountInvestment(investmentSum);
+        interest.setCategory(TEST_CATEGORY);
+        interest.setInvestmentGoal(TEST_GOAL);
+        interest.setDescription(INTEREST_DESCRIPTION);
+        interest.setInvestor(getTestUser());
+        return interest;
+    }
+
+    public static List<DtoInterest> getTestListOfDtoInterests(BigDecimal investmentSum) {
+        DtoInterest dtoInterestOne = getTestDtoInterest(investmentSum);
+        List<DtoInterest> dtoInterests = new ArrayList<>();
+        dtoInterests.add(dtoInterestOne);
+        dtoInterests.add(dtoInterestOne);
+        return dtoInterests;
+    }
+
+    public static List<InvestmentInterest> getTestListOfInvInterest(BigDecimal investmentSum) {
+        InvestmentInterest invInterest = getTestInvInterest(investmentSum);
+        List<InvestmentInterest> interests = new ArrayList<>();
+        interests.add(invInterest);
+        interests.add(invInterest);
+        return interests;
+    }
 }
